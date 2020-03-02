@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="weitrue">
 <meta property="og:description" content="我们相信，未来可期！">
-<meta property="article:author" content="嗯，是对的">
+<meta property="article:author" content="嗯，我们是对的">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="weitrue" type="application/atom+xml">
@@ -47,7 +47,7 @@
 			<img src="" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">嗯，是对的</a></h1>
+		  <h1 class="header-author"><a href="/">嗯，我们是对的</a></h1>
 		</hgroup>
 		
 		<p class="header-subtitle">weitrue的技术博客</p>
@@ -107,7 +107,7 @@
 				<img src="" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">嗯，是对的</h1>
+			  <h1 class="header-author js-header-author">嗯，我们是对的</h1>
 			</hgroup>
 			
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>weitrue的技术博客<i class="icon icon-quo-right"></i></p>
@@ -188,17 +188,17 @@
 <p>git config –global –list</p>
 <p>查看当前仓库配置信息</p>
 <p>git config –local –list</p>
-<h3 id="使用git提交已有项目"><a href="#使用git提交已有项目" class="headerlink" title="使用git提交已有项目"></a>使用git提交已有项目</h3><h4 id="1-切换到需要提交的分支"><a href="#1-切换到需要提交的分支" class="headerlink" title="1.切换到需要提交的分支"></a>1.切换到需要提交的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status     #  查看git状态  </span><br><span class="line">git branch     #  查看git分支  </span><br><span class="line">git checkout feature&#x2F;welfare_activity_red # 切换到feature&#x2F;welfare_activity_red分支</span><br></pre></td></tr></table></figure>
+<h3 id="使用git提交已有项目"><a href="#使用git提交已有项目" class="headerlink" title="使用git提交已有项目"></a>使用git提交已有项目</h3><h4 id="1-切换到需要提交的分支"><a href="#1-切换到需要提交的分支" class="headerlink" title="1.切换到需要提交的分支"></a>1.切换到需要提交的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status     #  查看git状态  </span><br><span class="line">git branch     #  查看git分支  </span><br><span class="line">git checkout feature&#x2F;new_branch # 切换到feature&#x2F;new_branch分支</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="2-提交代码"><a href="#2-提交代码" class="headerlink" title="2.提交代码"></a>2.提交代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .                                          # 添加数据到镜像仓库                                             </span><br><span class="line">                                                   # 提交单个文件，进入你要提交的文件目录          </span><br><span class="line">                                                   # git add &lt;你要提交的文件&gt; </span><br><span class="line">git commit -m &#39;你要写的注释&#39;                         # 提交到本地镜像仓库</span><br><span class="line">git push -u origin feature&#x2F;welfare_activity_red    # 提交到远程镜像仓库</span><br></pre></td></tr></table></figure>
+<h4 id="2-提交代码"><a href="#2-提交代码" class="headerlink" title="2.提交代码"></a>2.提交代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .                                          # 添加数据到镜像仓库                                             </span><br><span class="line">                                                   # 提交单个文件，进入你要提交的文件目录          </span><br><span class="line">                                                   # git add &lt;你要提交的文件&gt; </span><br><span class="line">git commit -m &#39;你要写的注释&#39;                         # 提交到本地镜像仓库</span><br><span class="line">git push -u origin feature&#x2F;new_branch    # 提交到远程镜像仓库</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="3-将远程分支拉取到本地"><a href="#3-将远程分支拉取到本地" class="headerlink" title="3.将远程分支拉取到本地"></a>3.将远程分支拉取到本地</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -a                                            # 查询所有分支,包括远程分支 </span><br><span class="line">git checkout -b release-2.7  remotes&#x2F;origin&#x2F;release-2.7  # 将远程release-2.7分支拉取到本地，并在本地创建release-2.7分支</span><br></pre></td></tr></table></figure>
+<h4 id="3-将远程分支拉取到本地"><a href="#3-将远程分支拉取到本地" class="headerlink" title="3.将远程分支拉取到本地"></a>3.将远程分支拉取到本地</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -a                                            # 查询所有分支,包括远程分支 </span><br><span class="line">git checkout -b release remotes&#x2F;origin&#x2F;release  # 将远程release分支拉取到本地，并在本地创建release分支</span><br></pre></td></tr></table></figure>
 
-<p>绿色是当前所在本地分支，白色是本地分支，红色是远程分支</p>
+<p>绿色是当前所在本地分支，白色是本地分支，红色是远程分支<br><img src="/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png" alt></p>
 <h4 id="4-分支代码拉取提交流程"><a href="#4-分支代码拉取提交流程" class="headerlink" title="4.分支代码拉取提交流程"></a>4.分支代码拉取提交流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 获取主干最新代码 </span><br><span class="line">$ git clone &lt;repo&gt; </span><br><span class="line">$ git checkout develop   # 开发分支 </span><br><span class="line">$ git pull               # 同步分支 </span><br><span class="line"></span><br><span class="line"># 新建一个开发分支my_feature </span><br><span class="line">$ git checkout -b feature&#x2F;my_feature  </span><br><span class="line"># 确认已切换到当前分支 </span><br><span class="line">$ git branch </span><br><span class="line"></span><br><span class="line"># 保存所有的修改变化 </span><br><span class="line">$ git add --all 或者 git add . </span><br><span class="line"># 查看发生变动的文件 </span><br><span class="line">$ git status  </span><br><span class="line"># 编辑备注 $ git commit -m &quot;implement api architecture&quot; </span><br><span class="line"># 将分支代码push到服务器 $ git push origin -u feature&#x2F;my_feature </span><br><span class="line"></span><br><span class="line"># 合并分支feature&#x2F;my_feature到develop </span><br><span class="line">$ git checkout develop </span><br><span class="line"># 确保当前分支是最新的 </span><br><span class="line">$ git pull $ git merge --no-ff feature&#x2F;my_feature  </span><br><span class="line"></span><br><span class="line"># 分支开发过程中，为了减少冲突，尽量要多与主干同步 </span><br><span class="line">$ git fetch origin </span><br><span class="line">$ git rebase origin&#x2F;develop </span><br><span class="line">$ git add .                # 解决冲突后add </span><br><span class="line">$ git rebase --continue</span><br><span class="line"></span><br><span class="line">#删除分支 $ git branch -d feature&#x2F;my_feature</span><br><span class="line"></span><br><span class="line">#取消commit </span><br><span class="line">$ git reset --hard &lt;commit log&gt;</span><br></pre></td></tr></table></figure>
 
 <p>参看文献</p>
@@ -255,7 +255,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 嗯，是对的
+    		&copy; 2020 嗯，我们是对的
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

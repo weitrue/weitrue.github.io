@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="https://weitrue.github.io">
   <title>Windows下的git的安装与配置 | weitrue</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,15 +13,15 @@
   <meta name="description" content="Windows下的git的安装与配置常用命令1.查看Git所有配置git config –list">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows下的git的安装与配置">
-<meta property="og:url" content="http://yoursite.com/2020/02/27/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:url" content="https://weitrue.github.io/2020/02/27/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="weitrue">
 <meta property="og:description" content="Windows下的git的安装与配置常用命令1.查看Git所有配置git config –list">
-<meta property="og:image" content="http://yoursite.com/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png">
+<meta property="og:image" content="https://weitrue.github.io/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png">
 <meta property="article:published_time" content="2020-02-27T15:35:33.808Z">
 <meta property="article:modified_time" content="2020-03-02T15:44:57.364Z">
 <meta property="article:author" content="嗯，我们是对的">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png">
+<meta name="twitter:image" content="https://weitrue.github.io/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png">
   
     <link rel="alternative" href="/atom.xml" title="weitrue" type="application/atom+xml">
   
@@ -292,7 +292,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://yoursite.com/2020/02/27/Windows下的git的安装与配置/" title="Windows下的git的安装与配置" target="_blank">http://yoursite.com/2020/02/27/Windows下的git的安装与配置/</a>
+          <a href="https:/weitrue.github.io/2020/02/27/Windows下的git的安装与配置/" title="Windows下的git的安装与配置" target="_blank">https:/weitrue.github.io/2020/02/27/Windows下的git的安装与配置/</a>
         </li>
         
         <li>
@@ -319,6 +319,20 @@
   </div>
 </article>
 
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/14/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          windows下基于pycharm构建django-web项目
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
 
 <aside class="wrap-side-operation">
@@ -357,7 +371,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2020 <a href="http://yoursite.com/" target="_blank">嗯，我们是对的</a>
+    		&copy; 2018-2020 <a href="https:/weitrue.github.io/" target="_blank">嗯，我们是对的</a>
     	</div>
       	<div class="footer-right">
 			
@@ -652,6 +666,56 @@
   
   <!-- <script async type="text/javascript" size="90" alpha="0.2" zIndex="0" src="/plugins/ribbon.js/ribbon.min.js"></script> -->
   
+  
+    <script type="text/javascript" src="/plugins/live2d-widget.js/L2Dwidget.min.js"></script>
+<script type="text/javascript">
+  /**
+   * 完整配置请参考：https://l2dwidget.js.org/docs/class/src/index.js~L2Dwidget.html#instance-method-init
+   */
+  var pluginModelPath = "assets/", // 模型的文件路径，无需更改
+    pluginRootPath = "/live2d_models/"; // 插件的路径，无需更改
+  //特定的模型json文件名称
+  var modelPathJson = {
+    "epsilon2_1": "Epsilon2.1",
+    "gf": "Gantzert_Felixander",
+    "haru/01": "haru01",
+    "haru/02": "haru02",
+    "nietzsche": "nietzche"
+  }
+
+  
+    var modelName = "hibiki";
+  
+
+  var modelJsonPath = "";
+  if (modelPathJson[modelName]) {
+    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelPathJson[modelName] +
+      ".model.json";
+  } else {
+    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelName + ".model.json";
+  }
+  L2Dwidget.init({
+    model: {
+      jsonPath: modelJsonPath
+    },
+    display: {
+       position: "right", 
+       width: 145, 
+       height: 315, 
+       hOffset: 50, 
+      
+    },
+    mobile: {
+       show: false, 
+       scale: 0.6 
+    },
+    react: {
+       opacity: 0.8 
+    }
+  })
+
+</script>
+
   
   
 </body>

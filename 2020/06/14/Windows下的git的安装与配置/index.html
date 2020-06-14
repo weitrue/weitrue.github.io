@@ -17,10 +17,19 @@
   <meta name="description" content="我们相信，未来可期！">
   <meta name="author" content="嗯，我们是对的">
   <meta name="keywords" content="">
-  <title>归档 - weitrable</title>
+  <title>【windows】git的安装与配置 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -42,7 +51,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -187,6 +196,40 @@
             </span>
 
             
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-14 20:48">
+      2020年6月14日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      479 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
           
@@ -197,43 +240,146 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 2 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/06/14/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【windows】git的安装与配置</span>
-      <span style="float: right;">06-14</span>
-    </a>
-  
-    
-    <a href="/2020/06/14/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【windows】基于PyCharm构建与开发Django项目</span>
-      <span style="float: right;">06-14</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><img src="/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git.jpg" srcset="/img/loading.gif" alt><a id="more"></a> </p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="查看Git所有配置"><a href="#查看Git所有配置" class="headerlink" title="查看Git所有配置"></a>查看Git所有配置</h4><p>git config –list </p>
+<h4 id="删除全局配置项"><a href="#删除全局配置项" class="headerlink" title="删除全局配置项"></a>删除全局配置项</h4><p>(1)终端执行命令：</p>
+<p><code>git config --global --unset user.name</code></p>
+<p>(2)编辑配置文件：</p>
+<p><code>git config --global --edit</code></p>
+<p>查看系统config</p>
+<p><code>git config --system --list</code></p>
+<p>查看当前用户（global）配置</p>
+<p><code>git config --global --list</code></p>
+<p>查看当前仓库配置信息</p>
+<p><code>git config --local --list</code></p>
+<h4 id="切换到需要提交的分支"><a href="#切换到需要提交的分支" class="headerlink" title="切换到需要提交的分支"></a>切换到需要提交的分支</h4><pre><code class="hljs haxe">git status     <span class="hljs-meta">#  查看git状态  </span>
+git branch     <span class="hljs-meta">#  查看git分支  </span>
+git checkout feature/<span class="hljs-keyword">new</span><span class="hljs-type">_branch</span> <span class="hljs-meta"># 切换到feature/new_branch分支</span></code></pre>
 
+<h4 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h4><pre><code class="hljs dockerfile">git <span class="hljs-keyword">add</span><span class="bash"> .                                          <span class="hljs-comment"># 添加数据到镜像仓库                                             </span></span>
+                                                   <span class="hljs-comment"># 提交单个文件，进入你要提交的文件目录          </span>
+                                                   <span class="hljs-comment"># git add &lt;你要提交的文件&gt; </span>
+git commit -m <span class="hljs-string">'你要写的注释'</span>                         <span class="hljs-comment"># 提交到本地镜像仓库</span>
+git push -u origin feature/new_branch    <span class="hljs-comment"># 提交到远程镜像仓库</span></code></pre>
 
+<h4 id="将远程分支拉取到本地"><a href="#将远程分支拉取到本地" class="headerlink" title="将远程分支拉取到本地"></a>将远程分支拉取到本地</h4><pre><code class="hljs arduino">git branch -a                                            # 查询所有分支,包括远程分支 
+git checkout -b <span class="hljs-built_in">release</span> remotes/origin/<span class="hljs-built_in">release</span>  # 将远程<span class="hljs-built_in">release</span>分支拉取到本地，并在本地创建<span class="hljs-built_in">release</span>分支</code></pre>
+
+<p>绿色是当前所在本地分支，白色是本地分支，红色是远程分支<br><img src="/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png" srcset="/img/loading.gif" alt></p>
+<h3 id="分支代码拉取提交流程"><a href="#分支代码拉取提交流程" class="headerlink" title="分支代码拉取提交流程"></a>分支代码拉取提交流程</h3><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 获取主干最新代码 </span>
+<span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> &lt;repo&gt; </span>
+<span class="hljs-meta">$</span><span class="bash"> git checkout develop   <span class="hljs-comment"># 开发分支 </span></span>
+<span class="hljs-meta">$</span><span class="bash"> git pull               <span class="hljs-comment"># 同步分支 </span></span>
+<span class="hljs-meta">
+#</span><span class="bash"> 新建一个开发分支my_feature </span>
+<span class="hljs-meta">$</span><span class="bash"> git checkout -b feature/my_feature  </span>
+<span class="hljs-meta">#</span><span class="bash"> 确认已切换到当前分支 </span>
+<span class="hljs-meta">$</span><span class="bash"> git branch </span>
+<span class="hljs-meta">
+#</span><span class="bash"> 保存所有的修改变化 </span>
+<span class="hljs-meta">$</span><span class="bash"> git add --all 或者 git add . </span>
+<span class="hljs-meta">#</span><span class="bash"> 查看发生变动的文件 </span>
+<span class="hljs-meta">$</span><span class="bash"> git status  </span>
+<span class="hljs-meta">#</span><span class="bash"> 编辑备注 $ git commit -m <span class="hljs-string">"implement api architecture"</span> </span>
+<span class="hljs-meta">#</span><span class="bash"> 将分支代码push到服务器 $ git push origin -u feature/my_feature </span>
+<span class="hljs-meta">
+#</span><span class="bash"> 合并分支feature/my_feature到develop </span>
+<span class="hljs-meta">$</span><span class="bash"> git checkout develop </span>
+<span class="hljs-meta">#</span><span class="bash"> 确保当前分支是最新的 </span>
+<span class="hljs-meta">$</span><span class="bash"> git pull </span>
+<span class="hljs-meta">$</span><span class="bash"> git merge --no-ff feature/my_feature  </span>
+<span class="hljs-meta">
+#</span><span class="bash"> 分支开发过程中，为了减少冲突，尽量要多与主干同步 </span>
+<span class="hljs-meta">$</span><span class="bash"> git fetch origin </span>
+<span class="hljs-meta">$</span><span class="bash"> git rebase origin/develop </span>
+<span class="hljs-meta">$</span><span class="bash"> git add .                <span class="hljs-comment"># 解决冲突后add </span></span>
+<span class="hljs-meta">$</span><span class="bash"> git rebase --<span class="hljs-built_in">continue</span></span>
+<span class="hljs-meta">
+#</span><span class="bash">删除分支 $ git branch -d feature/my_feature</span>
+<span class="hljs-meta">
+#</span><span class="bash">取消commit </span>
+<span class="hljs-meta">$</span><span class="bash"> git reset --hard &lt;commit <span class="hljs-built_in">log</span>&gt;</span></code></pre>
+
+<p>参看文献</p>
+<p><a href="https://segmentfault.com/a/1190000005685137" target="_blank" rel="noopener">https://segmentfault.com/a/1190000005685137</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Develop/">Develop</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Windows/">Windows</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                    
+                  </div>
+                
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/14/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/">
+                        <span class="hidden-mobile">【windows】基于PyCharm构建与开发Django项目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
             </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -362,6 +508,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -369,7 +540,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "【windows】git的安装与配置&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -384,6 +555,21 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
 
 
   <script  src="/js/local-search.js" ></script>
@@ -397,6 +583,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 

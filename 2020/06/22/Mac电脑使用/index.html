@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
@@ -251,15 +251,15 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/images/Mac%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/mac.jpg" srcset="/img/loading.gif" alt><a id="more"></a> </p>
-<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><h4 id="官网"><a href="#官网" class="headerlink" title="官网:"></a>官网:</h4><p><a href="https://docs.brew.sh/Installation.html" target="_blank" rel="noopener">https://docs.brew.sh/Installation.html</a></p>
-<h4 id="gihub源"><a href="#gihub源" class="headerlink" title="gihub源"></a>gihub源</h4><p><a href="https://github.com/Homebrew/install" target="_blank" rel="noopener">https://github.com/Homebrew/install</a></p>
-<h4 id="homebrew安装"><a href="#homebrew安装" class="headerlink" title="homebrew安装"></a>homebrew安装</h4><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/ruby -e "$(curl -fsSL https:/</span><span class="hljs-regexp">/raw.githubusercontent.com/</span>Homebrew<span class="hljs-regexp">/install/m</span>aster<span class="hljs-regexp">/install)"</span></code></pre>
+              <p><img src="/images/Mac%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/mac.jpg" srcset="/img/loading.gif"><a id="more"></a> </p>
+<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><h4 id="官网"><a href="#官网" class="headerlink" title="官网:"></a>官网:</h4><p><a target="_blank" rel="noopener" href="https://docs.brew.sh/Installation.html">https://docs.brew.sh/Installation.html</a></p>
+<h4 id="gihub源"><a href="#gihub源" class="headerlink" title="gihub源"></a>gihub源</h4><p><a target="_blank" rel="noopener" href="https://github.com/Homebrew/install">https://github.com/Homebrew/install</a></p>
+<h4 id="homebrew安装"><a href="#homebrew安装" class="headerlink" title="homebrew安装"></a>homebrew安装</h4><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/ruby -e &quot;$(curl -fsSL https:/</span><span class="hljs-regexp">/raw.githubusercontent.com/</span>Homebrew<span class="hljs-regexp">/install/m</span>aster/install)<span class="hljs-string">&quot;</span></code></pre>
 
 <p>可能会出现报错</p>
 <pre><code class="hljs routeros">curl: (7) Failed <span class="hljs-keyword">to</span> connect <span class="hljs-keyword">to</span> raw.githubusercontent.com<span class="hljs-built_in"> port </span>443:<span class="hljs-built_in"> Connection </span>refused</code></pre>
 
-<p>根据提示可以知道被raw.githubusercontent.com拒绝访问，打开浏览器访问<a href="https://raw.githubusercontent.com也是失败的，所以此时是电脑与https://raw.githubusercontent.com的连接问题：可以考虑ruby的更新源" target="_blank" rel="noopener">https://raw.githubusercontent.com也是失败的，所以此时是电脑与https://raw.githubusercontent.com的连接问题：可以考虑ruby的更新源</a></p>
+<p>根据提示可以知道被raw.githubusercontent.com拒绝访问，打开浏览器访问<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com也是失败的,所以此时是电脑与https//raw.githubusercontent.com%E7%9A%84%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98%EF%BC%9A%E5%8F%AF%E4%BB%A5%E8%80%83%E8%99%91ruby%E7%9A%84%E6%9B%B4%E6%96%B0%E6%BA%90">https://raw.githubusercontent.com也是失败的，所以此时是电脑与https://raw.githubusercontent.com的连接问题：可以考虑ruby的更新源</a></p>
 <pre><code class="hljs vim">查看当前更新源
 gem sources -<span class="hljs-keyword">l</span>                // 默认情况下会显示http<span class="hljs-variable">s:</span>//rubygems.org/ 该<span class="hljs-keyword">ruby</span>源在墙内，很多内容无法访问到
 gem <span class="hljs-keyword">source</span> -<span class="hljs-keyword">a</span> http<span class="hljs-variable">s:</span>//gems.<span class="hljs-keyword">ruby</span>-china.<span class="hljs-keyword">com</span>    // 更新更新源为http<span class="hljs-variable">s:</span>//gems.<span class="hljs-keyword">ruby</span>-china.<span class="hljs-keyword">com</span>
@@ -269,9 +269,9 @@ gem sources -<span class="hljs-keyword">l</span>      　　　　　　        
 <p>继续安装</p>
 <p><img src="/images/Mac%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/clipboard.png" srcset="/img/loading.gif" alt="img"></p>
 <p><code>brew -v</code>检查是否已安装成功</p>
-<pre><code class="hljs angelscript">Homebrew <span class="hljs-number">2.4</span><span class="hljs-number">.0</span> 
+<pre><code class="hljs apache"><span class="hljs-attribute">Homebrew</span> <span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">0</span> 
 
-Homebrew/homebrew-core (git revision c948b; last commit <span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-13</span>)</code></pre>
+<span class="hljs-attribute">Homebrew</span>/homebrew-core (git revision c<span class="hljs-number">948</span>b; last commit <span class="hljs-number">2020</span>-<span class="hljs-number">06</span>-<span class="hljs-number">13</span>)</code></pre>
 
 <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>基于brew安装的所有软件及其依赖均会安装到目录<code>/usr/local/Cellar</code></p>
 <h5 id="Brew-帮助信息"><a href="#Brew-帮助信息" class="headerlink" title="Brew 帮助信息"></a>Brew 帮助信息</h5><pre><code class="hljs properties"><span class="hljs-meta">$</span> <span class="hljs-string">brew help</span>
@@ -321,7 +321,7 @@ Unless HOMEBREW_NO_INSTALL_CLEANUP <span class="hljs-keyword">is</span> <span cl
                                      skip installing any dependencies <span class="hljs-keyword">of</span> any
                                      kind. If <span class="hljs-keyword">the</span> dependencies are <span class="hljs-keyword">not</span> already
                                      present, <span class="hljs-keyword">the</span> formula will have issues. If
-                                     you're <span class="hljs-keyword">not</span> developing Homebrew, consider
+                                     you&#x27;re <span class="hljs-keyword">not</span> developing Homebrew, consider
                                      adjusting your PATH rather than using this
                                      flag.
         <span class="hljs-comment">--only-dependencies          Install the dependencies with specified</span>
@@ -329,8 +329,8 @@ Unless HOMEBREW_NO_INSTALL_CLEANUP <span class="hljs-keyword">is</span> <span cl
                                      itself.
         <span class="hljs-comment">--cc                         Attempt to compile using the specified</span>
                                      compiler, which should be <span class="hljs-keyword">the</span> <span class="hljs-built_in">name</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span>
-                                     compiler's executable, e.g. gcc<span class="hljs-number">-7</span> <span class="hljs-keyword">for</span> GCC
-                                     <span class="hljs-number">7.</span> In order <span class="hljs-keyword">to</span> use LLVM's clang, specify
+                                     compiler&#x27;s executable, e.g. gcc<span class="hljs-number">-7</span> <span class="hljs-keyword">for</span> GCC
+                                     <span class="hljs-number">7.</span> In order <span class="hljs-keyword">to</span> use LLVM&#x27;s clang, specify
                                      llvm_clang. To use <span class="hljs-keyword">the</span> Apple-provided
                                      clang, specify clang. This option will
                                      only accept compilers <span class="hljs-keyword">that</span> are provided <span class="hljs-keyword">by</span>
@@ -353,7 +353,7 @@ Unless HOMEBREW_NO_INSTALL_CLEANUP <span class="hljs-keyword">is</span> <span cl
                                      <span class="hljs-built_in">version</span>, aka. master, trunk, unstable.
         <span class="hljs-comment">--fetch-HEAD                 Fetch the upstream repository to detect if</span>
                                      <span class="hljs-keyword">the</span> HEAD installation <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> formula <span class="hljs-keyword">is</span>
-                                     outdated. Otherwise, <span class="hljs-keyword">the</span> repository's HEAD
+                                     outdated. Otherwise, <span class="hljs-keyword">the</span> repository&#x27;s HEAD
                                      will only be checked <span class="hljs-keyword">for</span> updates when a new
                                      stable <span class="hljs-keyword">or</span> development <span class="hljs-built_in">version</span> has been
                                      released.
@@ -385,8 +385,8 @@ Unless HOMEBREW_NO_INSTALL_CLEANUP <span class="hljs-keyword">is</span> <span cl
 <h5 id="搜索软件"><a href="#搜索软件" class="headerlink" title="搜索软件"></a>搜索软件</h5><p> <code>brew search [TEXT|/REGEX/]</code> 用于搜索软件，支持使用正则表达式进行复杂的搜索。</p>
 <p>例如，查询静态博客生成工具hugo：</p>
 <pre><code class="hljs haml">$ brew search hugo
-=<span class="ruby">=&gt; Formulae
-</span>hugo</code></pre>
+=<span class="ruby">=&gt; Formulae</span>
+<span class="ruby">hugo</span></code></pre>
 
 <h5 id="查看软件信息"><a href="#查看软件信息" class="headerlink" title="查看软件信息"></a>查看软件信息</h5><p> <code>brew info [FORMULA...]</code> 用于查询软件的详细信息。</p>
 <p>例如，查看软件hugo的详细信息：</p>
@@ -410,7 +410,7 @@ install-on-request: <span class="hljs-number">26</span>,<span class="hljs-number
 build-error: <span class="hljs-number">0</span> (<span class="hljs-number">30</span> days)</code></pre>
 
 <p>以上查询所得信息，包含了软件的最新可用版本，本机是否已安装，本机已安装的版本，安装的路径、大小、时间、Tap 源，所依赖的包，以及安装的可选项等详细信息。而这些信息可以帮助我们很方便快捷的了解如何对该软件进行相应的操作。</p>
-<h5 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h5><p> <code>brew install FORMULA...</code>用于安装一个或多个软件。</p>
+<h5 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h5><p> <code>brew install FORMULA... </code>用于安装一个或多个软件。</p>
 <p>例如，安装软件hugo：</p>
 <pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>hugo</code></pre>
 
@@ -471,40 +471,40 @@ xz (<span class="hljs-number">5.2</span><span class="hljs-number">.4</span>) &lt
 <h5 id="仓库管理"><a href="#仓库管理" class="headerlink" title="仓库管理"></a>仓库管理</h5><p><code>brew tap</code> 已安装的仓库列表</p>
 <p><code>brew tap [--full] user/repo [URL]</code> 添加仓库</p>
 <p><code>brew untap tap</code> 移除仓库</p>
-<pre><code class="hljs armasm">$ <span class="hljs-keyword">brew </span>tap
-<span class="hljs-symbol">homebrew</span>/cask
-<span class="hljs-symbol">homebrew</span>/cask-drivers
-<span class="hljs-symbol">homebrew</span>/cask-fonts
-<span class="hljs-symbol">homebrew</span>/core
-<span class="hljs-symbol">homebrew</span>/services
-<span class="hljs-symbol">tldr</span>-pages/tldr</code></pre>
+<pre><code class="hljs elixir"><span class="hljs-variable">$ </span>brew tap
+homebrew/cask
+homebrew/cask-drivers
+homebrew/cask-fonts
+homebrew/core
+homebrew/services
+tldr-pages/tldr</code></pre>
 
 <h4 id="镜像源"><a href="#镜像源" class="headerlink" title="镜像源"></a>镜像源</h4><p>清华大学开源软件镜像站</p>
-<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/" target="_blank" rel="noopener">Homebrew 镜像使用帮助</a></p>
+<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/">Homebrew 镜像使用帮助</a></p>
 <pre><code class="hljs dsconfig"><span class="hljs-comment"># 替换现有上游</span>
 <span class="hljs-comment"># 以下针对 mac OS 系统上的 Homebrew</span>
-<span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/core)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-core.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask-fonts)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">fonts.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask-drivers)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">drivers.</span><span class="hljs-string">git
-</span><span class="hljs-comment"># 更换后测试工作是否正常</span>
-<span class="hljs-string">brew </span><span class="hljs-string">update
-</span>
-<span class="hljs-comment"># 复原</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/core)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-core.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask-fonts)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">fonts.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask-drivers)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">mirrors.</span><span class="hljs-string">tuna.</span><span class="hljs-string">tsinghua.</span><span class="hljs-string">edu.</span><span class="hljs-string">cn/</span><span class="hljs-string">git/</span><span class="hljs-string">homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">drivers.</span><span class="hljs-string">git</span>
+<span class="hljs-string">#</span> 更换后测试工作是否正常
+<span class="hljs-string">brew </span><span class="hljs-string">update</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">#</span> 复原
 <span class="hljs-comment"># 以下针对 mac OS 系统上的 Homebrew</span>
-<span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/core)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-core.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask-fonts)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">fonts.</span><span class="hljs-string">git
-</span><span class="hljs-string">git </span>-C <span class="hljs-string">"$(brew --repo homebrew/cask-drivers)"</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">drivers.</span><span class="hljs-string">git
-</span><span class="hljs-comment"># 更换后测试工作是否正常</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/core)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-core.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask-fonts)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">fonts.</span><span class="hljs-string">git</span>
+<span class="hljs-string">git </span>-C <span class="hljs-string">&quot;$(brew --repo homebrew/cask-drivers)&quot;</span> <span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span><span class="hljs-string">https:</span>//<span class="hljs-string">github.</span><span class="hljs-string">com/</span><span class="hljs-string">Homebrew/</span><span class="hljs-string">homebrew-cask-</span><span class="hljs-string">drivers.</span><span class="hljs-string">git</span>
+<span class="hljs-string">#</span> 更换后测试工作是否正常
 <span class="hljs-string">brew </span><span class="hljs-string">update</span></code></pre>
 
-<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/" target="_blank" rel="noopener">Homebrew-bottles 镜像使用帮助</a></p>
+<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/">Homebrew-bottles 镜像使用帮助</a></p>
 <pre><code class="hljs jboss-cli"><span class="hljs-comment"># 临时替换</span>
 export HOMEBREW_BOTTLE_DOMAIN=https:<span class="hljs-string">//mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span>
 
 <span class="hljs-comment"># 长期替换</span>
-<span class="hljs-keyword">echo</span> 'export HOMEBREW_BOTTLE_DOMAIN=https:<span class="hljs-string">//mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span>' &gt;&gt; ~<span class="hljs-string">/.bash_profile</span>
+<span class="hljs-keyword">echo</span> &#x27;export HOMEBREW_BOTTLE_DOMAIN=https:<span class="hljs-string">//mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span>&#x27; &gt;&gt; ~<span class="hljs-string">/.bash_profile</span>
 source ~<span class="hljs-string">/.bash_profile</span></code></pre>
 
 <h3 id="安装Python虚拟环境（VirtualEnv）"><a href="#安装Python虚拟环境（VirtualEnv）" class="headerlink" title="安装Python虚拟环境（VirtualEnv）"></a>安装Python虚拟环境（VirtualEnv）</h3><h4 id="安装virtualenv环境"><a href="#安装virtualenv环境" class="headerlink" title="安装virtualenv环境"></a>安装virtualenv环境</h4><pre><code class="hljs properties"><span class="hljs-attr">pip</span> <span class="hljs-string">install virtualenv</span>
@@ -532,8 +532,8 @@ deactivate</code></pre>
 <span class="hljs-attr">source</span> <span class="hljs-string">/usr/local/bin/virtualenvwrapper.sh</span>
 <span class="hljs-comment">#保存-生效配置</span>
 <span class="hljs-attr">source</span> <span class="hljs-string">~/.bash_profile</span>
-<span class="hljs-comment">
-# 创建虚拟环境</span>
+
+<span class="hljs-comment"># 创建虚拟环境</span>
 <span class="hljs-comment">## 创建python2的虚拟环境</span>
 <span class="hljs-attr">mkvirtualenv</span> <span class="hljs-string">&lt;虚拟环境名&gt;</span>
 <span class="hljs-comment">## 创建python3的虚拟环境</span>
@@ -546,8 +546,8 @@ deactivate</code></pre>
 <span class="hljs-attr">lssitepackages</span> <span class="hljs-string">查看当前环境中安装的那些包（启动虚拟环境后）</span>
 <span class="hljs-attr">rmvirtualenv</span> <span class="hljs-string">虚拟环境名 删除虚拟环境</span></code></pre>
 
-<h3 id="Python-pip-配置国内源-pip-install-Read-timed-out"><a href="#Python-pip-配置国内源-pip-install-Read-timed-out" class="headerlink" title="Python pip 配置国内源[pip install Read timed out]"></a>Python pip 配置国内源[pip install Read timed out]</h3><h4 id="【方式一】临时生效"><a href="#【方式一】临时生效" class="headerlink" title="【方式一】临时生效"></a>【方式一】临时生效</h4><pre><code class="hljs dts"><span class="hljs-meta"># 在安装时加上镜像源</span>
-pip install <span class="hljs-params">&lt;库名&gt;</span> -i https:<span class="hljs-comment">//pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.douban.compyth</span></code></pre>
+<h3 id="Python-pip-配置国内源-pip-install-Read-timed-out"><a href="#Python-pip-配置国内源-pip-install-Read-timed-out" class="headerlink" title="Python pip 配置国内源[pip install Read timed out]"></a>Python pip 配置国内源[pip install Read timed out]</h3><h4 id="【方式一】临时生效"><a href="#【方式一】临时生效" class="headerlink" title="【方式一】临时生效"></a>【方式一】临时生效</h4><pre><code class="hljs awk"><span class="hljs-comment"># 在安装时加上镜像源</span>
+pip install &lt;库名&gt; -i https:<span class="hljs-regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.douban.compyth</code></pre>
 
 <p><strong>方式二】永久指定</strong></p>
 <h5 id="国内源列表（推荐用阿里云的）"><a href="#国内源列表（推荐用阿里云的）" class="headerlink" title="国内源列表（推荐用阿里云的）"></a>国内源列表（推荐用阿里云的）</h5><p>阿里云<code>http://mirrors.aliyun.com/pypi/simple/</code></p>
@@ -587,7 +587,7 @@ pip install <span class="hljs-params">&lt;库名&gt;</span> -i https:<span class
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

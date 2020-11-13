@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
@@ -251,16 +251,16 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoops.png" srcset="/img/loading.gif" alt><a id="more"></a> </p>
-<h3 id="1-三台linux服务器的安装"><a href="#1-三台linux服务器的安装" class="headerlink" title="1. 三台linux服务器的安装"></a>1. 三台linux服务器的安装</h3><h4 id="1-安装VmWare-Fusion"><a href="#1-安装VmWare-Fusion" class="headerlink" title="1. 安装VmWare Fusion"></a>1. 安装VmWare Fusion</h4><p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/fusion.png" srcset="/img/loading.gif" alt></p>
-<h4 id="2-通过Vmware安装三台linux机器"><a href="#2-通过Vmware安装三台linux机器" class="headerlink" title="2.通过Vmware安装三台linux机器"></a>2.通过Vmware安装三台linux机器</h4><p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/linux.png" srcset="/img/loading.gif" alt></p>
+              <p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoops.png" srcset="/img/loading.gif"><a id="more"></a> </p>
+<h3 id="1-三台linux服务器的安装"><a href="#1-三台linux服务器的安装" class="headerlink" title="1. 三台linux服务器的安装"></a>1. 三台linux服务器的安装</h3><h4 id="1-安装VmWare-Fusion"><a href="#1-安装VmWare-Fusion" class="headerlink" title="1. 安装VmWare Fusion"></a>1. 安装VmWare Fusion</h4><p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/fusion.png" srcset="/img/loading.gif"></p>
+<h4 id="2-通过Vmware安装三台linux机器"><a href="#2-通过Vmware安装三台linux机器" class="headerlink" title="2.通过Vmware安装三台linux机器"></a>2.通过Vmware安装三台linux机器</h4><p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/linux.png" srcset="/img/loading.gif"></p>
 <h4 id="3-为linux虚拟机设置网络配置"><a href="#3-为linux虚拟机设置网络配置" class="headerlink" title="3.为linux虚拟机设置网络配置"></a>3.为linux虚拟机设置网络配置</h4><p>安装VMWare Fusion成功后，Mac OS会新增两张网卡vmnet1以及vmnet8，其中vmnet1是Host-only模式，vmnet8是NAT模式，这里选择vmnet8使用NAT进行网络设置。</p>
 <h5 id="1-修改Fusion网络配置"><a href="#1-修改Fusion网络配置" class="headerlink" title="1.修改Fusion网络配置"></a>1.修改Fusion网络配置</h5><p>修改配置文件:/Library/Preferences/VMware\ Fusion/networking</p>
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/fusion_net.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/fusion_net.png" srcset="/img/loading.gif"></p>
 <h5 id="2-修改网关"><a href="#2-修改网关" class="headerlink" title="2.修改网关"></a>2.修改网关</h5><p>修改配置文件：/Library/Preferences/VMware Fusion/vmnet8/nat.conf</p>
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/net8.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/net8.png" srcset="/img/loading.gif"></p>
 <h5 id="3-修改linux虚拟机网卡"><a href="#3-修改linux虚拟机网卡" class="headerlink" title="3.修改linux虚拟机网卡"></a>3.修改linux虚拟机网卡</h5><p>修改配置文件(服务器版linux):/etc/sysconfig/network-scripts/ifcfg-ens33</p>
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/linux_net.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/linux_net.png" srcset="/img/loading.gif"></p>
 <p>更改完成配置，重启网络服务</p>
 <pre><code class="hljs shell">systemctl restart network</code></pre>
 
@@ -277,7 +277,7 @@ yum -y install net-tools</code></pre>
 </li>
 <li><p>克隆出来的机器IP地址与种子的ip地址一样，我们将第二台机器的IP地址更改为192.168.51.110即可</p>
 </li>
-<li><p>启动虚拟机，并通过root用户，密码<strong>**</strong>来进行登录，然后来更改linux机器的IP地址</p>
+<li><p>启动虚拟机，并通过root用户，密码******来进行登录，然后来更改linux机器的IP地址</p>
 </li>
 </ul>
 <pre><code class="hljs shell">vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></pre>
@@ -335,7 +335,7 @@ SELINUX=disabled</code></pre>
 <pre><code class="hljs shell">useradd hadoop
 passwd hadoop</code></pre>
 
-<p>普通用户的密码设置为<strong>**</strong></p>
+<p>普通用户的密码设置为******</p>
 <p>三台机器为普通用户添加sudo权限</p>
 <pre><code class="hljs shell">visudo</code></pre>
 
@@ -487,16 +487,16 @@ vim hdfs-site.xml</code></pre>
 
 <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
 	<span class="hljs-comment">&lt;!-- NameNode存储元数据信息的路径，实际工作中，一般先确定磁盘的挂载目录，然后多个目录用，进行分割   --&gt;</span> 
-	<span class="hljs-comment">&lt;!--   集群动态上下线 
-	&lt;property&gt;
-		&lt;name&gt;dfs.hosts&lt;/name&gt;
-		&lt;value&gt;/weitrue/install/hadoop-2.6.0-cdh5.14.2/etc/hadoop/accept_host&lt;/value&gt;
-	&lt;/property&gt;
-	&lt;property&gt;
-		&lt;name&gt;dfs.hosts.exclude&lt;/name&gt;
-		&lt;value&gt;/weitrue/install/hadoop-2.6.0-cdh5.14.2/etc/hadoop/deny_host&lt;/value&gt;
-	&lt;/property&gt;
-	--&gt;</span>
+	<span class="hljs-comment">&lt;!--   集群动态上下线 </span>
+<span class="hljs-comment">	&lt;property&gt;</span>
+<span class="hljs-comment">		&lt;name&gt;dfs.hosts&lt;/name&gt;</span>
+<span class="hljs-comment">		&lt;value&gt;/weitrue/install/hadoop-2.6.0-cdh5.14.2/etc/hadoop/accept_host&lt;/value&gt;</span>
+<span class="hljs-comment">	&lt;/property&gt;</span>
+<span class="hljs-comment">	&lt;property&gt;</span>
+<span class="hljs-comment">		&lt;name&gt;dfs.hosts.exclude&lt;/name&gt;</span>
+<span class="hljs-comment">		&lt;value&gt;/weitrue/install/hadoop-2.6.0-cdh5.14.2/etc/hadoop/deny_host&lt;/value&gt;</span>
+<span class="hljs-comment">	&lt;/property&gt;</span>
+<span class="hljs-comment">	--&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
 		<span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
 		<span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>node01:50090<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
@@ -629,7 +629,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</code></pre>
 <p>或者</p>
 <pre><code class="hljs shell">hadoop namenode –format</code></pre>
 
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoop.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoop.png" srcset="/img/loading.gif"></p>
 <p>启动集群有两种方式：①脚本一键启动；②单个进程逐个启动</p>
 <h6 id="2-脚本一键启动"><a href="#2-脚本一键启动" class="headerlink" title="2. 脚本一键启动"></a>2. 脚本一键启动</h6><p>如果配置了 etc/hadoop/slaves 和 ssh 免密登录，则可以使用程序脚本启动所有Hadoop 两个集群的相关进程，在主节点所设定的机器上执行。</p>
 <p>启动集群</p>
@@ -664,14 +664,14 @@ yarn-daemon.sh start nodemanager
 
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span>
 case $1 in
-"start" )&#123;
+&quot;start&quot; )&#123;
  source /etc/profile;
  /weitrue/install/hadoop-2.6.0-cdh5.14.2/sbin/start-dfs.sh
  /weitrue/install/hadoop-2.6.0-cdh5.14.2/sbin/start-yarn.sh
  /weitrue/install/hadoop-2.6.0-cdh5.14.2/sbin/mr-jobhistory-daemon.sh start historyserver
 
 &#125;;;
-"stop")&#123;
+&quot;stop&quot;)&#123;
 
  /weitrue/install/hadoop-2.6.0-cdh5.14.2/sbin/stop-dfs.sh
  /weitrue/install/hadoop-2.6.0-cdh5.14.2/sbin/stop-yarn.sh
@@ -685,11 +685,11 @@ esac</code></pre>
 [hadoop@node01 bin]$ ./hadoop.sh stop   # 停止hadoop集群</code></pre>
 
 <h5 id="第八步：浏览器查看启动页面"><a href="#第八步：浏览器查看启动页面" class="headerlink" title="第八步：浏览器查看启动页面"></a>第八步：浏览器查看启动页面</h5><p>hdfs集群访问地址</p>
-<p><a href="http://192.168.51.100:50070/" target="_blank" rel="noopener">http://192.168.51.100:50070/</a></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.51.100:50070/">http://192.168.51.100:50070/</a></p>
 <p>yarn集群访问地址</p>
-<p><a href="http://192.168.51.100:8088" target="_blank" rel="noopener">http://192.168.51.100:8088</a></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.51.100:8088/">http://192.168.51.100:8088</a></p>
 <p>jobhistory访问地址：</p>
-<p><a href="http://192.168.51.100:19888" target="_blank" rel="noopener">http://192.168.51.100:19888</a></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.51.100:19888/">http://192.168.51.100:19888</a></p>
 <p>==如果要关闭电脑时，清一定要按照以下顺序操作，否则集群可能会出问题==</p>
 <ul>
 <li><p>关闭hadoop集群</p>
@@ -716,17 +716,17 @@ esac</code></pre>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/mac/">mac</a>
-                    
                       <a class="hover-with-bg" href="/tags/Hadoop/">Hadoop</a>
                     
                       <a class="hover-with-bg" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mac/">mac</a>
                     
                   </div>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

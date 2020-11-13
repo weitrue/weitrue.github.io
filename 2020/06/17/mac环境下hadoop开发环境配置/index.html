@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
@@ -210,7 +210,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      888 字
+      877 字
     </span>
   
 
@@ -251,7 +251,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoops.png" srcset="/img/loading.gif" alt><a id="more"></a> </p>
+              <p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoops.png" srcset="/img/loading.gif"><a id="more"></a> </p>
 <h3 id="hdfs的java-API开发环境准备"><a href="#hdfs的java-API开发环境准备" class="headerlink" title="hdfs的java API开发环境准备"></a>hdfs的java API开发环境准备</h3><h4 id="修改hosts文件"><a href="#修改hosts文件" class="headerlink" title="修改hosts文件"></a>修改hosts文件</h4><ul>
 <li><p>mac下修改hosts文件</p>
 <p>文件所在位置<code>/etc/hosts</code></p>
@@ -262,7 +262,6 @@
 <span class="hljs-number">192.168.51.110</span> node02.hadoop.com node02
 <span class="hljs-number">192.168.51.120</span> node03.hadoop.com node03</code></pre>
 
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hosts.png" srcset="/img/loading.gif" alt></p>
 <h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><p>拷贝集群环境下的jdk到本地</p>
 <pre><code class="hljs routeros"><span class="hljs-comment">#添加以下配置内容，配置jdk环境变量</span>
 <span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JAVA_HOME</span>=/weitrue/install/jdk1.8.0_141
@@ -272,18 +271,18 @@
 <pre><code class="hljs gradle"><span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile</code></pre>
 
 <h4 id="mac下hadoop环境配置"><a href="#mac下hadoop环境配置" class="headerlink" title="mac下hadoop环境配置"></a>mac下hadoop环境配置</h4><p>拷贝集群环境下<code>hadoop-2.6.0-cdh5.14.2</code>目录文件到本地，配置环境变量</p>
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/hadoop.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8Bhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/hadoop.png" srcset="/img/loading.gif"></p>
 <h4 id="安装maven"><a href="#安装maven" class="headerlink" title="安装maven"></a>安装maven</h4><h5 id="maven是什么？"><a href="#maven是什么？" class="headerlink" title="maven是什么？"></a>maven是什么？</h5><p>Apache Maven是一个软件项目管理和理解工具。基于项目对象模型（POM）的概念，Maven可以从一个中心信息管理项目的构建，报告和文档。</p>
 <h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>解压安装包<code>apache-maven-3.6.1-bin.zip</code>到安装目录</p>
 <p>编辑<code>.bash_profile</code>，新增maven环境配置</p>
-<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/maven.png" srcset="/img/loading.gif" alt></p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8Bhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/maven.png" srcset="/img/loading.gif"></p>
 <h6 id="maven的仓库"><a href="#maven的仓库" class="headerlink" title="maven的仓库"></a>maven的仓库</h6><ul>
 <li><p>创建maven工程后，maven会自动的去本地仓库查看时候有所需的jar包，如果没有的话，默认去中央仓库，将jar包下载到本地；以后如果再次使用此jar时，就直接使用本地仓库的jar即可</p>
 </li>
 <li><p>此过程是maven自动完成的</p>
 </li>
 <li><p>本地仓库：</p>
-<p>![1583204026610](/Users/wangpeng/Desktop/大数据/07 预修课/2、其他环境准备/assets/1583204026610.png)</p>
+<p><img src="/images/mac%E7%8E%AF%E5%A2%83%E4%B8%8Bhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/repo.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>私服仓库：就是我们自己搭建的一个远程仓库</p>
 </li>
@@ -293,11 +292,11 @@
 <h6 id="settings文件"><a href="#settings文件" class="headerlink" title="settings文件"></a>settings文件</h6><ul>
 <li>声明文件规范</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://maven.apache.org/SETTINGS/1.0.0"</span>
-          <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-          <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span>
+<span class="hljs-tag">          <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="hljs-tag">          <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></code></pre>
 
 <ul>
 <li>本地仓库路径</li>
@@ -357,11 +356,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/mac/">mac</a>
-                    
                       <a class="hover-with-bg" href="/tags/Hadoop/">Hadoop</a>
                     
                       <a class="hover-with-bg" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mac/">mac</a>
                     
                       <a class="hover-with-bg" href="/tags/Java/">Java</a>
                     
@@ -369,7 +368,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

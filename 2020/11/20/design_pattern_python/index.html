@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我们相信，未来可期！">
+  <meta name="author" content="嗯，我们是对的">
+  <meta name="keywords" content="">
+  <title>【Python】设计模式 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/images/img/banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-11-20 20:51">
+      2020年11月20日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>Patterns mean “I have run out of language.” - Rich Hickey<a id="more"></a> </p>
+</blockquote>
+<p>之前学习设计模式的时候总是没有什么感觉，因为记性不好一直没记住多少。python不像java中比较强调设计模式(编程套路)，动态语言也内置了像是装饰器、迭代器等模式，另外python中的『一切皆对象』、鸭子类型等也导致python中实现的设计模式和其他语言有些差别。根据YAGNI(you aren’t gonna need it)和KISS(Keep it simple sutpid)原则，如果能用简单易懂的方式实现，最好不要滥用设计模式以免增加复杂度和维护难度</p>
+<h3 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h3><h4 id="Method-工厂方法"><a href="#Method-工厂方法" class="headerlink" title="Method(工厂方法)"></a>Method(工厂方法)</h4><p>执行单独的函数，通过传参提供需要的对象的信息。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 工厂方法</span>
+<span class="hljs-string">Problem:在工厂方法模式中，我们执行函数，传入一个参数，但不需要知道任何关于对象如何实现以及对象来自哪里的细节</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/1/8 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> etree
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Connector</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, filepath</span>):</span>
+        factory = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">try</span>:
+            factory = self.connector_factory(filepath)
+        <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
+            print(e)
+        self.factory = factory
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">connector_factory</span>(<span class="hljs-params">self, filepath</span>):</span>
+        <span class="hljs-keyword">if</span> filepath.endswith(<span class="hljs-string">&#x27;json&#x27;</span>):
+            connector = self.JSONConnector
+        <span class="hljs-keyword">elif</span> filepath.endswith(<span class="hljs-string">&#x27;xml&#x27;</span>):
+            connector = self.XMLConnector
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&#x27;Cannot connect to &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(filepath))
+        <span class="hljs-keyword">return</span> connector(filepath)
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JSONConnector</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        JSON工厂</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, filepath</span>):</span>
+            self.data = <span class="hljs-built_in">dict</span>()
+            <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(filepath, mode=<span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:
+                self.data = json.load(f)
+
+<span class="hljs-meta">        @property</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parsed_data</span>(<span class="hljs-params">self</span>):</span>
+            <span class="hljs-keyword">return</span> self.data
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XMLConnector</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        XML工厂</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, filepath</span>):</span>
+            self.tree = etree.parse(filepath)
+
+<span class="hljs-meta">        @property</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parsed_date</span>(<span class="hljs-params">self</span>):</span>
+            <span class="hljs-keyword">return</span> self.tree
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span>
+    xml_factory = Connector(<span class="hljs-string">&#x27;data/person.xml&#x27;</span>)
+    xml_data = xml_factory.factory.parsed_date
+    smiths = xml_data.findall(<span class="hljs-string">&quot;.//&#123;&#125;[&#123;&#125;=&#x27;&#123;&#125;&#x27;]&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;person&#x27;</span>, <span class="hljs-string">&#x27;lastName&#x27;</span>, <span class="hljs-string">&#x27;Smith&#x27;</span>))
+    print(<span class="hljs-string">&#x27;found: &#123;&#125; persons&#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">len</span>(smiths)))
+    <span class="hljs-keyword">for</span> smith <span class="hljs-keyword">in</span> smiths:
+        print(<span class="hljs-string">&#x27;first name:&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(smith.find(<span class="hljs-string">&#x27;firstName&#x27;</span>).text))
+        print(<span class="hljs-string">&#x27;last name:&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(smith.find(<span class="hljs-string">&#x27;lastName&#x27;</span>).text))
+    print()
+    json_factory = Connector(<span class="hljs-string">&#x27;data/donut.json&#x27;</span>)
+    json_data = json_factory.factory.parsed_data
+    print(<span class="hljs-string">&#x27;find: &#123;&#125; donuts. &#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">len</span>(json_data)))
+    <span class="hljs-keyword">for</span> donut <span class="hljs-keyword">in</span> json_data:
+        print(<span class="hljs-string">&#x27;name:&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(donut[<span class="hljs-string">&#x27;name&#x27;</span>]))
+        print(<span class="hljs-string">&#x27;ppu:&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(donut[<span class="hljs-string">&#x27;ppu&#x27;</span>]))
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    main()
+</code></pre>
+
+
+
+<h4 id="Abstract-Factory-抽象工厂-解决复杂对象创建问题"><a href="#Abstract-Factory-抽象工厂-解决复杂对象创建问题" class="headerlink" title="Abstract Factory(抽象工厂: 解决复杂对象创建问题)"></a>Abstract Factory(抽象工厂: 解决复杂对象创建问题)</h4><p>工厂方法适合对象种类较少的情况，如果有多种不同类型对象需要创建，使用抽象工厂模式。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 抽象工厂（实际上一个抽象工厂其实是一组工厂方法，每个工厂方法负责生产不同类型的对象）</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/1/8 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Frog</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    游戏角色对象-青蛙</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        self.name = name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">interact_with</span>(<span class="hljs-params">self, obstacle</span>):</span>
+        print(<span class="hljs-string">&#x27;&#123;&#125; the Frog encounters &#123;&#125; and &#123;&#125;!&#x27;</span>.<span class="hljs-built_in">format</span>(self, obstacle, obstacle.action()))
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bug</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    障碍物对象-虫子</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;a bug&#x27;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">action</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;eats it&#x27;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FrogWorld</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    抽象工厂，负责创建游戏角色与障碍物对象</span>
+<span class="hljs-string">    make_character()和make_obstacle()动态改变当前激活的工厂</span>
+<span class="hljs-string">    在静态语言中，抽象工厂是抽象类/接口，具有一些空方法，Python中无须如此</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        print(self)
+        self.player_name = name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n\n\t------- Frog Word -------&#x27;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_character</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> Frog(self.player_name)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_obstacle</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> Bug()
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wizard</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    游戏角色对象-男巫</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        self.name = name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">interact_with</span>(<span class="hljs-params">self, obstacle</span>):</span>
+        print(<span class="hljs-string">&#x27;&#123;&#125; the Wizard battles against &#123;&#125; and &#123;&#125;!&#x27;</span>.<span class="hljs-built_in">format</span>(self, obstacle, obstacle.action()))
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Ork</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    障碍物对象-怪兽</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;an evil ork&#x27;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">action</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;kills it&#x27;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WizardWorld</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    抽象工厂，负责创建游戏角色与障碍物对象</span>
+<span class="hljs-string">    make_character()和make_obstacle()动态改变当前激活的工厂</span>
+<span class="hljs-string">    在静态语言中，抽象工厂是抽象类/接口，具有一些空方法，Python中无须如此</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        print(self)
+        self.player_name = name
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n\n\t------- Wizard Word -------&#x27;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_character</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> Wizard(self.player_name)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_obstacle</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> Ork()
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GameEnvironment</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    游戏的主入口，接收factory为输入</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, factory</span>):</span>
+        self.hero = factory.make_character()
+        self.obstacle = factory.make_obstacle()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play</span>(<span class="hljs-params">self</span>):</span>
+        self.hero.interact_with(self.obstacle)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">validate_age</span>(<span class="hljs-params">name</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        age = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Welcome &#123;&#125;. How old are you? &quot;</span>.<span class="hljs-built_in">format</span>(name))
+        age = <span class="hljs-built_in">int</span>(age)
+    <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
+        print(<span class="hljs-string">&quot;Age &#123;&#125; is invalid, please try again...&quot;</span>.<span class="hljs-built_in">format</span>(age))
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>, age
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>, age
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span>
+    name = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Hello. What&#x27;s your name?&quot;</span>)
+    valid_input = <span class="hljs-literal">False</span>
+    age = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> valid_input:
+        valid_input, age = validate_age(name)
+    game = FrogWorld <span class="hljs-keyword">if</span> age &lt; <span class="hljs-number">18</span> <span class="hljs-keyword">else</span> WizardWorld
+    environment = GameEnvironment(game(name))
+    environment.play()
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+
+
+
+<h4 id="The-Builder-Pattern-构造模式-控制复杂对象的构造"><a href="#The-Builder-Pattern-构造模式-控制复杂对象的构造" class="headerlink" title="The Builder Pattern(构造模式: 控制复杂对象的构造)"></a>The Builder Pattern(构造模式: 控制复杂对象的构造)</h4><p>当对象需要多个部分组合起来一步步创建，并且创建和表示分离的时候。可以这么理解，你要买电脑，工厂模式直接返回一个你需要型号的电脑，但是构造模式允许你自定义电脑各种配置类型，组装完成后给你。这个过程可以传入builder从而自定义创建的方式。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description:建造者设计模式demo</span>
+<span class="hljs-string">Problem:当需要创建一个由多个部分构成的对象，而且它的构造需要一步接一步的完成；只有当各个部分都创建好，这个对象才算完整</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Extension:工厂模式与创建者的区别为（1）工厂模式一但个步骤创建对象；创建者以多个步骤创建对象，并且几乎始终会使用一个指挥者。</span>
+<span class="hljs-string">                              （2）工厂模式下会立即返回一个创建好的对象，建造者仅在客户端代码才显式请求指挥者返回的最终对象</span>
+<span class="hljs-string">                               例如：假设你想买个电脑，如果决定买一台特定配置的电脑，则使用工厂模式；如果你要购买一台定制的PC，</span>
+<span class="hljs-string">                               你式指挥者，会向制造商提供指令说明心中理想的电脑规格。</span>
+<span class="hljs-string">Date: 2020/1/8</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+MINI14 = <span class="hljs-string">&#x27;1.4GHz Mac Mini&#x27;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppleFactory</span>:</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MacMini14</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+            self.memory = <span class="hljs-number">4</span>
+            self.hdd = <span class="hljs-number">500</span>
+            self.gpu = <span class="hljs-string">&#x27;Intel HD Graphics 5000&#x27;</span>
+
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+            info = (<span class="hljs-string">&#x27;Model: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(MINI14),
+                    <span class="hljs-string">&#x27;Memory: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(self.memory),
+                    <span class="hljs-string">&#x27;Hard Disk: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(self.hdd),
+                    <span class="hljs-string">&#x27;Graphics Card: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(self.gpu))
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span>.join(info)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build_computer</span>(<span class="hljs-params">self, model</span>):</span>
+        <span class="hljs-keyword">if</span> model == MINI14:
+            <span class="hljs-keyword">return</span> self.MacMini14()
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;I dont&#x27;t know how to build &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(model)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apple_computer_use_factory</span>():</span>
+    afac = AppleFactory()
+    mac_mini = afac.build_computer(MINI14)
+    print(mac_mini)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Computer</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, serial_number</span>):</span>
+        self.serial_number = serial_number
+        self.memory = <span class="hljs-literal">None</span>
+        self.hdd = <span class="hljs-literal">None</span>
+        self.gpu = <span class="hljs-literal">None</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span>(<span class="hljs-params">self</span>):</span>
+        info = (<span class="hljs-string">&#x27;Serial: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(self.serial_number),
+                <span class="hljs-string">&#x27;Memory: &#123;&#125;GB&#x27;</span>.<span class="hljs-built_in">format</span>(self.memory),
+                <span class="hljs-string">&#x27;Hard Disk: &#123;&#125;GB&#x27;</span>.<span class="hljs-built_in">format</span>(self.hdd),
+                <span class="hljs-string">&#x27;Graphics Card: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(self.gpu))
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span>.join(info)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComputerBuilder</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.computer = Computer(<span class="hljs-string">&#x27;AI563924&#x27;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">conf_memory</span>(<span class="hljs-params">self, amount</span>):</span>
+        self.computer.memory = amount
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">conf_hdd</span>(<span class="hljs-params">self, amount</span>):</span>
+        self.computer.hdd = amount
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">conf_gpu</span>(<span class="hljs-params">self, model</span>):</span>
+        self.computer.gpu = model
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HardwareEngineer</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.builder = <span class="hljs-literal">None</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct_computer</span>(<span class="hljs-params">self, memory, hdd, gpu</span>):</span>
+        self.builder = ComputerBuilder()
+        self.builder.conf_memory(memory)
+        self.builder.conf_hdd(hdd)
+        self.builder.conf_gpu(gpu)
+
+<span class="hljs-meta">    @property</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">computer</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.builder.computer
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apple_computer_use_builder</span>():</span>
+    engineer = HardwareEngineer()
+    engineer.construct_computer(memory=<span class="hljs-number">8</span>, hdd=<span class="hljs-number">500</span>, gpu=<span class="hljs-string">&#x27;GeForce GTX 650 Ti&#x27;</span>)
+    computer = engineer.computer
+    print(computer)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    apple_computer_use_builder()
+    print(<span class="hljs-string">&#x27;*&#x27;</span>*<span class="hljs-number">50</span>)
+    apple_computer_use_factory()</code></pre>
+
+
+
+<h4 id="单例模式-使得一个类最多生成一个实例"><a href="#单例模式-使得一个类最多生成一个实例" class="headerlink" title="单例模式: 使得一个类最多生成一个实例"></a>单例模式: 使得一个类最多生成一个实例</h4><p>(基于元类)单例模式</p>
+<pre><code class="hljs Python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description:(基于元类)单例模式</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution:</span>
+<span class="hljs-string">Date: 2020/1/6 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span>(<span class="hljs-params"><span class="hljs-built_in">type</span></span>):</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):</span>
+        print(<span class="hljs-string">&quot;__init__ &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(cls.__name__))
+        cls.__instance = <span class="hljs-literal">None</span>
+        <span class="hljs-built_in">super</span>().__init__(*args, **kwargs)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):</span>
+        <span class="hljs-keyword">if</span> cls.__instance <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            print(<span class="hljs-string">&quot;__call__ &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(cls.__name__))
+            cls.__instance = <span class="hljs-built_in">super</span>(Singleton, cls).__call__(*args, **kwargs)
+        <span class="hljs-keyword">return</span> cls.__instance
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Instance</span>(<span class="hljs-params">metaclass=Singleton</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        self.name = name
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    i1 = Instance(<span class="hljs-string">&#x27;zhang san&#x27;</span>)
+    i2 = Instance(<span class="hljs-string">&#x27;li si&#x27;</span>)
+    print(i1 <span class="hljs-keyword">is</span> i2)</code></pre>
+
+<p>通过new函数实现简单的单例模式</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 通过new函数实现简单的单例模式</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/1/20 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__new__</span>(<span class="hljs-params">cls, name, *args, **kwargs</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(cls, <span class="hljs-string">&#x27;_instance&#x27;</span>):
+            cls._instance = <span class="hljs-built_in">super</span>().__new__(cls, *args, **kwargs)
+        print(<span class="hljs-string">&quot;__call__ &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(cls.__class__))
+        <span class="hljs-keyword">return</span> cls._instance
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name</span>):</span>
+        print(<span class="hljs-string">&quot;__init__ &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(self.__str__()))
+        <span class="hljs-built_in">super</span>().__init__()
+        self.name = name
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    ins1 = Singleton(<span class="hljs-string">&#x27;zhang san&#x27;</span>)
+    ins2 = Singleton(<span class="hljs-string">&#x27;li si&#x27;</span>)
+    print(<span class="hljs-built_in">id</span>(ins1), <span class="hljs-built_in">id</span>(ins2))
+    print(ins1.name)
+    print(ins2.name)
+</code></pre>
+
+<p>装饰器实现</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 通过装饰器方式实现单例模式</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/20 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-comment"># 装饰器实现</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">singleton</span>(<span class="hljs-params">class_</span>):</span>
+    instances = &#123;&#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getinstance</span>(<span class="hljs-params">*args, **kwargs</span>):</span>
+        <span class="hljs-keyword">if</span> class_ <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> instances:
+            instances[class_] = class_(*args, **kwargs)
+        <span class="hljs-keyword">return</span> instances[class_]
+
+    <span class="hljs-keyword">return</span> getinstance
+
+
+<span class="hljs-meta">@singleton</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>:</span>
+    <span class="hljs-keyword">pass</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    i1 = MyClass()
+    i2 = MyClass()
+    print(i1 <span class="hljs-keyword">is</span> i2)</code></pre>
+
+
+
+<h4 id="The-Prototype-Pattern-原型模式-解决对象拷贝问题"><a href="#The-Prototype-Pattern-原型模式-解决对象拷贝问题" class="headerlink" title="The Prototype Pattern(原型模式:解决对象拷贝问题)"></a>The Prototype Pattern(原型模式:解决对象拷贝问题)</h4><h3 id="行为型"><a href="#行为型" class="headerlink" title="行为型"></a>行为型</h3><h4 id="The-Observer-Pattern-观察者模式：用来处理多个对象之间的发布订阅问题"><a href="#The-Observer-Pattern-观察者模式：用来处理多个对象之间的发布订阅问题" class="headerlink" title="The Observer Pattern(观察者模式：用来处理多个对象之间的发布订阅问题)"></a>The Observer Pattern(观察者模式：用来处理多个对象之间的发布订阅问题)</h4><pre><code class="hljs Python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: </span>
+<span class="hljs-string">Date: 2019/12/13 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WaterHeater</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    热水器：战胜寒冬的有利武器</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.__observers = []
+        self.__temperature = <span class="hljs-number">25</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getTemperature</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.__temperature
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setTemperature</span>(<span class="hljs-params">self, temperature</span>):</span>
+        self.__temperature = temperature
+        print(<span class="hljs-string">&quot;current temperature is:&quot;</span>, self.__temperature)
+        self.notifies()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addObserver</span>(<span class="hljs-params">self, observer</span>):</span>
+        self.__observers.append(observer)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">notifies</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> self.__observers:
+            o.update(self)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Observer</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    洗澡模式和饮用模式的父类</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">self, waterHeater</span>):</span>
+        <span class="hljs-keyword">pass</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WashingMode</span>(<span class="hljs-params">Observer</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;该模式用于洗澡用&quot;&quot;&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">self, waterHeater</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-number">50</span> &lt;= waterHeater.getTemperature() &lt; <span class="hljs-number">70</span>:
+            print(<span class="hljs-string">&quot;水已烧好，温度正好！可以用来洗澡了。&quot;</span>)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DrinkingMode</span>(<span class="hljs-params">Observer</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;该模式用于饮用&quot;&quot;&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">self, waterHeater</span>):</span>
+        <span class="hljs-keyword">if</span> waterHeater.getTemperature() &gt;= <span class="hljs-number">100</span>:
+            print(<span class="hljs-string">&quot;水已烧开！可以用来饮用了。&quot;</span>)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_water_heater</span>():</span>
+    heater = WaterHeater()
+    washing_obser = WashingMode()
+    drinking_obser = DrinkingMode()
+    heater.addObserver(washing_obser)
+    heater.addObserver(drinking_obser)
+    heater.setTemperature(<span class="hljs-number">40</span>)
+    heater.setTemperature(<span class="hljs-number">60</span>)
+    heater.setTemperature(<span class="hljs-number">100</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    test_water_heater()</code></pre>
+
+
+
+<h4 id="The-State-Pattern-状态模式：实现有限状态机"><a href="#The-State-Pattern-状态模式：实现有限状态机" class="headerlink" title="The State Pattern(状态模式：实现有限状态机)"></a>The State Pattern(状态模式：实现有限状态机)</h4><h4 id="The-Strategy-Pattern-策略模式：动态选择算法策略"><a href="#The-Strategy-Pattern-策略模式：动态选择算法策略" class="headerlink" title="The Strategy Pattern(策略模式：动态选择算法策略)"></a>The Strategy Pattern(策略模式：动态选择算法策略)</h4><h4 id="The-Chain-of-Responsibility-Pattern-责任链模式-创建链式对象用来接收广播消息"><a href="#The-Chain-of-Responsibility-Pattern-责任链模式-创建链式对象用来接收广播消息" class="headerlink" title="The Chain of Responsibility Pattern (责任链模式:创建链式对象用来接收广播消息)"></a>The Chain of Responsibility Pattern (责任链模式:创建链式对象用来接收广播消息)</h4><h4 id="The-Command-Pattern-命令模式：用来给应用添加Undo操作"><a href="#The-Command-Pattern-命令模式：用来给应用添加Undo操作" class="headerlink" title="The Command Pattern(命令模式：用来给应用添加Undo操作)"></a>The Command Pattern(命令模式：用来给应用添加Undo操作)</h4><h4 id="The-Interpreter-Pattern-解释器模式：用来实现Domain-Specific-Language-DSL"><a href="#The-Interpreter-Pattern-解释器模式：用来实现Domain-Specific-Language-DSL" class="headerlink" title="The Interpreter Pattern(解释器模式：用来实现Domain Specific Language(DSL))"></a>The Interpreter Pattern(解释器模式：用来实现Domain Specific Language(DSL))</h4><h4 id="The-Template-Pattern-模板模式：抽象出算法公共部分从而实现代码复用"><a href="#The-Template-Pattern-模板模式：抽象出算法公共部分从而实现代码复用" class="headerlink" title="The Template Pattern(模板模式：抽象出算法公共部分从而实现代码复用)"></a>The Template Pattern(模板模式：抽象出算法公共部分从而实现代码复用)</h4><h3 id="结构性"><a href="#结构性" class="headerlink" title="结构性"></a>结构性</h3><h4 id="The-Adapter-Pattern-适配器模式-解决接口不兼容问题"><a href="#The-Adapter-Pattern-适配器模式-解决接口不兼容问题" class="headerlink" title="The Adapter Pattern(适配器模式: 解决接口不兼容问题)"></a>The Adapter Pattern(适配器模式: 解决接口不兼容问题)</h4><h4 id="The-Decorator-Pattern-装饰器模式：-无需子类化实现扩展对象功能问题"><a href="#The-Decorator-Pattern-装饰器模式：-无需子类化实现扩展对象功能问题" class="headerlink" title="The Decorator Pattern(装饰器模式： 无需子类化实现扩展对象功能问题)"></a>The Decorator Pattern(装饰器模式： 无需子类化实现扩展对象功能问题)</h4><h4 id="The-Facade-Pattern-外观模式-简化复杂对象的访问问题"><a href="#The-Facade-Pattern-外观模式-简化复杂对象的访问问题" class="headerlink" title="The Facade Pattern(外观模式: 简化复杂对象的访问问题)"></a>The Facade Pattern(外观模式: 简化复杂对象的访问问题)</h4><h4 id="The-Flyweight-Pattern-享元模式-实现对象复用从而改善资源使用"><a href="#The-Flyweight-Pattern-享元模式-实现对象复用从而改善资源使用" class="headerlink" title="The Flyweight Pattern(享元模式: 实现对象复用从而改善资源使用)"></a>The Flyweight Pattern(享元模式: 实现对象复用从而改善资源使用)</h4><h4 id="The-Model-View-Controller-Pattern-mvc模式：解耦展示逻辑和业务逻辑"><a href="#The-Model-View-Controller-Pattern-mvc模式：解耦展示逻辑和业务逻辑" class="headerlink" title="The Model-View-Controller Pattern(mvc模式：解耦展示逻辑和业务逻辑)"></a>The Model-View-Controller Pattern(mvc模式：解耦展示逻辑和业务逻辑)</h4><h4 id="The-Proxy-Pattern-代理模式：通过一层间接保护层实现更安全的接口访问）"><a href="#The-Proxy-Pattern-代理模式：通过一层间接保护层实现更安全的接口访问）" class="headerlink" title="The Proxy Pattern(代理模式：通过一层间接保护层实现更安全的接口访问）"></a>The Proxy Pattern(代理模式：通过一层间接保护层实现更安全的接口访问）</h4>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/20/adt_python/">
+                        <span class="hidden-mobile">【Python】基本数据结构和算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Trable</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">杭ICP证123456号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>杭公网安备12345678号</span>
+      </a>
+     
+  </div>
+
+
+    
+     <div>
+  	<span id="timeDate">载入天数...</span>
+ 	<span id="times">载入时分秒...</span>
+ 	<script>
+          var now = new Date();
+          function createtime(){
+           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+           now.setTime(now.getTime()+250);
+           days = (now - grt ) / 1000 / 60 / 60 / 24;
+           dnum = Math.floor(days);
+           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+           hnum = Math.floor(hours);
+           if(String(hnum).length ==1 ){
+                hnum = "0" + hnum;
+           }
+           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+           mnum = Math.floor(minutes);
+           if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+           }
+           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+           snum = Math.round(seconds);
+           if(String(snum).length ==1 ){
+                snum = "0" + snum;
+           }
+           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+          }
+          setInterval("createtime()",250);
+       </script>
+    </div>
+ </div>
+ </footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【Python】设计模式&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

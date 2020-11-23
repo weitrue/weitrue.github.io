@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我们相信，未来可期！">
+  <meta name="author" content="嗯，我们是对的">
+  <meta name="keywords" content="">
+  <title>【Python】基本数据结构和算法 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/images/img/banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-11-20 19:14">
+      2020年11月20日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      86
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="ADT抽象数据类型"><a href="#ADT抽象数据类型" class="headerlink" title="ADT抽象数据类型"></a>ADT抽象数据类型<a id="more"></a></h2><h3 id="什么是ADT-抽象数据类型，学过数据结构的应该都知道。"><a href="#什么是ADT-抽象数据类型，学过数据结构的应该都知道。" class="headerlink" title="什么是ADT: 抽象数据类型，学过数据结构的应该都知道。"></a>什么是ADT: 抽象数据类型，学过数据结构的应该都知道。</h3><p>How to select datastructures for ADT</p>
+<ol>
+<li>Dose the data structure provide for the storage requirements as specified by the domain of the ADT?</li>
+<li>Does the data structure provide the data access and manipulation functionality to fully implement the ADT?</li>
+<li>Effcient implemention? based on complexity analysis.</li>
+</ol>
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 字符串相关</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/18 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReverseString</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    字符数组反转</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverse_string</span>(<span class="hljs-params">self, x, reverse=<span class="hljs-literal">False</span></span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        :param x: 字符数组</span>
+<span class="hljs-string">        :param reverse: 是否之用内置库</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> reverse:
+            x.reverse()
+            <span class="hljs-keyword">return</span> x
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> x:
+                <span class="hljs-keyword">return</span>
+            beg, end = <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(x)<span class="hljs-number">-1</span>
+            <span class="hljs-keyword">while</span> beg &lt; end:
+                x[beg], x[end] = x[end], x[beg]
+                beg += <span class="hljs-number">1</span>
+                end -= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">return</span> x
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Palindrome</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    判断字符串是否是回文</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_palindrome</span>(<span class="hljs-params">self, x</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(x, <span class="hljs-built_in">int</span>) <span class="hljs-keyword">and</span> x &lt; <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        xx = <span class="hljs-built_in">str</span>(x)
+        beg, end = <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(xx)<span class="hljs-number">-1</span>
+        <span class="hljs-keyword">while</span> beg &lt; end:
+            <span class="hljs-keyword">if</span> xx[beg] == xx[end]:
+                beg += <span class="hljs-number">1</span>
+                end -= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    r = ReverseString()
+    print(r.reverse_string([<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;h&#x27;</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;j&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>], <span class="hljs-literal">False</span>))</code></pre>
+
+
+
+<h3 id="Array-and-List"><a href="#Array-and-List" class="headerlink" title="Array and List"></a>Array and List</h3><h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><p>定长，操作有限，但是节省内存；貌似我的生涯中还没用过，不过python3.5中我试了确实有array类，可以用import array直接导入。</p>
+<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>会预先分配内存，操作丰富，但是耗费内存。用sys.getsizeof做实验可以发现该结构非常类似C++ STL里的vector，是使用最频繁的数据结构。</p>
+<ul>
+<li>list.append: 如果之前没有分配够内存，会重新开辟新区域，然后复制之前的数据，复杂度退化</li>
+<li>list.insert: 会移动被插入区域后所有元素,O(n)</li>
+<li>list.pop: pop不同位置需要的复杂度不同pop(0)是O(1)复杂度,pop()首位O(n)复杂度</li>
+<li>list[]: slice操作copy数据（预留空间）到另一个list</li>
+</ul>
+<h3 id="Sets-and-Maps"><a href="#Sets-and-Maps" class="headerlink" title="Sets and Maps"></a>Sets and Maps</h3><h4 id="sets-ADT"><a href="#sets-ADT" class="headerlink" title="sets ADT"></a>sets ADT</h4><p>A set is a container that stores a collection of unique values over a given comparable domain in which the stored values have no particular ordering.</p>
+<h4 id="Maps-or-Dict-ADT"><a href="#Maps-or-Dict-ADT" class="headerlink" title="Maps or Dict ADT"></a>Maps or Dict ADT</h4><p>python内部采用hash实现。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 基于collections.OrderedDict实现LRU_cache(最近最少使用缓存算法)</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/13 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> OrderedDict
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LURCache</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, capacity=<span class="hljs-number">128</span></span>):</span>
+        self._od = OrderedDict()
+        self._capacity = capacity
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span>(<span class="hljs-params">self, key</span>):</span>
+        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">in</span> self._od:
+            val = self._od[key]
+            self._od.move_to_end(key)
+            <span class="hljs-keyword">return</span> val
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, key, value</span>):</span>
+        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">in</span> self._od:
+            <span class="hljs-keyword">del</span> self._od[key]
+            self._od[key] = value
+        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># insert</span>
+            self._od[key] = value
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self._od) &gt; self._capacity:
+                self._od.popitem(last=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">items</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self._od.items()
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    lru_cache = LURCache(<span class="hljs-number">3</span>)
+    lru_cache.push(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">1</span>)
+    lru_cache.push(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">2</span>)
+    lru_cache.push(<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">3</span>)
+    lru_cache.push(<span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">4</span>)
+    lru_cache.get(<span class="hljs-string">&quot;2&quot;</span>)
+    print(lru_cache.items())
+</code></pre>
+
+
+
+<h3 id="Algorithm-Analysis"><a href="#Algorithm-Analysis" class="headerlink" title="Algorithm Analysis"></a>Algorithm Analysis</h3><p>一般使用大O标记法来衡量算法的平均时间复杂度, 1 &lt; log(n) &lt; n &lt; nlog(n) &lt; n^2 &lt; n^3 &lt; a^n。 了解常用数据结构操作的平均时间复杂度有利于使用更高效的数据结构，当然有时候需要在时间和空间上进行衡量，有些操作甚至还会退化，比如list的append操作，如果list空间不够，会去开辟新的空间，操作复杂度退化到O(n)，有时候还需要使用均摊分析(amortized)。</p>
+<h3 id="Searching"><a href="#Searching" class="headerlink" title="Searching"></a>Searching</h3><p>python内置了in操作符和bisect二分操作模块实现查找。</p>
+<pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 二分查找算法</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/1/20 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">binary_search</span>(<span class="hljs-params">arr, target</span>):</span>
+    n = <span class="hljs-built_in">len</span>(arr)
+    left = <span class="hljs-number">0</span>
+    right = n - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> left &lt;= right:
+        mid = (left + right) // <span class="hljs-number">2</span>
+        <span class="hljs-keyword">if</span> arr[mid] &lt; target:
+            left = mid + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> arr[mid] &gt; target:
+            right = mid - <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            print(<span class="hljs-string">f&quot;index: <span class="hljs-subst">&#123;mid&#125;</span>, value:<span class="hljs-subst">&#123;arr[mid]&#125;</span>&quot;</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    l = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>]
+    binary_search(l, <span class="hljs-number">8</span>)</code></pre>
+
+
+
+<h3 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h3><p>python内置了sorted方法来实现排序操作。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 冒泡排序</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/3/23 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> random
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BubbleSort</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bubble_sort</span>(<span class="hljs-params">self, arr</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        冒泡排序</span>
+<span class="hljs-string">        :param arr:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        n = <span class="hljs-built_in">len</span>(arr)
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-i<span class="hljs-number">-1</span>):
+                <span class="hljs-keyword">if</span> arr[j] &gt; arr[j+<span class="hljs-number">1</span>]:
+                    arr[j], arr[j+<span class="hljs-number">1</span>] = arr[j+<span class="hljs-number">1</span>], arr[j]
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    list_a = [random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">8</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)]
+    print(list_a)
+    bs = BubbleSort()
+    bs.bubble_sort(list_a)
+    print(list_a)</code></pre>
+
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 归并排序算法-分治法</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/15 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MergeSort</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">merge_sort</span>(<span class="hljs-params">self, arr</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        分治法分三步走，要注意出口</span>
+<span class="hljs-string">        :param arr:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 递归出口</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> arr
+        <span class="hljs-keyword">else</span>:
+            mid = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(arr)/<span class="hljs-number">2</span>)
+            left_half = self.merge_sort(arr[:mid])
+            right_half = self.merge_sort(arr[mid:])
+            <span class="hljs-keyword">return</span> self.merge_sorted_list(left_half, right_half)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">merge_sorted_list</span>(<span class="hljs-params">self, list_a, list_b</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        合并两个有序序列</span>
+<span class="hljs-string">        :param list_a:</span>
+<span class="hljs-string">        :param list_b:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        length_a = <span class="hljs-built_in">len</span>(list_a)
+        length_b = <span class="hljs-built_in">len</span>(list_b)
+        a = b = <span class="hljs-number">0</span>
+        new_list = []
+        <span class="hljs-keyword">while</span> a &lt; length_a <span class="hljs-keyword">and</span> b &lt; length_b:
+            <span class="hljs-keyword">if</span> list_a[a] &lt; list_b[b]:
+                new_list.append(list_a[a])
+                a += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                new_list.append(list_b[b])
+                b += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> a &lt; length_a:
+            new_list.extend(list_a[a:])
+        <span class="hljs-keyword">if</span> b &lt; length_b:
+            new_list.extend(list_b[b:])
+        <span class="hljs-keyword">return</span> new_list
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    <span class="hljs-keyword">import</span> random
+    ms = MergeSort()
+    ll = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))
+    random.shuffle(ll)
+    print(ll)
+    ll = ms.merge_sort(ll)
+    print(ll)
+</code></pre>
+
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 快速排序算法-分治法</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：Partition:选择基准分割数组为两个字数组，小于基准和大于基准</span>
+<span class="hljs-string">         对两个字数组分别快排</span>
+<span class="hljs-string">         合并结果</span>
+<span class="hljs-string">Date: 2020/2/15 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> pysnooper  <span class="hljs-comment"># 调试神器</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QuickSort</span>:</span>
+
+<span class="hljs-meta">    @pysnooper.snoop()</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quick_sort</span>(<span class="hljs-params">self, arr</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt; <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">return</span> arr
+        pivot_index = <span class="hljs-number">0</span>  <span class="hljs-comment"># 第一个数作为pivot</span>
+        pivot = arr[pivot_index]
+        less_part = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr[pivot_index+<span class="hljs-number">1</span>:] <span class="hljs-keyword">if</span> i &lt; pivot]
+        great_part = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr[pivot_index+<span class="hljs-number">1</span>:] <span class="hljs-keyword">if</span> i &gt;= pivot]
+        <span class="hljs-keyword">return</span> self.quick_sort(less_part) + [pivot] + self.quick_sort(great_part)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    qs = QuickSort()
+    ll = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))
+    random.shuffle(ll)
+    print(ll)
+    ll = qs.quick_sort(ll)
+    print(ll)</code></pre>
+
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 拓扑排序</span>
+<span class="hljs-string">Problem: 对应于该图的拓扑排序,每一个有向无环图都至少存在一种拓扑排序</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/3/23 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> pysnooper
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Mapping
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TopologicalSort</span>:</span>
+
+<span class="hljs-meta">    @pysnooper.snoop()  # pysnooper 调试神器</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">topological_sort</span>(<span class="hljs-params">self, graph: Mapping</span>):</span>
+        <span class="hljs-comment"># in_degrees = &#123;&#x27;a&#x27;： 0, &#x27;b&#x27;： 0, &#x27;c&#x27;： 0, &#x27;d&#x27;： 0, &#x27;e&#x27;： 0, &#x27;f&#x27;： 0&#125;</span>
+        in_degrees = <span class="hljs-built_in">dict</span>((u, <span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> graph)
+        <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> graph:
+            <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> graph[u]:  <span class="hljs-comment"># 根据键找出值也就是下级节点</span>
+                in_degrees[v] += <span class="hljs-number">1</span>  <span class="hljs-comment"># 对获取到的下级节点的入度加 1</span>
+        <span class="hljs-comment"># 循环结束之后的结果： &#123;&#x27;a&#x27;： 0, &#x27;b&#x27;： 1, &#x27;c&#x27;： 1, &#x27;d&#x27;： 2, &#x27;e&#x27;： 1, &#x27;f&#x27;： 4&#125;</span>
+        Q = [u <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> graph <span class="hljs-keyword">if</span> in_degrees[u] == <span class="hljs-number">0</span>]  <span class="hljs-comment"># 入度为 0 的节点</span>
+        in_degrees_zero = []
+        <span class="hljs-keyword">while</span> Q:
+            u = Q.pop()  <span class="hljs-comment"># 默认从最后一个移除</span>
+            in_degrees_zero.append(u)  <span class="hljs-comment"># 存储入度为 0 的节点</span>
+            <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> graph[u]:
+                in_degrees[v] -= <span class="hljs-number">1</span>  <span class="hljs-comment"># 删除入度为 0 的节点，以及移除其指向</span>
+                <span class="hljs-keyword">if</span> in_degrees[v] == <span class="hljs-number">0</span>:
+                    Q.append(v)
+        <span class="hljs-keyword">return</span> in_degrees_zero
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    <span class="hljs-comment"># 用字典的键值表示图的节点之间的关系，键当前节点。值是后续节点。</span>
+    graph_dict = &#123;
+        <span class="hljs-string">&#x27;a&#x27;</span>: <span class="hljs-string">&#x27;bf&#x27;</span>,  <span class="hljs-comment"># 表示 a 指向 b 和 f</span>
+        <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-string">&#x27;cdf&#x27;</span>,
+        <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-string">&#x27;d&#x27;</span>,
+        <span class="hljs-string">&#x27;d&#x27;</span>: <span class="hljs-string">&#x27;ef&#x27;</span>,
+        <span class="hljs-string">&#x27;e&#x27;</span>: <span class="hljs-string">&#x27;f&#x27;</span>,
+        <span class="hljs-string">&#x27;f&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>
+    &#125;
+    ts = TopologicalSort()
+    t = ts.topological_sort(graph_dict)
+    print(t)
+</code></pre>
+
+
+
+<h3 id="Linked-Structure"><a href="#Linked-Structure" class="headerlink" title="Linked Structure"></a>Linked Structure</h3><p>list是最常用的数据结构，但是list在中间增减元素的时候效率会很低，这时候linked list会更适合，缺点就是获取元素的平均时间复杂度变成了O(n)。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 链表 </span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/16 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val</span>):</span>
+        self.val = val
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteNode</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    链表中删除一个节点（已知要删除的节点，不知链表的head）</span>
+<span class="hljs-string">    思路：将要删除的链表节点node的值修改为node.next的值</span>
+<span class="hljs-string">         node.next指向node.next.next</span>
+<span class="hljs-string">         这样相当于删除了node节点</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, node_list=<span class="hljs-literal">None</span>, node=<span class="hljs-literal">None</span></span>):</span>
+        <span class="hljs-keyword">if</span> node_list <span class="hljs-keyword">and</span> <span class="hljs-built_in">isinstance</span>(node_list, <span class="hljs-built_in">list</span>):
+            self._head = ListNode(node_list[<span class="hljs-number">0</span>])
+            cur_index = self._head
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(node_list)):
+                <span class="hljs-keyword">if</span> cur_index.val == node:
+                    self._node = cur_index
+                cur_index.<span class="hljs-built_in">next</span> = ListNode(node_list[i])
+                cur_index = cur_index.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">else</span>:
+            self._head = <span class="hljs-literal">None</span>
+            self._node = <span class="hljs-literal">None</span>
+
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete_node_in_a_linked_list</span>(<span class="hljs-params">node</span>):</span>
+        next_node = node.<span class="hljs-built_in">next</span>
+        next_next_node = node.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>
+        node.val = next_node.val
+        node.<span class="hljs-built_in">next</span> = next_next_node
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">traversal</span>(<span class="hljs-params">self</span>):</span>
+        cur = self._head
+        link_list = []
+        <span class="hljs-keyword">while</span> cur:
+            link_list.append(cur.val)
+            cur = cur.<span class="hljs-built_in">next</span>
+        print(link_list)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MergeLinkedList</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    合并两个有序链表</span>
+<span class="hljs-string">    思路：新建一个链表root，将list_one, list_two遍历，按大小放入root</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, list_one=<span class="hljs-literal">None</span>, list_two=<span class="hljs-literal">None</span></span>):</span>
+        <span class="hljs-keyword">if</span> list_one <span class="hljs-keyword">and</span> <span class="hljs-built_in">isinstance</span>(list_one, <span class="hljs-built_in">list</span>) <span class="hljs-keyword">and</span> list_two <span class="hljs-keyword">and</span> <span class="hljs-built_in">isinstance</span>(list_two, <span class="hljs-built_in">list</span>):
+            self.list_one = ListNode(list_one[<span class="hljs-number">0</span>])
+            cur_index = self.list_one
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(list_one)):
+                cur_index.<span class="hljs-built_in">next</span> = ListNode(list_one[i])
+                cur_index = cur_index.<span class="hljs-built_in">next</span>
+            self.list_two = ListNode(list_two[<span class="hljs-number">0</span>])
+            cur_index = self.list_two
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(list_two)):
+                cur_index.<span class="hljs-built_in">next</span> = ListNode(list_two[i])
+                cur_index = cur_index.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">else</span>:
+            self.list_one = <span class="hljs-literal">None</span>
+            self.list_two = <span class="hljs-literal">None</span>
+        self._head = <span class="hljs-literal">None</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">merge_linked_list</span>(<span class="hljs-params">self</span>):</span>
+        one_cur_val = self.list_one
+        two_cur_val = self.list_two
+        self._head = ListNode(<span class="hljs-literal">None</span>)
+        cur = self._head
+        <span class="hljs-keyword">while</span> one_cur_val <span class="hljs-keyword">and</span> two_cur_val:
+            <span class="hljs-keyword">if</span> one_cur_val.val &lt; two_cur_val.val:
+                node = ListNode(one_cur_val.val)
+                one_cur_val = one_cur_val.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">else</span>:
+                node = ListNode(two_cur_val.val)
+                two_cur_val = two_cur_val.<span class="hljs-built_in">next</span>
+            cur.<span class="hljs-built_in">next</span> = node
+            cur = node
+        cur.<span class="hljs-built_in">next</span> = one_cur_val <span class="hljs-keyword">or</span> two_cur_val
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">traversal</span>(<span class="hljs-params">self</span>):</span>
+        cur = self._head.<span class="hljs-built_in">next</span>
+        link_list = []
+        <span class="hljs-keyword">while</span> cur:
+            link_list.append(cur.val)
+            cur = cur.<span class="hljs-built_in">next</span>
+        print(link_list)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReverseLinkList</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    单链表反转</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, head=<span class="hljs-literal">None</span></span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;链表的头部&quot;&quot;&quot;</span>
+        self._head = head
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        给链表添加元素</span>
+<span class="hljs-string">        ：param val： 传过来的数字</span>
+<span class="hljs-string">        ：return：</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 创建一个节点</span>
+        node = ListNode(val)
+        <span class="hljs-keyword">if</span> self._head <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            self._head = node
+        <span class="hljs-keyword">else</span>:
+            cur = self._head
+            <span class="hljs-keyword">while</span> cur.<span class="hljs-built_in">next</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                cur = cur.<span class="hljs-built_in">next</span>  <span class="hljs-comment"># 移动游标</span>
+            cur.<span class="hljs-built_in">next</span> = node  <span class="hljs-comment"># 如果 next 后面没了证明以及到最后一个节点了</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">traversal</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self._head:
+            <span class="hljs-keyword">return</span>
+        cur = self._head
+        link_list = []
+        <span class="hljs-keyword">while</span> cur:
+            link_list.append(cur.val)
+            cur = cur.<span class="hljs-built_in">next</span>
+        print(link_list)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">size</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        获取链表的大小</span>
+<span class="hljs-string">        ：return：</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        count = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">if</span> self._head <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> count
+        <span class="hljs-keyword">else</span>:
+            cur = self._head
+            <span class="hljs-keyword">while</span> cur <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                count += <span class="hljs-number">1</span>
+                cur = cur.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">return</span> count
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverse_link</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        单链表反转</span>
+<span class="hljs-string">        思路：</span>
+<span class="hljs-string">        让 cur.next 先断开即指向 none，指向设定 pre 游标指向断开的元素，然后</span>
+<span class="hljs-string">        cur.next 指向断开的元素，再把开始 self._head 再最后一个元素的时候.</span>
+<span class="hljs-string">        ：return：</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> self._head <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> self.size() == <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">else</span>:
+            pre = <span class="hljs-literal">None</span>
+            cur = self._head
+            <span class="hljs-keyword">while</span> cur <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                post = cur.<span class="hljs-built_in">next</span>
+                cur.<span class="hljs-built_in">next</span> = pre
+                pre = cur
+                cur = post
+            self._head = pre  <span class="hljs-comment"># 逆向后的头节点</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkListIntersectionNode</span>:</span>
+		<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">		两个链表的的交叉节点</span>
+<span class="hljs-string">		&quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_intersection_node</span>(<span class="hljs-params">self, headA, headB</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        cur1、cur2，2 个指针的初始位置是链表 headA、headB 头结点，cur1、cur2 两个指针一直往后遍历。</span>
+<span class="hljs-string">        直到 cur1 指针走到链表的末尾，然后 cur1 指向 headB；</span>
+<span class="hljs-string">        直到 cur2 指针走到链表的末尾，然后 cur2 指向 headA；</span>
+<span class="hljs-string">        然后再继续遍历；</span>
+<span class="hljs-string">        每次 cur1、cur2 指向 None，则将 cur1、cur2 分别指向 headB、headA。</span>
+<span class="hljs-string">        循环的次数越多，cur1、cur2 的距离越接近，直到 cur1 等于 cur2。则是两个链表的相交点。</span>
+<span class="hljs-string">        ：tye head1, head1： ListNode</span>
+<span class="hljs-string">        ：rtye： ListNode</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> headA <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> headB <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            cur1, cur2 = headA, headB
+
+            <span class="hljs-keyword">while</span> cur1 != cur2:
+                cur1 = cur1.<span class="hljs-built_in">next</span> <span class="hljs-keyword">if</span> cur1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> headA
+                cur2 = cur2.<span class="hljs-built_in">next</span> <span class="hljs-keyword">if</span> cur2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> headB
+
+            <span class="hljs-keyword">return</span> cur1
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    dn = DeleteNode([<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>], <span class="hljs-number">3</span>)
+    dn.traversal()
+    dn.delete_node_in_a_linked_list(dn._node)
+    dn.traversal()
+
+    mn = MergeLinkedList([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">7</span>])
+    mn.merge_linked_list()
+    mn.traversal()
+
+    r_link = ReverseLinkList()
+    r_link.add(<span class="hljs-number">3</span>)
+    r_link.add(<span class="hljs-number">5</span>)
+    r_link.add(<span class="hljs-number">6</span>)
+    r_link.add(<span class="hljs-number">7</span>)
+    r_link.add(<span class="hljs-number">8</span>)
+    print(<span class="hljs-string">&quot;对链表进行遍历&quot;</span>)
+    r_link.traversal()
+    print(<span class="hljs-string">f&quot;size：<span class="hljs-subst">&#123;r_link.size()&#125;</span>&quot;</span>)
+    print(<span class="hljs-string">&quot;对链表进行逆向操作之后&quot;</span>)
+    r_link.reverse_link()
+    r_link.traversal()
+</code></pre>
+
+
+
+<h3 id="Advanced-Linked-Lists"><a href="#Advanced-Linked-Lists" class="headerlink" title="Advanced Linked Lists"></a>Advanced Linked Lists</h3><h4 id="Doubly-Linked-List"><a href="#Doubly-Linked-List" class="headerlink" title="Doubly Linked List"></a>Doubly Linked List</h4><p>双链表，每个节点多了个prev指向前一个节点。双链表可以用来编写文本编辑器的buffer。</p>
+<h4 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h4><p>利用循环双端链表我们可以实现一个经典的缓存失效算法，lru：</p>
+<pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+  
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, prev=<span class="hljs-literal">None</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span>, key=<span class="hljs-literal">None</span>, value=<span class="hljs-literal">None</span></span>):</span>
+        self.prev, self.<span class="hljs-built_in">next</span>, self.key, self.value = prev, <span class="hljs-built_in">next</span>, key, value
+        
+       
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CircularDoubleLinkedList</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+  
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        node = Node()
+        node.prev, node.<span class="hljs-built_in">next</span> = node, node
+        self.rootnode = node
+        
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">headnode</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.rootnode.<span class="hljs-built_in">next</span>
+      
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tailnode</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.rootnode.prev
+      
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove</span>(<span class="hljs-params">self, node</span>):</span>
+        <span class="hljs-keyword">if</span> node <span class="hljs-keyword">is</span> self.rootnode:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">else</span>:
+            node.prev.<span class="hljs-built_in">next</span> = node.<span class="hljs-built_in">next</span>
+            node.<span class="hljs-built_in">next</span>.prev = node.prev
+            
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">append</span>(<span class="hljs-params">self, node</span>):</span>
+        tailnode = self.tailnode()
+        tailnode.<span class="hljs-built_in">next</span> = node
+        node.<span class="hljs-built_in">next</span> = self.rootnode
+        self.rootnode.prev = node
+        
+        
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LRUCache</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+  
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, maxsize=<span class="hljs-number">16</span></span>):</span>
+        self.maxsize = maxsize
+        self.cache = &#123;&#125;
+        self.access = CircularDoubleLinkedList()
+        self.isfull = <span class="hljs-built_in">len</span>(self.cache) &gt;= self.maxsize
+        
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span>(<span class="hljs-params">self, func</span>):</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span>(<span class="hljs-params">n</span>):</span>
+            cachenode = self.cache.get(n)
+            <span class="hljs-keyword">if</span> cachenode <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># hit</span>
+                self.access.remove(cachenode)
+                self.access.append(cachenode)
+                <span class="hljs-keyword">return</span> cachenode.value
+            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># miss</span>
+                value = func(n)
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.isfull:
+                    tailnode = self.access.tailnode()
+                    newnode = Node(tailnode, self.access.rootnode, n, value)
+                    self.access.append(newnode)
+                    self.cache[n] = newnode
+                    self.isfull = <span class="hljs-built_in">len</span>(self.cache) &gt;= self.maxsize
+                    <span class="hljs-keyword">return</span> value
+                <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># full</span>
+                    lru_node = self.access.headnode()
+                    <span class="hljs-keyword">del</span> self.cache[lru_node.key]
+                    self.access.remove(lru_node)
+                    tailnode = self.access.tailnode()
+                    newnode = Node(tailnode, self.access.rootnode, n, value)
+                    self.access.append(newnode)
+                    self.cache[n] = newnode
+                <span class="hljs-keyword">return</span> value
+        <span class="hljs-keyword">return</span> wrapper
+      
+      
+<span class="hljs-meta">@LRUCache()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span>
+    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>)
+      
+      
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">35</span>):
+    print(fib(i))</code></pre>
+
+
+
+<h3 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h3><p>栈，一种后进先出的数据结构。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 基队列实现栈</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：基于collections.deque实现栈</span>
+<span class="hljs-string">          基于 2 个队列实现</span>
+<span class="hljs-string">          基于 1 个队列实现</span>
+<span class="hljs-string">Date: 2020/2/15 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+<span class="hljs-keyword">from</span> queue <span class="hljs-keyword">import</span> Queue
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.items = deque()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, val</span>):</span>
+        self.items.append(val)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">top</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.items[<span class="hljs-number">-1</span>]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.items.pop()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.items) == <span class="hljs-number">0</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyStack</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    使用 2 个队列实现</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        初始化</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># q1 作为进栈出栈，q2 作为中转站</span>
+        self.q1 = Queue()
+        self.q2 = Queue()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, x</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        入栈</span>
+<span class="hljs-string">        ：type x： int</span>
+<span class="hljs-string">        ：rtype： void</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.q1.put(x)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        出栈</span>
+<span class="hljs-string">        ：rtype： int</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">while</span> self.q1.qsize() &gt; <span class="hljs-number">1</span>:
+            self.q2.put(self.q1.get())  <span class="hljs-comment"># 将 q1 中除尾元素外的所有元素转到 q2 中</span>
+        <span class="hljs-keyword">if</span> self.q1.qsize() == <span class="hljs-number">1</span>:
+            res = self.q1.get()  <span class="hljs-comment"># 弹出 q1 的最后一个元素</span>
+            self.q1, self.q2 = self.q2, self.q1  <span class="hljs-comment"># 交换 q1,q2</span>
+            <span class="hljs-keyword">return</span> res
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">top</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        栈顶</span>
+<span class="hljs-string">        ：rtype： int</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">while</span> self.q1.qsize() &gt; <span class="hljs-number">1</span>:
+            self.q2.put(self.q1.get())  <span class="hljs-comment"># 将 q1 中除尾元素外的所有元素转到 q2 中</span>
+        <span class="hljs-keyword">if</span> self.q1.qsize() == <span class="hljs-number">1</span>:
+            res = self.q1.get()  <span class="hljs-comment"># 弹出 q1 的最后一个元素</span>
+            self.q2.put(res)  <span class="hljs-comment"># 与 pop 唯一不同的是需要将 q1 最后一个元素保存到 q2 中</span>
+            self.q1, self.q2 = self.q2, self.q1  <span class="hljs-comment"># 交换 q1,q2</span>
+            <span class="hljs-keyword">return</span> res
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        判断是否为空</span>
+<span class="hljs-string">        ：rtype： bool</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">bool</span>(self.q1.qsize() + self.q2.qsize())  <span class="hljs-comment"># 为空返回 True，不为空返回 False</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyStack2</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    使用 1 个队列实现</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        初始化</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.sq1 = Queue()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, x</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        入栈</span>
+<span class="hljs-string">        ：type x： int</span>
+<span class="hljs-string">        ：rtype： void</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.sq1.put(x)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        出栈</span>
+<span class="hljs-string">        ：rtype： int</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        count = self.sq1.qsize()
+        <span class="hljs-keyword">if</span> count == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">while</span> count &gt; <span class="hljs-number">1</span>:
+            x = self.sq1.get()
+            self.sq1.put(x)
+            count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> self.sq1.get()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">top</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Get the top element.</span>
+<span class="hljs-string">        ：rtype： int</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        count = self.sq1.qsize()
+        <span class="hljs-keyword">if</span> count == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">while</span> count:
+            x = self.sq1.get()
+            self.sq1.put(x)
+            count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> x
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Returns whether the stack is empty.</span>
+<span class="hljs-string">        ：rtype： bool</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> self.sq1.empty()
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    obj = MyStack2()
+    obj.push(<span class="hljs-number">1</span>)
+    obj.push(<span class="hljs-number">3</span>)
+    print(obj.pop())
+    obj.push(<span class="hljs-number">4</span>)
+    print(obj.pop())
+    print(obj.pop())
+    print(obj.empty())</code></pre>
+
+
+
+<h3 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h3><p>队列也是经常使用的数据结构，比如发送消息等，celery可以使用redis提供的list实现消息队列。</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 基于collections.deque实现队列</span>
+<span class="hljs-string">                    基于栈实现队列</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/15 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+<span class="hljs-keyword">from</span> examples.example_0x_cases.algorithm.data_structure.stack_cases <span class="hljs-keyword">import</span> Stack
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.items = deque()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, val</span>):</span>
+        self.items.append(val)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.items.popleft()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.items) == <span class="hljs-number">0</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QueueByStack</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.stack_one = Stack()
+        self.stack_two = Stack()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, val</span>):</span>
+        self.stack_one.push(val)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> self.stack_two.empty():
+            <span class="hljs-keyword">if</span> self.stack_one.empty():
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;nil&#x27;</span>
+            <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> self.stack_one.empty():
+                self.stack_two.push(self.stack_one.pop())
+        <span class="hljs-keyword">return</span> self.stack_two.pop()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> self.stack_two.empty():
+            <span class="hljs-keyword">if</span> self.stack_one.empty():
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;nil&#x27;</span>
+            <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> self.stack_one.empty():
+                self.stack_two.push(self.stack_one.pop())
+        <span class="hljs-keyword">return</span> self.stack_two.top()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> self.stack_two
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    qu = QueueByStack()
+    qu.push(<span class="hljs-number">1</span>)
+    qu.push(<span class="hljs-number">2</span>)
+    qu.push(<span class="hljs-number">3</span>)
+    print(qu.pop())
+    print(qu.peek())
+    print(qu.pop())
+    print(qu.pop())
+    print(qu.pop())
+</code></pre>
+
+
+
+<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><p>二叉树，每个节点做多只有两个子节点</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 二叉树的遍历：前序、中序、后序、层次遍历</span>
+<span class="hljs-string">                    二叉树的反转</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/16 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val, left, right</span>):</span>
+        self.val, self.left, self.right = val, left, right
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BinTreeTravel</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, node_list=<span class="hljs-literal">None</span></span>):</span>
+        <span class="hljs-keyword">if</span> node_list <span class="hljs-keyword">and</span> <span class="hljs-built_in">isinstance</span>(node_list, <span class="hljs-built_in">list</span>):
+            tree_node_list = []
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(node_list)):
+                tree_node_list.append(TreeNode(node_list[i], <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>))
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(node_list)):
+                <span class="hljs-keyword">if</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span>:
+                    tree_node_list[i].left = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>]
+                    tree_node_list[i].right = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>]
+                <span class="hljs-keyword">elif</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span> &lt; i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>:
+                    tree_node_list[i].left = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>]
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">break</span>
+            self.root = tree_node_list[<span class="hljs-number">0</span>]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pre_order_travel</span>(<span class="hljs-params">self, sub_tree</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        先序遍历</span>
+<span class="hljs-string">        :param sub_tree:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> sub_tree:
+            print(sub_tree.val)
+            self.pre_order_travel(sub_tree.left)
+            self.pre_order_travel(sub_tree.right)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">in_order_travel</span>(<span class="hljs-params">self, sub_tree</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        中序遍历</span>
+<span class="hljs-string">        :param sub_tree:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> sub_tree:
+            self.in_order_travel(sub_tree.left)
+            print(sub_tree.val)
+            self.in_order_travel(sub_tree.right)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post_order_travel</span>(<span class="hljs-params">self, sub_tree</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        后序遍历</span>
+<span class="hljs-string">        :param sub_tree:</span>
+<span class="hljs-string">        :return:</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> sub_tree:
+            self.post_order_travel(sub_tree.left)
+            self.post_order_travel(sub_tree.right)
+            print(sub_tree.val)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">level_order_travel</span>(<span class="hljs-params">self, root</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        层次遍历</span>
+<span class="hljs-string">        :param root:</span>
+<span class="hljs-string">        :return: list[list[int]]</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+            print([])
+            <span class="hljs-keyword">return</span>
+        cur_nodes = [root]
+        next_nodes = []
+        print([i.val <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> cur_nodes])
+        <span class="hljs-keyword">while</span> cur_nodes <span class="hljs-keyword">or</span> next_nodes:
+            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> cur_nodes:
+                <span class="hljs-keyword">if</span> node.left:
+                    next_nodes.append(node.left)
+                <span class="hljs-keyword">if</span> node.right:
+                    next_nodes.append(node.right)
+            <span class="hljs-keyword">if</span> next_nodes:
+                print([i.val <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> next_nodes])
+            cur_nodes = next_nodes
+            next_nodes = []
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReverseBinaryTree</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    反转二叉树</span>
+<span class="hljs-string">               1                         1</span>
+<span class="hljs-string">            3     4                   4     3</span>
+<span class="hljs-string">         5   7  8   9      =&gt;       9  8  7   5</span>
+<span class="hljs-string">      10                                        10</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, node_list=<span class="hljs-literal">None</span></span>):</span>
+        <span class="hljs-keyword">if</span> node_list <span class="hljs-keyword">and</span> <span class="hljs-built_in">isinstance</span>(node_list, <span class="hljs-built_in">list</span>):
+            tree_node_list = []
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(node_list)):
+                tree_node_list.append(TreeNode(node_list[i], <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>))
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(node_list)):
+                <span class="hljs-keyword">if</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span>:
+                    tree_node_list[i].left = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>]
+                    tree_node_list[i].right = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>]
+                <span class="hljs-keyword">elif</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">len</span>(tree_node_list) - <span class="hljs-number">1</span> &lt; i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>:
+                    tree_node_list[i].left = tree_node_list[i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>]
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">break</span>
+            self.root = tree_node_list[<span class="hljs-number">0</span>]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverse_tree</span>(<span class="hljs-params">self, root</span>):</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">and</span> root.left <span class="hljs-keyword">and</span> root.right:
+            root.left, root.right = root.right, root.left
+            self.reverse_tree(root.left)
+            self.reverse_tree(root.right)
+        self.root = root
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FindTreeKthSmallest</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    二叉搜索树中第 K 小的元素</span>
+<span class="hljs-string">    二叉搜索树按照中序遍历的顺序打印出来正好就是排序好的顺序。所以对其遍历一个节点就进行计数，计数达到 k 的时候就结束。</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    count = <span class="hljs-number">0</span>
+    node_val = <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">kth_smallest</span>(<span class="hljs-params">self, root: TreeNode, k</span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        ：type root： TreeNode</span>
+<span class="hljs-string">        ：type k： int</span>
+<span class="hljs-string">        ：rtype： int</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.dfs(root, k)
+        <span class="hljs-keyword">return</span> self.node_val
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dfs</span>(<span class="hljs-params">self, node: TreeNode, k</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:
+            <span class="hljs-keyword">return</span>
+        self.dfs(node.left, k)
+        self.count = self.count + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> self.count == k:
+            self.node_val = node.val
+            <span class="hljs-comment"># 将该节点的左右子树置为 None,来结束递归，减少时间复杂度</span>
+            node.left = <span class="hljs-literal">None</span>
+            node.right = <span class="hljs-literal">None</span>
+        self.dfs(node.right, k)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    bt = BinTreeTravel([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>])
+    bt.pre_order_travel(bt.root)
+    bt.in_order_travel(bt.root)
+    bt.post_order_travel(bt.root)
+    bt.level_order_travel(bt.root)
+    print(<span class="hljs-string">&quot;#################################################&quot;</span>)
+    it = ReverseBinaryTree()
+    it.reverse_tree(bt.root)
+    bt.pre_order_travel(bt.root)
+</code></pre>
+
+
+
+<h3 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h3><p>二叉树最直接的一个应用就是实现堆。堆就是一颗完全二叉树，最大堆的非叶子节点的值都比孩子大，最小堆的非叶子结点的值都比孩子小。 python内置了heapq模块帮助我们实现堆操作，比如用内置的heapq模块实现个堆排序</p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 获取大量元素中 top-n 大个元素，固定内存</span>
+<span class="hljs-string">Problem:</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2020/2/16 </span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> heapq
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TopN</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    先放入元素前n个建立小顶堆</span>
+<span class="hljs-string">    迭代剩余元素：</span>
+<span class="hljs-string">        如果当前元素小于堆顶元素，跳过该元素</span>
+<span class="hljs-string">        否则退换堆顶元素为当前元素，并重新调整堆</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, iterable, n</span>):</span>
+        self.min_heap = []
+        self.capacity = n
+        self.iterable = iterable
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, val</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.min_heap) &gt;= self.capacity:
+            min_val = self.min_heap[<span class="hljs-number">0</span>]
+            <span class="hljs-keyword">if</span> val &lt; min_val:  <span class="hljs-comment"># 可以省略</span>
+                <span class="hljs-keyword">pass</span>
+            <span class="hljs-keyword">else</span>:
+                heapq.heapreplace(self.min_heap, val)  <span class="hljs-comment"># 返回并且pop堆顶最小值，推入心得val并调整堆</span>
+        <span class="hljs-keyword">else</span>:
+            heapq.heapreplace(self.min_heap, val)  <span class="hljs-comment"># 前n个元素直接放入堆中</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_top_n</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> self.iterable:
+            self.push(val)
+        <span class="hljs-keyword">return</span> self.min_heap
+</code></pre>
+
+
+
+<h3 id="Hash-Tables"><a href="#Hash-Tables" class="headerlink" title="Hash Tables"></a>Hash Tables</h3><p>基于比较的搜索（线性搜索，有序数组的二分搜索）最好的时间复杂度只能达到O(logn)，利用hash可以实现O(1)查找，python内置dict的实现方式就是hash，你会发现dict的key必须要是实现了 <code>__hash__</code> 和 <code>__eq__</code> 方法的。</p>
+<p>Hashing: hashing is the process of mapping a search a key to a limited range of array indeices with the goal of providing direct access to the keys.</p>
+<p>hash方法有个hash函数用来给key计算一个hash值，作为数组下标，放到该下标对应的槽中。当不同key根据hash函数计算得到的下标相同时，就出现了冲突。解决冲突有很多方式，比如让每个槽成为链表，每次冲突以后放到该槽链表的尾部，但是查询时间就会退化，不再是O(1)。还有一种探查方式，当key的槽冲突时候，就会根据一种计算方式去寻找下一个空的槽存放，探查方式有线性探查，二次方探查法等，cpython解释器使用的是二次方探查法。还有一个问题就是当python使用的槽数量大于预分配的2/3时候，会重新分配内存并拷贝以前的数据，所以有时候dict的add操作代价还是比较高的，牺牲空间但是可以始终保证O(1)的查询效率。如果有大量的数据，建议还是使用bloomfilter或者redis提供的HyperLogLog。</p>
+<p>如果感兴趣，可以看看这篇文章，介绍c解释器如何实现的python dict对象：<a target="_blank" rel="noopener" href="http://www.laurentluce.com/posts/python-dictionary-implementation/">Python dictionary implementation</a>。我们使用Python来实现一个类似的hash结构。</p>
+<h3 id="Recursion"><a href="#Recursion" class="headerlink" title="Recursion"></a>Recursion</h3><p>递归函数：Recursion is a process for solving problems by subdividing a larger problem into smaller cases of the problem itself and then solving the smaller, more trivial parts.</p>
+<p>Properties of Recursion: 使用stack解决的问题都能用递归解决</p>
+<ul>
+<li>A recursive solution must contain a base case; 递归出口，代表最小子问题(n == 0退出打印)</li>
+<li>A recursive solution must contain a recursive case; 可以分解的子问题</li>
+<li>A recursive solution must make progress toward the base case. 递减n使得n像递归出口靠近</li>
+</ul>
+<p>Tail Recursion: occurs when a function includes a single recursive call as the last statement of the function. In this case, a stack is not needed to store values to te used upon the return of the recursive call and thus a solution can be implemented using a iterative loop instead.</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ADT/">ADT</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ADT/">ADT</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/20/design_pattern_python/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【Python】设计模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/09/Hadoop-HDFS%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">【All】HDFS:Hadoop分布式文件系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Trable</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">杭ICP证123456号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>杭公网安备12345678号</span>
+      </a>
+     
+  </div>
+
+
+    
+     <div>
+  	<span id="timeDate">载入天数...</span>
+ 	<span id="times">载入时分秒...</span>
+ 	<script>
+          var now = new Date();
+          function createtime(){
+           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+           now.setTime(now.getTime()+250);
+           days = (now - grt ) / 1000 / 60 / 60 / 24;
+           dnum = Math.floor(days);
+           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+           hnum = Math.floor(hours);
+           if(String(hnum).length ==1 ){
+                hnum = "0" + hnum;
+           }
+           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+           mnum = Math.floor(minutes);
+           if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+           }
+           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+           snum = Math.round(seconds);
+           if(String(snum).length ==1 ){
+                snum = "0" + snum;
+           }
+           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+          }
+          setInterval("createtime()",250);
+       </script>
+    </div>
+ </div>
+ </footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【Python】基本数据结构和算法&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

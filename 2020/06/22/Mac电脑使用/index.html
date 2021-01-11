@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      7.1k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      125
+      128
        分钟
     </span>
   
@@ -565,8 +565,17 @@ index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
 trusted-host = mirrors.aliyun.com</code></pre>
 
+<h3 id="更新Python版本后-命令行下pip-命令报错"><a href="#更新Python版本后-命令行下pip-命令报错" class="headerlink" title="更新Python版本后,命令行下pip 命令报错"></a>更新Python版本后,命令行下pip 命令报错</h3><p>电脑中Python3由3.7更新到3.9后，在命令行下使用<code>pip list</code>报以下错误</p>
+<pre><code class="hljs gradle">zsh: <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span>pip: bad interpreter: <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/opt/</span>python<span class="hljs-regexp">/bin/</span>python3.<span class="hljs-number">7</span>: no such <span class="hljs-keyword">file</span> or directory</code></pre>
 
+<p>但是命令<code>pip3 list</code>可以正常使用，这是需要考虑<code>pip</code>指向的python设置是否正确</p>
+<pre><code class="hljs zsh"><span class="hljs-comment"># 查看pip命令配置文件</span>
+<span class="hljs-built_in">which</span> pip
+/usr/<span class="hljs-built_in">local</span>/bin/pip
+<span class="hljs-comment"># 查看pip3命令配置文件</span>
+/usr/<span class="hljs-built_in">local</span>/bin/pip3</code></pre>
 
+<p>对比发现/usr/local/bin/pip指向的python版本时3.7，/usr/local/bin/pip3指向的是正确的。因此，将/usr/local/bin/pip指向python版本的配置修改成/usr/local/bin/pip3指向的配置。</p>
 <h3 id="开发配置"><a href="#开发配置" class="headerlink" title="开发配置"></a>开发配置</h3><h4 id="Iterm2"><a href="#Iterm2" class="headerlink" title="Iterm2"></a>Iterm2</h4><h4 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh-my-zsh"></a>oh-my-zsh</h4><h4 id="tldr"><a href="#tldr" class="headerlink" title="tldr"></a>tldr</h4><h3 id="Catalina升级Sur-Big遇到的坑"><a href="#Catalina升级Sur-Big遇到的坑" class="headerlink" title="Catalina升级Sur Big遇到的坑"></a>Catalina升级Sur Big遇到的坑</h3><h4 id="Homebrew-1"><a href="#Homebrew-1" class="headerlink" title="Homebrew"></a>Homebrew</h4><h5 id="brew报错：-initialize’-Version-value-must-be-a-string-got-a-NilClass-TypeError"><a href="#brew报错：-initialize’-Version-value-must-be-a-string-got-a-NilClass-TypeError" class="headerlink" title="brew报错：`initialize’: Version value must be a string; got a NilClass () (TypeError)"></a>brew报错：`initialize’: Version value must be a string; got a NilClass () (TypeError)</h5><pre><code class="hljs Python">brew <span class="hljs-built_in">list</span>
 Traceback (most recent call last):
     <span class="hljs-number">11</span>: <span class="hljs-keyword">from</span> /usr/local/Homebrew/Library/Homebrew/brew.rb:<span class="hljs-number">23</span>:<span class="hljs-keyword">in</span> `&lt;main&gt;<span class="hljs-string">&#x27;</span>

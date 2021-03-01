@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.4k 字
+      4.5k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      75
+      78
        分钟
     </span>
   
@@ -216,7 +216,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="var与"><a href="#var与" class="headerlink" title="var与:="></a>var与:=</h4><ul>
+              <h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量<a id="more"></a></h3><h4 id="var与"><a href="#var与" class="headerlink" title="var与:="></a>var与:=</h4><ul>
 <li>:=方式较为简洁，但只能在函数内使用该方式，var方式没有这个限制，var方式定义在汉书外的变量属于包内部的变量</li>
 <li>函数中以:=方式定义变量为主</li>
 </ul>
@@ -299,6 +299,7 @@
 <span class="hljs-comment">// 输出</span>
 <span class="hljs-number">1</span> <span class="hljs-number">1024</span> <span class="hljs-number">1048576</span> <span class="hljs-number">1073741824</span> <span class="hljs-number">1099511627776</span></code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/variable.go">https://github.com/weitrue/note/blob/master/go/variable.go</a></p>
 <h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>指针不能运算</p>
 <pre><code class="hljs go"><span class="hljs-keyword">package</span> main
 
@@ -345,6 +346,7 @@
 	fmt.Println(a, b)
 &#125;</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/pointer.go">https://github.com/weitrue/note/blob/master/go/pointer.go</a></p>
 <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组定义</p>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">define</span><span class="hljs-params">()</span></span>  &#123;
 	<span class="hljs-keyword">var</span> arr1 [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>
@@ -423,6 +425,7 @@
 
 [<span class="hljs-number">100</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>]</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/collections/array.go">https://github.com/weitrue/note/blob/master/go/collections/array.go</a></p>
 <h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><ul>
 <li><p>slice可以向后扩展，但不能向前扩展</p>
 </li>
@@ -533,6 +536,7 @@ s6, s7, s8= [<span class="hljs-number">3</span> <span class="hljs-number">4</spa
 [<span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>], <span class="hljs-built_in">cap</span>(s2) = <span class="hljs-number">8</span>, <span class="hljs-built_in">len</span>(s2) = <span class="hljs-number">8</span>
 [<span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>], <span class="hljs-built_in">cap</span>(s4) = <span class="hljs-number">8</span>, <span class="hljs-built_in">len</span>(s4) = <span class="hljs-number">7</span></code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/collections/slices.go">https://github.com/weitrue/note/blob/master/go/collections/slices.go</a></p>
 <h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><ul>
 <li><p>创建<code>make(map[type]type)</code></p>
 </li>
@@ -564,6 +568,7 @@ main.mapDefine()
 main.main()
         /Users/wangpeng/Projects/golang/src/offer/note/ab_test_func.<span class="hljs-keyword">go</span>:<span class="hljs-number">32</span> +<span class="hljs-number">0x20</span></code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/collections/maps.go">https://github.com/weitrue/note/blob/master/go/collections/maps.go</a></p>
 <h4 id="Rune"><a href="#Rune" class="headerlink" title="Rune"></a>Rune</h4><p>字符串在UTF-8编码中，一个中文占三个字节，</p>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">strByte</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span></span>  &#123;
 	<span class="hljs-keyword">if</span> s == <span class="hljs-string">&quot;&quot;</span> &#123;
@@ -638,6 +643,7 @@ y e s , 我 喜 欢 你 ！
 	<span class="hljs-keyword">return</span> maxLength
 &#125;</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/collections/strings.go">https://github.com/weitrue/note/blob/master/go/collections/strings.go</a></p>
 <h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>仅<em>支持封装</em>，不支持继承和多态</p>
 <pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
 
@@ -709,6 +715,7 @@ main.main()
         ～/Projects/golang/src/offer/note/ab_test_func.<span class="hljs-keyword">go</span>:<span class="hljs-number">50</span> +<span class="hljs-number">0x1f</span>
 </code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/object/tree.go">https://github.com/weitrue/note/blob/master/go/object/tree.go</a></p>
 <h4 id="封装与包"><a href="#封装与包" class="headerlink" title="封装与包"></a>封装与包</h4><p>首字母大写:public，首字母小写:private</p>
 <p>为结构体定义的方法需要放在一个包下（可以是不同的文件）</p>
 <p>扩充系统类型或者自定义类型方式：定义别名和使用组合</p>
@@ -741,6 +748,7 @@ main.main()
 	node *Node
 &#125;</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/object/queue.go">https://github.com/weitrue/note/blob/master/go/object/queue.go</a></p>
 <h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><h4 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h4><p>接口由使用者定义</p>
 <p>​    Python的在运行时才能知道被调用的对象是否实现某个方法</p>
 <p>​    Java中编译前，调用的对象就必须实现接口所有方法</p>
@@ -898,6 +906,7 @@ asd
 这是一个鸭子 呱呱呱呱的叫
 Duck: &#123; name = , bark =  &#125;</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/tree/master/go/interfaces">https://github.com/weitrue/note/tree/master/go/interfaces</a></p>
 <h4 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h4><ul>
 <li><code>Stringer</code>相当于toString()</li>
 </ul>
@@ -1039,6 +1048,7 @@ Calling function main.main.func1 with params (<span class="hljs-number">3</span>
 	<span class="hljs-keyword">return</span> sum
 &#125;</code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/functions/func.go">https://github.com/weitrue/note/blob/master/go/functions/func.go</a></p>
 <h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p><img src="/images/Golang/func.png" srcset="/img/loading.gif"></p>
 <p>其中，<code>func(i int)</code>中<code>i</code>为局部变量，<code>sum</code>为自由变量</p>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">adder</span><span class="hljs-params">()</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;
@@ -1098,6 +1108,7 @@ Calling function main.main.func1 with params (<span class="hljs-number">3</span>
 <span class="hljs-number">0</span> + ... + <span class="hljs-number">8</span> = <span class="hljs-number">36</span> 
 <span class="hljs-number">0</span> + ... + <span class="hljs-number">9</span> = <span class="hljs-number">45</span></code></pre>
 
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/functions/closure.go">https://github.com/weitrue/note/blob/master/go/functions/closure.go</a></p>
 <h5 id="Python中的闭包"><a href="#Python中的闭包" class="headerlink" title="Python中的闭包"></a>Python中的闭包</h5><p>Python原生支持闭包</p>
 <p><code>__closure__</code>可以查看闭包内容</p>
 <pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">adder</span>():</span>

@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.4k 字
+      5.5k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      86
+      89
        分钟
     </span>
   
@@ -229,7 +229,6 @@
 <span class="hljs-string">Date: 2020/2/18 </span>
 <span class="hljs-string">Author: Wang P</span>
 <span class="hljs-string">&quot;&quot;&quot;</span>
-
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReverseString</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;</span>
@@ -277,8 +276,7 @@
     r = ReverseString()
     print(r.reverse_string([<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;h&#x27;</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;j&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>], <span class="hljs-literal">False</span>))</code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/strings.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/strings.py</a></p>
 <h3 id="Array-and-List"><a href="#Array-and-List" class="headerlink" title="Array and List"></a>Array and List</h3><h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><p>定长，操作有限，但是节省内存；貌似我的生涯中还没用过，不过python3.5中我试了确实有array类，可以用import array直接导入。</p>
 <h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>会预先分配内存，操作丰富，但是耗费内存。用sys.getsizeof做实验可以发现该结构非常类似C++ STL里的vector，是使用最频繁的数据结构。</p>
 <ul>
@@ -287,6 +285,7 @@
 <li>list.pop: pop不同位置需要的复杂度不同pop(0)是O(1)复杂度,pop()首位O(n)复杂度</li>
 <li>list[]: slice操作copy数据（预留空间）到另一个list</li>
 </ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/array_and_list.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/array_and_list.py</a></p>
 <h3 id="Sets-and-Maps"><a href="#Sets-and-Maps" class="headerlink" title="Sets and Maps"></a>Sets and Maps</h3><h4 id="sets-ADT"><a href="#sets-ADT" class="headerlink" title="sets ADT"></a>sets ADT</h4><p>A set is a container that stores a collection of unique values over a given comparable domain in which the stored values have no particular ordering.</p>
 <h4 id="Maps-or-Dict-ADT"><a href="#Maps-or-Dict-ADT" class="headerlink" title="Maps or Dict ADT"></a>Maps or Dict ADT</h4><p>python内部采用hash实现。</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
@@ -335,8 +334,7 @@
     print(lru_cache.items())
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/collections_examples/lru_cache.py">https://github.com/weitrue/note/blob/master/python/algorithm/collections_examples/lru_cache.py</a></p>
 <h3 id="Algorithm-Analysis"><a href="#Algorithm-Analysis" class="headerlink" title="Algorithm Analysis"></a>Algorithm Analysis</h3><p>一般使用大O标记法来衡量算法的平均时间复杂度, 1 &lt; log(n) &lt; n &lt; nlog(n) &lt; n^2 &lt; n^3 &lt; a^n。 了解常用数据结构操作的平均时间复杂度有利于使用更高效的数据结构，当然有时候需要在时间和空间上进行衡量，有些操作甚至还会退化，比如list的append操作，如果list空间不够，会去开辟新的空间，操作复杂度退化到O(n)，有时候还需要使用均摊分析(amortized)。</p>
 <h3 id="Searching"><a href="#Searching" class="headerlink" title="Searching"></a>Searching</h3><p>python内置了in操作符和bisect二分操作模块实现查找。</p>
 <pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span>
@@ -368,8 +366,7 @@
     l = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>]
     binary_search(l, <span class="hljs-number">8</span>)</code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/search/binary_search.py">https://github.com/weitrue/note/blob/master/python/algorithm/search/binary_search.py</a></p>
 <h3 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h3><p>python内置了sorted方法来实现排序操作。</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
 <span class="hljs-string">Module Description: 冒泡排序</span>
@@ -546,8 +543,7 @@
     print(t)
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/tree/master/python/algorithm/sort">https://github.com/weitrue/note/tree/master/python/algorithm/sort</a></p>
 <h3 id="Linked-Structure"><a href="#Linked-Structure" class="headerlink" title="Linked Structure"></a>Linked Structure</h3><p>list是最常用的数据结构，但是list在中间增减元素的时候效率会很低，这时候linked list会更适合，缺点就是获取元素的平均时间复杂度变成了O(n)。</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
 <span class="hljs-string">Module Description: 链表 </span>
@@ -766,8 +762,7 @@
     r_link.traversal()
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/link_list_cases.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/link_list_cases.py</a></p>
 <h3 id="Advanced-Linked-Lists"><a href="#Advanced-Linked-Lists" class="headerlink" title="Advanced Linked Lists"></a>Advanced Linked Lists</h3><h4 id="Doubly-Linked-List"><a href="#Doubly-Linked-List" class="headerlink" title="Doubly Linked List"></a>Doubly Linked List</h4><p>双链表，每个节点多了个prev指向前一个节点。双链表可以用来编写文本编辑器的buffer。</p>
 <h4 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h4><p>利用循环双端链表我们可以实现一个经典的缓存失效算法，lru：</p>
 <pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
@@ -847,8 +842,20 @@
         <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>)
       
       
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">35</span>):
-    print(fib(i))</code></pre>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>):
+    print(fib(i))
+    
+    
+<span class="hljs-comment"># 输出</span>
+<span class="hljs-number">1</span>
+<span class="hljs-number">1</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span>
+<span class="hljs-number">5</span>
+<span class="hljs-number">8</span>
+<span class="hljs-number">13</span>
+<span class="hljs-number">21</span>
+<span class="hljs-number">34</span></code></pre>
 
 
 
@@ -1000,8 +1007,7 @@
     print(obj.pop())
     print(obj.empty())</code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/stack_cases.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/stack_cases.py</a></p>
 <h3 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h3><p>队列也是经常使用的数据结构，比如发送消息等，celery可以使用redis提供的list实现消息队列。</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
 <span class="hljs-string">Module Description: 基于collections.deque实现队列</span>
@@ -1069,8 +1075,7 @@
     print(qu.pop())
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/queue_cases.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/queue_cases.py</a></p>
 <h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><p>二叉树，每个节点做多只有两个子节点</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
 <span class="hljs-string">Module Description: 二叉树的遍历：前序、中序、后序、层次遍历</span>
@@ -1234,8 +1239,7 @@
     bt.pre_order_travel(bt.root)
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/tree_cases.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/tree_cases.py</a></p>
 <h3 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h3><p>二叉树最直接的一个应用就是实现堆。堆就是一颗完全二叉树，最大堆的非叶子节点的值都比孩子大，最小堆的非叶子结点的值都比孩子小。 python内置了heapq模块帮助我们实现堆操作，比如用内置的heapq模块实现个堆排序</p>
 <pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
 <span class="hljs-string">Module Description: 获取大量元素中 top-n 大个元素，固定内存</span>
@@ -1275,8 +1279,7 @@
         <span class="hljs-keyword">return</span> self.min_heap
 </code></pre>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/heap_cases.py">https://github.com/weitrue/note/blob/master/python/algorithm/data_structure/heap_cases.py</a></p>
 <h3 id="Hash-Tables"><a href="#Hash-Tables" class="headerlink" title="Hash Tables"></a>Hash Tables</h3><p>基于比较的搜索（线性搜索，有序数组的二分搜索）最好的时间复杂度只能达到O(logn)，利用hash可以实现O(1)查找，python内置dict的实现方式就是hash，你会发现dict的key必须要是实现了 <code>__hash__</code> 和 <code>__eq__</code> 方法的。</p>
 <p>Hashing: hashing is the process of mapping a search a key to a limited range of array indeices with the goal of providing direct access to the keys.</p>
 <p>hash方法有个hash函数用来给key计算一个hash值，作为数组下标，放到该下标对应的槽中。当不同key根据hash函数计算得到的下标相同时，就出现了冲突。解决冲突有很多方式，比如让每个槽成为链表，每次冲突以后放到该槽链表的尾部，但是查询时间就会退化，不再是O(1)。还有一种探查方式，当key的槽冲突时候，就会根据一种计算方式去寻找下一个空的槽存放，探查方式有线性探查，二次方探查法等，cpython解释器使用的是二次方探查法。还有一个问题就是当python使用的槽数量大于预分配的2/3时候，会重新分配内存并拷贝以前的数据，所以有时候dict的add操作代价还是比较高的，牺牲空间但是可以始终保证O(1)的查询效率。如果有大量的数据，建议还是使用bloomfilter或者redis提供的HyperLogLog。</p>

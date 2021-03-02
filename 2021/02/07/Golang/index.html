@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.5k 字
+      7.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      78
+      130
        分钟
     </span>
   
@@ -1165,7 +1165,297 @@ Calling function main.main.func1 with params (<span class="hljs-number">3</span>
     &#125;
 &#125;</code></pre>
 
-<h4 id="闭包应用"><a href="#闭包应用" class="headerlink" title="闭包应用"></a>闭包应用</h4><h6 id="为函数实现接口"><a href="#为函数实现接口" class="headerlink" title="为函数实现接口"></a>为函数实现接口</h6><h6 id="实现函数遍历二叉树"><a href="#实现函数遍历二叉树" class="headerlink" title="实现函数遍历二叉树"></a>实现函数遍历二叉树</h6><h3 id="简单的web服务"><a href="#简单的web服务" class="headerlink" title="简单的web服务"></a>简单的web服务</h3><h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="gopm-获取无法下载的包"><a href="#gopm-获取无法下载的包" class="headerlink" title="gopm 获取无法下载的包"></a>gopm 获取无法下载的包</h4><p><code>go get -v github.com/gpmgo/gopm</code></p>
+<h4 id="闭包应用"><a href="#闭包应用" class="headerlink" title="闭包应用"></a>闭包应用</h4><h6 id="为函数实现接口"><a href="#为函数实现接口" class="headerlink" title="为函数实现接口"></a>为函数实现接口</h6><h6 id="实现函数遍历二叉树"><a href="#实现函数遍历二叉树" class="headerlink" title="实现函数遍历二叉树"></a>实现函数遍历二叉树</h6><h3 id="defer-recover在简单web服务应用"><a href="#defer-recover在简单web服务应用" class="headerlink" title="defer/recover在简单web服务应用"></a>defer/recover在简单web服务应用</h3><p>代码结构<img src="/images/Golang/web.jpg" srcset="/img/loading.gif"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/tree/master/go/web/">https://github.com/weitrue/note/tree/master/go/web/</a></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><em>表格驱动</em>测试</p>
+<pre><code class="hljs golang"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestMaxNoRepeatedZhn</span><span class="hljs-params">(t *testing.T)</span></span> &#123;
+	tests := []<span class="hljs-keyword">struct</span>&#123;
+		s <span class="hljs-keyword">string</span>
+		ans <span class="hljs-keyword">int</span>
+	&#125;&#123;
+		&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>&#125;,
+		&#123;<span class="hljs-string">&quot;yes, 我爱gogogo&quot;</span>, <span class="hljs-number">9</span>&#125;,
+		&#123;<span class="hljs-string">&quot;abcadcb&quot;</span>, <span class="hljs-number">4</span>&#125;,
+		&#123;<span class="hljs-string">&quot;黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花&quot;</span>, <span class="hljs-number">8</span>&#125;,
+	&#125;
+
+	<span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests &#123;
+		act := MaxNoRepeatedZhn(tt.s)
+		<span class="hljs-keyword">if</span> act != tt.ans &#123;
+			t.Errorf(<span class="hljs-string">&quot;get %d for input %s , but expect %d&quot;</span>, act, tt.s, tt.ans)
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-comment">// 输出</span>
+=== RUN   TestMaxNoRepeatedZhn
+--- PASS: TestMaxNoRepeatedZhn (<span class="hljs-number">0.00</span>s)
+PASS</code></pre>
+
+
+
+<h4 id="覆盖测试"><a href="#覆盖测试" class="headerlink" title="覆盖测试"></a>覆盖测试</h4><p><code>go tool cover</code></p>
+<pre><code class="hljs zsh">Usage of <span class="hljs-string">&#x27;go tool cover&#x27;</span>:
+Given a coverage profile produced by <span class="hljs-string">&#x27;go test&#x27;</span>:
+        go <span class="hljs-built_in">test</span> -coverprofile=c.out
+
+Open a web browser displaying annotated <span class="hljs-built_in">source</span> code:
+        go tool cover -html=c.out    <span class="hljs-comment"># 常用</span>
+
+Write out an HTML file instead of launching a web browser:
+        go tool cover -html=c.out -o coverage.html
+
+Display coverage percentages to stdout <span class="hljs-keyword">for</span> each <span class="hljs-keyword">function</span>:
+        go tool cover -func=c.out
+
+Finally, to generate modified <span class="hljs-built_in">source</span> code with coverage annotations
+(what go <span class="hljs-built_in">test</span> -cover does):
+        go tool cover -mode=<span class="hljs-built_in">set</span> -var=CoverageVariableName program.go
+
+Flags:
+  -V    <span class="hljs-built_in">print</span> version and <span class="hljs-built_in">exit</span>
+  -func string
+        output coverage profile information <span class="hljs-keyword">for</span> each <span class="hljs-keyword">function</span>
+  -html string
+        generate HTML representation of coverage profile
+  -mode string
+        coverage mode: <span class="hljs-built_in">set</span>, count, atomic
+  -o string
+        file <span class="hljs-keyword">for</span> output; default: stdout
+  -var string
+        name of coverage variable to generate (default <span class="hljs-string">&quot;GoCover&quot;</span>)
+
+  Only one of -html, -func, or -mode may be <span class="hljs-built_in">set</span>.
+</code></pre>
+
+<h4 id="Benchmark"><a href="#Benchmark" class="headerlink" title="Benchmark"></a><code>Benchmark</code></h4><pre><code class="hljs golang"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMaxNoRepeatedZhn</span><span class="hljs-params">(b *testing.B)</span></span> &#123;
+	s := <span class="hljs-string">&quot;黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花&quot;</span>
+	ans := <span class="hljs-number">8</span>
+
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;
+		act := MaxNoRepeatedZhn(s)
+		<span class="hljs-keyword">if</span> act != ans &#123;
+			b.Errorf(<span class="hljs-string">&quot;get %d for input %s , but expect %d&quot;</span>, act, s, ans)
+		&#125;
+	&#125;
+&#125;
+
+
+<span class="hljs-comment">// 输出</span>
+goos: darwin
+goarch: amd64
+pkg: offer/note/collections
+BenchmarkMaxNoRepeatedZhn
+BenchmarkMaxNoRepeatedZhn<span class="hljs-number">-8</span>   	 <span class="hljs-number">1097594</span>	      <span class="hljs-number">1024</span> ns/op
+PASS</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/collections/strings_test.go">https://github.com/weitrue/note/collections/strings_test.go</a></p>
+<h4 id="pprof性能测试"><a href="#pprof性能测试" class="headerlink" title="pprof性能测试"></a>pprof性能测试</h4><pre><code class="hljs zsh">xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note/collections master ±✚ go <span class="hljs-built_in">test</span> -bench . -cpuprofile cpu.out
+goos: darwin
+goarch: amd64
+pkg: offer/note/collections
+BenchmarkMaxNoRepeatedZhn-8      1286594               934 ns/op
+PASS
+ok      offer/note/collections  2.656s
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note/collections master ±✚ go tool pprof cpu.out               
+Type: cpu
+Time: Mar 2, 2021 at 6:03pm (CST)
+Duration: 2.34s, Total samples = 2.05s (87.57%)
+Entering interactive mode (<span class="hljs-built_in">type</span> <span class="hljs-string">&quot;help&quot;</span> <span class="hljs-keyword">for</span> commands, <span class="hljs-string">&quot;o&quot;</span> <span class="hljs-keyword">for</span> options)
+(pprof) web
+failed to execute dot. Is Graphviz installed? Error: <span class="hljs-built_in">exec</span>: <span class="hljs-string">&quot;dot&quot;</span>: executable file not found <span class="hljs-keyword">in</span> <span class="hljs-variable">$PATH</span>
+(pprof)</code></pre>
+
+<p>☞<code>failed to execute dot. Is Graphviz installed? Error: exec: &quot;dot&quot;: executable file not found in $PATH</code>是因为电脑未安装生成.svg文件的工具<code>Graphviz</code></p>
+<h5 id="安装-Graphviz"><a href="#安装-Graphviz" class="headerlink" title="安装`Graphviz``"></a>安装`Graphviz``</h5><pre><code class="hljs zsh">brew install graphviz
+
+
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/github.com  brew install graphviz
+Error:
+  homebrew-core is a shallow <span class="hljs-built_in">clone</span>.
+  homebrew-cask is a shallow <span class="hljs-built_in">clone</span>.
+To `brew update`, first run:
+  git -C /usr/<span class="hljs-built_in">local</span>/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+  git -C /usr/<span class="hljs-built_in">local</span>/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+These commands may take a few minutes to run due to the large size of the repositories.
+This restriction has been made on GitHub<span class="hljs-string">&#x27;s request because updating shallow</span>
+<span class="hljs-string">clones is an extremely expensive operation due to the tree layout and traffic of</span>
+<span class="hljs-string">Homebrew/homebrew-core and Homebrew/homebrew-cask. We don&#x27;</span>t <span class="hljs-keyword">do</span> this <span class="hljs-keyword">for</span> you
+automatically to avoid repeatedly performing an expensive unshallow operation <span class="hljs-keyword">in</span>
+CI systems (<span class="hljs-built_in">which</span> should instead be fixed to not use shallow clones). Sorry <span class="hljs-keyword">for</span>
+the inconvenience!
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libpng-1.6.37.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/freetype-2.10.4.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fontconfig-2.13.1.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jpeg-9d.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+<span class="hljs-comment">#########################################                                 58.1%</span>
+curl: (56) LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Error: Failed to download resource <span class="hljs-string">&quot;libtiff&quot;</span>
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://download.osgeo.org/libtiff/tiff-4.1.0.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/webp-1.1.0.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gd-2.3.0.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libffi-3.3.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pcre-8.44.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+<span class="hljs-comment">##########                                                                14.5%</span>
+curl: (56) LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Error: Failed to download resource <span class="hljs-string">&quot;glib&quot;</span>
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://raw.githubusercontent.com/Homebrew/formula-patches/6164294a75541c278f3863b111791376caa3ad26/glib/hardcoded-paths.diff
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://download.gnome.org/sources/glib/2.66/glib-2.66.2.tar.xz
+==&gt; Downloading from https://mirrors.ustc.edu.cn/gnome/sources/glib/2.66/glib-2.66.2.tar.xz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jasper-2.0.22.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/ad3715537b3001b9a8924896e5c4e7eb90b21bb37e7171d964de2008edb13910?response-content-disposition=attachment%3Bfilename%3D%22jasper-2.0.22.big_sur.bo
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/netpbm-10.86.17.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/3540b31b88e9d8fc7288de5dac7b96be6f1c6652c604cfd167113bdf07738ca7?response-content-disposition=attachment%3Bfilename%3D%22netpbm-10.86.17.big_sur.
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gts-0.7.6_2.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/lzo-2.10.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pixman-0.40.0.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/cairo-1.16.0_3.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/1819bb48f7487d522a69c564dca6fe5dff4da658269f067e47edccddfaab9440?response-content-disposition=attachment%3Bfilename%3D%22gdk-pixbuf-2.42.0.big_su
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fribidi-1.0.10.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphite2-1.3.14.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/icu4c-67.1.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/harfbuzz-2.7.2.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pango-1.48.0.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+<span class="hljs-comment">#####################                                                     29.6%</span>
+curl: (18) transfer closed with 28187304 bytes remaining to <span class="hljs-built_in">read</span>
+Error: Failed to download resource <span class="hljs-string">&quot;librsvg&quot;</span>
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://download.gnome.org/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+==&gt; Downloading from https://mirrors.ustc.edu.cn/gnome/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtool-2.4.6_2.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphviz-2.44.1.big_sur.bottle.1.tar.gz
+<span class="hljs-comment">######################################                                    52.9%</span>
+curl: (18) transfer closed with 6363689 bytes remaining to <span class="hljs-built_in">read</span>
+Error: Failed to download resource <span class="hljs-string">&quot;graphviz&quot;</span>
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphviz-2.44.1.big_sur.bottle.1.tar.gz
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/autoconf-2.69.big_sur.bottle.4.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/automake-1.16.3.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/c393e3a39326eab27929f0f2ce40cb425e78bd8812166e6d835a08a8bf0c5f56--pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libpng-1.6.37.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/3bd2e2a75fbfc893d9acc20eeafc5274e260ed2ca39483ccbb1450a734bc6775--libpng-1.6.37.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/freetype-2.10.4.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1399fc577f7998623378e7bb01f8a716a43eff701304059936d592a76d5a4d31--freetype-2.10.4.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fontconfig-2.13.1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/3790f4e94c8e7c868307933e3445a1244aadd794adaa6ed5f743533334489f93--fontconfig-2.13.1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jpeg-9d.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/7ed5b41c2937740eca747a8077502454971fbbe02cfb5cfbd9b9e7379345d0cd--jpeg-9d.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/webp-1.1.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1ae441623b4c63d896b5566300b24c06d772ff9f2676d7c9bd692ff6b8e22edb--webp-1.1.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gd-2.3.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/d71eed744db212a24cc7f607842253aacf0e1d25cd7891c884ec7ffc969162ac--gd-2.3.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libffi-3.3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/49892306006d42a1f69ae4b36ff44b37c8e7170f6cf73a20e97f10bf9fa10e72--libffi-3.3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pcre-8.44.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9998b74590fa558f4c346e9770a62495d4aca8e992d0e883435e3574303ee241--pcre-8.44.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jasper-2.0.22.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/86ba13e63264cbcafb0dbec9e35960e2662f9e4bde0306bd52984bf487e6581a--jasper-2.0.22.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/netpbm-10.86.17.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9f8fa63491038e9bb811b03f09660342641c7f8132169bdb3800631d8d2b189e--netpbm-10.86.17.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gts-0.7.6_2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/eab94b3870ce0c63232e9a992963c8a32ea53a7efa8a09e639066b40ae0a132b--gts-0.7.6_2.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/lzo-2.10.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/0020e09d8a2c473efa8db2af4b402358f5184578c801c7a7650de6c8bedca06a--lzo-2.10.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pixman-0.40.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/ddf94c89d763f2c63c00ce2090ff16d5abd832ca0e1e9beb2245da3cc159ce41--pixman-0.40.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/cairo-1.16.0_3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/8ad096f68fcc70615ff77f14b50eafbed94e4a261c7860dcda41ba25c7d12f52--cairo-1.16.0_3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/fb191d15b537de812241fe664f4149209c4d58ce3fbdd5e98a292fe495420f39--gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fribidi-1.0.10.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9013c8a0aeb1d2fee9a999ef14adfb2416fef4e8399d87a65d753d44a586427b--fribidi-1.0.10.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/a7f9a1bcb83a7d322e495d163f15b4b8f4d0c05649eeacfcef2681a23b3eb8dd--gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphite2-1.3.14.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/5ce053636ab73845d956142cfd518a21701d3ec972e73367d204b81619b8b845--graphite2-1.3.14.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/icu4c-67.1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/ddca8d436054c0f9c8c333d2e8dd957ccd3902680baf619e4baed434c9806998--icu4c-67.1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/harfbuzz-2.7.2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1aead0f1ab97b4307a9c487a3191213ff63fd200d5eb9be947a11e8ca78df24a--harfbuzz-2.7.2.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pango-1.48.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/eded163bf136aa7a73e07f22c8b16f3a406bbd849b865246a95ee89ecd60aa4e--pango-1.48.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+<span class="hljs-comment">###################################################                       71.3%</span>
+curl: (18) transfer closed with 11492026 bytes remaining to <span class="hljs-built_in">read</span>
+Error: Failed to download resource <span class="hljs-string">&quot;librsvg&quot;</span>
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://download.gnome.org/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/0388827e738392e3705cbb8800e43f279723caf5126ba50c7cd4e1ca5e2af872--librsvg-2.50.2.tar.xz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtool-2.4.6_2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/59a8e4e9bff6153b4cb25fda4de99648330e04fefdd7e9c98f92fa4d049a9f30--libtool-2.4.6_2.big_sur.bottle.tar.gz</code></pre>
+
+
+
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p><code>godoc -http :6060</code>,生成网页文档</p>
+<p><img src="/images/Golang/doc.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/images/Golang/doc1.jpg" srcset="/img/loading.gif"></p>
+<p><code>go doc 方法名（包括包名）</code>,查看方法注释</p>
+<p><img src="/images/Golang/doc2.jpg" srcset="/img/loading.gif"></p>
+<p><code>xxx_test.go</code>生成示例</p>
+<pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExampleQueue_Pop</span><span class="hljs-params">()</span></span> &#123;
+	q := Queue&#123;&#125;
+	_ = q.Push(<span class="hljs-string">&quot;asd&quot;</span>)
+	_ = q.Push(<span class="hljs-number">123</span>)
+	<span class="hljs-keyword">if</span> v, ok := q.Pop(); ok &#123;
+		fmt.Println(v)
+	&#125;
+	<span class="hljs-keyword">if</span> v, ok := q.Pop(); ok &#123;
+		fmt.Println(v)
+	&#125;
+
+	<span class="hljs-comment">//Output:</span>
+	<span class="hljs-comment">//asd</span>
+	<span class="hljs-comment">//123</span>
+&#125;</code></pre>
+
+<p><img src="/images/Golang/doc_output.jpg" srcset="/img/loading.gif"></p>
+<h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="gopm-获取无法下载的包"><a href="#gopm-获取无法下载的包" class="headerlink" title="gopm 获取无法下载的包"></a>gopm 获取无法下载的包</h4><p><code>go get -v github.com/gpmgo/gopm</code></p>
 <p>安装踩坑：</p>
 <pre><code class="hljs zsh">github.com/codegangsta/cli: github.com/codegangsta/cli@v1.22.5: parsing go.mod:
 		module declares its path as: github.com/urfave/cli

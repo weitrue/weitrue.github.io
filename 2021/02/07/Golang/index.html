@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.2k 字
+      10.7k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      130
+      196
        分钟
     </span>
   
@@ -1267,7 +1267,7 @@ failed to execute dot. Is Graphviz installed? Error: <span class="hljs-built_in"
 (pprof)</code></pre>
 
 <p>☞<code>failed to execute dot. Is Graphviz installed? Error: exec: &quot;dot&quot;: executable file not found in $PATH</code>是因为电脑未安装生成.svg文件的工具<code>Graphviz</code></p>
-<h5 id="安装-Graphviz"><a href="#安装-Graphviz" class="headerlink" title="安装`Graphviz``"></a>安装`Graphviz``</h5><pre><code class="hljs zsh">brew install graphviz
+<h5 id="安装Graphviz"><a href="#安装Graphviz" class="headerlink" title="安装Graphviz"></a>安装<code>Graphviz</code></h5><pre><code class="hljs zsh">brew install graphviz
 
 
 xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/github.com  brew install graphviz
@@ -1428,9 +1428,174 @@ Warning: Bottle installation failed: building from <span class="hljs-built_in">s
 ==&gt; Downloading https://download.gnome.org/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
 Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/0388827e738392e3705cbb8800e43f279723caf5126ba50c7cd4e1ca5e2af872--librsvg-2.50.2.tar.xz
 ==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtool-2.4.6_2.big_sur.bottle.tar.gz
-Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/59a8e4e9bff6153b4cb25fda4de99648330e04fefdd7e9c98f92fa4d049a9f30--libtool-2.4.6_2.big_sur.bottle.tar.gz</code></pre>
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/59a8e4e9bff6153b4cb25fda4de99648330e04fefdd7e9c98f92fa4d049a9f30--libtool-2.4.6_2.big_sur.bottle.tar.gz
+==&gt; Downloading https://www2.graphviz.org/Packages/stable/portable_source/graphviz-2.44.1.tar.gz
+<span class="hljs-comment">####################                                                      28.5%</span>
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; Installing dependencies <span class="hljs-keyword">for</span> graphviz: autoconf, automake, pkg-config, libpng, freetype, fontconfig, jpeg, libtiff, webp, gd, libffi, pcre, glib, jasper, netpbm, gts, lzo, pixman, cairo, gdk-pixbuf, fribidi, gobject-introspection, graphite2, icu4c, harfbuzz, pango, librsvg and libtool
+==&gt; Installing graphviz dependency: autoconf
+==&gt; Pouring autoconf-2.69.big_sur.bottle.4.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/autoconf/2.69: 68 files, 3.0MB
+==&gt; Installing graphviz dependency: automake
+==&gt; Pouring automake-1.16.3.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/automake/1.16.3: 131 files, 3.4MB
+==&gt; Installing graphviz dependency: pkg-config
+==&gt; Pouring pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/pkg-config/0.29.2_3: 11 files, 656.6KB
+==&gt; Installing graphviz dependency: libpng
+==&gt; Pouring libpng-1.6.37.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/libpng/1.6.37: 27 files, 1.3MB
+==&gt; Installing graphviz dependency: freetype
+==&gt; Pouring freetype-2.10.4.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/freetype/2.10.4: 64 files, 2.3MB
+==&gt; Installing graphviz dependency: fontconfig
+==&gt; Pouring fontconfig-2.13.1.big_sur.bottle.tar.gz
+==&gt; Regenerating font cache, this may take a <span class="hljs-keyword">while</span>
+==&gt; /usr/<span class="hljs-built_in">local</span>/Cellar/fontconfig/2.13.1/bin/fc-cache -frv
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/fontconfig/2.13.1: 531 files, 3.6MB
+==&gt; Installing graphviz dependency: jpeg
+==&gt; Pouring jpeg-9d.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/jpeg/9d: 21 files, 953.8KB
+==&gt; Installing graphviz dependency: libtiff
+==&gt; Pouring libtiff-4.1.0_1.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/libtiff/4.1.0_1: 247 files, 4.2MB
+==&gt; Installing graphviz dependency: webp
+==&gt; Pouring webp-1.1.0.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/webp/1.1.0: 39 files, 2.4MB
+==&gt; Installing graphviz dependency: gd
+==&gt; Pouring gd-2.3.0.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/gd/2.3.0: 34 files, 1.4MB
+==&gt; Installing graphviz dependency: libffi
+==&gt; Pouring libffi-3.3.big_sur.bottle.tar.gz
+==&gt; Caveats
+libffi is keg-only, <span class="hljs-built_in">which</span> means it was not symlinked into /usr/<span class="hljs-built_in">local</span>,
+because macOS already provides this software and installing another version <span class="hljs-keyword">in</span>
+parallel can cause all kinds of trouble.
 
+For compilers to find libffi you may need to <span class="hljs-built_in">set</span>:
+  <span class="hljs-built_in">export</span> LDFLAGS=<span class="hljs-string">&quot;-L/usr/local/opt/libffi/lib&quot;</span>
+  <span class="hljs-built_in">export</span> CPPFLAGS=<span class="hljs-string">&quot;-I/usr/local/opt/libffi/include&quot;</span>
 
+For pkg-config to find libffi you may need to <span class="hljs-built_in">set</span>:
+  <span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-string">&quot;/usr/local/opt/libffi/lib/pkgconfig&quot;</span>
+
+==&gt; Summary
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/libffi/3.3: 17 files, 540.2KB
+==&gt; Installing graphviz dependency: pcre
+==&gt; Pouring pcre-8.44.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/pcre/8.44: 204 files, 5.8MB
+==&gt; Installing graphviz dependency: glib
+==&gt; Pouring glib-2.66.2_1.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/glib/2.66.2_1: 436 files, 15.5MB
+==&gt; Installing graphviz dependency: jasper
+==&gt; Pouring jasper-2.0.22.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/jasper/2.0.22: 42 files, 1.5MB
+==&gt; Installing graphviz dependency: netpbm
+==&gt; Pouring netpbm-10.86.17.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/netpbm/10.86.17: 410 files, 17.7MB
+==&gt; Installing graphviz dependency: gts
+==&gt; Pouring gts-0.7.6_2.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/gts/0.7.6_2: 27 files, 1.4MB
+==&gt; Installing graphviz dependency: lzo
+==&gt; Pouring lzo-2.10.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/lzo/2.10: 31 files, 570.7KB
+==&gt; Installing graphviz dependency: pixman
+==&gt; Pouring pixman-0.40.0.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/pixman/0.40.0: 14 files, 1.3MB
+==&gt; Installing graphviz dependency: cairo
+==&gt; Pouring cairo-1.16.0_3.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/cairo/1.16.0_3: 119 files, 5.9MB
+==&gt; Installing graphviz dependency: gdk-pixbuf
+==&gt; Pouring gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; /usr/<span class="hljs-built_in">local</span>/Cellar/gdk-pixbuf/2.42.0/bin/gdk-pixbuf-query-loaders --update-cache
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/gdk-pixbuf/2.42.0: 149 files, 3.8MB
+==&gt; Installing graphviz dependency: fribidi
+==&gt; Pouring fribidi-1.0.10.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/fribidi/1.0.10: 67 files, 669.0KB
+==&gt; Installing graphviz dependency: gobject-introspection
+==&gt; Pouring gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/gobject-introspection/1.66.1_1: 191 files, 12.7MB
+==&gt; Installing graphviz dependency: graphite2
+==&gt; Pouring graphite2-1.3.14.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/graphite2/1.3.14: 18 files, 291.7KB
+==&gt; Installing graphviz dependency: icu4c
+==&gt; Pouring icu4c-67.1.big_sur.bottle.tar.gz
+==&gt; Caveats
+icu4c is keg-only, <span class="hljs-built_in">which</span> means it was not symlinked into /usr/<span class="hljs-built_in">local</span>,
+because macOS provides libicucore.dylib (but nothing <span class="hljs-keyword">else</span>).
+
+If you need to have icu4c first <span class="hljs-keyword">in</span> your PATH run:
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;/usr/local/opt/icu4c/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.zshrc
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;/usr/local/opt/icu4c/sbin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.zshrc
+
+For compilers to find icu4c you may need to <span class="hljs-built_in">set</span>:
+  <span class="hljs-built_in">export</span> LDFLAGS=<span class="hljs-string">&quot;-L/usr/local/opt/icu4c/lib&quot;</span>
+  <span class="hljs-built_in">export</span> CPPFLAGS=<span class="hljs-string">&quot;-I/usr/local/opt/icu4c/include&quot;</span>
+
+For pkg-config to find icu4c you may need to <span class="hljs-built_in">set</span>:
+  <span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-string">&quot;/usr/local/opt/icu4c/lib/pkgconfig&quot;</span>
+
+==&gt; Summary
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/icu4c/67.1: 258 files, 71.8MB
+==&gt; Installing graphviz dependency: harfbuzz
+==&gt; Pouring harfbuzz-2.7.2.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/harfbuzz/2.7.2: 68 files, 6.4MB
+==&gt; Installing graphviz dependency: pango
+==&gt; Pouring pango-1.48.0.big_sur.bottle.tar.gz
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/pango/1.48.0: 64 files, 3MB
+==&gt; Installing graphviz dependency: librsvg
+==&gt; Pouring librsvg-2.50.2.big_sur.bottle.tar.gz
+tar: Error opening archive: Failed to open <span class="hljs-string">&#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz&#x27;</span>
+Error: Failure <span class="hljs-keyword">while</span> executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-102pbtw` exited with 1. Here<span class="hljs-string">&#x27;s the output:</span>
+<span class="hljs-string">tar: Error opening archive: Failed to open &#x27;</span>/Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz<span class="hljs-string">&#x27;</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Warning: Bottle installation failed: building from source.</span>
+<span class="hljs-string">==&gt; Installing dependencies for librsvg: libssh2 and rust</span>
+<span class="hljs-string">==&gt; Installing librsvg dependency: libssh2</span>
+<span class="hljs-string">==&gt; Pouring libssh2-1.9.0_1.big_sur.bottle.tar.gz</span>
+<span class="hljs-string">tar: Error opening archive: Failed to open &#x27;</span>/Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz<span class="hljs-string">&#x27;</span>
+<span class="hljs-string">Error: Failure while executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-qzrgbb` exited with 1. Here&#x27;</span>s the output:
+tar: Error opening archive: Failed to open <span class="hljs-string">&#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz&#x27;</span>
+
+Warning: Bottle installation failed: building from <span class="hljs-built_in">source</span>.
+==&gt; Downloading https://libssh2.org/download/libssh2-1.9.0.tar.gz
+<span class="hljs-comment">######################################################################## 100.0%</span>
+==&gt; ./configure --prefix=/usr/<span class="hljs-built_in">local</span>/Cellar/libssh2/1.9.0_1 --disable-examples-build --with-openssl --with-libz --with-libssl-prefix=/usr/<span class="hljs-built_in">local</span>/opt/openssl@1.1
+==&gt; make install
+🍺  /usr/<span class="hljs-built_in">local</span>/Cellar/libssh2/1.9.0_1: 184 files, 969.9KB, built <span class="hljs-keyword">in</span> 33 seconds
+==&gt; Installing librsvg dependency: rust
+==&gt; Pouring rust-1.47.0.big_sur.bottle.tar.gz
+tar: Error opening archive: Failed to open <span class="hljs-string">&#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz&#x27;</span>
+Error: Failure <span class="hljs-keyword">while</span> executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-16tqegl` exited with 1. Here<span class="hljs-string">&#x27;s the output:</span>
+<span class="hljs-string">tar: Error opening archive: Failed to open &#x27;</span>/Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz<span class="hljs-string">&#x27;</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Warning: Bottle installation failed: building from source.</span>
+<span class="hljs-string">==&gt; Downloading https://static.rust-lang.org/dist/rustc-1.47.0-src.tar.gz</span>
+<span class="hljs-string">######################################################################## 100.0%</span>
+<span class="hljs-string">==&gt; ./configure --prefix=/usr/local/Cellar/rust/1.47.0 --release-channel=stable</span>
+<span class="hljs-string">==&gt; make</span>
+<span class="hljs-string">Last 15 lines from /Users/wangpeng/Library/Logs/Homebrew/rust/02.make:</span>
+<span class="hljs-string">error: failed to get `cc` as a dependency of package `bootstrap v0.0.0 (/private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/src/bootstrap)`</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Caused by:</span>
+<span class="hljs-string">  failed to fetch `https://github.com/rust-lang/crates.io-index`</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Caused by:</span>
+<span class="hljs-string">  network failure seems to have happened</span>
+<span class="hljs-string">  if a proxy or similar is necessary `net.git-fetch-with-cli` may help here</span>
+<span class="hljs-string">  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Caused by:</span>
+<span class="hljs-string">  http parser error: stream ended at an unexpected time; class=Http (34)</span>
+<span class="hljs-string">failed to run: /private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/build/x86_64-apple-darwin/stage0/bin/cargo build --manifest-path /private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/src/bootstrap/Cargo.toml</span>
+<span class="hljs-string">Build completed unsuccessfully in 0:33:17</span>
+<span class="hljs-string">make: *** [all] Error 1</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">READ THIS: https://docs.brew.sh/Troubleshooting</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">These open issues may also help:</span>
+<span class="hljs-string">rust 1.50.0 https://github.com/Homebrew/homebrew-core/pull/70922</span>
+<span class="hljs-string">Rust-dependent formulae on Apple Silicon - upstream issue tracker https://github.com/Homebrew/homebrew-core/issues/68301</span></code></pre>
 
 <h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p><code>godoc -http :6060</code>,生成网页文档</p>
 <p><img src="/images/Golang/doc.jpg" srcset="/img/loading.gif"></p>
@@ -1455,6 +1620,533 @@ Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/59a8e4e9bf
 &#125;</code></pre>
 
 <p><img src="/images/Golang/doc_output.jpg" srcset="/img/loading.gif"></p>
+<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h3><p><img src="/images/Golang/goroutine.png" srcset="/img/loading.gif"></p>
+<h4 id="协程-Coroutine"><a href="#协程-Coroutine" class="headerlink" title="协程 Coroutine"></a>协程 <code>Coroutine</code></h4><ul>
+<li><p><em>轻量级</em>线程</p>
+</li>
+<li><p><strong>非抢占式</strong>多任务处理，由协程主动交出控制权</p>
+</li>
+<li><p>编译器/解释器/虚拟机层的多任务</p>
+</li>
+<li><p>多个协程可以在一个或者多个线程上运行</p>
+</li>
+</ul>
+<h5 id="其他语言对协程的支持"><a href="#其他语言对协程的支持" class="headerlink" title="其他语言对协程的支持"></a>其他语言对协程的支持</h5><p><code>Java</code>：标准库不支持</p>
+<p><code>Python</code>：3.5版本前使用yield关键字</p>
+<p>​                 3.5以后， <code>async def 方法名</code>实现协程的原生支持</p>
+<h5 id="可能切换goroutine的事件"><a href="#可能切换goroutine的事件" class="headerlink" title="可能切换goroutine的事件"></a>可能切换<code>goroutine</code>的事件</h5><ul>
+<li><p><code>I/O, Select</code></p>
+</li>
+<li><p><code>channel</code></p>
+</li>
+<li><p>等待锁</p>
+</li>
+<li><p>函数调用</p>
+</li>
+<li><p><code>runtime.Gosched()</code></p>
+</li>
+<li><p><code>.e.g</code></p>
+</li>
+</ul>
+<pre><code class="hljs golang"><span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i ++ &#123;
+		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>)</span></span> &#123;
+			<span class="hljs-keyword">for</span>&#123;
+				fmt.Println(<span class="hljs-string">&quot;go run from&quot;</span>, j)
+			&#125;
+		&#125;(i)
+	&#125;
+	time.Sleep(time.Minute)
+&#125;</code></pre>
+
+<h4 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h4><p><img src="/images/Golang/channel.png" srcset="/img/loading.gif"></p>
+ <pre><code class="hljs golang"><span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">works</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-comment">// 不断的从channel取</span>
+	<span class="hljs-keyword">for</span>  &#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, &lt;-c)
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotClose</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span>  &#123;
+		n, ok := &lt;-c
+		<span class="hljs-keyword">if</span> !ok&#123;
+			<span class="hljs-keyword">break</span>
+		&#125;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotCloseSimple</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorks</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">chan</span>&lt;- <span class="hljs-title">int</span></span> &#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
+	<span class="hljs-keyword">go</span> works(id, c)
+	<span class="hljs-keyword">return</span> c
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">first</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 创建channel用例</span>
+	<span class="hljs-keyword">var</span> chans [<span class="hljs-number">10</span>]<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	<span class="hljs-keyword">for</span>  i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chans[i] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
+		<span class="hljs-keyword">go</span> works(i, chans[i])
+	&#125;
+	<span class="hljs-comment">// 往channel放</span>
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chans[i] &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+	&#125;
+	<span class="hljs-comment">// 往channel放</span>
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chans[i] &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">second</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> chann [<span class="hljs-number">10</span>] <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-keyword">int</span>
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chann[i] = createWorks(i)
+	&#125;
+
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chann[i] &lt;- <span class="hljs-string">&#x27;k&#x27;</span> + i
+	&#125;
+
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		chann[i] &lt;- <span class="hljs-string">&#x27;K&#x27;</span> + i
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">thirdBufferedChannel</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-comment">// channel缓冲区   可以放入不大于缓冲区的大小时，可以不用取</span>
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)
+	<span class="hljs-keyword">go</span> works(<span class="hljs-number">0</span>, c)
+	c &lt;- <span class="hljs-string">&#x27;u&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;v&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;w&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;x&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;y&#x27;</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelClose</span><span class="hljs-params">()</span></span>  &#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)
+	<span class="hljs-keyword">go</span> workIfNotCloseSimple(<span class="hljs-number">0</span>, c)
+	c &lt;- <span class="hljs-string">&#x27;U&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;V&#x27;</span>
+	c &lt;- <span class="hljs-string">&#x27;W&#x27;</span>
+	<span class="hljs-built_in">close</span>(c)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ChanDemo</span><span class="hljs-params">()</span></span>  &#123;
+
+	<span class="hljs-comment">//  channel也是一等公民</span>
+	first()
+	second()
+	fmt.Println(<span class="hljs-string">&quot;-----------------&quot;</span>)
+	thirdBufferedChannel()
+
+	channelClose()
+
+	time.Sleep(time.Second)
+&#125;
+
+
+<span class="hljs-comment">// 输出</span>
+channel <span class="hljs-number">7</span> receive h
+channel <span class="hljs-number">9</span> receive j
+channel <span class="hljs-number">8</span> receive i
+channel <span class="hljs-number">5</span> receive f
+channel <span class="hljs-number">3</span> receive d
+channel <span class="hljs-number">6</span> receive g
+channel <span class="hljs-number">4</span> receive e
+channel <span class="hljs-number">2</span> receive c
+channel <span class="hljs-number">1</span> receive b
+channel <span class="hljs-number">0</span> receive a
+channel <span class="hljs-number">0</span> receive A
+-----------------
+channel <span class="hljs-number">4</span> receive E
+channel <span class="hljs-number">3</span> receive D
+channel <span class="hljs-number">1</span> receive B
+channel <span class="hljs-number">7</span> receive H
+channel <span class="hljs-number">2</span> receive C
+channel <span class="hljs-number">5</span> receive F
+channel <span class="hljs-number">6</span> receive G
+channel <span class="hljs-number">9</span> receive J
+channel <span class="hljs-number">8</span> receive I
+channel <span class="hljs-number">0</span> receive k
+channel <span class="hljs-number">1</span> receive l
+channel <span class="hljs-number">2</span> receive m
+channel <span class="hljs-number">3</span> receive n
+channel <span class="hljs-number">4</span> receive o
+channel <span class="hljs-number">5</span> receive p
+channel <span class="hljs-number">6</span> receive q
+channel <span class="hljs-number">7</span> receive r
+channel <span class="hljs-number">7</span> receive R
+channel <span class="hljs-number">8</span> receive s
+channel <span class="hljs-number">8</span> receive S
+channel <span class="hljs-number">3</span> receive N
+channel <span class="hljs-number">5</span> receive P
+channel <span class="hljs-number">0</span> receive K
+channel <span class="hljs-number">6</span> receive Q
+channel <span class="hljs-number">9</span> receive t
+channel <span class="hljs-number">9</span> receive T
+channel <span class="hljs-number">2</span> receive M
+channel <span class="hljs-number">4</span> receive O
+channel <span class="hljs-number">1</span> receive L
+-----------------
+channel <span class="hljs-number">0</span> receive u
+channel <span class="hljs-number">0</span> receive v
+channel <span class="hljs-number">0</span> receive w
+channel <span class="hljs-number">0</span> receive x
+channel <span class="hljs-number">0</span> receive y
+channel <span class="hljs-number">0</span> receive U
+channel <span class="hljs-number">0</span> receive V
+channel <span class="hljs-number">0</span> receive W
+Exiting.
+</code></pre>
+
+<h5 id="通过通信来共享内存"><a href="#通过通信来共享内存" class="headerlink" title="通过通信来共享内存"></a>通过通信来共享内存</h5><pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> Worker <span class="hljs-keyword">struct</span> &#123;
+	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	done <span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		w.done &lt;- <span class="hljs-literal">true</span>
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;
+	w := Worker&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),
+	&#125;
+	<span class="hljs-keyword">go</span> doWork(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicate</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]Worker
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		works[i] = createWorkers(i)
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+	&#125;
+
+	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;
+		&lt;- worker.done
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+	&#125;
+
+	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;
+		&lt;- worker.done
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			w.done &lt;- <span class="hljs-literal">true</span>
+		&#125;()
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;
+	w := Worker&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),
+	&#125;
+	<span class="hljs-keyword">go</span> doWork2(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDoneAll</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> worksAll [<span class="hljs-number">10</span>]Worker
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		worksAll[i] = createWorkers2(i)
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;j&#x27;</span> + i
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;J&#x27;</span> + i
+	&#125;
+
+	<span class="hljs-comment">// 等所有任务都取完 再结束</span>
+	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> worksAll &#123;
+		&lt;- worker.done
+		&lt;- worker.done
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateDemo</span><span class="hljs-params">()</span></span>  &#123;
+	communicate()
+	fmt.Println(<span class="hljs-string">&quot;----------------&quot;</span>)
+	communicateDoneAll()
+&#125;
+
+<span class="hljs-comment">// 输出</span>
+channel <span class="hljs-number">7</span> receive h
+channel <span class="hljs-number">5</span> receive f
+channel <span class="hljs-number">8</span> receive i
+channel <span class="hljs-number">9</span> receive j
+channel <span class="hljs-number">2</span> receive c
+channel <span class="hljs-number">3</span> receive d
+channel <span class="hljs-number">1</span> receive b
+channel <span class="hljs-number">0</span> receive a
+channel <span class="hljs-number">4</span> receive e
+channel <span class="hljs-number">6</span> receive g
+channel <span class="hljs-number">6</span> receive G
+channel <span class="hljs-number">7</span> receive H
+channel <span class="hljs-number">8</span> receive I
+channel <span class="hljs-number">9</span> receive J
+channel <span class="hljs-number">0</span> receive A
+channel <span class="hljs-number">1</span> receive B
+channel <span class="hljs-number">2</span> receive C
+channel <span class="hljs-number">3</span> receive D
+channel <span class="hljs-number">5</span> receive F
+channel <span class="hljs-number">4</span> receive E
+----------------
+channel <span class="hljs-number">0</span> receive j
+channel <span class="hljs-number">1</span> receive k
+channel <span class="hljs-number">4</span> receive n
+channel <span class="hljs-number">2</span> receive l
+channel <span class="hljs-number">3</span> receive m
+channel <span class="hljs-number">2</span> receive L
+channel <span class="hljs-number">8</span> receive r
+channel <span class="hljs-number">0</span> receive J
+channel <span class="hljs-number">1</span> receive K
+channel <span class="hljs-number">7</span> receive q
+channel <span class="hljs-number">5</span> receive o
+channel <span class="hljs-number">9</span> receive s
+channel <span class="hljs-number">3</span> receive M
+channel <span class="hljs-number">5</span> receive O
+channel <span class="hljs-number">6</span> receive p
+channel <span class="hljs-number">4</span> receive N
+channel <span class="hljs-number">6</span> receive P
+channel <span class="hljs-number">9</span> receive S
+channel <span class="hljs-number">7</span> receive Q
+channel <span class="hljs-number">8</span> receive R</code></pre>
+
+
+
+<pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;sync&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> WorkerWG <span class="hljs-keyword">struct</span> &#123;
+	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	wg *sync.WaitGroup
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		w.wg.Done()
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG</span></span> &#123;
+	w := WorkerWG&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		wg: wg,
+	&#125;
+	<span class="hljs-keyword">go</span> doWorkWaitDone(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateWaitDone</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG
+	<span class="hljs-keyword">var</span> wg sync.WaitGroup
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		works[i] = createWaitDoneWorkers(i, &amp;wg)
+	&#125;
+
+	<span class="hljs-comment">//wg.Add(20) wg.Add(1)可以一次性</span>
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+		wg.Add(<span class="hljs-number">1</span>)
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+		wg.Add(<span class="hljs-number">1</span>)
+	&#125;
+
+	wg.Wait()
+&#125;
+
+
+<span class="hljs-keyword">type</span> WorkerWG2 <span class="hljs-keyword">struct</span> &#123;
+	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	done <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>
+&#125;
+<span class="hljs-comment">// WorkerWG封装</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG2)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		w.done()
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG2</span></span> &#123;
+	w := WorkerWG2&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		done: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			wg.Done()
+		&#125;,
+	&#125;
+	<span class="hljs-keyword">go</span> doWorkWaitDone2(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateWaitDone2</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG2
+	<span class="hljs-keyword">var</span> wg sync.WaitGroup
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		works[i] = createWaitDoneWorkers2(i, &amp;wg)
+	&#125;
+
+  wg.Add(<span class="hljs-number">20</span>)  <span class="hljs-comment">// 如果知道Add()数，最好一次性添加 否则会出现  panic: sync: negative WaitGroup counter</span>
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+		<span class="hljs-comment">//wg.Add(1)</span>
+	&#125;
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+		<span class="hljs-comment">//wg.Add(1)</span>
+	&#125;
+	wg.Wait()
+&#125;</code></pre>
+
+<h5 id="利用channel遍历树"><a href="#利用channel遍历树" class="headerlink" title="利用channel遍历树"></a>利用channel遍历树</h5><pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">type</span> Node <span class="hljs-keyword">struct</span> &#123;
+	Value       <span class="hljs-keyword">int</span>
+	Left, Right *Node
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createNode</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">Node</span></span> &#123;
+	<span class="hljs-keyword">return</span> &amp;Node&#123;Value: value&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span> &#123;
+	<span class="hljs-comment">// 接收者使用指针才可以改变结构内容</span>
+	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
+		fmt.Println(<span class="hljs-string">&quot;Setting Value to nil node. Ignored.&quot;</span>)
+		<span class="hljs-keyword">return</span>
+	&#125;
+	node.Value = value
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span>
+	&#125;
+	fmt.Print(node.Value, <span class="hljs-string">&quot; &quot;</span>)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelsWithFunc</span><span class="hljs-params">(f <span class="hljs-keyword">func</span>(*Node)</span>)</span> &#123;
+	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span>
+	&#125;
+	node.Left.travelsWithFunc(f)
+	f(node)
+	node.Right.travelsWithFunc(f)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelWithChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> *<span class="hljs-title">Node</span></span>&#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *Node)
+	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		node.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;
+			c &lt;- node
+		&#125;)
+		<span class="hljs-built_in">close</span>(c)
+	&#125;()
+	<span class="hljs-keyword">return</span> c
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">initTree</span><span class="hljs-params">()</span> *<span class="hljs-title">Node</span></span> &#123;
+	<span class="hljs-keyword">var</span> root Node
+	root = Node&#123;Value: <span class="hljs-number">3</span>&#125;
+	root.Left = &amp;Node&#123;&#125;
+	root.Right = &amp;Node&#123;<span class="hljs-number">5</span>, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>&#125;
+	root.Right.Left = <span class="hljs-built_in">new</span>(Node)
+	root.Left.Right = createNode(<span class="hljs-number">2</span>)
+	root.Right.Left.setValue(<span class="hljs-number">4</span>)
+	<span class="hljs-keyword">return</span> &amp;root
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Demo</span><span class="hljs-params">()</span></span>  &#123;
+	t := initTree()
+
+	<span class="hljs-comment">// 计数</span>
+  nodeCount := <span class="hljs-number">0</span>
+	t.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;
+		nodeCount++
+	&#125;)
+	fmt.Println(<span class="hljs-string">&quot;Node counts&quot;</span>, nodeCount)
+
+	<span class="hljs-comment">// 树中最大值</span>
+  c := t.travelWithChannel()
+	maxNode := <span class="hljs-number">0</span>
+	<span class="hljs-comment">// 从channel中取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c &#123;
+		<span class="hljs-keyword">if</span> maxNode &lt; n.Value &#123;
+			maxNode = n.Value
+		&#125;
+	&#125;
+	fmt.Println(<span class="hljs-string">&quot;Max node:&quot;</span>, maxNode)
+&#125;</code></pre>
+
+
+
 <h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="gopm-获取无法下载的包"><a href="#gopm-获取无法下载的包" class="headerlink" title="gopm 获取无法下载的包"></a>gopm 获取无法下载的包</h4><p><code>go get -v github.com/gpmgo/gopm</code></p>
 <p>安装踩坑：</p>
 <pre><code class="hljs zsh">github.com/codegangsta/cli: github.com/codegangsta/cli@v1.22.5: parsing go.mod:

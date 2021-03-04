@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.7k 字
+      11.8k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      196
+      217
        分钟
     </span>
   
@@ -1822,7 +1822,14 @@ channel <span class="hljs-number">0</span> receive W
 Exiting.
 </code></pre>
 
-<h5 id="通过通信来共享内存"><a href="#通过通信来共享内存" class="headerlink" title="通过通信来共享内存"></a>通过通信来共享内存</h5><pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
+<h5 id="通过通信来共享内存"><a href="#通过通信来共享内存" class="headerlink" title="通过通信来共享内存"></a>通过通信来共享内存</h5><pre><code class="hljs golang"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021/2/5 下午5:05</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-keyword">package</span> goroutines
 
 <span class="hljs-keyword">import</span> (
 	<span class="hljs-string">&quot;fmt&quot;</span>
@@ -1874,6 +1881,7 @@ Exiting.
 	&#125;
 &#125;
 
+
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;
 	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
 	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
@@ -1896,6 +1904,7 @@ Exiting.
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDoneAll</span><span class="hljs-params">()</span></span>  &#123;
 	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
 	<span class="hljs-keyword">var</span> worksAll [<span class="hljs-number">10</span>]Worker
+
 	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
 		worksAll[i] = createWorkers2(i)
 	&#125;
@@ -1915,7 +1924,7 @@ Exiting.
 	&#125;
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateDemo</span><span class="hljs-params">()</span></span>  &#123;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDemo</span><span class="hljs-params">()</span></span>  &#123;
 	communicate()
 	fmt.Println(<span class="hljs-string">&quot;----------------&quot;</span>)
 	communicateDoneAll()
@@ -1963,105 +1972,6 @@ channel <span class="hljs-number">6</span> receive P
 channel <span class="hljs-number">9</span> receive S
 channel <span class="hljs-number">7</span> receive Q
 channel <span class="hljs-number">8</span> receive R</code></pre>
-
-
-
-<pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;sync&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> WorkerWG <span class="hljs-keyword">struct</span> &#123;
-	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	wg *sync.WaitGroup
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		w.wg.Done()
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG</span></span> &#123;
-	w := WorkerWG&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		wg: wg,
-	&#125;
-	<span class="hljs-keyword">go</span> doWorkWaitDone(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateWaitDone</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG
-	<span class="hljs-keyword">var</span> wg sync.WaitGroup
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		works[i] = createWaitDoneWorkers(i, &amp;wg)
-	&#125;
-
-	<span class="hljs-comment">//wg.Add(20) wg.Add(1)可以一次性</span>
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-		wg.Add(<span class="hljs-number">1</span>)
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-		wg.Add(<span class="hljs-number">1</span>)
-	&#125;
-
-	wg.Wait()
-&#125;
-
-
-<span class="hljs-keyword">type</span> WorkerWG2 <span class="hljs-keyword">struct</span> &#123;
-	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	done <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>
-&#125;
-<span class="hljs-comment">// WorkerWG封装</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG2)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		w.done()
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG2</span></span> &#123;
-	w := WorkerWG2&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		done: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-			wg.Done()
-		&#125;,
-	&#125;
-	<span class="hljs-keyword">go</span> doWorkWaitDone2(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CommunicateWaitDone2</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG2
-	<span class="hljs-keyword">var</span> wg sync.WaitGroup
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		works[i] = createWaitDoneWorkers2(i, &amp;wg)
-	&#125;
-
-  wg.Add(<span class="hljs-number">20</span>)  <span class="hljs-comment">// 如果知道Add()数，最好一次性添加 否则会出现  panic: sync: negative WaitGroup counter</span>
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-		<span class="hljs-comment">//wg.Add(1)</span>
-	&#125;
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-		<span class="hljs-comment">//wg.Add(1)</span>
-	&#125;
-	wg.Wait()
-&#125;</code></pre>
 
 <h5 id="利用channel遍历树"><a href="#利用channel遍历树" class="headerlink" title="利用channel遍历树"></a>利用channel遍历树</h5><pre><code class="hljs golang"><span class="hljs-keyword">package</span> goroutines
 
@@ -2145,8 +2055,449 @@ channel <span class="hljs-number">8</span> receive R</code></pre>
 	fmt.Println(<span class="hljs-string">&quot;Max node:&quot;</span>, maxNode)
 &#125;</code></pre>
 
+<h4 id="Select调度"><a href="#Select调度" class="headerlink" title="Select调度"></a><code>Select</code>调度</h4><pre><code class="hljs golang"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021/2/5 上午10:37</span>
+<span class="hljs-comment"> * Description: select</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;math/rand&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> SelectWorker <span class="hljs-keyword">struct</span> &#123;
+	id <span class="hljs-keyword">string</span>
+	c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *SelectWorker)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span></span>  &#123;
+	w.id = id
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectNotBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-keyword">for</span> &#123;
+		<span class="hljs-keyword">select</span> &#123;
+		<span class="hljs-keyword">case</span> n := &lt;- c1:
+			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)
+		<span class="hljs-keyword">case</span> n := &lt;-c2:
+			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)
+		<span class="hljs-keyword">default</span>:
+			fmt.Println(<span class="hljs-string">&quot;not receive anything&quot;</span>)
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-keyword">for</span> &#123;
+		<span class="hljs-keyword">select</span> &#123;
+		<span class="hljs-keyword">case</span> n := &lt;- c1:
+			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)
+		<span class="hljs-keyword">case</span> n := &lt;-c2:
+			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)
+
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorkConditionBlock</span><span class="hljs-params">(rw, sw1, sw2 SelectWorker)</span></span>  &#123;
+	<span class="hljs-keyword">var</span> values []<span class="hljs-keyword">int</span>
+	id := <span class="hljs-string">&quot;&quot;</span>
+	endTime := time.After(time.Second * <span class="hljs-number">10</span>)
+	tick := time.Tick(time.Second)
+	<span class="hljs-keyword">for</span> &#123;
+		activeWorker := SelectWorker&#123;
+			c:  <span class="hljs-literal">nil</span>,
+		&#125;
+		<span class="hljs-keyword">var</span> activeValue <span class="hljs-keyword">int</span>
+		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(values) &gt;<span class="hljs-number">0</span> &#123;
+			rw.setValue(id)
+			activeWorker = rw
+			activeValue = values[<span class="hljs-number">0</span>]
+		&#125;
+		<span class="hljs-keyword">select</span> &#123;
+		<span class="hljs-keyword">case</span> n := &lt;-sw1.c:
+			id = sw1.id
+			values = <span class="hljs-built_in">append</span>(values, n)
+		<span class="hljs-keyword">case</span> n := &lt;-sw2.c:
+			id = sw2.id
+			values = <span class="hljs-built_in">append</span>(values, n)
+		<span class="hljs-keyword">case</span> activeWorker.c &lt;- activeValue:
+			values = values[<span class="hljs-number">1</span>:]
+		<span class="hljs-keyword">case</span> &lt;-time.After(time.Millisecond * <span class="hljs-number">600</span>):  <span class="hljs-comment">// 500毫秒未产生数据</span>
+			fmt.Println(<span class="hljs-string">&quot;程序超时&quot;</span>)
+		<span class="hljs-keyword">case</span> &lt;- tick:
+			fmt.Println(<span class="hljs-string">&quot;queue len = &quot;</span>, <span class="hljs-built_in">len</span>(values))
+		<span class="hljs-keyword">case</span> &lt;- endTime:  <span class="hljs-comment">// 程序执行到endTime时结束</span>
+			fmt.Println(<span class="hljs-string">&quot;程序执行结束&quot;</span>)
+			<span class="hljs-keyword">return</span>
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> <span class="hljs-title">int</span></span>&#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
+	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		i := <span class="hljs-number">0</span>
+		<span class="hljs-keyword">for</span> &#123;
+			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)
+			c &lt;- i
+			i++
+		&#125;
+	&#125;()
+	<span class="hljs-keyword">return</span> c
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateWorkChannel</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;
+	w := SelectWorker&#123;
+		id:id,
+		c: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+	&#125;
+	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		i := <span class="hljs-number">0</span>
+		<span class="hljs-keyword">for</span> &#123;
+			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)
+			w.c &lt;- i
+			i++
+		&#125;
+	&#125;()
+	<span class="hljs-keyword">return</span> w
+&#125;
 
 
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>, rw SelectWorker)</span></span>  &#123;
+	<span class="hljs-comment">// 不断的从channel取</span>
+	<span class="hljs-keyword">for</span>  &#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %s from %s receive %d\n&quot;</span>, id, rw.id, &lt;-rw.c)
+		time.Sleep(time.Second)
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createSelectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;
+	rw := SelectWorker&#123;
+		c:  <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+	&#125;
+	<span class="hljs-keyword">go</span> selectWorks(id, rw)
+	<span class="hljs-keyword">return</span> rw
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectBlock</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">var</span> c1, c2 = generateChannel(), generateChannel()
+	selectBlock(c1, c2)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectWork</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">var</span> sw1, sw2 = generateWorkChannel(<span class="hljs-string">&quot;send worker1&quot;</span>), generateWorkChannel(<span class="hljs-string">&quot;send worker2&quot;</span>)
+	rw := createSelectWorks(<span class="hljs-string">&quot;receive work1&quot;</span>)
+	selectWorkConditionBlock(rw, sw1, sw2)
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectDemo</span><span class="hljs-params">()</span></span>  &#123;
+
+	<span class="hljs-comment">//var c1, c2 chan int</span>
+	<span class="hljs-comment">//selectNotBlock(c1, c2)</span>
+
+	<span class="hljs-comment">//channelSelectBlock()</span>
+
+	channelSelectWork()
+&#125;
+</code></pre>
+
+<h4 id="同步机制"><a href="#同步机制" class="headerlink" title="同步机制"></a>同步机制</h4><ul>
+<li><code>WaitGroup</code></li>
+</ul>
+<p>基于<code>WaitGroup</code>实现通信来共享内存</p>
+<pre><code class="hljs golang"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021/2/5 下午5:37</span>
+<span class="hljs-comment"> * Description: 基于WaitGroup实现通信来共享内存</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;sync&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> WorkerWG <span class="hljs-keyword">struct</span> &#123;
+	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	wg *sync.WaitGroup
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		w.wg.Done()
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG</span></span> &#123;
+	w := WorkerWG&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		wg: wg,
+	&#125;
+	<span class="hljs-keyword">go</span> doWorkWaitDone(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG
+	<span class="hljs-keyword">var</span> wg sync.WaitGroup
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		works[i] = createWaitDoneWorkers(i, &amp;wg)
+	&#125;
+
+	<span class="hljs-comment">//wg.Add(20)</span>
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+		wg.Add(<span class="hljs-number">1</span>)
+	&#125;
+
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+		wg.Add(<span class="hljs-number">1</span>)
+	&#125;
+
+	wg.Wait()
+&#125;
+
+
+<span class="hljs-keyword">type</span> WorkerWG2 <span class="hljs-keyword">struct</span> &#123;
+	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+	done <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span>  // 函数式编程</span>
+&#125;
+
+<span class="hljs-comment">// WorkerWG封装</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG2)</span></span>  &#123;
+	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
+	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
+		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
+		w.done()
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG2</span></span> &#123;
+	w := WorkerWG2&#123;
+		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
+		done: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			wg.Done()
+		&#125;,
+	&#125;
+	<span class="hljs-keyword">go</span> doWorkWaitDone2(id, w)
+	<span class="hljs-keyword">return</span> w
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone2</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
+	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG2
+	<span class="hljs-keyword">var</span> wg sync.WaitGroup
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
+		works[i] = createWaitDoneWorkers2(i, &amp;wg)
+	&#125;
+
+	wg.Add(<span class="hljs-number">20</span>)
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
+		<span class="hljs-comment">//wg.Add(1)</span>
+	&#125;
+	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
+		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
+		<span class="hljs-comment">//wg.Add(1)</span>
+	&#125;
+	wg.Wait()
+&#125;
+
+<span class="hljs-comment">// 输出</span>
+channel <span class="hljs-number">7</span> receive h
+channel <span class="hljs-number">5</span> receive f
+channel <span class="hljs-number">6</span> receive g
+channel <span class="hljs-number">0</span> receive a
+channel <span class="hljs-number">8</span> receive i
+channel <span class="hljs-number">1</span> receive b
+channel <span class="hljs-number">3</span> receive d
+channel <span class="hljs-number">2</span> receive c
+channel <span class="hljs-number">4</span> receive e
+channel <span class="hljs-number">9</span> receive j
+channel <span class="hljs-number">9</span> receive J
+channel <span class="hljs-number">3</span> receive D
+channel <span class="hljs-number">0</span> receive A
+channel <span class="hljs-number">5</span> receive F
+channel <span class="hljs-number">2</span> receive C
+channel <span class="hljs-number">4</span> receive E
+channel <span class="hljs-number">6</span> receive G
+channel <span class="hljs-number">1</span> receive B
+channel <span class="hljs-number">7</span> receive H
+channel <span class="hljs-number">8</span> receive I
+channel <span class="hljs-number">9</span> receive j
+channel <span class="hljs-number">6</span> receive g
+channel <span class="hljs-number">8</span> receive i
+channel <span class="hljs-number">4</span> receive e
+channel <span class="hljs-number">0</span> receive a
+channel <span class="hljs-number">0</span> receive A
+channel <span class="hljs-number">2</span> receive c
+channel <span class="hljs-number">3</span> receive d
+channel <span class="hljs-number">5</span> receive f
+channel <span class="hljs-number">1</span> receive b
+channel <span class="hljs-number">1</span> receive B
+channel <span class="hljs-number">7</span> receive h
+channel <span class="hljs-number">7</span> receive H
+channel <span class="hljs-number">3</span> receive D
+channel <span class="hljs-number">5</span> receive F
+channel <span class="hljs-number">4</span> receive E
+channel <span class="hljs-number">6</span> receive G
+channel <span class="hljs-number">9</span> receive J
+channel <span class="hljs-number">2</span> receive C
+channel <span class="hljs-number">8</span> receive I</code></pre>
+
+<ul>
+<li><code>Mutux</code></li>
+</ul>
+<pre><code class="hljs golang"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;sync&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;
+	value <span class="hljs-keyword">int</span>
+	lock sync.Mutex
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;
+	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)
+	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;
+		<span class="hljs-comment">//a.lock.Lock()</span>
+		<span class="hljs-comment">//defer a.lock.Unlock()</span>
+		a.value++
+	&#125;()
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-comment">//a.lock.Lock()</span>
+	<span class="hljs-comment">//defer a.lock.Unlock()</span>
+	<span class="hljs-keyword">return</span> a.value
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;
+	 i := AtomicInt&#123;&#125;
+	 i.increase()
+	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+	 	i.increase()
+	 &#125;()
+	time.Sleep(time.Millisecond)
+	 fmt.Println(i.get())
+&#125;
+
+
+<span class="hljs-comment">// 输出</span>
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span>
+safe Increase
+safe Increase
+==================
+WARNING: DATA RACE
+Read at <span class="hljs-number">0x00c000134010</span> by main goroutine:
+  offer/note/goroutines.(*AtomicInt).get()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">33</span> +<span class="hljs-number">0xab</span>
+  offer/note/goroutines.AtomicDemo()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">43</span> +<span class="hljs-number">0xb4</span>
+  main.main()
+      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span>
+
+Previous write at <span class="hljs-number">0x00c000134010</span> by goroutine <span class="hljs-number">7</span>:
+  offer/note/goroutines.(*AtomicInt).increase.func1()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">26</span> +<span class="hljs-number">0xbd</span>
+  offer/note/goroutines.(*AtomicInt).increase()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">27</span> +<span class="hljs-number">0x9e</span>
+  offer/note/goroutines.AtomicDemo.func1()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">40</span> +<span class="hljs-number">0x38</span>
+
+Goroutine <span class="hljs-number">7</span> (finished) created at:
+  offer/note/goroutines.AtomicDemo()
+      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">39</span> +<span class="hljs-number">0x90</span>
+  main.main()
+      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span>
+==================
+<span class="hljs-number">2</span>
+Found <span class="hljs-number">1</span> data race(s)
+exit status <span class="hljs-number">66</span>
+</code></pre>
+
+<pre><code class="hljs golang"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-keyword">package</span> goroutines
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;sync&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;
+	value <span class="hljs-keyword">int</span>
+	lock sync.Mutex
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;
+	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)
+	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;
+		a.lock.Lock()
+		<span class="hljs-keyword">defer</span> a.lock.Unlock()
+		a.value++
+	&#125;()
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	a.lock.Lock()
+	<span class="hljs-keyword">defer</span> a.lock.Unlock()
+	<span class="hljs-keyword">return</span> a.value
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;
+	 i := AtomicInt&#123;&#125;
+	 i.increase()
+	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+	 	i.increase()
+	 &#125;()
+	time.Sleep(time.Millisecond)
+	 fmt.Println(i.get())
+&#125;
+
+
+<span class="hljs-comment">// 输出</span>
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span>
+safe Increase
+safe Increase
+<span class="hljs-number">2</span></code></pre>
+
+
+
+<ul>
+<li><code>Cond</code></li>
+</ul>
 <h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="gopm-获取无法下载的包"><a href="#gopm-获取无法下载的包" class="headerlink" title="gopm 获取无法下载的包"></a>gopm 获取无法下载的包</h4><p><code>go get -v github.com/gpmgo/gopm</code></p>
 <p>安装踩坑：</p>
 <pre><code class="hljs zsh">github.com/codegangsta/cli: github.com/codegangsta/cli@v1.22.5: parsing go.mod:

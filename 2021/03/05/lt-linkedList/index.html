@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我们相信，未来可期！">
+  <meta name="author" content="嗯，我们是对的">
+  <meta name="keywords" content="">
+  <title>【LeetCode】线性表相关问题 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/images/img/banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-03-05 10:36">
+      2021年3月5日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      122
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="线性表相关"><a href="#线性表相关" class="headerlink" title="线性表相关"></a><a id="more"></a>线性表相关</h3><p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problemset/all/">https://leetcode-cn.com/problemset/all/</a></p>
+<h4 id="链表相关"><a href="#链表相关" class="headerlink" title="链表相关"></a>链表相关</h4><h5 id="链表访问"><a href="#链表访问" class="headerlink" title="链表访问"></a>链表访问</h5><h6 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141. 环形链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle/">141. 环形链表</a></h6><p>给定一个链表，判断链表中是否有环。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>如果链表中存在环，则返回 true 。 否则，返回 false 。</p>
+<p>解题思路</p>
+<pre><code class="hljs angelscript"><span class="hljs-number">1.</span>快慢指针，相遇问题
+<span class="hljs-number">2.</span>借助哈希（Set）</code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-04 17:27:34</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedListCycle</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> LinkedListCycle().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given head, the head of a linked list, determine if the linked list has a cycl</span>
+    <span class="hljs-comment">//e in it.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// There is a cycle in a linked list if there is some node in the list that can</span>
+    <span class="hljs-comment">//be reached again by continuously following the next pointer. Internally, pos is</span>
+    <span class="hljs-comment">//used to denote the index of the node that tail&#x27;s next pointer is connected to. N</span>
+    <span class="hljs-comment">//ote that pos is not passed as a parameter.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Return true if there is a cycle in the linked list. Otherwise, return false.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: head = [3,2,0,-4], pos = 1</span>
+    <span class="hljs-comment">//Output: true</span>
+    <span class="hljs-comment">//Explanation: There is a cycle in the linked list, where the tail connects to t</span>
+    <span class="hljs-comment">//he 1st node (0-indexed).</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: head = [1,2], pos = 0</span>
+    <span class="hljs-comment">//Output: true</span>
+    <span class="hljs-comment">//Explanation: There is a cycle in the linked list, where the tail connects to t</span>
+    <span class="hljs-comment">//he 0th node.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 3:</span>
+    <span class="hljs-comment">//Input: head = [1], pos = -1</span>
+    <span class="hljs-comment">//Output: false</span>
+    <span class="hljs-comment">//Explanation: There is no cycle in the linked list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// The number of the nodes in the list is in the range [0, 104].</span>
+    <span class="hljs-comment">// -105 &lt;= Node.val &lt;= 105</span>
+    <span class="hljs-comment">// pos is -1 or a valid index in the linked-list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Follow up: Can you solve it using O(1) (i.e. constant) memory?</span>
+    <span class="hljs-comment">// Related Topics 链表 双指针</span>
+    <span class="hljs-comment">// 👍 970 👎 0</span>
+
+	  <span class="hljs-comment">// leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+        <span class="hljs-keyword">int</span> val;
+        ListNode next;
+        ListNode(<span class="hljs-keyword">int</span> x) &#123;
+            val = x;
+            next = <span class="hljs-keyword">null</span>;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span> ||  head.next == <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            &#125;
+            ListNode p = head, q = head;
+            <span class="hljs-keyword">do</span> &#123;
+                p = p.next;
+                q = q.next.next;
+            &#125;
+            <span class="hljs-keyword">while</span> (q != <span class="hljs-keyword">null</span> &amp;&amp; q.next != <span class="hljs-keyword">null</span> &amp;&amp; p != q);
+            <span class="hljs-keyword">return</span> p == q;
+        &#125;
+    &#125;
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+&#125;</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs golang"><span class="hljs-keyword">package</span> leetcode
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 11:03:59</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-comment">//Given head, the head of a linked list, determine if the linked list has a cycl</span>
+<span class="hljs-comment">//e in it. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// There is a cycle in a linked list if there is some node in the list that can </span>
+<span class="hljs-comment">//be reached again by continuously following the next pointer. Internally, pos is </span>
+<span class="hljs-comment">//used to denote the index of the node that tail&#x27;s next pointer is connected to. N</span>
+<span class="hljs-comment">//ote that pos is not passed as a parameter. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Return true if there is a cycle in the linked list. Otherwise, return false. </span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Example 1: </span>
+<span class="hljs-comment">//Input: head = [3,2,0,-4], pos = 1</span>
+<span class="hljs-comment">//Output: true</span>
+<span class="hljs-comment">//Explanation: There is a cycle in the linked list, where the tail connects to t</span>
+<span class="hljs-comment">//he 1st node (0-indexed).</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Example 2: </span>
+<span class="hljs-comment">//Input: head = [1,2], pos = 0</span>
+<span class="hljs-comment">//Output: true</span>
+<span class="hljs-comment">//Explanation: There is a cycle in the linked list, where the tail connects to t</span>
+<span class="hljs-comment">//he 0th node.</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Example 3: </span>
+<span class="hljs-comment">//Input: head = [1], pos = -1</span>
+<span class="hljs-comment">//Output: false</span>
+<span class="hljs-comment">//Explanation: There is no cycle in the linked list.</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Constraints: </span>
+<span class="hljs-comment">// The number of the nodes in the list is in the range [0, 104]. </span>
+<span class="hljs-comment">// -105 &lt;= Node.val &lt;= 105 </span>
+<span class="hljs-comment">// pos is -1 or a valid index in the linked-list. </span>
+<span class="hljs-comment">// Follow up: Can you solve it using O(1) (i.e. constant) memory? </span>
+<span class="hljs-comment">// Related Topics 链表 双指针 </span>
+<span class="hljs-comment">// 👍 971 👎 0</span>
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">// Definition for singly-linked list.</span>
+<span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+   Val <span class="hljs-keyword">int</span>
+   Next *ListNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> || head.Next == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+	&#125;
+	p := head.Next
+	q := head.Next.Next
+	<span class="hljs-keyword">for</span> q != <span class="hljs-literal">nil</span> &amp;&amp; q.Next != <span class="hljs-literal">nil</span> &amp;&amp; p != q&#123;
+		p = p.Next
+		q = q.Next.Next
+	&#125;
+    <span class="hljs-keyword">return</span> p == q
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span></code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 141-环形链表</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 10:38:59</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 给定一个链表，判断链表中是否有环。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的</span>
+<span class="hljs-string"># 位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  如果链表中存在环，则返回 true 。 否则，返回 false 。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  进阶： </span>
+<span class="hljs-string">#  你能用 O(1)（即，常量）内存解决此问题吗？ </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  示例 1： </span>
+<span class="hljs-string">#  输入：head = [3,2,0,-4], pos = 1</span>
+<span class="hljs-string"># 输出：true</span>
+<span class="hljs-string"># 解释：链表中有一个环，其尾部连接到第二个节点。</span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  示例 2： </span>
+<span class="hljs-string">#  输入：head = [1,2], pos = 0</span>
+<span class="hljs-string"># 输出：true</span>
+<span class="hljs-string"># 解释：链表中有一个环，其尾部连接到第一个节点。</span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  示例 3： </span>
+<span class="hljs-string">#  输入：head = [1], pos = -1</span>
+<span class="hljs-string"># 输出：false</span>
+<span class="hljs-string"># 解释：链表中没有环。</span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  提示：  </span>
+<span class="hljs-string">#  链表中节点的数目范围是 [0, 104] </span>
+<span class="hljs-string">#  -105 &lt;= Node.val &lt;= 105 </span>
+<span class="hljs-string">#  pos 为 -1 或者链表中的一个 有效索引 。 </span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  Related Topics 链表 双指针 </span>
+<span class="hljs-string">#  👍 971 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, x</span>):</span>
+        self.val = x
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hasCycle</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        p = ListNode(<span class="hljs-number">-1</span>)
+        p.<span class="hljs-built_in">next</span> = head
+        p, q = head, head.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">while</span> q <span class="hljs-keyword">and</span> q.<span class="hljs-built_in">next</span>:
+            p = p.<span class="hljs-built_in">next</span>
+            q = q.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">if</span> p == q:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h6 id="142-环形链表-II"><a href="#142-环形链表-II" class="headerlink" title="142. 环形链表 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></h6><p>给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。</p>
+<p>说明：不允许修改给定的链表。</p>
+<p>进阶：</p>
+<p>你是否可以使用 O(1) 空间解决此题？</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" srcset="/img/loading.gif"></p>
+<pre><div class="caption"><span>1：</span></div><code class="hljs 示例">输入：head &#x3D; [3,2,0,-4], pos &#x3D; 1
+输出：返回索引为 1 的链表节点
+解释：链表中有一个环，其尾部连接到第二个节点。</code></pre>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" srcset="/img/loading.gif"></p>
+<pre><div class="caption"><span>2：</span></div><code class="hljs 示例">输入：head &#x3D; [1,2], pos &#x3D; 0
+输出：返回索引为 0 的链表节点
+解释：链表中有一个环，其尾部连接到第一个节点。</code></pre>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" srcset="/img/loading.gif"></p>
+<pre><div class="caption"><span>3：</span></div><code class="hljs 示例">输入：head &#x3D; [1], pos &#x3D; -1
+输出：返回 null
+解释：链表中没有环。</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>链表中节点的数目范围在范围 <code>[0, 104]</code> 内</li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
+<li><code>pos</code> 的值为 <code>-1</code> 或者链表中的一个有效索引</li>
+</ul>
+<p>解题思路</p>
+<pre><code class="hljs coq"><span class="hljs-number">1.</span>快慢指针，相遇后，head-&gt;入环的第一个节点距离=相遇点-&gt;入环的第一个节点距离
+<span class="hljs-number">2.</span>借助哈希（<span class="hljs-keyword">Set</span>）</code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-04 19:03:31</span>
+<span class="hljs-comment"> * Description: 142-Linked List Cycle II</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedListCycleIi</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> LinkedListCycleIi().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given a linked list, return the node where the cycle begins. If there is no cy</span>
+    <span class="hljs-comment">//cle, return null.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// There is a cycle in a linked list if there is some node in the list that can</span>
+    <span class="hljs-comment">//be reached again by continuously following the next pointer. Internally, pos is</span>
+    <span class="hljs-comment">//used to denote the index of the node that tail&#x27;s next pointer is connected to. N</span>
+    <span class="hljs-comment">//ote that pos is not passed as a parameter.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Notice that you should not modify the linked list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: head = [3,2,0,-4], pos = 1</span>
+    <span class="hljs-comment">//Output: tail connects to node index 1</span>
+    <span class="hljs-comment">//Explanation: There is a cycle in the linked list, where tail connects to the s</span>
+    <span class="hljs-comment">//econd node.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: head = [1,2], pos = 0</span>
+    <span class="hljs-comment">//Output: tail connects to node index 0</span>
+    <span class="hljs-comment">//Explanation: There is a cycle in the linked list, where tail connects to the f</span>
+    <span class="hljs-comment">//irst node.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 3:</span>
+    <span class="hljs-comment">//Input: head = [1], pos = -1</span>
+    <span class="hljs-comment">//Output: no cycle</span>
+    <span class="hljs-comment">//Explanation: There is no cycle in the linked list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// The number of the nodes in the list is in the range [0, 104].</span>
+    <span class="hljs-comment">// -105 &lt;= Node.val &lt;= 105</span>
+    <span class="hljs-comment">// pos is -1 or a valid index in the linked-list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Follow up: Can you solve it using O(1) (i.e. constant) memory?</span>
+    <span class="hljs-comment">// Related Topics 链表 双指针</span>
+    <span class="hljs-comment">// 👍 897 👎 0</span>
+ 
+    <span class="hljs-comment">// leetcode submit region begin(Prohibit modification and deletion)</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+         <span class="hljs-keyword">int</span> val;
+         ListNode next;
+         ListNode(<span class="hljs-keyword">int</span> x) &#123;
+             val = x;
+             next = <span class="hljs-keyword">null</span>;
+         &#125;
+     &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">detectCycle</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+            <span class="hljs-keyword">if</span>(head == <span class="hljs-keyword">null</span> || head.next == <span class="hljs-keyword">null</span>)&#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+            &#125;
+            ListNode p = head, q = head;
+            <span class="hljs-keyword">do</span> &#123;
+                p = p.next;
+                q = q.next.next;
+            &#125; <span class="hljs-keyword">while</span> (q != <span class="hljs-keyword">null</span> &amp;&amp; q.next != <span class="hljs-keyword">null</span> &amp;&amp; p != q);
+            <span class="hljs-keyword">if</span> (p != q) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+            &#125;
+            q = head;
+            <span class="hljs-keyword">while</span> (p != q) &#123;
+                p = p.next;
+                q = q.next;
+            &#125;
+            <span class="hljs-keyword">return</span> q;
+        &#125;
+    &#125;
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;
+</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs golang"><span class="hljs-keyword">package</span> leetcode
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 11:14:26</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-comment">//Given a linked list, return the node where the cycle begins. If there is no cy</span>
+<span class="hljs-comment">//cle, return null. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// There is a cycle in a linked list if there is some node in the list that can </span>
+<span class="hljs-comment">//be reached again by continuously following the next pointer. Internally, pos is </span>
+<span class="hljs-comment">//used to denote the index of the node that tail&#x27;s next pointer is connected to. N</span>
+<span class="hljs-comment">//ote that pos is not passed as a parameter. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Notice that you should not modify the linked list. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Example 1: </span>
+<span class="hljs-comment">//Input: head = [3,2,0,-4], pos = 1</span>
+<span class="hljs-comment">//Output: tail connects to node index 1</span>
+<span class="hljs-comment">//Explanation: There is a cycle in the linked list, where tail connects to the s</span>
+<span class="hljs-comment">//econd node.</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Example 2: </span>
+<span class="hljs-comment">//Input: head = [1,2], pos = 0</span>
+<span class="hljs-comment">//Output: tail connects to node index 0</span>
+<span class="hljs-comment">//Explanation: There is a cycle in the linked list, where tail connects to the f</span>
+<span class="hljs-comment">//irst node.</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Example 3: </span>
+<span class="hljs-comment">//Input: head = [1], pos = -1</span>
+<span class="hljs-comment">//Output: no cycle</span>
+<span class="hljs-comment">//Explanation: There is no cycle in the linked list.</span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Constraints: </span>
+<span class="hljs-comment">// The number of the nodes in the list is in the range [0, 104]. </span>
+<span class="hljs-comment">// -105 &lt;= Node.val &lt;= 105 </span>
+<span class="hljs-comment">// pos is -1 or a valid index in the linked-list. </span>
+
+<span class="hljs-comment">// Follow up: Can you solve it using O(1) (i.e. constant) memory? </span>
+<span class="hljs-comment">// Related Topics 链表 双指针 </span>
+<span class="hljs-comment">// 👍 898 👎 0</span>
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for singly-linked list.</span>
+<span class="hljs-comment"> * type ListNode struct &#123;</span>
+<span class="hljs-comment"> *     Val int</span>
+<span class="hljs-comment"> *     Next *ListNode</span>
+<span class="hljs-comment"> * &#125;</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">detectCycle</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;
+	<span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> || head.Next == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+	&#125;
+	p := head.Next
+	q := head.Next.Next
+	<span class="hljs-keyword">for</span> q != <span class="hljs-literal">nil</span> &amp;&amp; q.Next != <span class="hljs-literal">nil</span> &amp;&amp; p != q&#123;
+		q = q.Next.Next
+		p = p.Next
+	&#125;
+	<span class="hljs-keyword">if</span> p != q &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+	&#125;
+	q = head
+	<span class="hljs-keyword">for</span> p != q &#123;
+		p = p.Next
+		q = q.Next
+	&#125;
+	<span class="hljs-keyword">return</span> q
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 142-环形链表 II</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 10:47:28</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem: 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，po</span>
+<span class="hljs-string"># s 仅仅是用于标识环的情况，并不会作为参数传递到函数中。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  说明：不允许修改给定的链表。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  进阶：</span>
+<span class="hljs-string">#  你是否可以使用 O(1) 空间解决此题？ </span>
+<span class="hljs-string">#</span>
+<span class="hljs-string">#  示例 1：</span>
+<span class="hljs-string"># 输入：head = [3,2,0,-4], pos = 1</span>
+<span class="hljs-string"># 输出：返回索引为 1 的链表节点</span>
+<span class="hljs-string"># 解释：链表中有一个环，其尾部连接到第二个节点。</span>
+<span class="hljs-string">#</span>
+<span class="hljs-string">#  示例 2：</span>
+<span class="hljs-string"># 输入：head = [1,2], pos = 0</span>
+<span class="hljs-string"># 输出：返回索引为 0 的链表节点</span>
+<span class="hljs-string"># 解释：链表中有一个环，其尾部连接到第一个节点。</span>
+<span class="hljs-string">#</span>
+<span class="hljs-string">#  示例 3：</span>
+<span class="hljs-string"># 输入：head = [1], pos = -1</span>
+<span class="hljs-string"># 输出：返回 null</span>
+<span class="hljs-string"># 解释：链表中没有环。</span>
+<span class="hljs-string">#</span>
+<span class="hljs-string">#  提示：</span>
+<span class="hljs-string">#  链表中节点的数目范围在范围 [0, 104] 内 </span>
+<span class="hljs-string">#  -105 &lt;= Node.val &lt;= 105 </span>
+<span class="hljs-string">#  pos 的值为 -1 或者链表中的一个有效索引 </span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  Related Topics 链表 双指针 </span>
+<span class="hljs-string">#  👍 898 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, x</span>):</span>
+        self.val = x
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-literal">None</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">detectCycle</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; ListNode:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> head.<span class="hljs-built_in">next</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        p, q = head.<span class="hljs-built_in">next</span>, head.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">while</span> q <span class="hljs-keyword">and</span> q.<span class="hljs-built_in">next</span> <span class="hljs-keyword">and</span> p != q:
+            p = p.<span class="hljs-built_in">next</span>
+            q = q.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">if</span> p != q:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        q = head
+        <span class="hljs-keyword">while</span> p != q:
+            p = p.<span class="hljs-built_in">next</span>
+            q = q.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">return</span> q
+        
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h6 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202. 快乐数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/happy-number/">202. 快乐数</a></h6><p>编写一个算法来判断一个数 n 是不是快乐数。</p>
+<p>「快乐数」定义为：</p>
+<p>对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。<br>然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。<br>如果 可以变为  1，那么这个数就是快乐数。<br>如果 n 是快乐数就返回 true ；不是，则返回 false 。</p>
+<p>解题思路</p>
+<pre><code class="hljs angelscript"><span class="hljs-number">1.</span>链表是否有环问题</code></pre>
+
+<p>示例 2：</p>
+<pre><code class="hljs angelscript">输入：<span class="hljs-number">19</span>
+输出：<span class="hljs-literal">true</span>
+解释：
+<span class="hljs-number">12</span> + <span class="hljs-number">92</span> = <span class="hljs-number">82</span>
+<span class="hljs-number">82</span> + <span class="hljs-number">22</span> = <span class="hljs-number">68</span>
+<span class="hljs-number">62</span> + <span class="hljs-number">82</span> = <span class="hljs-number">100</span>
+<span class="hljs-number">12</span> + <span class="hljs-number">02</span> + <span class="hljs-number">02</span> = <span class="hljs-number">1</span></code></pre>
+
+<p>示例 2：</p>
+<pre><code class="hljs angelscript">输入：n = <span class="hljs-number">2</span>
+输出：<span class="hljs-literal">false</span>
+
+提示：
+<span class="hljs-number">1</span> &lt;= n &lt;= <span class="hljs-number">231</span> - <span class="hljs-number">1</span></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-04 17:56:08</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HappyNumber</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> HappyNumber().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;=<span class="hljs-number">100000</span>; i++) &#123;
+            <span class="hljs-keyword">if</span> (s.isHappy(i)) &#123;
+                sum++;
+            &#125;
+        &#125;
+        System.out.println(sum);
+    &#125;
+
+    <span class="hljs-comment">//Write an algorithm to determine if a number n is happy.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// A happy number is a number defined by the following process:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Starting with any positive integer, replace the number by the sum of the squares of its digits.</span>
+    <span class="hljs-comment">// Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.</span>
+    <span class="hljs-comment">// Those numbers for which this process ends in 1 are happy.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Return true if n is a happy number, and false if not.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: n = 19</span>
+    <span class="hljs-comment">//Output: true</span>
+    <span class="hljs-comment">//Explanation:</span>
+    <span class="hljs-comment">//12 + 92 = 82</span>
+    <span class="hljs-comment">//82 + 22 = 68</span>
+    <span class="hljs-comment">//62 + 82 = 100</span>
+    <span class="hljs-comment">//12 + 02 + 02 = 1</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: n = 2</span>
+    <span class="hljs-comment">//Output: false</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// 1 &lt;= n &lt;= 231 - 1</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 哈希表 数学</span>
+    <span class="hljs-comment">// 👍 542 👎 0</span>
+
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNext</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+                <span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">while</span>(n &gt; <span class="hljs-number">0</span>) &#123;
+                    x += (n % <span class="hljs-number">10</span>) * (n % <span class="hljs-number">10</span>);
+                    n = n / <span class="hljs-number">10</span>;
+                &#125;
+                <span class="hljs-keyword">return</span> x;
+            &#125;
+
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isHappy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+                <span class="hljs-keyword">int</span> p = n, q = n;
+                <span class="hljs-keyword">do</span>&#123;
+                    p = getNext(p);
+                    q = getNext(getNext(q));
+                &#125; <span class="hljs-keyword">while</span> (p != q &amp;&amp; q!= <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">return</span> q == <span class="hljs-number">1</span>;
+            &#125;
+    &#125;
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;
+</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs golang"><span class="hljs-keyword">package</span> leetcode
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 12:56:41</span>
+<span class="hljs-comment"> * Description: //Write an algorithm to determine if a number n is happy.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// A happy number is a number defined by the following process:</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Starting with any positive integer, replace the number by the sum of the squa</span>
+<span class="hljs-comment">				//res of its digits.</span>
+<span class="hljs-comment">				// Repeat the process until the number equals 1 (where it will stay), or it loop</span>
+<span class="hljs-comment">				//s endlessly in a cycle which does not include 1.</span>
+<span class="hljs-comment">				// Those numbers for which this process ends in 1 are happy.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Return true if n is a happy number, and false if not.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 1:</span>
+<span class="hljs-comment">				//Input: n = 19</span>
+<span class="hljs-comment">				//Output: true</span>
+<span class="hljs-comment">				//Explanation:</span>
+<span class="hljs-comment">				//12 + 92 = 82</span>
+<span class="hljs-comment">				//82 + 22 = 68</span>
+<span class="hljs-comment">				//62 + 82 = 100</span>
+<span class="hljs-comment">				//12 + 02 + 02 = 1</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 2:</span>
+<span class="hljs-comment">				//Input: n = 2</span>
+<span class="hljs-comment">				//Output: false</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Constraints:</span>
+<span class="hljs-comment">				// 1 &lt;= n &lt;= 231 - 1</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Related Topics 哈希表 数学</span>
+<span class="hljs-comment">				// 👍 547 👎 0</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IsHappy</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	p, q := getNext(n), getNext(getNext(n))
+	<span class="hljs-keyword">for</span> p != q &amp;&amp; q != <span class="hljs-number">1</span> &#123;
+		p = getNext(p)
+		q = getNext(getNext(q))
+	&#125;
+	<span class="hljs-keyword">return</span> q == <span class="hljs-number">1</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getNext</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;
+	x := <span class="hljs-number">0</span>
+	<span class="hljs-keyword">for</span> n &gt; <span class="hljs-number">0</span> &#123;
+		x += (n % <span class="hljs-number">10</span>) * (n % <span class="hljs-number">10</span>)
+		n = n / <span class="hljs-number">10</span>
+	&#125;
+	<span class="hljs-keyword">return</span> x
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 202-快乐数</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 12:02:33</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 编写一个算法来判断一个数 n 是不是快乐数。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  「快乐数」定义为： </span>
+<span class="hljs-string">#  对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。 </span>
+<span class="hljs-string">#  然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。 </span>
+<span class="hljs-string">#  如果 可以变为 1，那么这个数就是快乐数。 </span>
+<span class="hljs-string">#  如果 n 是快乐数就返回 true ；不是，则返回 false 。 </span>
+<span class="hljs-string"># </span>
+<span class="hljs-string">#  示例 1： </span>
+<span class="hljs-string"># 输入：19</span>
+<span class="hljs-string"># 输出：true</span>
+<span class="hljs-string"># 解释：</span>
+<span class="hljs-string"># 12 + 92 = 82</span>
+<span class="hljs-string"># 82 + 22 = 68</span>
+<span class="hljs-string"># 62 + 82 = 100</span>
+<span class="hljs-string"># 12 + 02 + 02 = 1</span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  示例 2： </span>
+<span class="hljs-string"># 输入：n = 2</span>
+<span class="hljs-string"># 输出：false</span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  提示： </span>
+<span class="hljs-string">#  1 &lt;= n &lt;= 231 - 1 </span>
+<span class="hljs-string">#  </span>
+<span class="hljs-string">#  Related Topics 哈希表 数学 </span>
+<span class="hljs-string">#  👍 548 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-keyword">import</span> math
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isHappy</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; bool:</span>
+        p, q = n, self.get_next(n)
+        <span class="hljs-keyword">while</span> p != q <span class="hljs-keyword">and</span> q != <span class="hljs-number">1</span>:
+            p = self.get_next(p)
+            q = self.get_next(self.get_next(q))
+        <span class="hljs-keyword">return</span> q == <span class="hljs-number">1</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_next</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; int:</span>
+        x = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">while</span> n:
+            n, tmp = <span class="hljs-built_in">divmod</span>(n, <span class="hljs-number">10</span>)
+            x += (tmp * tmp)
+        <span class="hljs-keyword">return</span> x
+
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span></code></pre>
+
+<h5 id="链表反转"><a href="#链表反转" class="headerlink" title="链表反转"></a>链表反转</h5><h6 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h6><p>反转一个单链表。</p>
+<p>示例:</p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>-&gt;NULL
+输出: <span class="hljs-number">5</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">1</span>-&gt;NULL</code></pre>
+
+<p>进阶:<br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-11 17:30:32</span>
+<span class="hljs-comment"> * Description: 206-Reverse Linked List</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReverseLinkedList</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> ReverseLinkedList().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given the head of a singly linked list, reverse the list, and return the reversed list.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: head = [1,2,3,4,5]</span>
+    <span class="hljs-comment">//Output: [5,4,3,2,1]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: head = [1,2]</span>
+    <span class="hljs-comment">//Output: [2,1]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 3:</span>
+    <span class="hljs-comment">//Input: head = []</span>
+    <span class="hljs-comment">//Output: []</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// The number of nodes in the list is the range [0, 5000].</span>
+    <span class="hljs-comment">// -5000 &lt;= Node.val &lt;= 5000</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Follow up: A linked list can be reversed either iteratively or recursively. C</span>
+    <span class="hljs-comment">//ould you implement both?</span>
+    <span class="hljs-comment">// Related Topics 链表</span>
+    <span class="hljs-comment">// 👍 1568 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Definition for singly-linked list.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+        <span class="hljs-keyword">int</span> val;
+        ListNode next;
+        ListNode() &#123;&#125;
+        ListNode(<span class="hljs-keyword">int</span> val) &#123; <span class="hljs-keyword">this</span>.val = val; &#125;
+        ListNode(<span class="hljs-keyword">int</span> val, ListNode next) &#123; <span class="hljs-keyword">this</span>.val = val; <span class="hljs-keyword">this</span>.next = next; &#125;
+    &#125;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+            ListNode pre = <span class="hljs-keyword">null</span>, cur = head, next = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;
+                next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
+            &#125;
+            <span class="hljs-keyword">return</span> pre;
+        &#125;
+    &#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"><span class="hljs-keyword">package</span> leetcode
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-11 17:46:07</span>
+<span class="hljs-comment"> * Description: //Given the head of a singly linked list, reverse the list, and return the reversed list.</span>
+<span class="hljs-comment">				// Example 1:</span>
+<span class="hljs-comment">				//Input: head = [1,2,3,4,5]</span>
+<span class="hljs-comment">				//Output: [5,4,3,2,1]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 2:</span>
+<span class="hljs-comment">				//Input: head = [1,2]</span>
+<span class="hljs-comment">				//Output: [2,1]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 3:</span>
+<span class="hljs-comment">				//Input: head = []</span>
+<span class="hljs-comment">				//Output: []</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Constraints:</span>
+<span class="hljs-comment">				// The number of nodes in the list is the range [0, 5000].</span>
+<span class="hljs-comment">				// -5000 &lt;= Node.val &lt;= 5000</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Follow up: A linked list can be reversed either iteratively or recursively. C</span>
+<span class="hljs-comment">				//ould you implement both?</span>
+<span class="hljs-comment">				// Related Topics 链表</span>
+<span class="hljs-comment">				// 👍 1568 👎 0</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for singly-linked list.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+	Val <span class="hljs-keyword">int</span>
+	Next *ListNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;
+	<span class="hljs-keyword">var</span> pre, cur, next *ListNode = <span class="hljs-literal">nil</span>, head, <span class="hljs-literal">nil</span>
+	<span class="hljs-keyword">for</span> cur != <span class="hljs-literal">nil</span> &#123;
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	&#125;
+	<span class="hljs-keyword">return</span> pre
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 206-反转链表</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-11 17:45:14</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 反转一个单链表。 </span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例:</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span>
+<span class="hljs-string">        # 输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  进阶:</span>
+<span class="hljs-string">        # 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</span>
+<span class="hljs-string">        #  Related Topics 链表</span>
+<span class="hljs-string">        #  👍 1568 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span></span>):</span>
+        self.val = val
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverseList</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; ListNode:</span>
+        pre, cur, nex = <span class="hljs-literal">None</span>, head, <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">while</span> cur:
+            nex = cur.<span class="hljs-built_in">next</span>
+            cur.<span class="hljs-built_in">next</span> = pre
+            pre = cur
+            cur = nex
+        <span class="hljs-keyword">return</span> pre
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h6 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h6><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
+<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
+<p>示例:</p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>-&gt;NULL, m = <span class="hljs-number">2</span>, n = <span class="hljs-number">4</span>
+输出: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">5</span>-&gt;NULL</code></pre>
+
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"></code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"></code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="25-K-个一组翻转链表"><a href="#25-K-个一组翻转链表" class="headerlink" title="25. K 个一组翻转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/">25. K 个一组翻转链表</a></h6><p>给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。</p>
+<p>k 是一个正整数，它的值小于或等于链表的长度。</p>
+<p>如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。</p>
+<p>进阶：</p>
+<p>你可以设计一个只使用常数额外空间的算法来解决此问题吗？<br>你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。</p>
+<p><strong>示例 1</strong>：</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], k = <span class="hljs-number">2</span>
+输出：[<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>]</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex2.jpg" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], k = <span class="hljs-number">3</span>
+输出：[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]</code></pre>
+
+<p><strong>示例 3：</strong></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], k = <span class="hljs-number">1</span>
+输出：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]</code></pre>
+
+<p><strong>示例 4：</strong></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>], k = <span class="hljs-number">1</span>
+输出：[<span class="hljs-number">1</span>]</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>列表中节点的数量在范围 <code>sz</code> 内</li>
+<li><code>1 &lt;= sz &lt;= 5000</code></li>
+<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+<li><code>1 &lt;= k &lt;= sz</code></li>
+</ul>
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"></code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"></code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="61-旋转链表"><a href="#61-旋转链表" class="headerlink" title="61. 旋转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list/">61. 旋转链表</a></h6><p>给定一个链表，旋转链表，将链表每个节点向右移动 <em>k</em> 个位置，其中 <em>k</em> 是非负数。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>-&gt;NULL, k = <span class="hljs-number">2</span>
+输出: <span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;NULL
+解释:
+向右旋转 <span class="hljs-number">1</span> 步: <span class="hljs-number">5</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;NULL
+向右旋转 <span class="hljs-number">2</span> 步: <span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;NULL</code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">0</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;NULL, k = <span class="hljs-number">4</span>
+输出: <span class="hljs-number">2</span>-&gt;<span class="hljs-number">0</span>-&gt;<span class="hljs-number">1</span>-&gt;NULL
+解释:
+向右旋转 <span class="hljs-number">1</span> 步: <span class="hljs-number">2</span>-&gt;<span class="hljs-number">0</span>-&gt;<span class="hljs-number">1</span>-&gt;NULL
+向右旋转 <span class="hljs-number">2</span> 步: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">0</span>-&gt;NULL
+向右旋转 <span class="hljs-number">3</span> 步: <span class="hljs-number">0</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;NULL
+向右旋转 <span class="hljs-number">4</span> 步: <span class="hljs-number">2</span>-&gt;<span class="hljs-number">0</span>-&gt;<span class="hljs-number">1</span>-&gt;NULL</code></pre>
+
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"></code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"></code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h6><p>给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</p>
+<p><strong>你不能只是单纯的改变节点内部的值</strong>，而是需要实际的进行节点交换。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/03/swap_ex1.jpg" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]
+输出：[<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>]</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre><code class="hljs inform7">输入：head = <span class="hljs-comment">[]</span>
+输出：<span class="hljs-comment">[]</span></code></pre>
+
+<p><strong>示例 3：</strong></p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>]
+输出：[<span class="hljs-number">1</span>]</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>链表中节点的数目在范围 <code>[0, 100]</code> 内</li>
+<li><code>0 &lt;= Node.val &lt;= 100</code></li>
+</ul>
+<p><strong>进阶：</strong>你能在不修改链表节点值的情况下解决这个问题吗?（也就是说，仅修改节点本身。）</p>
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"></code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"></code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"></code></pre>
+
+<h5 id="链表节点删除"><a href="#链表节点删除" class="headerlink" title="链表节点删除"></a>链表节点删除</h5><h6 id="19-删除链表的倒数第-N-个结点"><a href="#19-删除链表的倒数第-N-个结点" class="headerlink" title="19. 删除链表的倒数第 N 个结点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></h6><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
+<p>进阶：你能尝试使用一趟扫描实现吗？</p>
+<p>示例 1：</p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], n = <span class="hljs-number">2</span>
+输出：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>]</code></pre>
+
+
+<p>示例 2：</p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>], n = <span class="hljs-number">1</span>
+输出：[]</code></pre>
+
+<p>示例 3：</p>
+<pre><code class="hljs angelscript">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], n = <span class="hljs-number">1</span>
+输出：[<span class="hljs-number">1</span>]</code></pre>
+
+
+<p>提示：</p>
+<pre><code class="hljs angelscript">链表中结点的数目为 sz
+<span class="hljs-number">1</span> &lt;= sz &lt;= <span class="hljs-number">30</span>
+<span class="hljs-number">0</span> &lt;= Node.val &lt;= <span class="hljs-number">100</span>
+<span class="hljs-number">1</span> &lt;= n &lt;= sz</code></pre>
+
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 12:54:46</span>
+<span class="hljs-comment"> * Description: 19-Remove Nth Node From End of List</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoveNthNodeFromEndOfList</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> RemoveNthNodeFromEndOfList().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given the head of a linked list, remove the nth node from the end of the list </span>
+    <span class="hljs-comment">//and return its head.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Follow up: Could you do this in one pass?</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: head = [1,2,3,4,5], n = 2</span>
+    <span class="hljs-comment">//Output: [1,2,3,5]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: head = [1], n = 1</span>
+    <span class="hljs-comment">//Output: []</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 3:</span>
+    <span class="hljs-comment">//Input: head = [1,2], n = 1</span>
+    <span class="hljs-comment">//Output: [1]</span>
+
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// The number of nodes in the list is sz.</span>
+    <span class="hljs-comment">// 1 &lt;= sz &lt;= 30</span>
+    <span class="hljs-comment">// 0 &lt;= Node.val &lt;= 100</span>
+    <span class="hljs-comment">// 1 &lt;= n &lt;= sz</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 链表 双指针</span>
+    <span class="hljs-comment">// 👍 1264 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Definition for singly-linked list.</span>
+<span class="hljs-comment">     */</span>
+     <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+         <span class="hljs-keyword">int</span> val;
+         ListNode next;
+         ListNode() &#123;&#125;
+         ListNode(<span class="hljs-keyword">int</span> val) &#123; <span class="hljs-keyword">this</span>.val = val; &#125;
+         ListNode(<span class="hljs-keyword">int</span> val, ListNode next) &#123; <span class="hljs-keyword">this</span>.val = val; <span class="hljs-keyword">this</span>.next = next; &#125;
+     &#125;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode head, <span class="hljs-keyword">int</span> n)</span> </span>&#123;
+            ListNode hair = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>, head), fast = head, slow = hair;
+            <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">0</span>)&#123;
+                fast = fast.next;
+                n--;
+            &#125;
+
+            <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span>) &#123;
+                fast = fast.next;
+                slow = slow.next;
+            &#125;
+            slow.next = slow.next.next;
+            <span class="hljs-keyword">return</span> hair.next;
+        &#125;
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;
+</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"><span class="hljs-keyword">package</span> leetcode
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 13:43:33</span>
+<span class="hljs-comment"> * Description:</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-comment">//Given the head of a linked list, remove the nth node from the end of the list </span>
+<span class="hljs-comment">//and return its head. </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Follow up: Could you do this in one pass? </span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Example 1:</span>
+<span class="hljs-comment">//Input: head = [1,2,3,4,5], n = 2</span>
+<span class="hljs-comment">//Output: [1,2,3,5]</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Example 2:</span>
+<span class="hljs-comment">//Input: head = [1], n = 1</span>
+<span class="hljs-comment">//Output: []</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Example 3:</span>
+<span class="hljs-comment">//Input: head = [1,2], n = 1</span>
+<span class="hljs-comment">//Output: [1]</span>
+
+<span class="hljs-comment">// Constraints:</span>
+<span class="hljs-comment">// The number of nodes in the list is sz. </span>
+<span class="hljs-comment">// 1 &lt;= sz &lt;= 30 </span>
+<span class="hljs-comment">// 0 &lt;= Node.val &lt;= 100 </span>
+<span class="hljs-comment">// 1 &lt;= n &lt;= sz </span>
+<span class="hljs-comment">// </span>
+<span class="hljs-comment">// Related Topics 链表 双指针 </span>
+<span class="hljs-comment">// 👍 1264 👎 0</span>
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for singly-linked list.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+	Val <span class="hljs-keyword">int</span>
+	Next *ListNode
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;
+	hair := &amp;ListNode&#123;Next:head&#125;
+	fast, slow := head, hair
+	<span class="hljs-keyword">for</span> n &gt; <span class="hljs-number">0</span> &#123;
+		fast = fast.Next
+		n--
+	&#125;
+	<span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &#123;
+		fast = fast.Next
+		slow = slow.Next
+	&#125;
+	slow.Next = slow.Next.Next
+	<span class="hljs-keyword">return</span> hair.Next
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 19-删除链表的倒数第 N 个结点</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 13:39:13</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。 </span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  进阶：你能尝试使用一趟扫描实现吗？</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">        #  示例 1：</span>
+<span class="hljs-string">        # 输入：head = [1,2,3,4,5], n = 2</span>
+<span class="hljs-string">        # 输出：[1,2,3,5]</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例 2：</span>
+<span class="hljs-string">        # 输入：head = [1], n = 1</span>
+<span class="hljs-string">        # 输出：[]</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例 3：</span>
+<span class="hljs-string">        # 输入：head = [1,2], n = 1</span>
+<span class="hljs-string">        # 输出：[1]</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  提示：</span>
+<span class="hljs-string">        #  链表中结点的数目为 sz</span>
+<span class="hljs-string">        #  1 &lt;= sz &lt;= 30</span>
+<span class="hljs-string">        #  0 &lt;= Node.val &lt;= 100</span>
+<span class="hljs-string">        #  1 &lt;= n &lt;= sz</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  Related Topics 链表 双指针</span>
+<span class="hljs-string">        #  👍 1264 👎 0</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span></span>):</span>
+        self.val = val
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">removeNthFromEnd</span>(<span class="hljs-params">self, head: ListNode, n: <span class="hljs-built_in">int</span></span>) -&gt; ListNode:</span>
+        hair = ListNode(<span class="hljs-built_in">next</span>=head)
+        slow, fast = hair, head;
+        <span class="hljs-keyword">while</span> n &gt; <span class="hljs-number">0</span>:
+            fast = fast.<span class="hljs-built_in">next</span>
+            n -= <span class="hljs-number">1</span>
+
+        <span class="hljs-keyword">while</span> fast:
+            fast = fast.<span class="hljs-built_in">next</span>
+            slow = slow.<span class="hljs-built_in">next</span>
+
+        slow.<span class="hljs-built_in">next</span> = slow.<span class="hljs-built_in">next</span>.<span class="hljs-built_in">next</span>
+        <span class="hljs-keyword">return</span> hair.<span class="hljs-built_in">next</span>
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h6 id="83-删除排序链表中的重复元素"><a href="#83-删除排序链表中的重复元素" class="headerlink" title="83. 删除排序链表中的重复元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/">83. 删除排序链表中的重复元素</a></h6><p>给定一个<strong>排序</strong>链表，删除所有重复的元素，使得每个元素只出现一次。</p>
+<p>示例 1:</p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>
+输出: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span></code></pre>
+
+<p>示例 2:</p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">3</span>
+输出: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span></code></pre>
+
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 13:48:45</span>
+<span class="hljs-comment"> * Description: 83-Remove Duplicates from Sorted List</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoveDuplicatesFromSortedList</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> RemoveDuplicatesFromSortedList().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given the head of a sorted linked list, delete all duplicates such that each e</span>
+    <span class="hljs-comment">//lement appears only once. Return the linked list sorted as well. </span>
+
+    <span class="hljs-comment">// Example 1: </span>
+    <span class="hljs-comment">//Input: head = [1,1,2]</span>
+    <span class="hljs-comment">//Output: [1,2]</span>
+
+    <span class="hljs-comment">// Example 2: </span>
+    <span class="hljs-comment">//Input: head = [1,1,2,3,3]</span>
+    <span class="hljs-comment">//Output: [1,2,3]</span>
+
+    <span class="hljs-comment">// Constraints: </span>
+    <span class="hljs-comment">// The number of nodes in the list is in the range [0, 300]. </span>
+    <span class="hljs-comment">// -100 &lt;= Node.val &lt;= 100 </span>
+    <span class="hljs-comment">// The list is guaranteed to be sorted in ascending order. </span>
+    <span class="hljs-comment">// </span>
+    <span class="hljs-comment">// Related Topics 链表 </span>
+    <span class="hljs-comment">// 👍 488 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Definition for singly-linked list.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+        <span class="hljs-keyword">int</span> val;
+        ListNode next;
+        ListNode() &#123;&#125;
+        ListNode(<span class="hljs-keyword">int</span> val) &#123; <span class="hljs-keyword">this</span>.val = val; &#125;
+        ListNode(<span class="hljs-keyword">int</span> val, ListNode next) &#123; <span class="hljs-keyword">this</span>.val = val; <span class="hljs-keyword">this</span>.next = next; &#125;
+    &#125;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+            <span class="hljs-keyword">if</span>(head == <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+            &#125;
+            ListNode fast = head.next, slow = head;
+            <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-keyword">if</span> (fast.val == slow.val) &#123;
+                    slow.next = fast.next;
+                    fast = slow.next;
+                &#125;<span class="hljs-keyword">else</span> &#123;
+                    fast = fast.next;
+                    slow = slow.next;
+                &#125;
+            &#125;
+            <span class="hljs-keyword">return</span> head;
+        &#125;
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;
+</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"><span class="hljs-keyword">package</span> leetcode
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 13:50:35</span>
+<span class="hljs-comment"> * Description: //Given the head of a sorted linked list, delete all duplicates such that each e</span>
+<span class="hljs-comment">				//lement appears only once. Return the linked list sorted as well.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 1:</span>
+<span class="hljs-comment">				//Input: head = [1,1,2]</span>
+<span class="hljs-comment">				//Output: [1,2]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 2:</span>
+<span class="hljs-comment">				//Input: head = [1,1,2,3,3]</span>
+<span class="hljs-comment">				//Output: [1,2,3]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Constraints:</span>
+<span class="hljs-comment">				// The number of nodes in the list is in the range [0, 300].</span>
+<span class="hljs-comment">				// -100 &lt;= Node.val &lt;= 100</span>
+<span class="hljs-comment">				// The list is guaranteed to be sorted in ascending order.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Related Topics 链表</span>
+<span class="hljs-comment">				// 👍 488 👎 0</span>
+<span class="hljs-comment"> **/</span>
+
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for singly-linked list.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+	Val <span class="hljs-keyword">int</span>
+	Next *ListNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;
+	cur := head
+	<span class="hljs-keyword">for</span> cur != <span class="hljs-literal">nil</span> &amp;&amp; cur.Next != <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">if</span> cur.Val == cur.Next.Val &#123;
+			cur.Next = cur.Next.Next
+		&#125;<span class="hljs-keyword">else</span> &#123;
+			cur = cur.Next
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> head
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 83-删除排序链表中的重复元素</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 13:50:26</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。 </span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例 1:</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  输入: 1-&gt;1-&gt;2</span>
+<span class="hljs-string">        # 输出: 1-&gt;2</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例 2:</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  输入: 1-&gt;1-&gt;2-&gt;3-&gt;3</span>
+<span class="hljs-string">        # 输出: 1-&gt;2-&gt;3</span>
+<span class="hljs-string">        #  Related Topics 链表</span>
+<span class="hljs-string">        #  👍 488 👎 0</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span></span>):</span>
+        self.val = val
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteDuplicates</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; ListNode:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        fast, slow = head.<span class="hljs-built_in">next</span>, head
+
+        <span class="hljs-keyword">while</span> fast:
+            <span class="hljs-keyword">if</span> fast.val == slow.val:
+                slow.<span class="hljs-built_in">next</span> = fast.<span class="hljs-built_in">next</span>
+                fast = slow.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">else</span>:
+                fast = fast.<span class="hljs-built_in">next</span>
+                slow = slow.<span class="hljs-built_in">next</span>
+
+        <span class="hljs-keyword">return</span> head
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h6 id="82-删除排序链表中的重复元素-II"><a href="#82-删除排序链表中的重复元素-II" class="headerlink" title="82. 删除排序链表中的重复元素 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/">82. 删除排序链表中的重复元素 II</a></h6><p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 <em>没有重复出现</em> 的数字。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>
+输出: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">5</span></code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs angelscript">输入: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>
+输出: <span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span></code></pre>
+
+<p>解题思路</p>
+<pre><code class="hljs plain"></code></pre>
+
+<p><code>Java</code></p>
+<pre><code class="hljs Java"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 13:50:14</span>
+<span class="hljs-comment"> * Description: 82-Remove Duplicates from Sorted List II</span>
+<span class="hljs-comment"> **/</span>
+ 
+<span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoveDuplicatesFromSortedListIi</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> RemoveDuplicatesFromSortedListIi().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Given the head of a sorted linked list, delete all nodes that have duplicate numbers, </span>
+    <span class="hljs-comment">//leaving only distinct numbers from the original list. Return the linked</span>
+    <span class="hljs-comment">//list sorted as well.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input: head = [1,2,3,3,4,4,5]</span>
+    <span class="hljs-comment">//Output: [1,2,5]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 2:</span>
+    <span class="hljs-comment">//Input: head = [1,1,1,2,3]</span>
+    <span class="hljs-comment">//Output: [2,3]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// The number of nodes in the list is in the range [0, 300].</span>
+    <span class="hljs-comment">// -100 &lt;= Node.val &lt;= 100</span>
+    <span class="hljs-comment">// The list is guaranteed to be sorted in ascending order.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 链表</span>
+    <span class="hljs-comment">// 👍 469 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Definition for singly-linked list.</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
+        <span class="hljs-keyword">int</span> val;
+        ListNode next;
+        ListNode() &#123;&#125;
+        ListNode(<span class="hljs-keyword">int</span> val) &#123; <span class="hljs-keyword">this</span>.val = val; &#125;
+        ListNode(<span class="hljs-keyword">int</span> val, ListNode next) &#123; <span class="hljs-keyword">this</span>.val = val; <span class="hljs-keyword">this</span>.next = next; &#125;
+    &#125;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode head)</span> </span>&#123;
+            ListNode hair = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>, head), fast = head, slow = hair;
+            <span class="hljs-keyword">while</span> (fast != <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-keyword">while</span> (fast.next != <span class="hljs-keyword">null</span> &amp;&amp; fast.val == fast.next.val) &#123;
+                    fast = fast.next;
+                &#125;
+                <span class="hljs-keyword">if</span> (slow.next == fast) &#123;
+                    slow = slow.next;
+                &#125;<span class="hljs-keyword">else</span> &#123;
+                    slow.next = fast.next;
+                &#125;
+                fast = fast.next;
+            &#125;
+            <span class="hljs-keyword">return</span> hair.next;
+        &#125;
+    &#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;
+</code></pre>
+
+<p><code>Golang</code></p>
+<pre><code class="hljs Golang"><span class="hljs-keyword">package</span> leetcode
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Author: Wang P</span>
+<span class="hljs-comment"> * Version: 1.0.0</span>
+<span class="hljs-comment"> * Date: 2021-03-05 13:50:38</span>
+<span class="hljs-comment"> * Description: //Given the head of a sorted linked list, delete all nodes that have duplicate n</span>
+<span class="hljs-comment">				//umbers, leaving only distinct numbers from the original list. Return the linked</span>
+<span class="hljs-comment">				//list sorted as well.</span>
+<span class="hljs-comment">				// Example 1:</span>
+<span class="hljs-comment">				//Input: head = [1,2,3,3,4,4,5]</span>
+<span class="hljs-comment">				//Output: [1,2,5]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Example 2:</span>
+<span class="hljs-comment">				//Input: head = [1,1,1,2,3]</span>
+<span class="hljs-comment">				//Output: [2,3]</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Constraints:</span>
+<span class="hljs-comment">				// The number of nodes in the list is in the range [0, 300].</span>
+<span class="hljs-comment">				// -100 &lt;= Node.val &lt;= 100</span>
+<span class="hljs-comment">				// The list is guaranteed to be sorted in ascending order.</span>
+<span class="hljs-comment">				//</span>
+<span class="hljs-comment">				// Related Topics 链表</span>
+<span class="hljs-comment">				// 👍 469 👎 0</span>
+<span class="hljs-comment"> **/</span>
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Definition for singly-linked list.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+	Val <span class="hljs-keyword">int</span>
+	Next *ListNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;
+		hair := &amp;ListNode&#123;Next: head&#125;
+		fast, slow := head, hair
+		<span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-keyword">for</span> fast.Next != <span class="hljs-literal">nil</span> &amp;&amp; fast.Val == fast.Next.Val &#123;
+				fast = fast.Next
+			&#125;
+			<span class="hljs-keyword">if</span> slow.Next == fast&#123;
+				slow = slow.Next
+			&#125; <span class="hljs-keyword">else</span> &#123;
+				slow.Next = fast.Next
+			&#125;
+			fast = fast.Next
+		&#125;
+		<span class="hljs-keyword">return</span> hair.Next
+&#125;
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><code>Python</code></p>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 82-删除排序链表中的重复元素 II</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Date: 2021-03-05 13:50:50</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。</span>
+<span class="hljs-string">        #  示例 1:</span>
+<span class="hljs-string">        #  输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5</span>
+<span class="hljs-string">        # 输出: 1-&gt;2-&gt;5</span>
+<span class="hljs-string">        #  示例 2:</span>
+<span class="hljs-string">        #  输入: 1-&gt;1-&gt;1-&gt;2-&gt;3</span>
+<span class="hljs-string">        # 输出: 2-&gt;3</span>
+<span class="hljs-string">        #  Related Topics 链表</span>
+<span class="hljs-string">        #  👍 469 👎 0</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span></span>):</span>
+        self.val = val
+        self.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteDuplicates</span>(<span class="hljs-params">self, head: ListNode</span>) -&gt; ListNode:</span>
+        hair, fast = ListNode(<span class="hljs-built_in">next</span>=head), head
+        slow = hair
+        <span class="hljs-keyword">while</span> fast:
+            <span class="hljs-keyword">while</span> fast.<span class="hljs-built_in">next</span> <span class="hljs-keyword">and</span> fast.val == fast.<span class="hljs-built_in">next</span>.val:
+                fast = fast.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">if</span> slow.<span class="hljs-built_in">next</span> == fast:
+                slow = slow.<span class="hljs-built_in">next</span>
+            <span class="hljs-keyword">else</span>:
+                slow.<span class="hljs-built_in">next</span> = fast.<span class="hljs-built_in">next</span>
+            fast = fast.<span class="hljs-built_in">next</span>
+
+        <span class="hljs-keyword">return</span> hair.<span class="hljs-built_in">next</span>
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<h4 id="线程池与任务队列"><a href="#线程池与任务队列" class="headerlink" title="线程池与任务队列"></a>线程池与任务队列</h4><h4 id="递归与栈（Stack）：解决表达式求值"><a href="#递归与栈（Stack）：解决表达式求值" class="headerlink" title="递归与栈（Stack）：解决表达式求值"></a>递归与栈（Stack）：解决表达式求值</h4>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Leetcode/">Leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/scala/">scala</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/08/lt-tree/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【LeetCode】树结构相关</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/07/Golang/">
+                        <span class="hidden-mobile">【Go】学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
+        <span>Trable</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">杭ICP证123456号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>杭公网安备12345678号</span>
+      </a>
+     
+  </div>
+
+
+    
+     <div>
+  	<span id="timeDate">载入天数...</span>
+ 	<span id="times">载入时分秒...</span>
+ 	<script>
+          var now = new Date();
+          function createtime(){
+           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+           now.setTime(now.getTime()+250);
+           days = (now - grt ) / 1000 / 60 / 60 / 24;
+           dnum = Math.floor(days);
+           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+           hnum = Math.floor(hours);
+           if(String(hnum).length ==1 ){
+                hnum = "0" + hnum;
+           }
+           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+           mnum = Math.floor(minutes);
+           if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+           }
+           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+           snum = Math.round(seconds);
+           if(String(snum).length ==1 ){
+                snum = "0" + snum;
+           }
+           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+          }
+          setInterval("createtime()",250);
+       </script>
+    </div>
+ </div>
+ </footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【LeetCode】线性表相关问题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -17,7 +17,7 @@
   <meta name="description" content="我们相信，未来可期！">
   <meta name="author" content="嗯，我们是对的">
   <meta name="keywords" content="">
-  <title>【windows】基于PyCharm构建与开发Django项目 - weitrable</title>
+  <title>【windows】基于Django构建与开发在线学习项目 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      18
        分钟
     </span>
   
@@ -217,11 +217,11 @@
             
             <article class="markdown-body">
               <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/logo.jpg" srcset="/img/loading.gif"><a id="more"></a> </p>
-<p><strong>1.安装第三方库Django</strong></p>
+<h3 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h3><p><strong>1.安装第三方库Django</strong></p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/1.png" srcset="/img/loading.gif"></p>
 <p><strong>2.pycharm创建Django项目</strong></p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/2.png" srcset="/img/loading.gif"></p>
-<p><strong>3.安装mysql第三方库</strong></p>
+<h3 id="数据库环境与资源层设置"><a href="#数据库环境与资源层设置" class="headerlink" title="数据库环境与资源层设置"></a>数据库环境与资源层设置</h3><p><strong>3.安装mysql第三方库</strong></p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/3.png" srcset="/img/loading.gif"></p>
 <p><strong>4.配置mysql数据库环境</strong></p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/4.png" srcset="/img/loading.gif"></p>
@@ -258,8 +258,8 @@
     birthday = models.DateField(null=<span class="hljs-literal">True</span>, verbose_name=<span class="hljs-string">&#x27;生日&#x27;</span>)
     gender = models.IntegerField(choices=((<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;男&#x27;</span>), (<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;女&#x27;</span>)), verbose_name=<span class="hljs-string">&#x27;性别&#x27;</span>, default=<span class="hljs-number">1</span>)
     address = models.CharField(null=<span class="hljs-literal">True</span>, max_length=<span class="hljs-number">200</span>, verbose_name=<span class="hljs-string">&#x27;地址&#x27;</span>)
-   phone = models.CharField(null=<span class="hljs-literal">True</span>, blank=<span class="hljs-literal">True</span>, max_length=<span class="hljs-number">11</span>, verbose_name=<span class="hljs-string">&#x27;手机&#x27;</span>)
-   head = models.ImageField(upload_to=<span class="hljs-string">&#x27;image/%Y/%m&#x27;</span>, max_length=<span class="hljs-number">100</span>, verbose_name=<span class="hljs-string">&#x27;头像&#x27;</span>, default=<span class="hljs-string">&#x27;image/default_m.png&#x27;</span>) <span class="hljs-comment"># 注意这里的head使用ImageField，需要安装依赖库pip install pillow</span>
+    phone = models.CharField(null=<span class="hljs-literal">True</span>, blank=<span class="hljs-literal">True</span>, max_length=<span class="hljs-number">11</span>, verbose_name=<span class="hljs-string">&#x27;手机&#x27;</span>)
+    head = models.ImageField(upload_to=<span class="hljs-string">&#x27;image/%Y/%m&#x27;</span>, max_length=<span class="hljs-number">100</span>, verbose_name=<span class="hljs-string">&#x27;头像&#x27;</span>, default=<span class="hljs-string">&#x27;image/default_m.png&#x27;</span>) <span class="hljs-comment"># 注意这里的head使用ImageField，需要安装依赖库pip install pillow</span>
 
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meta</span>:</span>
         db_table = <span class="hljs-string">&#x27;tb_user&#x27;</span>
@@ -284,16 +284,17 @@ migrate user</code></pre>
 <p>可以查看到数据库中新增一条数据</p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/7-3.png" srcset="/img/loading.gif"></p>
 <p>这样就可以登录后台管理页面了</p>
-<p><strong>8.集成xadmin组件</strong></p>
+<h3 id="后台集成"><a href="#后台集成" class="headerlink" title="后台集成"></a>后台集成</h3><p><strong>8.集成xadmin组件</strong></p>
 <p>python3.x无法直接使用安装包</p>
 <pre><code class="hljs awk">pip install git+git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/sshwsfc/</span>xadmin.git@django2</code></pre>
 
-<p>或者访问<a target="_blank" rel="noopener" href="https://github.com/sshwsfc/xadmin/tree/django2%EF%BC%8C%EF%BC%88git">https://github.com/sshwsfc/xadmin/tree/django2，（git</a> clone -b django2 <a target="_blank" rel="noopener" href="https://github.com/sshwsfc/xadmin.git%EF%BC%89%E5%B0%86xadmin%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%8B">https://github.com/sshwsfc/xadmin.git）将xadmin目录下文件拷贝到项目下</a></p>
+<p>或者访问<code>https://github.com/sshwsfc/xadmin/tree/django2 </code>，</p>
+<p>或<code>git clone -b django2  https://github.com/sshwsfc/xadmin.git </code>将xadmin目录下文件拷贝到项目下</p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/8-1.png" srcset="/img/loading.gif"></p>
 <p>在settings.py文件下添加相应配置</p>
 <p><img src="/images/windows%E4%B8%8B%E5%9F%BA%E4%BA%8Epycharm%E6%9E%84%E5%BB%BAdjango-web%E9%A1%B9%E7%9B%AE/8-2.png" srcset="/img/loading.gif"></p>
 <p>把urls中默认admin指向Xadmin</p>
-<pre><code class="hljs python"><span class="hljs-comment"># 导入x admin，替换admin</span>
+<pre><code class="hljs python"><span class="hljs-comment"># 导入 xadmin，替换admin</span>
 <span class="hljs-keyword">import</span> xadmin
 urlpatterns = [
     path(<span class="hljs-string">&#x27;xadmin/&#x27;</span>, xadmin.site.urls),, <span class="hljs-comment"># django2中也可以是 url(r&#x27;^xadmin/&#x27;, xadmin.site.urls)</span>
@@ -585,7 +586,7 @@ xadmin.site.register(views.BaseAdminView, BaseSetting)</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【windows】基于PyCharm构建与开发Django项目&nbsp;",
+        "【windows】基于Django构建与开发在线学习项目&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

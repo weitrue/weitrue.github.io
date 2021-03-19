@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      217
+      218
        分钟
     </span>
   
@@ -216,7 +216,10 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a><a id="more"></a>变量</h3><h4 id="var与"><a href="#var与" class="headerlink" title="var与:="></a>var与:=</h4><ul>
+              <blockquote>
+<p> “Go has indeed become the language of cloud infrastructure” - Rob Pike interview<a id="more"></a></p>
+</blockquote>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="var与"><a href="#var与" class="headerlink" title="var与:="></a>var与:=</h4><ul>
 <li>:=方式较为简洁，但只能在函数内使用该方式，var方式没有这个限制，var方式定义在汉书外的变量属于包内部的变量</li>
 <li>函数中以:=方式定义变量为主</li>
 </ul>
@@ -2493,20 +2496,24 @@ safe Increase
 safe Increase
 <span class="hljs-number">2</span></code></pre>
 
-
-
 <ul>
 <li><code>Cond</code></li>
 </ul>
 <h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="gopm-获取无法下载的包"><a href="#gopm-获取无法下载的包" class="headerlink" title="gopm 获取无法下载的包"></a>gopm 获取无法下载的包</h4><p><code>go get -v github.com/gpmgo/gopm</code></p>
+<p>github地址：<a target="_blank" rel="noopener" href="https://github.com/gpmgo/gopm">https://github.com/gpmgo/gopm</a></p>
+<p>文档路径：<a target="_blank" rel="noopener" href="https://github.com/gpmgo/docs/tree/master/zh-CN">https://github.com/gpmgo/docs/tree/master/zh-CN</a></p>
 <p>安装踩坑：</p>
 <pre><code class="hljs zsh">github.com/codegangsta/cli: github.com/codegangsta/cli@v1.22.5: parsing go.mod:
 		module declares its path as: github.com/urfave/cli
 	        but was required as: github.com/codegangsta/cli</code></pre>
 
-<p>​    关闭go mod即可成功安装</p>
-<p>github地址：<a target="_blank" rel="noopener" href="https://github.com/gpmgo/gopm">https://github.com/gpmgo/gopm</a></p>
-<p>文档路径：<a target="_blank" rel="noopener" href="https://github.com/gpmgo/docs/tree/master/zh-CN">https://github.com/gpmgo/docs/tree/master/zh-CN</a></p>
+<p>关闭go mod即可成功安装</p>
+<h3 id="常见库-框架"><a href="#常见库-框架" class="headerlink" title="常见库/框架"></a>常见库/框架</h3><h4 id="爬虫相关"><a href="#爬虫相关" class="headerlink" title="爬虫相关"></a>爬虫相关</h4><ul>
+<li>henrylee2cn/pholcus</li>
+<li>gocrawl</li>
+<li>colly</li>
+<li>hu17889/go_spider</li>
+</ul>
 
             </article>
             <hr>

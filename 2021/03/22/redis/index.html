@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.6k 字
+      14.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      169
+      177
        分钟
     </span>
   
@@ -324,78 +324,81 @@ quit</code></pre>
 </thead>
 <tbody><tr>
 <td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-set.html">SET key value</a>  设置指定 key 的值示例：SET hello world</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-set.html">SET key value</a>  设置指定 key 的值,O(1)。示例：<code>SET hello world</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-get.html">GET key</a>  获取指定 key 的值。示例：GET hello</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-get.html">GET key</a>  获取指定 key 的值,O(1)。示例：<code>GET hello</code></td>
 </tr>
 <tr>
 <td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getrange.html">GETRANGE key start end</a>  返回 key 中字符串值的子字符示例：GETRANGE hello 0 3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getrange.html">GETRANGE key start end</a>  返回 key 中字符串值的子字符示例：<code>GETRANGE hello 0 3</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getset.html">GETSET key value</a> 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。示例：GETSET hello world2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getset.html">GETSET key value</a> 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。示例：<code>GETSET hello world2</code></td>
 </tr>
 <tr>
 <td>5</td>
-<td>[MGET key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mget.html">key2..]</a> 获取所有(一个或多个)给定 key 的值。示例：MGET hello world</td>
+<td>[MGET key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mget.html">key2..]</a> 获取所有(一个或多个)给定 key 的值。示例：<code>MGET hello world</code></td>
 </tr>
 <tr>
 <td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setex.html">SETEX key seconds value</a> 将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)。示例：SETEX hello 10 world3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setex.html">SETEX key seconds value</a> 将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)。示例：<code>SETEX hello 10 world3</code></td>
 </tr>
 <tr>
 <td>7</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setnx.html">SETNX key value</a> 只有在 key 不存在时设置 key 的值。示例：SETNX kkb redisvalue</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setnx.html">SETNX key value</a> 只有在 key 不存在时设置 key 的值。示例：<code>SETNX kkb 1</code></td>
 </tr>
 <tr>
 <td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setrange.html">SETRANGE key offset value</a> 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始。示例：SETRANGE kkb 0 helloredis</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setrange.html">SETRANGE key offset value</a> 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始。示例：<code>SETRANGE kkb 0 helloredis</code></td>
 </tr>
 <tr>
 <td>9</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-strlen.html">STRLEN key</a> 返回 key 所储存的字符串值的长度。示例：STRLEN kkb</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-strlen.html">STRLEN key</a> 返回 key 所储存的字符串值的长度,O(1)。示例：<code>STRLEN kkb</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td>[MSET key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mset.html">key value …]</a> 同时设置一个或多个 key-value 对。示例：MSET kkb2 kkbvalue2 kkb3 kkbvalue3</td>
+<td>[MSET key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mset.html">key value …]</a> 同时设置一个或多个 key-value 对，原子操作。示例：<code>MSET kkb2 kkbvalue2 kkb3 kkbvalue3</code></td>
 </tr>
 <tr>
 <td>12</td>
-<td>[MSETNX key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-msetnx.html">key value …]</a>  同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。示例：MSETNX kkb4 kkbvalue4 kkb5 kkbvalue5</td>
+<td>[MSETNX key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-msetnx.html">key value …]</a>  同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。示例：<code>MSETNX kkb4 kkbvalue4 kkb5 kkbvalue5</code></td>
 </tr>
 <tr>
 <td>13</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-psetex.html">PSETEX key milliseconds value</a> 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位。示例：PSETEX kkb6 6000 kkb6value</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-psetex.html">PSETEX key milliseconds value</a> 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位。示例：<code>PSETEX kkb6 6000 kkb6value</code></td>
 </tr>
 <tr>
 <td>14</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incr.html">INCR key</a> 将 key 中储存的数字值增一。示例：set kkb7 1INCR kkb7GET kkb7</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incr.html">INCR key</a> 将 key 中储存的数字值增一。示例：<code>set kkb 1</code>,<code>INCR kkb</code>,<code>GET kkb</code> 可用于分布式id等。</td>
 </tr>
 <tr>
 <td>15</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrby.html">INCRBY key increment</a> 将 key 所储存的值加上给定的增量值（increment） 。示例：INCRBY kkb7 2get kkb7</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrby.html">INCRBY key increment</a> 将 key 所储存的值加上给定的增量值（increment） 。示例：<code>INCRBY kkb 2</code>, <code>get kkb</code></td>
 </tr>
 <tr>
 <td>16</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrbyfloat.html">INCRBYFLOAT key increment</a> 将 key 所储存的值加上给定的浮点增量值（increment） 。示例：INCRBYFLOAT kkb7 0.8</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrbyfloat.html">INCRBYFLOAT key increment</a> 将 key 所储存的值加上给定的浮点增量值（increment） 。示例：<code>INCRBYFLOAT kkb 0.8</code></td>
 </tr>
 <tr>
 <td>17</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decr.html">DECR key</a> 将 key 中储存的数字值减一。示例：set kkb8 1DECR kkb8GET kkb8</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decr.html">DECR key</a> 将 key 中储存的数字值减一。示例：<code>set kkb 1</code>, <code>DECR kkb</code>, <code>GET kkb</code></td>
 </tr>
 <tr>
 <td>18</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decrby.html">DECRBY key decrement</a> key 所储存的值减去给定的减量值（decrement） 。示例：DECRBY kkb8 3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decrby.html">DECRBY key decrement</a> key 所储存的值减去给定的减量值（decrement） 。示例：<code>DECRBY kkb 3</code></td>
 </tr>
 <tr>
 <td>19</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-append.html">APPEND key value</a> 如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾。示例：APPEND kkb8 hello</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-append.html">APPEND key value</a> 如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾。示例：<code>APPEND kkb hello</code></td>
 </tr>
 </tbody></table>
 <h4 id="对key的操作"><a href="#对key的操作" class="headerlink" title="对key的操作"></a>对key的操作</h4><p>下表给出了与 Redis 键相关的基本命令：</p>
+<ul>
+<li><code>dbsize</code>：计算key的总数，O(1)</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -405,55 +408,55 @@ quit</code></pre>
 </thead>
 <tbody><tr>
 <td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-del.html">DEL key</a> 该命令用于在 key 存在时删除 key。示例：del kkb5</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-del.html">DEL key</a> 该命令用于在 key 存在时删除 key。示例：<code>del kkb</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-dump.html">DUMP key</a>  序列化给定 key ，并返回被序列化的值。示例：DUMP key1</td>
+<td>[<code>DUMP key](https://www.runoob.com/redis/keys-dump.html)  序列化给定 key ，并返回被序列化的值。示例：</code>DUMP key`</td>
 </tr>
 <tr>
 <td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-exists.html">EXISTS key</a>  检查给定 key 是否存在。示例：exists kkb</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-exists.html">EXISTS key</a>  检查给定 key 是否存在。示例：<code>exists kkb</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-expire.html">EXPIRE key</a> seconds 为给定 key 设置过期时间，以秒计。示例：expire kkb 5</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-expire.html">EXPIRE key</a> seconds 为给定 key 设置过期时间，以秒计。示例：<code>expire kkb 5</code></td>
 </tr>
 <tr>
 <td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pexpire.html">PEXPIRE key milliseconds</a>  设置 key 的过期时间以毫秒计。示例：PEXPIRE set2 3000000</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pexpire.html">PEXPIRE key milliseconds</a>  设置 key 的过期时间以毫秒计。示例：<code>PEXPIRE set2 3000000</code></td>
 </tr>
 <tr>
 <td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-keys.html">KEYS pattern</a>  查找所有符合给定模式( pattern)的 key 。示例：keys *</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-keys.html">KEYS pattern</a>  查找所有符合给定模式( pattern)的 key 。示例：<code>keys *</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-persist.html">PERSIST key</a>  移除 key 的过期时间，key 将持久保持。示例：persist set2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-persist.html">PERSIST key</a>  移除 key 的过期时间，key 将持久保持。示例：<code>persist set2</code></td>
 </tr>
 <tr>
 <td>11</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pttl.html">PTTL key</a>  以毫秒为单位返回 key 的剩余的过期时间。示例：pttl  set2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pttl.html">PTTL key</a>  以毫秒为单位返回 key 的剩余的过期时间。示例：<code>pttl  set2</code></td>
 </tr>
 <tr>
 <td>12</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-ttl.html">TTL key</a>  以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)。示例：ttl set2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-ttl.html">TTL key</a>  以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)。示例：<code>ttl set2</code></td>
 </tr>
 <tr>
 <td>13</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-randomkey.html">RANDOMKEY</a>  从当前数据库中随机返回一个 key 。示例： randomkey</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-randomkey.html">RANDOMKEY</a>  从当前数据库中随机返回一个 key 。示例： <code>randomkey</code></td>
 </tr>
 <tr>
 <td>14</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-rename.html">RENAME key newkey</a>  修改 key 的名称示例：rename  set5 set8</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-rename.html">RENAME key newkey</a>  修改 key 的名称示例：<code>rename set5 set8</code></td>
 </tr>
 <tr>
 <td>15</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-renamenx.html">RENAMENX key newkey</a>  仅当 newkey 不存在时，将 key 改名为 newkey 。示例：renamenx  set8 set10</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-renamenx.html">RENAMENX key newkey</a>  仅当 newkey 不存在时，将 key 改名为 newkey 。示例：<code>renamenx  set8 set10</code></td>
 </tr>
 <tr>
 <td>16</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-type.html">TYPE key</a>  返回 key 所储存的值的类型。示例：type  set10</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-type.html">TYPE key</a>  返回 key 所储存的值的类型。示例：<code>type  set10</code></td>
 </tr>
 </tbody></table>
 <h4 id="hash列表的操作"><a href="#hash列表的操作" class="headerlink" title="hash列表的操作"></a>hash列表的操作</h4><pre><code class="hljs angelscript">Redis hash 是一个<span class="hljs-built_in">string</span>类型的field和value的映射表，hash特别适合用于存储对象。
@@ -469,55 +472,55 @@ Redis 中每个 hash 可以存储 <span class="hljs-number">232</span> - <span c
 </thead>
 <tbody><tr>
 <td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hset.html">HSET key field value</a>  将哈希表 key 中的字段 field 的值设为 value 。示例：HSET key1 field1 value1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hset.html">HSET key field value</a>  将哈希表 key 中的字段 field 的值设为 value 。示例：<code>HSET key1 field1 value1</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hsetnx.html">HSETNX key field value</a>  只有在字段 field 不存在时，设置哈希表字段的值。示例：HSETNX key1 field2 value2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hsetnx.html">HSETNX key field value</a>  只有在字段 field 不存在时，设置哈希表字段的值。示例：<code>HSETNX key1 field2 value2</code></td>
 </tr>
 <tr>
 <td>3</td>
-<td>[HMSET key field1 value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmset.html">field2 value2 ]</a>  同时将多个 field-value (域-值)对设置到哈希表 key 中。示例：HMSET key1 field3 value3 field4 value4</td>
+<td>[HMSET key field1 value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmset.html">field2 value2 ]</a>  同时将多个 field-value (域-值)对设置到哈希表 key 中, O(n)。示例：<code>HMSET key1 field3 value3 field4 value4</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hexists.html">HEXISTS key field</a>  查看哈希表 key 中，指定的字段是否存在。示例：HEXISTS key1 field4HEXISTS key1 field6</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hexists.html">HEXISTS key field</a>  查看哈希表 key 中，指定的字段是否存在。示例：<code>HEXISTS key1 field4HEXISTS key1 field6</code></td>
 </tr>
 <tr>
 <td>5</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hget.html">HGET key field</a>  获取存储在哈希表中指定字段的值。示例：HGET key1 field4</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hget.html">HGET key field</a>  获取存储在哈希表中指定字段的值。示例：<code>HGET key1 field4</code></td>
 </tr>
 <tr>
 <td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hgetall.html">HGETALL key</a>  获取在哈希表中指定 key 的所有字段和值示例：HGETALL key1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hgetall.html">HGETALL key</a>  获取在哈希表中指定 key 的所有字段和值。示例：<code>HGETALL key1</code></td>
 </tr>
 <tr>
 <td>7</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hkeys.html">HKEYS key</a>  获取所有哈希表中的字段示例：HKEYS key1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hkeys.html">HKEYS key</a>  获取所有哈希表中的字段。示例：<code>HKEYS key1</code></td>
 </tr>
 <tr>
 <td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hlen.html">HLEN key</a>  获取哈希表中字段的数量示例：HLEN key1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hlen.html">HLEN key</a>  获取哈希表中字段的数量。示例：<code>HLEN key1</code></td>
 </tr>
 <tr>
 <td>9</td>
-<td>[HMGET key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmget.html">field2]</a>  获取所有给定字段的值示例：HMGET key1 field1 field2</td>
+<td>[HMGET key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmget.html">field2]</a>  获取所有给定字段的值, O(n)。示例：<code>HMGET key1 field1 field2</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrby.html">HINCRBY key field increment</a>  为哈希表 key 中的指定字段的整数值加上增量 increment 。示例：HSET key2 field1 1HINCRBY key2 field1 1HGET key2 field1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrby.html">HINCRBY key field increment</a>  为哈希表 key 中的指定字段的整数值加上增量 increment 。示例：<code>HSET key2 field1 1HINCRBY key2 field1 1HGET key2 field1</code></td>
 </tr>
 <tr>
 <td>11</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrbyfloat.html">HINCRBYFLOAT key field increment</a>  为哈希表 key 中的指定字段的浮点数值加上增量 increment 。示例：HINCRBYFLOAT key2 field1 0.8</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrbyfloat.html">HINCRBYFLOAT key field increment</a>  为哈希表 key 中的指定字段的浮点数值加上增量 increment 。示例：<code>HINCRBYFLOAT key2 field1 0.8</code></td>
 </tr>
 <tr>
 <td>12</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hvals.html">HVALS key</a>  获取哈希表中所有值示例：HVALS key1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hvals.html">HVALS key</a>  获取哈希表中所有值。示例：HVALS key1</td>
 </tr>
 <tr>
 <td>13</td>
-<td>[HDEL key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hdel.html">field2]</a>  删除一个或多个哈希表字段示例：HDEL key1 field1    HVALS key1</td>
+<td>[HDEL key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hdel.html">field2]</a>  删除一个或多个哈希表字段。示例：<code>HDEL key1 field1    HVALS key1</code></td>
 </tr>
 </tbody></table>
  <pre><code class="hljs shell">node01:6379&gt; HSET app:mytest1 test1 &quot;123&quot;
@@ -539,74 +542,80 @@ node01:6379&gt; HGET app:mytest test1
 </thead>
 <tbody><tr>
 <td>1</td>
-<td>[LPUSH key value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpush.html">value2]</a>  将一个或多个值插入到列表头部示例：LPUSH list1 value1 value2</td>
+<td><code>LPUSH key value1 [value2]</code>  将一个或多个值插入到列表头部。示例：<code>LPUSH list1 value1 value2</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td>LRANGE key start stop查看list当中所有的数据示例：LRANGE list1 0 -1</td>
+<td><code>LRANGE key start stop</code>查看list当中指定范围（包含stop）的数据。示例：<code>LRANGE list1 0 -1</code></td>
 </tr>
 <tr>
 <td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpushx.html">LPUSHX key value</a>  将一个值插入到已存在的列表头部示例：LPUSHX list1 value3LINDEX list1 0</td>
+<td><code>LPUSHX key value</code>将一个值插入到已存在的列表头部。示例：<code>LPUSHX list1 value3LINDEX list1 0</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td>[RPUSH key value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpush.html">value2]</a>  在列表中添加一个或多个值示例：RPUSH list1 value4 value5LRANGE list1 0 -1</td>
+<td><code>RPUSH key value1 [value2]</code>  在列表中添加一个或多个值。示例：RPUSH list1 value4 value5LRANGE list1 0 -1`</td>
 </tr>
 <tr>
 <td>5</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpushx.html">RPUSHX key value</a>  为已存在的列表添加值示例：RPUSHX list1 value6</td>
+<td><code>RPUSHX key value</code> 为已存在的列表添加值。示例：<code>RPUSHX list1 value6</code></td>
 </tr>
 <tr>
 <td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-linsert.html">LINSERT key BEFORE|AFTER pivot value</a>  在列表的元素前或者后插入元素示例：LINSERT list1 BEFORE value3 beforevalue3</td>
+<td>`LINSERT key BEFORE</td>
 </tr>
 <tr>
 <td>7</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lindex.html">LINDEX key index</a>  通过索引获取列表中的元素示例：LINDEX list1 0</td>
+<td><code>LINDEX key index</code> 通过索引获取列表中的元素, O(n)。示例：<code>LINDEX list1 0</code></td>
 </tr>
 <tr>
 <td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lset.html">LSET key index value</a>  通过索引设置列表元素的值示例：LSET list1 0 hello</td>
+<td><code>LSET key index value</code>通过索引设置列表元素的值, O(n)。示例：<code>LSET list1 0 hello</code></td>
 </tr>
 <tr>
 <td>9</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-llen.html">LLEN key</a>  获取列表长度示例：LLEN list1</td>
+<td><code>LLEN key</code> 获取列表长度。示例：<code>LLEN list1</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpop.html">LPOP key</a>  移出并获取列表的第一个元素示例：LPOP list1</td>
+<td><code>LPOP key</code>移出并获取列表的第一个元素。示例：<code>LPOP list1</code></td>
 </tr>
 <tr>
 <td>11</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpop.html">RPOP key</a>  移除列表的最后一个元素，返回值为移除的元素。示例：RPOP list1</td>
+<td><code>RPOP key</code>移除列表的最后一个元素，返回值为移除的元素。示例：<code>RPOP list1</code></td>
 </tr>
 <tr>
 <td>12</td>
-<td>[BLPOP key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-blpop.html">key2 ] timeout</a>  移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：BLPOP list1 2000</td>
+<td><code>BLPOP key1 [key2] timeout</code> 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BLPOP list1 2000</code></td>
 </tr>
 <tr>
 <td>13</td>
-<td>[BRPOP key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-brpop.html">key2 ] timeout</a>  移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：BRPOP list1 2000</td>
+<td><code>BRPOP key1 [key2 \] timeout</code> 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BRPOP list1 2000</code></td>
 </tr>
 <tr>
 <td>14</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpoplpush.html">RPOPLPUSH source destination</a>  移除列表的最后一个元素，并将该元素添加到另一个列表并返回示例：RPOPLPUSH list1 list2</td>
+<td><code>RPOPLPUSH source destination</code>移除列表的最后一个元素，并将该元素添加到另一个列表并返回。示例：<code>RPOPLPUSH list1 list2</code></td>
 </tr>
 <tr>
 <td>15</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-brpoplpush.html">BRPOPLPUSH source destination timeout</a>  从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：BRPOPLPUSH list1 list2 2000</td>
+<td><code>BRPOPLPUSH source destination timeout</code>从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果 列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BRPOPLPUSH list1 list2 2000</code></td>
 </tr>
 <tr>
 <td>16</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-ltrim.html">LTRIM key start stop</a>  对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。示例：LTRIM list1 0 2</td>
+<td><code>LTRIM key start stop</code>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。示例：LTRIM list1 0 2</td>
 </tr>
 <tr>
 <td>17</td>
-<td>DEL key1 key2删除指定key的列表示例：DEL list2</td>
+<td><code>DEL key1 key2</code>删除指定key的列表。示例：<code>DEL list2</code></td>
 </tr>
 </tbody></table>
-<h4 id="操作set集合"><a href="#操作set集合" class="headerlink" title="操作set集合"></a>操作set集合</h4> <pre><code class="hljs angelscript">redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。
+<pre><code class="hljs routeros">Tips:
+LPUSH + LPOP = STACK
+LPUSH + RPOP = QUEUE
+LPUSH + LTRIM = 固定大小集合或者LRU
+LPUSH + BRPOP = 消息队列</code></pre>
+
+<h4 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h4> <pre><code class="hljs angelscript">redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。
 
 Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(<span class="hljs-number">1</span>)。
 
@@ -617,64 +626,153 @@ Redis 中集合是通过哈希表实现的，所以添加，删除，查找的�
 <thead>
 <tr>
 <th><strong>序号</strong></th>
-<th><strong>命令及描述</strong></th>
+<th align="left"><strong>命令及描述</strong></th>
 </tr>
 </thead>
 <tbody><tr>
 <td>1</td>
-<td>[SADD key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sadd.html">member2]</a>  向集合添加一个或多个成员示例：SADD set1 setvalue1 setvalue2</td>
+<td align="left">[SADD key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sadd.html">member2]</a>  向集合添加一个或多个成员示例：<code>SADD set1 setvalue1 setvalue2</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smembers.html">SMEMBERS key</a>  返回集合中的所有成员示例：SMEMBERS set1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smembers.html">SMEMBERS key</a>  返回集合中的所有成员示例：<code>SMEMBERS set1</code></td>
 </tr>
 <tr>
 <td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-scard.html">SCARD key</a>  获取集合的成员数示例：SCARD set1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-scard.html">SCARD key</a>  获取集合的成员数示例：<code>SCARD set1</code></td>
 </tr>
 <tr>
 <td>4</td>
-<td>[SDIFF key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiff.html">key2]</a>  返回给定所有集合的差集示例：SADD set2 setvalue2 setvalue3SDIFF set1 set2</td>
+<td align="left">[SDIFF key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiff.html">key2]</a>  返回给定所有集合的差集示例：<code>SADD set2 setvalue2 setvalue3SDIFF set1 set2</code></td>
 </tr>
 <tr>
 <td>5</td>
-<td>[SDIFFSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiffstore.html">key2]</a>  返回给定所有集合的差集并存储在 destination 中示例：SDIFFSTORE set3 set1 set2</td>
+<td align="left">[SDIFFSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiffstore.html">key2]</a>  返回给定所有集合的差集并存储在 destination 中示例：<code>SDIFFSTORE set3 set1 set2</code></td>
 </tr>
 <tr>
 <td>6</td>
-<td>[SINTER key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinter.html">key2]</a>  返回给定所有集合的交集示例：SINTER set1 set2</td>
+<td align="left">[SINTER key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinter.html">key2]</a>  返回给定所有集合的交集示例：<code>SINTER set1 set2</code></td>
 </tr>
 <tr>
 <td>7</td>
-<td>[SINTERSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinterstore.html">key2]</a>  返回给定所有集合的交集并存储在 destination 中示例：SINTERSTORE set4 set1 set2</td>
+<td align="left">[SINTERSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinterstore.html">key2]</a>  返回给定所有集合的交集并存储在 destination 中示例：<code>SINTERSTORE set4 set1 set2</code></td>
 </tr>
 <tr>
 <td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sismember.html">SISMEMBER key member</a>  判断 member 元素是否是集合 key 的成员示例：SISMEMBER set1 setvalue1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sismember.html">SISMEMBER key member</a>  判断 member 元素是否是集合 key 的成员示例：<code>SISMEMBER set1 setvalue1</code></td>
 </tr>
 <tr>
 <td>9</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smove.html">SMOVE source destination member</a>  将 member 元素从 source 集合移动到 destination 集合示例：SMOVE set1 set2 setvalue1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smove.html">SMOVE source destination member</a>  将 member 元素从 source 集合移动到 destination 集合示例：<code>SMOVE set1 set2 setvalue1</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-spop.html">SPOP key</a>  移除并返回集合中的一个随机元素示例：SPOP set2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-spop.html">SPOP key</a>  移除并返回集合中的一个随机元素示例：<code>SPOP set2</code></td>
 </tr>
 <tr>
 <td>11</td>
-<td>[SRANDMEMBER key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srandmember.html">count]</a>  返回集合中一个或多个随机数示例：SRANDMEMBER set2 2</td>
+<td align="left">[SRANDMEMBER key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srandmember.html">count]</a>  返回集合中一个或多个随机数示例：<code>SRANDMEMBER set2 2</code></td>
 </tr>
 <tr>
 <td>12</td>
-<td>[SREM key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srem.html">member2]</a>  移除集合中一个或多个成员示例：SREM set2 setvalue1</td>
+<td align="left">[SREM key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srem.html">member2]</a>  移除集合中一个或多个成员示例：<code>SREM set2 setvalue1</code></td>
 </tr>
 <tr>
 <td>13</td>
-<td>[SUNION key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunion.html">key2]</a>  返回所有给定集合的并集示例：SUNION set1 set2</td>
+<td align="left">[SUNION key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunion.html">key2]</a>  返回所有给定集合的并集示例：<code>SUNION set1 set2</code></td>
 </tr>
 <tr>
 <td>14</td>
-<td>[SUNIONSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunionstore.html">key2]</a>  所有给定集合的并集存储在 destination 集合中示例：SUNIONSTORE set5 set1 set2</td>
+<td align="left">[SUNIONSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunionstore.html">key2]</a>  所有给定集合的并集存储在 destination 集合中示例：<code>SUNIONSTORE set5 set1 set2</code></td>
+</tr>
+</tbody></table>
+<h4 id="zset集合"><a href="#zset集合" class="headerlink" title="zset集合"></a>zset集合</h4><p>下表列出了 redis 有序集合的基本命令:</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">[ZADD key score1 member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zadd.html">score2 member2]</a> 向有序集合添加一个或多个成员，或者更新已存在成员的分数</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zcard.html">ZCARD key</a> 获取有序集合的成员数</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zcount.html">ZCOUNT key min max</a> 计算在有序集合中指定区间分数的成员数</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zincrby.html">ZINCRBY key increment member</a> 有序集合中对指定成员的分数加上增量 increment</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">[ZINTERSTORE destination numkeys key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zinterstore.html">key …]</a> 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 destination 中</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zlexcount.html">ZLEXCOUNT key min max</a> 在有序集合中计算指定字典区间内成员数量</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">[ZRANGE key start stop <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrange.html">WITHSCORES]</a> 通过索引区间返回有序集合指定区间内的成员</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">[ZRANGEBYLEX key min max <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrangebylex.html">LIMIT offset count]</a> 通过字典区间返回有序集合的成员</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">[ZRANGEBYSCORE key min max <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrangebyscore.html">WITHSCORES] [LIMIT]</a> 通过分数返回有序集合指定区间内的成员</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrank.html">ZRANK key member</a> 返回有序集合中指定成员的索引</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">[ZREM key member <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrem.html">member …]</a> 移除有序集合中的一个或多个成员</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebylex.html">ZREMRANGEBYLEX key min max</a> 移除有序集合中给定的字典区间的所有成员</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebyrank.html">ZREMRANGEBYRANK key start stop</a> 移除有序集合中给定的排名区间的所有成员</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebyscore.html">ZREMRANGEBYSCORE key min max</a> 移除有序集合中给定的分数区间的所有成员</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">[ZREVRANGE key start stop <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrange.html">WITHSCORES]</a> 返回有序集中指定区间内的成员，通过索引，分数从高到低</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left">[ZREVRANGEBYSCORE key max min <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrangebyscore.html">WITHSCORES]</a> 返回有序集中指定分数区间内的成员，分数从高到低排序</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrank.html">ZREVRANK key member</a> 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zscore.html">ZSCORE key member</a> 返回有序集中，成员的分数值</td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left">[ZUNIONSTORE destination numkeys key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zunionstore.html">key …]</a> 计算给定的一个或多个有序集的并集，并存储在新的 key 中</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="left">[ZSCAN key cursor <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zscan.html">MATCH pattern] [COUNT count]</a> 迭代有序集合中的元素（包括元素成员和元素分值）</td>
 </tr>
 </tbody></table>
 <h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h4> <pre><code class="hljs angelscript">Redis 在 <span class="hljs-number">2.8</span><span class="hljs-number">.9</span> 版本添加了 HyperLogLog 结构。

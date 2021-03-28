@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      479
+      480
        分钟
     </span>
   
@@ -216,7 +216,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="磁盘文件"><a href="#磁盘文件" class="headerlink" title="磁盘文件"></a><a id="more"></a><strong>磁盘文件</strong></h3><p><img src="/images/mysql/logfile.png" srcset="/img/loading.gif"></p>
+              <p><img src="/images/mysql/top.jpg" srcset="/img/loading.gif"><a id="more"></a></p>
+<h3 id="磁盘文件"><a href="#磁盘文件" class="headerlink" title="磁盘文件"></a><strong>磁盘文件</strong></h3><p><img src="/images/mysql/logfile.png" srcset="/img/loading.gif"></p>
 <p>MySQL的文件主要分为两大类，MySQl服务的文件和存储引擎的文件，主要分为三类：</p>
 <ul>
 <li>日志文件：MySQL实例写入的各种日志文件。</li>
@@ -1390,8 +1391,7 @@ mysql&gt; update mylock set name&#x3D;&#39;a&#39; where id&#x3D;1;
 Query OK, 0 rows affected (0.00 sec)
 Rows matched: 1  Changed: 0  Warnings: 0</code></pre>
 
-<h5 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h5><p><img src="/images/mysql/gaplock.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs mysql">create table news(id int, number int, primary key(id));
+<h5 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h5><pre><code class="hljs mysql">create table news(id int, number int, primary key(id), index idx_num(number));
 insert into news values(1,2);
 insert into news values(3,4);
 insert into news values(6,5);
@@ -1400,7 +1400,7 @@ insert into news values(10,5);
 insert into news values(13,11);
 mysql&gt; select * from news;
 +----+--------+
-| id | number |
+| id | number |  # id主键 索引 number
 +----+--------+
 |  1 |      2 |
 |  3 |      4 |

@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.7k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24
+      37
        分钟
     </span>
   
@@ -217,54 +217,48 @@
             
             <article class="markdown-body">
               <p><img src="/images/Mac%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/mac.jpg" srcset="/img/loading.gif"><a id="more"></a> </p>
-<p><strong>Docker安装与使用</strong></p>
-<p><strong>官方文档</strong></p>
-<p><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
-<p><strong>安装方式</strong></p>
-<ul>
+<h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a><strong>官方文档</strong></h3><p><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+<h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a><strong>安装方式</strong></h3><ul>
 <li>设置docker源的方式来安装(简单， 官方推荐)</li>
 <li>下载rpm包的方式安装(适用于离线环境)</li>
 <li>使用脚本安装(适用于测试和开发环境)</li>
 </ul>
-<p><strong>docker源方式安装</strong></p>
-<p>（1）更新yum， 安装依赖</p>
-<pre><code class="hljs sql">yum <span class="hljs-keyword">update</span>
-yum <span class="hljs-keyword">install</span> -y yum-utils device-mapper-persistent-<span class="hljs-keyword">data</span> lvm2</code></pre>
+<h4 id="docker源方式安装"><a href="#docker源方式安装" class="headerlink" title="docker源方式安装"></a><strong>docker源方式安装</strong></h4><p>（1）更新yum， 安装依赖</p>
+<pre><code class="hljs shell">yum update
+yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/1.png" srcset="/img/loading.gif"></p>
 <p>（2）将docker源添加到系统中</p>
-<pre><code class="hljs awk">yum-config-manager --add-repo https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos/docker-ce.repo</code></pre>
+<pre><code class="hljs shell">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/1-1.png" srcset="/img/loading.gif"></p>
 <p>（3）Docker安装</p>
-<pre><code class="hljs vim">yum install docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io</code></pre>
+<pre><code class="hljs shell">yum install docker-ce docker-ce-cli containerd.io</code></pre>
 
 <p>此时，可能会报错：</p>
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/2.png" srcset="/img/loading.gif"></p>
 <p>该图中原因是</p>
 <p>containerd.io此软件包已经安装，并且是较低版本，与要安装的docker-ce所依赖containerd.io的版本不符，因此最好安装较新版本的containerd.io</p>
-<pre><code class="hljs awk"><span class="hljs-comment"># 下面网址可以看到一系列版本的containerd.io</span>
-https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos<span class="hljs-regexp">/7/</span>x86_64<span class="hljs-regexp">/edge/</span>Packages/
-<span class="hljs-comment">#wget 命令下载指定版本的containerd.io（如果未安装wget，需要yum -y install wget）</span>
-wget https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos<span class="hljs-regexp">/7/</span>x86_64<span class="hljs-regexp">/edge/</span>Packages/containerd.io-<span class="hljs-number">1.2</span>.<span class="hljs-number">6</span>-<span class="hljs-number">3.3</span>.el7.x86_64.rpm</code></pre>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 下面网址可以看到一系列版本的containerd.io</span>
+https://download.docker.com/linux/centos/7/x86_64/edge/Packages/
+<span class="hljs-meta">#</span><span class="bash">wget 命令下载指定版本的containerd.io（如果未安装wget，需要yum -y install wget）</span>
+wget https://download.docker.com/linux/centos/7/x86_64/edge/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/3.png" srcset="/img/loading.gif"></p>
-<p> 重新安装Docker</p>
-<pre><code class="hljs cmake">yum -y <span class="hljs-keyword">install</span> docker-ce</code></pre>
+<p> 重新执行安装命令</p>
+<pre><code class="hljs shell">yum -y install docker-ce</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/4.png" srcset="/img/loading.gif"></p>
 <p>（4）Docker启动设置-—启动docker和添加开启自启动</p>
-<pre><code class="hljs pgsql">systemctl <span class="hljs-keyword">enable</span> docker
-systemctl <span class="hljs-keyword">start</span> docker</code></pre>
+<pre><code class="hljs shell">systemctl enable docker
+systemctl start docker</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/5.png" srcset="/img/loading.gif"></p>
 <p>（5）查看Docker版本</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">docker -v</span></code></pre>
+<pre><code class="hljs shell">docker -v</code></pre>
 
-<p><strong>3. Docker使用</strong></p>
-<p><strong>3.1 docker命令</strong></p>
-<p>（1）命令帮助（-h已被弃用）</p>
-<pre><code class="hljs ada">docker <span class="hljs-comment">--help</span></code></pre>
+<h3 id="Docker使用"><a href="#Docker使用" class="headerlink" title="Docker使用"></a><strong>Docker使用</strong></h3><h4 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a><strong>docker命令</strong></h4><p>（1）命令帮助（-h已被弃用）</p>
+<pre><code class="hljs shell">docker --help</code></pre>
 
 <p>（2）常用选项说明</p>
 <ul>
@@ -346,30 +340,28 @@ systemctl <span class="hljs-keyword">start</span> docker</code></pre>
 <li><p>–sig-proxy=true， 设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理</p>
 </li>
 </ul>
-<p><strong>3.2 部署/运行镜像</strong></p>
-<p><strong>3.2.1 pull方式</strong></p>
-<p>（1）下载命令</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull 镜像名</code></pre>
+<h4 id="部署-运行镜像"><a href="#部署-运行镜像" class="headerlink" title="部署/运行镜像"></a><strong>部署/运行镜像</strong></h4><h5 id="pull方式"><a href="#pull方式" class="headerlink" title="pull方式"></a><strong>pull方式</strong></h5><p>（1）下载命令</p>
+<pre><code class="hljs shell">docker pull 镜像名</code></pre>
 
 <p>（2）[例如]下载gitlab</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull gitlab/gitlab-ce</code></pre>
+<pre><code class="hljs shell">docker pull gitlab/gitlab-ce</code></pre>
 
 <p>下载的镜像所在位置（其中一个）</p>
-<pre><code class="hljs crystal">cd var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">docker</span>/<span class="hljs-title">containers</span></span></code></pre>
+<pre><code class="hljs shell">cd var/lib/docker/containers</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/6.png" srcset="/img/loading.gif"></p>
 <p>（3）查看镜像详细信息</p>
-<pre><code class="hljs gradle">docker <span class="hljs-keyword">inspect</span> gitlab/gitlab-ce</code></pre>
+<pre><code class="hljs shell">docker inspect gitlab/gitlab-ce</code></pre>
 
 <p>（4）运行镜像</p>
-<pre><code class="hljs awk">docker run --detach \
-  --hostname <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> \
-  --publish <span class="hljs-number">10443</span>:<span class="hljs-number">443</span> --publish <span class="hljs-number">1080</span>:<span class="hljs-number">80</span> --publish <span class="hljs-number">1022</span>:<span class="hljs-number">22</span> \
+<pre><code class="hljs shell">docker run --detach \
+  --hostname 127.0.0.1 \
+  --publish 10443:443 --publish 1080:80 --publish 1022:22 \
   --name gitlab \
   --restart always \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/config:/</span>etc/gitlab \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/logs:/</span>var<span class="hljs-regexp">/log/gi</span>tlab \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/opt/gi</span>tlab \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
   gitlab/gitlab-ce:latest</code></pre>
 
 <p>这里，</p>
@@ -377,10 +369,8 @@ systemctl <span class="hljs-keyword">start</span> docker</code></pre>
 <p>–publish 10443:443 –publish 1080:80 –publish 1022:22 是指将443端口对外映射（暴露）成10443，22端口对外映射（暴露）成1022，80端口对外映射（暴露）成1080。</p>
 <p>（5）访问gitlab</p>
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/7.png" srcset="/img/loading.gif"></p>
-<p><strong>3.2.2 容器化（github.com上项目）</strong></p>
-<p><strong>3.3 删除镜像</strong></p>
-<p>（1）查看镜像</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">docker ps -a</span></code></pre>
+<h4 id="容器化（github-com上项目）"><a href="#容器化（github-com上项目）" class="headerlink" title="容器化（github.com上项目）"></a><strong>容器化（github.com上项目）</strong></h4><h5 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a><strong>删除镜像</strong></h5><p>（1）查看镜像</p>
+<pre><code class="hljs shell">docker ps -a</code></pre>
 
 <p>这里docker ps 的命令包括： </p>
 <ul>
@@ -396,114 +386,259 @@ systemctl <span class="hljs-keyword">start</span> docker</code></pre>
 <p>IMAGE：镜像名</p>
 <p><strong>注意</strong>：如果容器正在运行是无法删除，需要先停止</p>
 <p>（2）stop容器</p>
-<pre><code class="hljs sql">docker <span class="hljs-keyword">stop</span>&lt;容器<span class="hljs-keyword">ID</span>或容器名&gt;</code></pre>
+<pre><code class="hljs shell">docker stop&lt;容器ID或容器名&gt;</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/9.png" srcset="/img/loading.gif"></p>
 <p>（3）删除容器</p>
-<pre><code class="hljs xml">docker rm <span class="hljs-tag">&lt;<span class="hljs-name">容器ID或容器名</span>&gt;</span></code></pre>
+<pre><code class="hljs shell">docker rm &lt;容器ID或容器名&gt;</code></pre>
 
 <p>（4）删除镜像</p>
-<pre><code class="hljs xml">docker rmi <span class="hljs-tag">&lt;<span class="hljs-name">镜像ID或镜像名</span>&gt;</span></code></pre>
+<pre><code class="hljs shell">docker rmi &lt;镜像ID或镜像名&gt;</code></pre>
 
 <p>镜像ID可以通过docker images</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">docker images</span></code></pre>
+<pre><code class="hljs shell">docker images</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/10.png" srcset="/img/loading.gif"></p>
 <p>或docker image ls</p>
-<pre><code class="hljs mel">docker <span class="hljs-keyword">image</span> <span class="hljs-keyword">ls</span></code></pre>
+<pre><code class="hljs shell">docker image ls</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/11.png" srcset="/img/loading.gif"></p>
-<p><strong>3.4 修改映射端口</strong></p>
-<p><strong>3.4.1 重新部署镜像</strong></p>
-<p><strong>3.4.2 修改部署容器配置文件</strong></p>
-<p>（1）停止需要修改的容器</p>
-<pre><code class="hljs livecodeserver">docker ps -<span class="hljs-keyword">a</span> docker <span class="hljs-built_in">stop</span> &lt;容器ID或容器名&gt;</code></pre>
+<h4 id="修改映射端口"><a href="#修改映射端口" class="headerlink" title="修改映射端口"></a><strong>修改映射端口</strong></h4><h5 id="重新部署镜像"><a href="#重新部署镜像" class="headerlink" title="重新部署镜像"></a><strong>重新部署镜像</strong></h5><h5 id="修改部署容器配置文件"><a href="#修改部署容器配置文件" class="headerlink" title="修改部署容器配置文件"></a><strong>修改部署容器配置文件</strong></h5><p>（1）停止需要修改的容器</p>
+<pre><code class="hljs shell">docker ps -a docker stop &lt;容器ID或容器名&gt;</code></pre>
 
 <p>（2）找到hostconfig.json文件</p>
-<pre><code class="hljs apache"><span class="hljs-attribute">cd</span> /var/lib/docker/containers/&lt;容器对应ID目录，例如<span class="hljs-number">651</span>dcd<span class="hljs-number">904</span>c<span class="hljs-number">5</span>eec<span class="hljs-number">9617</span>ea<span class="hljs-number">006</span>f<span class="hljs-number">2</span>ac<span class="hljs-number">3</span>e<span class="hljs-number">59</span>a<span class="hljs-number">9</span>a<span class="hljs-number">015</span>de<span class="hljs-number">237</span>cae<span class="hljs-number">891</span>fc<span class="hljs-number">5</span>ef<span class="hljs-number">46</span>a<span class="hljs-number">17</span>bd<span class="hljs-number">3033</span>&gt;/</code></pre>
+<pre><code class="hljs shell">cd /var/lib/docker/containers/&lt;容器对应ID目录，例如651dcd904c5eec9617ea006f2ac3e59a9a015de237cae891fc5ef46a17bd3033&gt;/</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/12.png" srcset="/img/loading.gif"></p>
 <p>（3）修改hostconfig.json文件中”PortBindings”配置</p>
-<pre><code class="hljs css"><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">hostconfig</span><span class="hljs-selector-class">.json</span></code></pre>
+<pre><code class="hljs shell">vim hostconfig.json</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/13.png" srcset="/img/loading.gif"></p>
 <p>（4）重启docker[非常重要]，否则修改会失效</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart docker</span></code></pre>
+<pre><code class="hljs shell">systemctl restart docker</code></pre>
 
 <p>（5）启动修改后的容器</p>
-<pre><code class="hljs sql">docker <span class="hljs-keyword">start</span> &lt;容器<span class="hljs-keyword">ID</span>或容器名&gt;</code></pre>
+<pre><code class="hljs shell">docker start &lt;容器ID或容器名&gt;</code></pre>
 
 <p>（6）查看是否修改成功</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">docker ps -a</span></code></pre>
+<pre><code class="hljs shell">docker ps -a</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/14.png" srcset="/img/loading.gif"></p>
-<p><strong>Docker镜像部署容器</strong></p>
-<p><strong>拉取远端镜像方式</strong></p>
-<p><strong>1.部署gitlab（私有代码库）</strong></p>
-<pre><code class="hljs awk">docker pull gitlab/gitlab-ce
+<h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署gitlab（私有代码库）"><a href="#部署gitlab（私有代码库）" class="headerlink" title="部署gitlab（私有代码库）"></a><strong>部署gitlab（私有代码库）</strong></h5><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
 docker run --detach \
-  --publish <span class="hljs-number">443</span>:<span class="hljs-number">443</span> --publish <span class="hljs-number">80</span>:<span class="hljs-number">80</span> --publish <span class="hljs-number">1022</span>:<span class="hljs-number">22</span> \
+  --publish 443:443 --publish 80:80 --publish 1022:22 \
   --name gitlab \
   --restart always \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/config:/</span>etc/gitlab \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/logs:/</span>var<span class="hljs-regexp">/log/gi</span>tlab \
-  --volume <span class="hljs-regexp">/srv/gi</span>tlab<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/opt/gi</span>tlab \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
   gitlab/gitlab-ce:latest</code></pre>
 
-<p><strong>2.部署portainer（docker可视化管理工具）</strong></p>
-<pre><code class="hljs awk">docker pull docker.io<span class="hljs-regexp">/portainer/</span>portainer
+<h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
 docker run --detach \
-    --hostname <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> \
-    --publish <span class="hljs-number">9000</span>:<span class="hljs-number">9000</span> \
+    --hostname 127.0.0.1 \
+    --publish 9000:9000 \
     --name portainer\
     --restart=always \
-    --volume <span class="hljs-regexp">/var/</span>run<span class="hljs-regexp">/docker.sock:/</span>var<span class="hljs-regexp">/run/</span>docker.sock \
-    docker.io<span class="hljs-regexp">/portainer/</span>portainer</code></pre>
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    docker.io/portainer/portainer</code></pre>
 
-<p><strong>3.部署jenkins</strong></p>
-<pre><code class="hljs jboss-cli">mkdir -p <span class="hljs-string">/srv/jenkins</span>
-chown -R 1000<span class="hljs-function">:1000</span> <span class="hljs-string">/srv/jenkins/</span>
-docker pull jenkins/jenkins<span class="hljs-function">:alpine</span>
-docker inspect jenkins/jenkins<span class="hljs-function">:alpine</span>
-docker run <span class="hljs-params">--detach</span> \
-    <span class="hljs-params">--publish</span> 8080<span class="hljs-function">:8080</span> <span class="hljs-params">--publish</span> 50000<span class="hljs-function">:50000</span> \
-    <span class="hljs-params">--restart</span> unless-stopped \
-    <span class="hljs-params">--name</span> jenkins \
-    <span class="hljs-params">--volume</span> <span class="hljs-string">/srv/jenkins</span>:<span class="hljs-string">/var/jenkins_home</span> \
-    jenkins/jenkins<span class="hljs-function">:alpine</span></code></pre>
+<h5 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a><strong>部署jenkins</strong></h5><pre><code class="hljs shell">mkdir -p /srv/jenkins
+chown -R 1000:1000 /srv/jenkins/
+docker pull jenkins/jenkins:alpine
+docker inspect jenkins/jenkins:alpine
+docker run --detach \
+    --publish 8080:8080 --publish 50000:50000 \
+    --restart unless-stopped \
+    --name jenkins \
+    --volume /srv/jenkins:/var/jenkins_home \
+    jenkins/jenkins:alpine</code></pre>
 
-<p><strong>4.部署gitlab-runner</strong></p>
-<pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/srv/</span>
+<h5 id="部署gitlab-runner"><a href="#部署gitlab-runner" class="headerlink" title="部署gitlab-runner"></a><strong>部署gitlab-runner</strong></h5><pre><code class="hljs shell">mkdir -p /srv/
 docker pull gitlab/gitlab-runner
 docker run -d --name gitlab-runner --restart always \
-    --volume <span class="hljs-regexp">/srv/gi</span>tlab-runner<span class="hljs-regexp">/config:/</span>etc/gitlab-runner \
-    --volume <span class="hljs-regexp">/srv/gi</span>tlab-runner<span class="hljs-regexp">/run/</span>docker.sock:<span class="hljs-regexp">/var/</span>run/docker.sock \
+    --volume /srv/gitlab-runner/config:/etc/gitlab-runner \
+    --volume /srv/gitlab-runner/run/docker.sock:/var/run/docker.sock \
     gitlab/gitlab-runner:latest</code></pre>
 
-<p><strong>5.部署RabbitMQ</strong></p>
-<p>获取查询的镜像 </p>
-<pre><code class="hljs css"><span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">search</span> <span class="hljs-selector-tag">rabbitmq</span><span class="hljs-selector-pseudo">:management</span></code></pre>
+<h5 id="部署Registry服务器"><a href="#部署Registry服务器" class="headerlink" title="部署Registry服务器"></a>部署Registry服务器</h5><p>Docker Registry服务器整合很多服务，配置的参数非常多，包括：存储，Redis，Auth，日志，中间件，监控，HTTP，通知，健康检查，代理，兼容性。</p>
+<p>部署服务器非常简单，只需要一条命令，映射5000端口到容器，restart机制为总是，并分配当前目录下的data目录作为容器卷，存储镜像数据。可以配置HTTPS方式的访问，参考Docker官方文档，如果是在局域网内访问这个方式即可满足需求。</p>
+<h6 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h6><pre><div class="caption"><span>shell ell</span></div><code class="hljs sh">docker run -d \
+    -p 5000:5000 \
+    --restart always \
+    --name registry \
+    -e  REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/srv/registry \
+    -v /srv/registry/data:/var/lib/registry \
+    -v /srv/registry/conf:/etc/docker/registry \
+    registry:latest</code></pre>
+
+<h6 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h6><p>从Docker官方的hub拉取ubuntu镜像，这是简写的方式，完整的命令是这样的<code>docker pull docker.io/library/ubuntu</code>，并命名为<code>localhost:5000/ubuntu</code>。</p>
+<pre><code class="hljs bash">docker pull ubuntu &amp;&amp; docker tag ubuntu localhost:5000/ubuntu</code></pre>
+
+<p>推送镜像到本地的Registry服务器</p>
+<pre><code class="hljs bash">docker push localhost:5000/ubuntu</code></pre>
+
+<p>删除宿主机的localhost:5000/ubuntu并拉取Registry服务器的ubuntu镜像</p>
+<pre><code class="hljs bash">docker rmi -f localhost:5000/ubuntu
+docker pull localhost:5000/ubuntu</code></pre>
+
+<h6 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h6><p>配置Registry服务器的方式有两种，一种是在运行容器指定环境变量重写配置文件，另一种是直接映射yaml配置文件。</p>
+<p>使用配置文件的方式，迁移方便。</p>
+<p><strong>环境变量重写配置选项</strong></p>
+<p>比如重写配置文件存储选项，文件配置如下所示</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">storage:</span>
+  <span class="hljs-attr">filesystem:</span>
+    <span class="hljs-attr">rootdirectory:</span> <span class="hljs-string">/var/lib/registry</span></code></pre>
+
+<p>那么运行Registery容器时就需要指定环境变量<code>REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/somewhere</code></p>
+<pre><code class="hljs bash">docker run -d -p 5000:5000 --restart=always --name registry \
+  -v /srv/registry/data:/var/lib/registry \
+  -e  REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/srv/registry \
+  registry:2</code></pre>
+
+<p><strong>覆盖配置文件</strong></p>
+<p>可以使用挂载卷的方式覆盖配置，建议使用这种方式配置</p>
+<pre><code class="hljs bash">docker run -d -p 5000:5000 --restart=always --name registry \
+             -v /srv/registry:/etc/docker/registry \
+             registry:latest</code></pre>
+
+<p>挂载当前目录下config.yml覆盖容器的/etc/docker/registry/config.yml文件，下面是整个配置文件</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-number">0.1</span>
+<span class="hljs-attr">log:</span> <span class="hljs-comment">## 日志选项</span>
+  <span class="hljs-attr">level:</span> <span class="hljs-string">debug</span>
+  <span class="hljs-attr">formatter:</span> <span class="hljs-string">text</span>
+  <span class="hljs-attr">fields:</span>
+    <span class="hljs-attr">service:</span> <span class="hljs-string">registry</span>
+    <span class="hljs-attr">environment:</span> <span class="hljs-string">staging</span>
+  <span class="hljs-attr">hooks:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">mail</span>
+      <span class="hljs-attr">disabled:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">levels:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">panic</span>
+      <span class="hljs-attr">options:</span>
+        <span class="hljs-attr">smtp:</span> <span class="hljs-comment">## 邮件通知配置</span>
+          <span class="hljs-attr">addr:</span> <span class="hljs-string">mail.example.com:25</span>
+          <span class="hljs-attr">username:</span> <span class="hljs-string">mailuser</span>
+          <span class="hljs-attr">password:</span> <span class="hljs-string">password</span>
+          <span class="hljs-attr">insecure:</span> <span class="hljs-literal">true</span>
+        <span class="hljs-attr">from:</span> <span class="hljs-string">sender@example.com</span>
+        <span class="hljs-attr">to:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-string">errors@example.com</span>
+<span class="hljs-attr">loglevel:</span> <span class="hljs-string">debug</span> <span class="hljs-comment"># 即将弃用: 使用Log替代</span>
+<span class="hljs-attr">storage:</span> <span class="hljs-comment">##存储选项，</span>
+  <span class="hljs-attr">filesystem:</span> <span class="hljs-comment">## 本地文件系统，也可以是云分布式存储，比如微软Azure，亚马逊S3，swift，OSS</span>
+    <span class="hljs-attr">rootdirectory:</span> <span class="hljs-string">/var/lib/registry</span>
+    <span class="hljs-attr">maxthreads:</span> <span class="hljs-number">100</span> <span class="hljs-comment">##最大线程数</span>
+<span class="hljs-attr">auth:</span> <span class="hljs-comment">#用户验证</span>
+  <span class="hljs-attr">silly:</span>
+    <span class="hljs-attr">realm:</span> <span class="hljs-string">silly-realm</span>
+    <span class="hljs-attr">service:</span> <span class="hljs-string">silly-service</span>
+  <span class="hljs-attr">token:</span>
+    <span class="hljs-attr">realm:</span> <span class="hljs-string">token-realm</span>
+    <span class="hljs-attr">service:</span> <span class="hljs-string">token-service</span>
+    <span class="hljs-attr">issuer:</span> <span class="hljs-string">registry-token-issuer</span>
+    <span class="hljs-attr">rootcertbundle:</span> <span class="hljs-string">/root/certs/bundle</span>
+  <span class="hljs-attr">htpasswd:</span>
+    <span class="hljs-attr">realm:</span> <span class="hljs-string">basic-realm</span>
+    <span class="hljs-attr">path:</span> <span class="hljs-string">/path/to/htpasswd</span>
+<span class="hljs-attr">middleware:</span> <span class="hljs-comment">##中间件类型有registry，repository，storage三种，每种中间件可以像下面的方式使用</span>
+  <span class="hljs-attr">registry:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">ARegistryMiddleware</span>
+      <span class="hljs-attr">options:</span>
+        <span class="hljs-attr">foo:</span> <span class="hljs-string">bar</span>
+  <span class="hljs-attr">storage:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">ARegistryMiddleware</span>
+<span class="hljs-attr">reporting:</span> <span class="hljs-comment">##监控，可以使用一些在线的监控工具包括bugsnag，newrelic</span>
+  <span class="hljs-attr">newrelic:</span>
+    <span class="hljs-attr">licensekey:</span> <span class="hljs-string">newreliclicensekey</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">newrelicname</span>
+    <span class="hljs-attr">verbose:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">http:</span> <span class="hljs-comment">## 由Nginx提供的HTTP服务，可以把它理解成配置Nginx</span>
+  <span class="hljs-attr">addr:</span> <span class="hljs-string">localhost:5000</span>
+  <span class="hljs-attr">prefix:</span> <span class="hljs-string">/my/nested/registry/</span>
+  <span class="hljs-attr">host:</span> <span class="hljs-string">https://myregistryaddress.org:5000</span>
+  <span class="hljs-attr">secret:</span> <span class="hljs-string">asecretforlocaldevelopment</span>
+  <span class="hljs-attr">relativeurls:</span> <span class="hljs-literal">false</span>
+  <span class="hljs-attr">tls:</span>
+    <span class="hljs-attr">certificate:</span> <span class="hljs-string">/path/to/x509/public</span>
+    <span class="hljs-attr">key:</span> <span class="hljs-string">/path/to/x509/private</span>
+    <span class="hljs-attr">clientcas:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/ca.pem</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/another/ca.pem</span>
+    <span class="hljs-attr">letsencrypt:</span>
+      <span class="hljs-attr">cachefile:</span> <span class="hljs-string">/path/to/cache-file</span>
+      <span class="hljs-attr">email:</span> <span class="hljs-string">emailused@letsencrypt.com</span>
+  <span class="hljs-attr">debug:</span>
+    <span class="hljs-attr">addr:</span> <span class="hljs-string">localhost:5001</span>
+  <span class="hljs-attr">headers:</span>
+    <span class="hljs-attr">X-Content-Type-Options:</span> [<span class="hljs-string">nosniff</span>]
+<span class="hljs-attr">notifications:</span> <span class="hljs-comment">## 事件通知，当Registry服务器发生拉取，推送等时发送事件到endpoints</span>
+  <span class="hljs-attr">endpoints:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">alistener</span>
+      <span class="hljs-attr">disabled:</span> <span class="hljs-literal">false</span>
+      <span class="hljs-attr">url:</span> <span class="hljs-string">https://my.listener.com/event</span>
+      <span class="hljs-attr">headers:</span> <span class="hljs-string">&lt;http.Header&gt;</span>
+      <span class="hljs-attr">timeout:</span> <span class="hljs-number">500</span>
+      <span class="hljs-attr">threshold:</span> <span class="hljs-number">5</span>
+      <span class="hljs-attr">backoff:</span> <span class="hljs-number">1000</span>
+<span class="hljs-attr">redis:</span> <span class="hljs-comment">##这个用过的都懂</span>
+  <span class="hljs-attr">addr:</span> <span class="hljs-string">localhost:6379</span>
+  <span class="hljs-attr">password:</span> <span class="hljs-string">asecret</span>
+  <span class="hljs-attr">db:</span> <span class="hljs-number">0</span>
+  <span class="hljs-attr">dialtimeout:</span> <span class="hljs-string">10ms</span>
+  <span class="hljs-attr">readtimeout:</span> <span class="hljs-string">10ms</span>
+  <span class="hljs-attr">writetimeout:</span> <span class="hljs-string">10ms</span>
+  <span class="hljs-attr">pool:</span>
+    <span class="hljs-attr">maxidle:</span> <span class="hljs-number">16</span>
+    <span class="hljs-attr">maxactive:</span> <span class="hljs-number">64</span>
+    <span class="hljs-attr">idletimeout:</span> <span class="hljs-string">300s</span>
+<span class="hljs-attr">health:</span> <span class="hljs-comment">## 健康检查包括存储驱动，file，http服务，tcp的可用性检查</span>
+  <span class="hljs-attr">storagedriver:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span>
+    <span class="hljs-attr">threshold:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">file:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">file:</span> <span class="hljs-string">/path/to/checked/file</span>
+      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span>
+  <span class="hljs-attr">http:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">uri:</span> <span class="hljs-string">http://server.to.check/must/return/200</span>
+      <span class="hljs-attr">headers:</span>
+        <span class="hljs-attr">Authorization:</span> [<span class="hljs-string">Basic</span> <span class="hljs-string">QWxhZGRpbjpvcGVuIHNlc2FtZQ==</span>]
+      <span class="hljs-attr">statuscode:</span> <span class="hljs-number">200</span>
+      <span class="hljs-attr">timeout:</span> <span class="hljs-string">3s</span>
+      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span>
+      <span class="hljs-attr">threshold:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">tcp:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">redis-server.domain.com:6379</span>
+      <span class="hljs-attr">timeout:</span> <span class="hljs-string">3s</span>
+      <span class="hljs-attr">interval:</span> <span class="hljs-string">10s</span>
+      <span class="hljs-attr">threshold:</span> <span class="hljs-number">3</span>
+<span class="hljs-attr">proxy:</span> <span class="hljs-comment">## 可以镜像Docker Hub的仓库</span>
+  <span class="hljs-attr">remoteurl:</span> <span class="hljs-string">https://registry-1.docker.io</span>
+  <span class="hljs-attr">username:</span> [<span class="hljs-string">username</span>]
+  <span class="hljs-attr">password:</span> [<span class="hljs-string">password</span>]
+<span class="hljs-attr">compatibility:</span> 
+  <span class="hljs-attr">schema1:</span>
+    <span class="hljs-attr">signingkeyfile:</span> <span class="hljs-string">/etc/registry/key.json</span></code></pre>
+
+<h5 id="部署RabbitMQ"><a href="#部署RabbitMQ" class="headerlink" title="部署RabbitMQ"></a><strong>部署RabbitMQ</strong></h5><p>获取查询的镜像 </p>
+<pre><code class="hljs shell">docker search rabbitmq:management</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/15.png" srcset="/img/loading.gif"></p>
 <p>拉取镜像 </p>
-<pre><code class="hljs css"><span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">pull</span> <span class="hljs-selector-tag">rabbitmq</span><span class="hljs-selector-pseudo">:management</span></code></pre>
+<pre><code class="hljs shell">docker pull rabbitmq:management</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/16.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs crystal"><span class="hljs-comment"># 运行镜像    </span>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 运行镜像    </span>
 docker run -d \
-    -p <span class="hljs-number">5672</span>:<span class="hljs-number">5672</span> -p <span class="hljs-number">15672</span>:<span class="hljs-number">15672</span> \
+    -p 5672:5672 -p 15672:15672 \
     --restart=always \
     --name rabbitmq \
-    -v <span class="hljs-string">`pwd`</span>/<span class="hljs-symbol">data:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">rabbitmq</span> \</span>
-    -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=<span class="hljs-number">2018251</span> \
-     <span class="hljs-symbol">rabbitmq:</span>management</code></pre>
+    -v `pwd`/data:/var/lib/rabbitmq \
+    -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=2018251 \
+     rabbitmq:management</code></pre>
 
-<pre><code class="hljs crystal">docker run -d \
-    -p <span class="hljs-number">5000</span>:<span class="hljs-number">5000</span> \
-    --restart always \
-    --name registry \
-    -v /srv/registry/<span class="hljs-symbol">registry:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">registry</span> \</span>
-    <span class="hljs-symbol">registry:</span>latest</code></pre>
+
 
 
             </article>

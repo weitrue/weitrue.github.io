@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      14.2k 字
+      14.4k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      177
+      186
        分钟
     </span>
   
@@ -274,12 +274,14 @@ pidfile /weitrue/install/redis-6.0.1/redis_6379.pid
 logfile &quot;/weitrue/install/redis-6.0.1/logs/redis.log&quot;
 dir /weitrue/install/redis-6.0.1/redisdata</code></pre>
 
-<p>daemonize:yes:redis采用的是单进程多线程的模式。<br>当redis.conf中选项daemonize设置成yes时，代表开启守护进程模式。在该模式下，redis会在后台运行，并将进程pid号写入至redis.conf选项pidfile设置的文件中，此时redis将一直运行，除非手动kill该进程。<br>daemonize:no: 当daemonize选项设置成no时，当前界面将进入redis的命令行界面，exit强制退出或者关闭连接工具(putty,xshell等)都会导致redis进程退出。</p>
+<p><code>daemonize yes</code>: redis采用的是单进程多线程的模式。<br>当redis.conf中选项daemonize设置成yes时，代表开启守护进程模式。在该模式下，redis会在后台运行，并将进程pid号写入至redis.conf选项pidfile设置的文件中，此时redis将一直运行，除非手动kill该进程。<br><code>daemonize no</code>: 当daemonize选项设置成no时，当前界面将进入redis的命令行界面，exit强制退出或者关闭连接工具(putty,xshell等)都会导致redis进程退出。</p>
 <h5 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h5><p>node01执行以下命令启动redis</p>
 <pre><code class="hljs shell">cd  /weitrue/install/redis-6.0.1
 src/redis-server  redis.conf
 <span class="hljs-meta">#</span><span class="bash"> 查看进程</span>
-ps aux|grep redis</code></pre>
+ps aux|grep redis
+或者
+ps -ef | grep redis | grep -v &quot;grep&quot;  # 加上| grep -v &quot;grep&quot;，是指不看grep进程</code></pre>
 
 <h5 id="连接redis客户端"><a href="#连接redis客户端" class="headerlink" title="连接redis客户端"></a>连接redis客户端</h5><p>node01执行以下命令连接redis客户端</p>
 <pre><code class="hljs shell">cd /weitrue/install/redis-6.0.1
@@ -316,214 +318,101 @@ quit</code></pre>
 
 <p><img src="/images/redis/image-20200529020001463.png" srcset="/img/loading.gif"></p>
 <p>下表列出了常用的 redis 字符串命令</p>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th><strong>命令及描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-set.html">SET key value</a>  设置指定 key 的值,O(1)。示例：<code>SET hello world</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-get.html">GET key</a>  获取指定 key 的值,O(1)。示例：<code>GET hello</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getrange.html">GETRANGE key start end</a>  返回 key 中字符串值的子字符示例：<code>GETRANGE hello 0 3</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getset.html">GETSET key value</a> 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。示例：<code>GETSET hello world2</code></td>
-</tr>
-<tr>
-<td>5</td>
-<td>[MGET key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mget.html">key2..]</a> 获取所有(一个或多个)给定 key 的值。示例：<code>MGET hello world</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setex.html">SETEX key seconds value</a> 将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)。示例：<code>SETEX hello 10 world3</code></td>
-</tr>
-<tr>
-<td>7</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setnx.html">SETNX key value</a> 只有在 key 不存在时设置 key 的值。示例：<code>SETNX kkb 1</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setrange.html">SETRANGE key offset value</a> 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始。示例：<code>SETRANGE kkb 0 helloredis</code></td>
-</tr>
-<tr>
-<td>9</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-strlen.html">STRLEN key</a> 返回 key 所储存的字符串值的长度,O(1)。示例：<code>STRLEN kkb</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td>[MSET key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mset.html">key value …]</a> 同时设置一个或多个 key-value 对，原子操作。示例：<code>MSET kkb2 kkbvalue2 kkb3 kkbvalue3</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td>[MSETNX key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-msetnx.html">key value …]</a>  同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。示例：<code>MSETNX kkb4 kkbvalue4 kkb5 kkbvalue5</code></td>
-</tr>
-<tr>
-<td>13</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-psetex.html">PSETEX key milliseconds value</a> 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位。示例：<code>PSETEX kkb6 6000 kkb6value</code></td>
-</tr>
-<tr>
-<td>14</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incr.html">INCR key</a> 将 key 中储存的数字值增一。示例：<code>set kkb 1</code>,<code>INCR kkb</code>,<code>GET kkb</code> 可用于分布式id等。</td>
-</tr>
-<tr>
-<td>15</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrby.html">INCRBY key increment</a> 将 key 所储存的值加上给定的增量值（increment） 。示例：<code>INCRBY kkb 2</code>, <code>get kkb</code></td>
-</tr>
-<tr>
-<td>16</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrbyfloat.html">INCRBYFLOAT key increment</a> 将 key 所储存的值加上给定的浮点增量值（increment） 。示例：<code>INCRBYFLOAT kkb 0.8</code></td>
-</tr>
-<tr>
-<td>17</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decr.html">DECR key</a> 将 key 中储存的数字值减一。示例：<code>set kkb 1</code>, <code>DECR kkb</code>, <code>GET kkb</code></td>
-</tr>
-<tr>
-<td>18</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decrby.html">DECRBY key decrement</a> key 所储存的值减去给定的减量值（decrement） 。示例：<code>DECRBY kkb 3</code></td>
-</tr>
-<tr>
-<td>19</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-append.html">APPEND key value</a> 如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾。示例：<code>APPEND kkb hello</code></td>
-</tr>
-</tbody></table>
+<pre><code class="hljs shell">1.SET key value: 设置指定`key`的值,O(1)。示例：`SET hello world`
+
+2.GET key:获取指定`key`的值,O(1)。示例：`GET hello`
+
+3.GETRANGE key start end:返回`key`中字符串值的子字符,包含end。示例：`GETRANGE hello 0 3`
+
+4.GETSET key value:将给定`key`的值设为`value`，并返回`key`的旧值(old value)。示例：`GETSET hello world2`
+
+5.MGET key1 [key2...]:获取所有(一个或多个)给定`key`的值。示例：`MGET hello world`
+
+6.SETEX key seconds value:将值`value`关联到`key`，并将`key`的过期时间设为 seconds (以秒为单位)。示例：`SETEX hello 10 world3`
+
+7.SETNX key value: 只有在`key`不存在时设置`key`的值。示例：`SETNX weitrue 1`
+
+8.SETRANGE key offset value: 用 value 参数覆写给定 key 所储存的字符串值，从偏移量`offset`开始。示例：`SETRANGE weitrue 0 helloredis`
+
+9.STRLEN key: 返回`key所储存的字符串值的长度,O(1)。示例：`STRLEN weitrue`
+
+10.MSET key value [key value ...]:同时设置一个或多个`key-value`对，原子操作。示例：`MSET weitrue2 weitruevalue2 weitrue3 weitruevalue3`
+
+11.MSETNX key value [key value ...]:同时设置一个或多个`key-value`对，当且仅当所有给定 key 都不存在。示例：`MSETNX weitrue4 weitruevalue4 weitrue5 weitruevalue5`
+
+12.PSETEX key milliseconds value:这个命令和 SETEX 命令相似，但它以毫秒为单位设置`key`的生存时间，而不是像`SETEX`命令那样，以秒为单位。示例：`PSETEX weitrue6 6000 weitrue6value`
+
+13.INCR key:将 key 中储存的数字值增一, 可用于分布式id等。示例：`set weitrue 1`,`INCR weitrue`,`GET weitrue` 
+
+14.INCRBY key increment:将`key`所储存的值加上给定的增量值（increment）。示例：`INCRBY weitrue 2`, `get weitrue`
+
+15.INCRBYFLOAT key increment: 将`key`所储存的值加上给定的浮点增量值（increment）。示例：`INCRBYFLOAT weitrue 0.8`
+
+16.DECR key:将`key`中储存的数字值减一。示例：`set weitrue 1`, `DECR weitrue`, `GET weitrue`
+
+17.DECRBY key: `key`所储存的值减去给定的减量值（decrement） 。示例：`DECRBY weitrue 3`
+
+18.APPEND key value: 如果`key`已经存在并且是一个字符串， APPEND 命令将指定的`value`追加到该`key`原来值（value）的末尾。示例：`APPEND weitrue hello`</code></pre>
+
 <h4 id="对key的操作"><a href="#对key的操作" class="headerlink" title="对key的操作"></a>对key的操作</h4><p>下表给出了与 Redis 键相关的基本命令：</p>
 <ul>
 <li><code>dbsize</code>：计算key的总数，O(1)</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th><strong>命令及描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-del.html">DEL key</a> 该命令用于在 key 存在时删除 key。示例：<code>del kkb</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td>[<code>DUMP key](https://www.runoob.com/redis/keys-dump.html)  序列化给定 key ，并返回被序列化的值。示例：</code>DUMP key`</td>
-</tr>
-<tr>
-<td>3</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-exists.html">EXISTS key</a>  检查给定 key 是否存在。示例：<code>exists kkb</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-expire.html">EXPIRE key</a> seconds 为给定 key 设置过期时间，以秒计。示例：<code>expire kkb 5</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pexpire.html">PEXPIRE key milliseconds</a>  设置 key 的过期时间以毫秒计。示例：<code>PEXPIRE set2 3000000</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-keys.html">KEYS pattern</a>  查找所有符合给定模式( pattern)的 key 。示例：<code>keys *</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-persist.html">PERSIST key</a>  移除 key 的过期时间，key 将持久保持。示例：<code>persist set2</code></td>
-</tr>
-<tr>
-<td>11</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-pttl.html">PTTL key</a>  以毫秒为单位返回 key 的剩余的过期时间。示例：<code>pttl  set2</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-ttl.html">TTL key</a>  以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)。示例：<code>ttl set2</code></td>
-</tr>
-<tr>
-<td>13</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-randomkey.html">RANDOMKEY</a>  从当前数据库中随机返回一个 key 。示例： <code>randomkey</code></td>
-</tr>
-<tr>
-<td>14</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-rename.html">RENAME key newkey</a>  修改 key 的名称示例：<code>rename set5 set8</code></td>
-</tr>
-<tr>
-<td>15</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-renamenx.html">RENAMENX key newkey</a>  仅当 newkey 不存在时，将 key 改名为 newkey 。示例：<code>renamenx  set8 set10</code></td>
-</tr>
-<tr>
-<td>16</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/keys-type.html">TYPE key</a>  返回 key 所储存的值的类型。示例：<code>type  set10</code></td>
-</tr>
-</tbody></table>
+<pre><code class="hljs shell">DEL key: 该命令用于在`key`存在时删除`key`。示例：`del weitrue`
+
+DUMP key: 序列化给定`key`，并返回被序列化的值。示例：`DUMP key`
+EXISTS key: 检查给定 key 是否存在。示例：`exists weitrue`
+
+EXPIRE key seconds: 为给定`key`设置过期时间，以秒计。示例：`expire weitrue 5`
+
+PEXPIRE key milliseconds: 设置`key`的过期时间以毫秒计。示例：`PEXPIRE set2 3000000`
+
+KEYS pattern: 查找所有符合给定模式(pattern)的`key`。示例：`keys *`
+
+PERSIST key: 移除`key`的过期时间，`key`将持久保持。示例：`persist set2`
+
+PTTL key: 以毫秒为单位返回`key`的剩余的过期时间。示例：`pttl  set2`
+
+TTL key: 以秒为单位，返回给定`key`的剩余生存时间(TTL, time to live)。示例：`ttl set2`
+
+RANDOMKEY: 从当前数据库中随机返回一个`key`。示例： `randomkey`
+
+RENAME key newkey: 修改`key`的名称示例：`rename set5 set8`
+
+RENAMENX key newkey: 仅当`newkey`不存在时，将`key`改名为`newkey`。示例：`renamenx  set8 set10`
+
+TYPE key: 返回`key`所储存的值的类型。示例：`type  set10`</code></pre>
+
 <h4 id="hash列表的操作"><a href="#hash列表的操作" class="headerlink" title="hash列表的操作"></a>hash列表的操作</h4><pre><code class="hljs angelscript">Redis hash 是一个<span class="hljs-built_in">string</span>类型的field和value的映射表，hash特别适合用于存储对象。
 Redis 中每个 hash 可以存储 <span class="hljs-number">232</span> - <span class="hljs-number">1</span> 键值对（<span class="hljs-number">40</span>多亿）</code></pre>
 
 <p>下表列出了 redis hash 基本的相关命令：</p>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th><strong>命令及描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hset.html">HSET key field value</a>  将哈希表 key 中的字段 field 的值设为 value 。示例：<code>HSET key1 field1 value1</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hsetnx.html">HSETNX key field value</a>  只有在字段 field 不存在时，设置哈希表字段的值。示例：<code>HSETNX key1 field2 value2</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td>[HMSET key field1 value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmset.html">field2 value2 ]</a>  同时将多个 field-value (域-值)对设置到哈希表 key 中, O(n)。示例：<code>HMSET key1 field3 value3 field4 value4</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hexists.html">HEXISTS key field</a>  查看哈希表 key 中，指定的字段是否存在。示例：<code>HEXISTS key1 field4HEXISTS key1 field6</code></td>
-</tr>
-<tr>
-<td>5</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hget.html">HGET key field</a>  获取存储在哈希表中指定字段的值。示例：<code>HGET key1 field4</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hgetall.html">HGETALL key</a>  获取在哈希表中指定 key 的所有字段和值。示例：<code>HGETALL key1</code></td>
-</tr>
-<tr>
-<td>7</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hkeys.html">HKEYS key</a>  获取所有哈希表中的字段。示例：<code>HKEYS key1</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hlen.html">HLEN key</a>  获取哈希表中字段的数量。示例：<code>HLEN key1</code></td>
-</tr>
-<tr>
-<td>9</td>
-<td>[HMGET key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmget.html">field2]</a>  获取所有给定字段的值, O(n)。示例：<code>HMGET key1 field1 field2</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrby.html">HINCRBY key field increment</a>  为哈希表 key 中的指定字段的整数值加上增量 increment 。示例：<code>HSET key2 field1 1HINCRBY key2 field1 1HGET key2 field1</code></td>
-</tr>
-<tr>
-<td>11</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrbyfloat.html">HINCRBYFLOAT key field increment</a>  为哈希表 key 中的指定字段的浮点数值加上增量 increment 。示例：<code>HINCRBYFLOAT key2 field1 0.8</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hvals.html">HVALS key</a>  获取哈希表中所有值。示例：HVALS key1</td>
-</tr>
-<tr>
-<td>13</td>
-<td>[HDEL key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hdel.html">field2]</a>  删除一个或多个哈希表字段。示例：<code>HDEL key1 field1    HVALS key1</code></td>
-</tr>
-</tbody></table>
+<pre><code class="hljs shell">HSET key field value: 将哈希表 `key` 中的字段 `field` 的值设为 `value` 。示例：`HSET key1 field1 value1`
+
+HSETNX key field value: 只有在字段 `field` 不存在时，设置哈希表字段的值。示例：`HSETNX key1 field2 value2`
+
+HMSET key field1 value1 [field2 value2 ...]: 同时将多个`field-value`(域-值)对设置到哈希表`key`中, O(n)。示例：`HMSET key1 field3 value3 field4 value4`
+
+HEXISTS key field: 查看哈希表`key`中，指定的字段是否存在。示例：`HEXISTS key1 field4HEXISTS key1 field6`
+
+HGET key field: 获取存储在哈希表中指定字段的值。示例：`HGET key1 field4`
+
+HGETALL key: 获取在哈希表中指定 `key` 的所有字段和值。示例：`HGETALL key1`
+
+HKEYS key: 获取所有哈希表中的字段。示例：`HKEYS key1`
+
+HLEN key: 获取哈希表中字段的数量。示例：`HLEN key1`
+
+HMGET key field1 [field2 ...]: 获取所有给定字段的值, O(n)。示例：`HMGET key1 field1 field2`
+
+HINCRBY key field increment: 为哈希表`key`中的指定字段的整数值加上增量`increment`。示例：`HSET key2 field1 1HINCRBY key2 field1 1HGET key2 field1`
+
+HINCRBYFLOAT key field increment: 为哈希表`key`中的指定字段的浮点数值加上增量`increment`。示例：`HINCRBYFLOAT key2 field1 0.8`
+
+HVALS key: 获取哈希表中所有值。示例：`HVALS key1`
+
+HDEL key field1 [field2 ...]: 删除一个或多个哈希表字段。示例：`HDEL key1 field1	HVALS key1`</code></pre>
+
  <pre><code class="hljs shell">node01:6379&gt; HSET app:mytest1 test1 &quot;123&quot;
 OK
 node01:6379&gt; HGET app:mytest test1
@@ -533,83 +422,42 @@ node01:6379&gt; HGET app:mytest test1
 
 一个列表最多可以包含 <span class="hljs-number">232</span> - <span class="hljs-number">1</span> 个元素 (<span class="hljs-number">4294967295</span>, 每个列表超过<span class="hljs-number">40</span>亿个元素)。</code></pre>
 
-<p>下表列出了列表相关的基本命令</p>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th><strong>命令及描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td><code>LPUSH key value1 [value2]</code>  将一个或多个值插入到列表头部。示例：<code>LPUSH list1 value1 value2</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td><code>LRANGE key start stop</code>查看list当中指定范围（包含stop）的数据。示例：<code>LRANGE list1 0 -1</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td><code>LPUSHX key value</code>将一个值插入到已存在的列表头部。示例：<code>LPUSHX list1 value3LINDEX list1 0</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>RPUSH key value1 [value2]</code>  在列表中添加一个或多个值。示例：RPUSH list1 value4 value5LRANGE list1 0 -1`</td>
-</tr>
-<tr>
-<td>5</td>
-<td><code>RPUSHX key value</code> 为已存在的列表添加值。示例：<code>RPUSHX list1 value6</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td>`LINSERT key BEFORE</td>
-</tr>
-<tr>
-<td>7</td>
-<td><code>LINDEX key index</code> 通过索引获取列表中的元素, O(n)。示例：<code>LINDEX list1 0</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td><code>LSET key index value</code>通过索引设置列表元素的值, O(n)。示例：<code>LSET list1 0 hello</code></td>
-</tr>
-<tr>
-<td>9</td>
-<td><code>LLEN key</code> 获取列表长度。示例：<code>LLEN list1</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td><code>LPOP key</code>移出并获取列表的第一个元素。示例：<code>LPOP list1</code></td>
-</tr>
-<tr>
-<td>11</td>
-<td><code>RPOP key</code>移除列表的最后一个元素，返回值为移除的元素。示例：<code>RPOP list1</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td><code>BLPOP key1 [key2] timeout</code> 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BLPOP list1 2000</code></td>
-</tr>
-<tr>
-<td>13</td>
-<td><code>BRPOP key1 [key2 \] timeout</code> 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BRPOP list1 2000</code></td>
-</tr>
-<tr>
-<td>14</td>
-<td><code>RPOPLPUSH source destination</code>移除列表的最后一个元素，并将该元素添加到另一个列表并返回。示例：<code>RPOPLPUSH list1 list2</code></td>
-</tr>
-<tr>
-<td>15</td>
-<td><code>BRPOPLPUSH source destination timeout</code>从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果 列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：<code>BRPOPLPUSH list1 list2 2000</code></td>
-</tr>
-<tr>
-<td>16</td>
-<td><code>LTRIM key start stop</code>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。示例：LTRIM list1 0 2</td>
-</tr>
-<tr>
-<td>17</td>
-<td><code>DEL key1 key2</code>删除指定key的列表。示例：<code>DEL list2</code></td>
-</tr>
-</tbody></table>
+<p>下表列出了列表相关的基本命令:</p>
+<pre><code class="hljs shell">LPUSH key value1 [value2]: 将一个或多个值插入到列表头部。示例：`LPUSH list1 value1 value2`
+
+LRANGE key start stop: 查看list当中指定范围（包含stop）的数据。示例：`LRANGE list1 0 -1`
+
+LPUSHX key value: 将一个值插入到已存在的列表头部。示例：`LPUSHX list1 value3` `LINDEX list1 0`
+
+RPUSH key value1 [value2]: 在列表中添加一个或多个值。示例：`RPUSH list1 value4 value5` `LRANGE list1 0 -1`
+
+RPUSHX key value: 为已存在的列表添加值。示例：`RPUSHX list1 value6`
+
+LINSERT key BEFORE|AFTER pivot value: 在列表的元素前或者后插入元素。示例：
+`LINSERT list1 BEFORE value3 beforevalue3`
+
+LINDEX key index: 通过索引获取列表中的元素, O(n)。示例：`LINDEX list1 0`
+
+LSET key index value: 通过索引设置列表元素的值, O(n)。示例：`LSET list1 0 hello`
+
+LLEN key: 获取列表长度。示例：`LLEN list1`
+
+LPOP key: 移出并获取列表的第一个元素。示例：`LPOP list1`
+
+RPOP key: 移除列表的最后一个元素，返回值为移除的元素。示例：`RPOP list1`
+
+BLPOP key1 [key2 ...] timeout: 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：`BLPOP list1 2000`
+
+BRPOP key1 [key2 ...] timeout: 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：`BRPOP list1 2000`
+
+RPOPLPUSH source destination: 移除列表的最后一个元素，并将该元素添加到另一个列表并返回。示例：`RPOPLPUSH list1 list2`
+
+BRPOPLPUSH source destination timeout: 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。示例：`BRPOPLPUSH list1 list2 2000`
+
+LTRIM key start stop: 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。示例：`LTRIM list1 0 2`
+
+DEL key1 key2: 删除指定key的列表。示例：`DEL list2`</code></pre>
+
 <pre><code class="hljs routeros">Tips:
 LPUSH + LPOP = STACK
 LPUSH + RPOP = QUEUE
@@ -623,188 +471,273 @@ Redis 中集合是通过哈希表实现的，所以添加，删除，查找的�
 集合中最大的成员数为 <span class="hljs-number">232</span> - <span class="hljs-number">1</span> (<span class="hljs-number">4294967295</span>, 每个集合可存储<span class="hljs-number">40</span>多亿个成员)。</code></pre>
 
 <p>下表列出了 Redis 集合基本命令：</p>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th align="left"><strong>命令及描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td align="left">[SADD key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sadd.html">member2]</a>  向集合添加一个或多个成员示例：<code>SADD set1 setvalue1 setvalue2</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smembers.html">SMEMBERS key</a>  返回集合中的所有成员示例：<code>SMEMBERS set1</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-scard.html">SCARD key</a>  获取集合的成员数示例：<code>SCARD set1</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td align="left">[SDIFF key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiff.html">key2]</a>  返回给定所有集合的差集示例：<code>SADD set2 setvalue2 setvalue3SDIFF set1 set2</code></td>
-</tr>
-<tr>
-<td>5</td>
-<td align="left">[SDIFFSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiffstore.html">key2]</a>  返回给定所有集合的差集并存储在 destination 中示例：<code>SDIFFSTORE set3 set1 set2</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td align="left">[SINTER key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinter.html">key2]</a>  返回给定所有集合的交集示例：<code>SINTER set1 set2</code></td>
-</tr>
-<tr>
-<td>7</td>
-<td align="left">[SINTERSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinterstore.html">key2]</a>  返回给定所有集合的交集并存储在 destination 中示例：<code>SINTERSTORE set4 set1 set2</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sismember.html">SISMEMBER key member</a>  判断 member 元素是否是集合 key 的成员示例：<code>SISMEMBER set1 setvalue1</code></td>
-</tr>
-<tr>
-<td>9</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smove.html">SMOVE source destination member</a>  将 member 元素从 source 集合移动到 destination 集合示例：<code>SMOVE set1 set2 setvalue1</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-spop.html">SPOP key</a>  移除并返回集合中的一个随机元素示例：<code>SPOP set2</code></td>
-</tr>
-<tr>
-<td>11</td>
-<td align="left">[SRANDMEMBER key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srandmember.html">count]</a>  返回集合中一个或多个随机数示例：<code>SRANDMEMBER set2 2</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td align="left">[SREM key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srem.html">member2]</a>  移除集合中一个或多个成员示例：<code>SREM set2 setvalue1</code></td>
-</tr>
-<tr>
-<td>13</td>
-<td align="left">[SUNION key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunion.html">key2]</a>  返回所有给定集合的并集示例：<code>SUNION set1 set2</code></td>
-</tr>
-<tr>
-<td>14</td>
-<td align="left">[SUNIONSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunionstore.html">key2]</a>  所有给定集合的并集存储在 destination 集合中示例：<code>SUNIONSTORE set5 set1 set2</code></td>
-</tr>
-</tbody></table>
+<pre><code class="hljs shell">SADD key member1 [member2 ...]: 向集合添加一个或多个成员。示例：`SADD set1 setvalue1 setvalue2`
+
+SMEMBERS key: 返回集合中的所有成员。示例：`SMEMBERS set1`
+
+SCARD key: 获取集合的成员数。示例：`SCARD set1`
+
+SDIFF key1 [key2 ...]: 返回给定所有集合的差集。示例：`SADD set2 setvalue2 setvalue3SDIFF set1 set2`
+
+SDIFFSTORE destkey key1 [key2 ...]: 返回给定所有集合的差集并存储在 destkey 中。示例：`SDIFFSTORE set3 set1 set2`
+
+SINTER key1 [key2 ...]: 返回给定所有集合的交集。示例：`SINTER set1 set2`
+
+SINTERSTORE destkey key1 [key2 ...]: 返回给定所有集合的交集并存储在`destkey`中。示例：`SINTERSTORE set4 set1 set2`
+
+SISMEMBER key member: 判断 member 元素是否是集合`key`的成员。示例：`SISMEMBER set1 setvalue1`
+
+SMOVE sourcekey destkey member: 将`member`元素从`sourcekey`集合移动到`destkey`集合。示例：`SMOVE set1 set2 setvalue1`
+
+SPOP key: 移除并返回集合中的一个随机元素。示例：`SPOP set2`
+
+SRANDMEMBER key [count ...]: 返回集合中一个或多个随机数。示例：`SRANDMEMBER set2 2`
+
+SREM key member1 [member2 ...]: 移除集合中一个或多个成员。示例：`SREM set2 setvalue1`
+
+SUNION key1 [key2 ...]: 返回所有给定集合的并集。示例：`SUNION set1 set2`
+
+SUNIONSTORE destkey key1 [key2 ...]: 所有给定集合的并集存储在`destkey`集合中。示例：`SUNIONSTORE set5 set1 set2`</code></pre>
+
 <h4 id="zset集合"><a href="#zset集合" class="headerlink" title="zset集合"></a>zset集合</h4><p>下表列出了 redis 有序集合的基本命令:</p>
-<table>
-<thead>
-<tr>
-<th align="left">序号</th>
-<th align="left">命令及描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left">[ZADD key score1 member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zadd.html">score2 member2]</a> 向有序集合添加一个或多个成员，或者更新已存在成员的分数</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zcard.html">ZCARD key</a> 获取有序集合的成员数</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zcount.html">ZCOUNT key min max</a> 计算在有序集合中指定区间分数的成员数</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zincrby.html">ZINCRBY key increment member</a> 有序集合中对指定成员的分数加上增量 increment</td>
-</tr>
-<tr>
-<td align="left">5</td>
-<td align="left">[ZINTERSTORE destination numkeys key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zinterstore.html">key …]</a> 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 destination 中</td>
-</tr>
-<tr>
-<td align="left">6</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zlexcount.html">ZLEXCOUNT key min max</a> 在有序集合中计算指定字典区间内成员数量</td>
-</tr>
-<tr>
-<td align="left">7</td>
-<td align="left">[ZRANGE key start stop <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrange.html">WITHSCORES]</a> 通过索引区间返回有序集合指定区间内的成员</td>
-</tr>
-<tr>
-<td align="left">8</td>
-<td align="left">[ZRANGEBYLEX key min max <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrangebylex.html">LIMIT offset count]</a> 通过字典区间返回有序集合的成员</td>
-</tr>
-<tr>
-<td align="left">9</td>
-<td align="left">[ZRANGEBYSCORE key min max <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrangebyscore.html">WITHSCORES] [LIMIT]</a> 通过分数返回有序集合指定区间内的成员</td>
-</tr>
-<tr>
-<td align="left">10</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrank.html">ZRANK key member</a> 返回有序集合中指定成员的索引</td>
-</tr>
-<tr>
-<td align="left">11</td>
-<td align="left">[ZREM key member <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrem.html">member …]</a> 移除有序集合中的一个或多个成员</td>
-</tr>
-<tr>
-<td align="left">12</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebylex.html">ZREMRANGEBYLEX key min max</a> 移除有序集合中给定的字典区间的所有成员</td>
-</tr>
-<tr>
-<td align="left">13</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebyrank.html">ZREMRANGEBYRANK key start stop</a> 移除有序集合中给定的排名区间的所有成员</td>
-</tr>
-<tr>
-<td align="left">14</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zremrangebyscore.html">ZREMRANGEBYSCORE key min max</a> 移除有序集合中给定的分数区间的所有成员</td>
-</tr>
-<tr>
-<td align="left">15</td>
-<td align="left">[ZREVRANGE key start stop <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrange.html">WITHSCORES]</a> 返回有序集中指定区间内的成员，通过索引，分数从高到低</td>
-</tr>
-<tr>
-<td align="left">16</td>
-<td align="left">[ZREVRANGEBYSCORE key max min <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrangebyscore.html">WITHSCORES]</a> 返回有序集中指定分数区间内的成员，分数从高到低排序</td>
-</tr>
-<tr>
-<td align="left">17</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zrevrank.html">ZREVRANK key member</a> 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序</td>
-</tr>
-<tr>
-<td align="left">18</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zscore.html">ZSCORE key member</a> 返回有序集中，成员的分数值</td>
-</tr>
-<tr>
-<td align="left">19</td>
-<td align="left">[ZUNIONSTORE destination numkeys key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zunionstore.html">key …]</a> 计算给定的一个或多个有序集的并集，并存储在新的 key 中</td>
-</tr>
-<tr>
-<td align="left">20</td>
-<td align="left">[ZSCAN key cursor <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sorted-sets-zscan.html">MATCH pattern] [COUNT count]</a> 迭代有序集合中的元素（包括元素成员和元素分值）</td>
-</tr>
-</tbody></table>
-<h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h4> <pre><code class="hljs angelscript">Redis 在 <span class="hljs-number">2.8</span><span class="hljs-number">.9</span> 版本添加了 HyperLogLog 结构。
+<pre><code class="hljs shell">ZADD key score1 member1 [score2 member2 ...]: 向有序集合添加一个或多个成员，或者更新已存在成员的分数。例如：`ADD zset1 90 ze1`
+
+ZCARD key: 获取有序集合的成员数。例如：`zcard zset1`
+
+ZCOUNT key min max: 计算在有序集合中指定区间分数的成员数。例如：`zcount zset1 90 91`
+
+ZINCRBY key increment member: 有序集合中对指定成员的分数加上增量`increment`。例如：`zincrby zset1 1 ze1`
+
+ZINTERSTORE destkey numkeys key [key ...]: 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 destkey 中。例如：`ZINTERSTORE destkey 1 zset1`
+
+ZLEXCOUNT key min max: 在有序集合中计算指定字典区间内成员数量。例如：``
+
+ZRANGE key start stop [WITHSCORES]: 通过索引区间返回有序集合指定区间内的成员。例如：`ZRANGE destkey 0 -1`
+
+ZRANGEBYLEX key min max [LIMIT offset count]: 通过字典区间返回有序集合的成员。例如：
+node02:15&gt;ZADD myzset 0 a 0 b 0 c 0 d 0 e 0 f 0 g
+&quot;7&quot;
+node02:15&gt;ZRANGEBYLEX myzset - [c
+ 1)  &quot;a&quot;
+ 2)  &quot;b&quot;
+ 3)  &quot;c&quot;
+
+ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]: 通过分数返回有序集合指定区间内的成员。例如：`ZRANGEBYSCORE zset1 90 99`
+
+ZRANK key member: 返回有序集合中指定成员的索引。例如：`ZRANK zset1 ze1`
+
+ZREM key member [member ...]: 移除有序集合中的一个或多个成员。例如：`ZREM destkey ze2`
+
+ZREMRANGEBYLEX key min max]: 移除有序集合中给定的字典区间的所有成员。例如：
+node02:15&gt;ZRANGE myzset 0 -1
+ 1)  &quot;d&quot;
+ 2)  &quot;e&quot;
+ 3)  &quot;f&quot;
+ 4)  &quot;g&quot;
+
+ZREMRANGEBYRANK key start stop: 移除有序集合中给定的排名区间的所有成员。例如：
+node02:15&gt;ZADD salary 2000 jack 5000 tom 3500 peter
+&quot;3&quot;
+node02:15&gt;ZREMRANGEBYRANK salary 0 1
+&quot;2&quot;
+
+ZREMRANGEBYSCORE key min max: 移除有序集合中给定的分数区间的所有成员。例如：
+node02:15&gt;ZREMRANGEBYSCORE salary 1500 3500
+&quot;2&quot;
+node02:15&gt;ZRANGE salary 0 -1 WITHSCORES
+ 1)  &quot;tom&quot;
+ 2)  &quot;5000&quot;
+
+ZREVRANGE key start stop [WITHSCORES]: 返回有序集中指定区间内的成员，通过索引，分数从高到低。例如：
+node02:15&gt;ZRANGE salary 0 -1 WITHSCORES
+ 1)  &quot;jack&quot;
+ 2)  &quot;2000&quot;
+ 3)  &quot;peter&quot;
+ 4)  &quot;3500&quot;
+ 5)  &quot;tom&quot;
+ 6)  &quot;5000&quot;
+node02:15&gt;ZREVRANGE salary 0 -1 WITHSCORES
+ 1)  &quot;tom&quot;
+ 2)  &quot;5000&quot;
+ 3)  &quot;peter&quot;
+ 4)  &quot;3500&quot;
+ 5)  &quot;jack&quot;
+ 6)  &quot;2000&quot;
+
+ZREVRANGEBYSCORE key max min [WITHSCORES]: 返回有序集中指定分数区间内的成员，分数从高到低排序。例如：
+node02:15&gt;ZREVRANGEBYSCORE salary 10000 2000
+ 1)  &quot;tom&quot;
+ 2)  &quot;peter&quot;
+ 3)  &quot;jack&quot;
+
+ZREVRANK key member: 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序。例如：
+node02:15&gt;ZREVRANK salary peter
+&quot;1&quot;
+
+ZSCORE key member: 返回有序集中，成员的分数值。例如：
+node02:15&gt;ZSCORE salary peter
+&quot;3500&quot;
+
+ZUNIONSTORE destkey numkeys key [key ...]: 计算给定的一个或多个有序集的并集，并存储在新的 key 中。例如：
+node02:15&gt;ZADD zset1 1 &quot;one&quot;
+&quot;1&quot;
+node02:15&gt;ZADD zset1 2 &quot;two&quot;
+&quot;1&quot;
+node02:15&gt;ZADD zset2 1 &quot;one&quot;
+&quot;1&quot;
+node02:15&gt;ZADD zset2 2 &quot;two&quot;
+&quot;1&quot;
+node02:15&gt;ZADD zset2 3 &quot;three&quot;
+&quot;1&quot;
+node02:15&gt;ZUNIONSTORE out 2 zset1 zset2 WEIGHTS 2 3
+&quot;5&quot;
+node02:15&gt;ZRANGE out 0 -1 WITHSCORES
+ 1)  &quot;one&quot;
+ 2)  &quot;5&quot;
+ 3)  &quot;three&quot;
+ 4)  &quot;9&quot;
+ 5)  &quot;two&quot;
+ 6)  &quot;10&quot;
+ 7)  &quot;ze1&quot;
+ 8)  &quot;182&quot;
+ 9)  &quot;ze2&quot;
+ 10)  &quot;198&quot;
+
+ZSCAN key cursor [MATCH pattern] [COUNT count]: 迭代有序集合中的元素（包括元素成员和元素分值）。例如：
+node02:15&gt;ZSCAN out 0 match z*
+ 1)  &quot;0&quot;
+ 2)    
+ 1)   &quot;ze1&quot;
+ 2)   &quot;182&quot;
+ 3)   &quot;ze2&quot;
+ 4)   &quot;198&quot;</code></pre>
+
+<h3 id="瑞士军刀"><a href="#瑞士军刀" class="headerlink" title="瑞士军刀"></a>瑞士军刀</h3><h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h4> <pre><code class="hljs shell">Redis 在 2.8.9 版本添加了 HyperLogLog 结构。
 Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。
-在 Redis 里面，每个 HyperLogLog 键只需要花费 <span class="hljs-number">12</span> KB 内存，就可以计算接近 <span class="hljs-number">2</span>^<span class="hljs-number">64</span> 个不同元素的基数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。
+在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。
 但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。
 
 什么是基数?
-比如数据集 &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>&#125;， 那么这个数据集的基数集为 &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span> ,<span class="hljs-number">7</span>, <span class="hljs-number">8</span>&#125;, 基数(不重复元素)为<span class="hljs-number">5</span>。 基数估计就是在误差可接受的范围内，快速计算基数。</code></pre>
+比如数据集 &#123;1, 3, 5, 7, 5, 7, 8&#125;， 那么这个数据集的基数集为 &#123;1, 3, 5 ,7, 8&#125;, 基数(不重复元素)为5。 基数估计就是在误差可接受的范围内，快速计算基数。</code></pre>
 
- <pre><code class="hljs angelscript">Redis HyperLogLog 命令
+ <pre><code class="hljs shell">Redis HyperLogLog 命令
 下表列出了 redis HyperLogLog 的基本命令：
 
-<span class="hljs-number">1</span>	PFADD key element [element ...] 
-node01:<span class="hljs-number">6379</span>&gt;PFADD test <span class="hljs-number">123</span>
+1	PFADD key element [element ...] 
+node01:6379&gt;PFADD test 123
 添加指定元素到 HyperLogLog 中。
-<span class="hljs-number">2</span>	PFCOUNT key [key ...] 
-node01:<span class="hljs-number">6379</span>&gt;PFCOUNT test 
+2	PFCOUNT key [key ...] 
+node01:6379&gt;PFCOUNT test 
 返回给定 HyperLogLog 的基数估算值。
-<span class="hljs-number">3</span>	PFMERGE destkey sourcekey [sourcekey ...] 
-node01:<span class="hljs-number">6379</span>&gt;PFCOUNT kbv kkb kkv   
+3	PFMERGE destkey sourcekey [sourcekey ...] 
+node01:6379&gt;PFCOUNT kbv weitrue kkv   
 将多个 HyperLogLog 合并为一个 HyperLogLog</code></pre>
 
-<h3 id="redis的持久化"><a href="#redis的持久化" class="headerlink" title="redis的持久化"></a>redis的持久化</h3><pre><code class="hljs erlang">由于redis是一个内存数据库，所有的数据都是保存在内存当中的，内存当中的数据极易丢失，所以redis的数据持久化就显得尤为重要.</code></pre>
+<h6 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h6><p><img src="/images/redis/hyperloglog.png" srcset="/img/loading.gif"></p>
+<p> 但是，这个统计是不准确的，官方给出错误率为0.81%</p>
+<h4 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h4><ul>
+<li><p>1次pipeline(n条命令) = 1次网络事件+n次命令时间.</p>
+</li>
+<li><p>pipeline命令 非<strong>原子</strong>原子命令,而原生批量命令<strong>m操作</strong>是原子命令。</p>
+<p><img src="/images/redis/pipem.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/redis/pipeline.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>pipeline每次只能坐拥在一个redis节点。</p>
+</li>
+</ul>
+<p>Java代码执行对比</p>
+<pre><code class="hljs Java">        Jedis jedis = <span class="hljs-keyword">null</span>;
+        <span class="hljs-comment">// 连接池大小设置</span>
+        GenericObjectPoolConfig genericObjectPoolConfig = <span class="hljs-keyword">new</span> GenericObjectPoolConfig();
+        JedisPool jedisPool = <span class="hljs-keyword">new</span> JedisPool(genericObjectPoolConfig, <span class="hljs-string">&quot;node02&quot;</span>, <span class="hljs-number">6379</span>);
+        <span class="hljs-keyword">long</span> startTime = System.currentTimeMillis();
+        <span class="hljs-keyword">try</span>&#123;
+            jedis = jedisPool.getResource();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;<span class="hljs-number">10000</span> ; i++) &#123;
+                jedis.hset(<span class="hljs-string">&quot;pip_test&quot;</span>, <span class="hljs-string">&quot;field&quot;</span>+i, <span class="hljs-string">&quot;value&quot;</span>+i);
+            &#125;
+        &#125;<span class="hljs-keyword">catch</span> (Exception e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            <span class="hljs-keyword">if</span> (jedis != <span class="hljs-keyword">null</span>) &#123;
+                jedis.close();
+            &#125;
+        &#125;
+        System.out.println(System.currentTimeMillis() - startTime);
+        startTime = System.currentTimeMillis();
+        <span class="hljs-comment">// 使用pipeline</span>
+				<span class="hljs-keyword">try</span>&#123;
+            jedis = jedisPool.getResource();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;
+                Pipeline pipelined = jedis.pipelined();
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i * <span class="hljs-number">100</span> ; j &lt;(i + <span class="hljs-number">1</span>) * <span class="hljs-number">100</span> ; j++) &#123;
+                    pipelined.hset(<span class="hljs-string">&quot;pip_test&quot;</span>, <span class="hljs-string">&quot;field&quot;</span>+j, <span class="hljs-string">&quot;value&quot;</span>+j);
+                &#125;
+                pipelined.syncAndReturnAll();
+            &#125;
+        &#125;<span class="hljs-keyword">catch</span> (Exception e) &#123;
+            e.printStackTrace();
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            <span class="hljs-keyword">if</span> (jedis != <span class="hljs-keyword">null</span>) &#123;
+                jedis.close();
+            &#125;
+        &#125;
+        System.out.println(System.currentTimeMillis() - startTime);
 
- <pre><code class="hljs plain">什么是持久化呢?
-利用永久性存储介质将数据进行保存，在特定的时间将保存的数据进行恢复的工作机制称为持久化。</code></pre>
+<span class="hljs-comment">// 输出</span>
+<span class="hljs-number">12126</span>
+<span class="hljs-number">165</span></code></pre>
 
-<pre><code class="hljs plain">为什么要进行持久化?
-防止数据的意外丢失，确保数据安全性</code></pre>
+<h4 id="bitmap-位图"><a href="#bitmap-位图" class="headerlink" title="bitmap(位图)"></a>bitmap(位图)</h4><p>redis可以直接操作位</p>
+<p><img src="/images/redis/bitmap-big.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs shell">node02:15&gt;set bitkey big
+&quot;OK&quot;
+node02:15&gt;get bitkey
+&quot;big&quot;
+node02:15&gt;getbit bitkey 0
+&quot;0&quot;
+node02:15&gt;getbit bitkey 1
+&quot;1&quot;
+node02:15&gt;getbit bitkey 2
+&quot;1&quot;
+node02:15&gt;</code></pre>
 
+<p>操作命令：</p>
+<pre><code class="hljs shell">setbit key offset value            # 给位图指定索引位置设置值，value只能是0或1
+getbit key offset                  # 位图指定索引位置二进制值
+bitcount key [start end]           # 获取位图指定范围（start 到 end，单位为字节，不指定的话获取全部）位值为1的个数
+bitop op destkey key [key ...]     # 做多个bitmap的and（交集） or（并集） not（非） xor（异或）操作并将结果结果保存在destkey中
+bitpos key targetBit [start] [end] # 计算位图指定范围（start 到 end，单位为字节，不指定的话获取全部）第一个便宜量对应位置的值等于targetBit的位置</code></pre>
+
+<p><img src="/images/redis/bitc.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/redis/bit2.png" srcset="/img/loading.gif"></p>
+<h4 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h4><p>GEO: 地理信息定位。存储经纬度，计算距离、位置等。</p>
+<p><code>type getKey = zset</code></p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 增加地理位置信息</span>
+geoadd key longitude latitude member [longitude latitude member ...]
+node02:15&gt;geoadd cities:locations 116.28 39.55 beijing
+&quot;1&quot;
+node02:15&gt;geoadd cities:locations 117.12 39.08 tianjin
+&quot;1&quot;
+node02:15&gt;geoadd cities:locations 114.29 38.02 shijiazhuang 118.01 39.38 tangshan
+&quot;2&quot;
+
+<span class="hljs-meta">#</span><span class="bash"> 获取地理位置信息</span>
+geopos key member [member ...]
+node02:15&gt;geopos cities:locations beijing
+ 1)    
+ 1)   &quot;116.28000229597091675&quot;
+ 2)   &quot;39.5500007245470826&quot;
+
+<span class="hljs-meta">#</span><span class="bash"> 计算距离 unit:m(米),km(千米),mi(英里),ft(尺)</span>
+geodist key member1 member2 [unit]
+node02:15&gt;geodist cities:locations beijing tianjin
+&quot;89206.0576&quot;</code></pre>
+
+<p><img src="/images/redis/georadius.png" srcset="/img/loading.gif"></p>
+<h3 id="redis的持久化"><a href="#redis的持久化" class="headerlink" title="redis的持久化"></a>redis的持久化</h3><p>由于redis是一个内存数据库，所有的数据都是保存在内存当中的，内存当中的数据极易丢失，所以redis的数据持久化就显得尤为重要。</p>
+<p>什么是持久化呢?<br>利用永久性存储介质将数据进行保存，在特定的时间将保存的数据进行恢复的工作机制称为持久化。</p>
+<p>为什么要进行持久化?<br>防止数据的意外丢失，确保数据安全性。</p>
 <pre><code class="hljs angelscript">持久化过程:
 <span class="hljs-number">1.</span>将当前数据状态进行保存，快照形式，存储数据结果，存储格式简单，关注点在数据
 <span class="hljs-number">2.</span>将数据的操作过程进行保存，日志形式，存储操作过程，存储格式复杂，关注点在数据的操作过程</code></pre>
@@ -812,42 +745,44 @@ node01:<span class="hljs-number">6379</span>&gt;PFCOUNT kbv kkb kkv
 <p><img src="/images/redis/image-20200528230621178.png" srcset="/img/loading.gif"></p>
 <h4 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h4><pre><code class="hljs plain">Redis会定期保存数据快照至一个rbd文件中，并在启动时自动加载rdb文件，恢复之前保存的数据。</code></pre>
 
-<h5 id="RDB的启动方式"><a href="#RDB的启动方式" class="headerlink" title="RDB的启动方式"></a>RDB的启动方式</h5><pre><code class="hljs shell">save
+<h5 id="RDB的启动方式"><a href="#RDB的启动方式" class="headerlink" title="RDB的启动方式"></a>RDB的启动方式</h5><h6 id="save"><a href="#save" class="headerlink" title="save"></a>save</h6><pre><code class="hljs shell">save
 <span class="hljs-meta">#</span><span class="bash">手动执行一次保存操作</span>
-<span class="hljs-meta">#</span><span class="bash">dbfilename dump.rdb</span>
+dbfilename dump-端口号.rdb
 说明：设置本地数据库文件名，默认值为dump.rdb经验：通常设置为dump-端口号.rdb
-<span class="hljs-meta">#</span><span class="bash">dir</span>
+dir
 说明：设置存储.rdb文件的路径
 经验：通常设置成存储空间较大的目录中,目录名称data.
-<span class="hljs-meta">#</span><span class="bash">rdbcompression yes</span>
+rdbcompression yes
 说明：设置存储至本地数据库时是否压缩数据，默认为yes，采用LZF 压缩
 经验：通常默认为开启状态，如果设置为no，可以节省CPU 运行时间，但会使存储的文件变大（巨大）
-<span class="hljs-meta">#</span><span class="bash">rdbchecksum  yes</span>
+rdbchecksum  yes
 说明：设置是否进行RDB文件格式校验，该校验过程在写文件和读文件过程均进行
 经验：通常默认为开启状态，如果设置为no，可以节约读写性过程约10%时间消耗，但是存在一定的数据损坏风险
 <span class="hljs-meta">#</span><span class="bash">注意:</span>
 save指令的执行会阻塞当前Redis服务器，直到当前RDB过程完成为止，有可能会造成长时间阻塞，线上环境不建议使用</code></pre>
 
-<h5 id="save的工作原理"><a href="#save的工作原理" class="headerlink" title="save的工作原理"></a>save的工作原理</h5><p><img src="/2021/03/22/redis/redis/image-20200529114206278.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs shell">bgsave
+<p>save的工作原理</p>
+<p><img src="/images/redis/image-20200529114206278.png" srcset="/img/loading.gif"></p>
+<h6 id="bgsave"><a href="#bgsave" class="headerlink" title="bgsave"></a>bgsave</h6><pre><code class="hljs shell">bgsave
 <span class="hljs-meta">#</span><span class="bash">手动启动后台保存操作，但不是立即执行</span>
-<span class="hljs-meta">#</span><span class="bash">dbfilename dump.rdb</span>
-<span class="hljs-meta">#</span><span class="bash">dir</span>
-<span class="hljs-meta">#</span><span class="bash">rdbcompression yes</span>
-<span class="hljs-meta">#</span><span class="bash">rdbchecksum yes</span>
-<span class="hljs-meta">#</span><span class="bash">stop-writes-on-bgsave-error yes</span>
+dbfilename dump-端口号.rdb
+dir
+rdbcompression yes
+rdbchecksum yes
+stop-writes-on-bgsave-error yes
 说明：后台存储过程中如果出现错误现象，是否停止保存操作
 经验：通常默认为开启状态</code></pre>
 
 <p><img src="/images/redis/image-20200528232539204.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs vala">可以在配置文件中配置Redis进行快照保存的时机：
-<span class="hljs-meta">#save [seconds] [changes]</span>
-<span class="hljs-meta">#second：监控时间范围</span>
-<span class="hljs-meta">#changes：监控key的变化量</span>
+<pre><code class="hljs shell">可以在配置文件中配置Redis进行快照保存的时机：
+<span class="hljs-meta">#</span><span class="bash">save [seconds] [changes]</span>
+<span class="hljs-meta">#</span><span class="bash">second：监控时间范围</span>
+<span class="hljs-meta">#</span><span class="bash">changes：监控key的变化量</span>
 
-<span class="hljs-meta">#意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存</span></code></pre>
+<span class="hljs-meta">#</span><span class="bash">意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存</span></code></pre>
 
-<h5 id="save自动保存配置"><a href="#save自动保存配置" class="headerlink" title="save自动保存配置"></a>save自动保存配置</h5><p>修改redis的配置文件</p>
+<p><img src="/images/redis/save&bgsave.png" srcset="/img/loading.gif"></p>
+<h6 id="save自动保存配置"><a href="#save自动保存配置" class="headerlink" title="save自动保存配置"></a>save自动保存配置</h6><p>修改redis的配置文件</p>
 <pre><code class="hljs shell">cd /weitrue/install/redis-6.0.1/
 cat clusters/redis.conf
 save 900 1
@@ -865,7 +800,7 @@ dir &quot;/weitrue/install/redis-6.0.1/rdbstro&quot;</code></pre>
 第六行dir指定了RDB二进制文件存放目录 ；</code></pre>
 
 <p><img src="/images/redis/1589191932950.png" srcset="/img/loading.gif"></p>
-<p> <strong>修改RDB配置</strong></p>
+<p> 修改RDB配置</p>
 <pre><code class="hljs zsh"><span class="hljs-comment"># 在命令行里进行配置,服务器重启才会生效:</span>
 node01:6379&gt; CONFIG GET save 
 1) <span class="hljs-string">&quot;save&quot;</span>
@@ -881,13 +816,12 @@ OK</code></pre>
 <p><img src="/images/redis/image-20200528234120923.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs shell">save配置要根据实际业务情况进行设置，频度过高或过低都会出现性能问题，结果可能是灾难性的save配置中对于second与changes设置通常具有互补对应关系，尽量不要设置成包含性关系save配置启动后执行的是bgsave操作
 <span class="hljs-meta">#</span><span class="bash">save配置:</span>
-1.dbfilename dump.rdb
+1.dbfilename dump-端口.rdb
 2.dir
 3.rdbcompression yes
 4.rdbchecksum yes</code></pre>
 
-<p>rdb特殊启动形式</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">全量复制</span>
+<h5 id="rdb特殊启动形式"><a href="#rdb特殊启动形式" class="headerlink" title="rdb特殊启动形式"></a>rdb特殊启动形式</h5><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">全量复制</span>
   在主从复制中详细讲解
 <span class="hljs-meta">#</span><span class="bash">服务器运行过程中重启</span>
   debug reload
@@ -895,8 +829,7 @@ OK</code></pre>
   shutdown save
 默认情况下执行shutdown命令时，自动执行bgsave(如果没有开启AOF持久化功能)</code></pre>
 
-<p>RDB优缺点</p>
-<pre><code class="hljs angelscript">优:
+<h5 id="RDB优缺点"><a href="#RDB优缺点" class="headerlink" title="RDB优缺点"></a>RDB优缺点</h5><pre><code class="hljs angelscript">优:
 <span class="hljs-number">1.</span>RDB是一个紧凑压缩的二进制文件，存储效率较高
 <span class="hljs-number">2.</span>RDB内部存储的是redis在某个时间点的数据快照，非常适合用于数据备份，全量复制等场景
 <span class="hljs-number">3.</span>RDB恢复数据的速度要比AOF快很多
@@ -910,38 +843,27 @@ OK</code></pre>
 AOF的主要作用是解决了数据持久化的实时性，目前已经是Redis持久化的主流方式</code></pre>
 
 <h5 id="AOF的读写原理"><a href="#AOF的读写原理" class="headerlink" title="AOF的读写原理"></a>AOF的读写原理</h5><p><img src="/images/redis/image-20200530231955448.png" srcset="/img/loading.gif"></p>
-<p>AOF写数据三种策略</p>
-<pre><code class="hljs leaf"><span class="hljs-function"><span class="hljs-keyword">#</span><span class="hljs-title">always</span><span class="hljs-params">(每次）</span></span>
-<span class="hljs-function"><span class="hljs-params">  每次写入操作均同步到<span class="hljs-variable">AOF</span>文件中，数据零误差，性能较低,不建议使用</span></span>
-<span class="hljs-function"><span class="hljs-params">#<span class="hljs-variable">everysec</span>（每秒）</span></span>
-<span class="hljs-function"><span class="hljs-params">  每秒将缓冲区中的指令同步到<span class="hljs-variable">AOF</span>文件中，数据准确性较高，性能较高,建议使用，也是默认配置</span></span>
-<span class="hljs-function"><span class="hljs-params">   在系统突然宕机的情况下丢失1秒内的数据</span></span>
-<span class="hljs-function"><span class="hljs-params">#<span class="hljs-variable">no</span>（系统控制）</span></span>
-<span class="hljs-function"><span class="hljs-params">    由操作系统控制每次同步到<span class="hljs-variable">AOF</span>文件的周期，整体过程不可控</span></span></code></pre>
+<h5 id="AOF写数据三种策略"><a href="#AOF写数据三种策略" class="headerlink" title="AOF写数据三种策略"></a>AOF写数据三种策略</h5><pre><code class="hljs vala"><span class="hljs-meta"># always(每次）</span>
+  每次写入操作均同步到AOF文件中，数据零误差，性能较低,不建议使用
+<span class="hljs-meta"># everysec（每秒）</span>
+  每秒将缓冲区中的指令同步到AOF文件中，数据准确性较高，性能较高,建议使用，也是默认配置
+   在系统突然宕机的情况下丢失<span class="hljs-number">1</span>秒内的数据
+<span class="hljs-meta"># no（系统控制）</span>
+    由操作系统控制每次同步到AOF文件的周期，整体过程不可控</code></pre>
 
-<p>AOF功能开启</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">配置</span>
-1.appendonly yes|no
- 是否开启AOF持久化功能，默认为不开启状态
-2.appendfsync  always|everysec|no
- AOF写数据策略</code></pre>
+<h5 id="AOF功能开启"><a href="#AOF功能开启" class="headerlink" title="AOF功能开启"></a>AOF功能开启</h5><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">配置</span>
+appendonly yes|no                # 是否开启AOF持久化功能，默认为不开启状态
+appendfsync  always|everysec|no  # AOF写数据策略</code></pre>
 
-<p>AOF相关配置</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">配置</span>
-1.appendfilename filename
- AOF持久化文件名，默认文件名未appendonly.aof，建议配置为appendonly-端口号.aof
-2.dir
-AOF持久化文件保存路径，与RDB持久化文件保持一致即可</code></pre>
-
-<pre><code class="hljs shell">cd /weitrue/install/redis-6.0.1
+<h5 id="AOF相关配置"><a href="#AOF相关配置" class="headerlink" title="AOF相关配置"></a>AOF相关配置</h5><pre><code class="hljs shell">cd /weitrue/install/redis-6.0.1
 vim redis.conf
 appendonly yes
-<span class="hljs-meta">#</span><span class="bash">appendfsync always</span>
-appendfsync everysec
-<span class="hljs-meta">#</span><span class="bash">appendfsync no</span></code></pre>
+appendfsync everysec    # appendfsync always / appendfsync no
 
-<p>AOF重写</p>
-<pre><code class="hljs shell">随着命令不断写入AOF，文件会越来越大，为了解决这个问题，Redis引入了AOF重写机制压缩文件体积。AOF文件重写是将Redis进程内的数据转化为写命令同步到新AOF文件的过程。简单说就是将对同一个数据的若干条命令执行结果转化成最终结果数据对应的指令进行记录。
+appendfilename filename # AOF持久化文件名，默认文件名未appendonly.aof，建议配置为appendonly-端口号.aof
+dir                     # AOF持久化文件保存路径，与RDB持久化文件保持一致即可</code></pre>
+
+<h5 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h5><pre><code class="hljs shell">随着命令不断写入AOF，文件会越来越大，为了解决这个问题，Redis引入了AOF重写机制压缩文件体积。AOF文件重写是将Redis进程内的数据转化为写命令同步到新AOF文件的过程。简单说就是将对同一个数据的若干条命令执行结果转化成最终结果数据对应的指令进行记录。
 
 <span class="hljs-meta">#</span><span class="bash">AOF重写作用</span>
 降低磁盘占用量，提高磁盘利用率
@@ -954,33 +876,36 @@ appendfsync everysec
      如del key1、hdelkey2、sremkey3、set key4 111、set key4 222等
   3.对同一数据的多条写命令合并为一条命令
     如lpushlist1 a、lpushlist1 b、lpushlist1 c 可以转化为：lpushlist1 a b c。
-    为防止数据量过大造成客户端缓冲区溢出，对list、set、hash、zset等类型，每条指令最多写入64个元素
-    
-<span class="hljs-meta">#</span><span class="bash">AOF重写方式</span>
-  1.手动重写
-  bgrewriteaof
-  2.自动重写
-  auto-aof-rewrite-min-size size
-  auto-aof-rewrite-percentage percentage
-<span class="hljs-meta">#</span><span class="bash">AOF自动重写方式</span>
-  1.自动重写触发条件设置
-  auto-aof-rewrite-min-size （达到某一内存开始重写）
-  sizeauto-aof-rewrite-percentage percent   （达到某一%）
-  2. 动重写触发比对参数（运行指令info Persistence获取具体信息) 
-  aof_current_size  （设置内存）
-  aof_base_size      （基础尺寸）</code></pre>
+    为防止数据量过大造成客户端缓冲区溢出，对list、set、hash、zset等类型，每条指令最多写入64个元素</code></pre>
+
+<h6 id="AOF重写方式"><a href="#AOF重写方式" class="headerlink" title="AOF重写方式"></a>AOF重写方式</h6><ul>
+<li>手动重写</li>
+</ul>
+<pre><code class="hljs shell">bgrewriteaof</code></pre>
+
+<ul>
+<li>自动重写</li>
+</ul>
+<pre><code class="hljs shell">auto-aof-rewrite-min-size size
+auto-aof-rewrite-percentage percentage</code></pre>
+
+<h6 id="AOF自动重写方式"><a href="#AOF自动重写方式" class="headerlink" title="AOF自动重写方式"></a>AOF自动重写方式</h6><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 自动重写触发条件设置</span>
+auto-aof-rewrite-min-size （达到某一内存开始重写）
+sizeauto-aof-rewrite-percentage percent   （达到某一%）
+
+<span class="hljs-meta">#</span><span class="bash"> 自动重写触发比对参数（运行指令info Persistence获取具体信息) </span>
+aof_current_size  （设置内存）
+aof_base_size      （基础尺寸）</code></pre>
 
 <h5 id="AOF工作流程"><a href="#AOF工作流程" class="headerlink" title="AOF工作流程"></a>AOF工作流程</h5><p><img src="/images/redis/image-20200531004807324.png" srcset="/img/loading.gif"></p>
 <h5 id="AOF重写流程"><a href="#AOF重写流程" class="headerlink" title="AOF重写流程"></a>AOF重写流程</h5><p><img src="/images/redis/image-20200531004404062.png" srcset="/img/loading.gif"></p>
-<p>AOF优点：</p>
-<pre><code class="hljs angelscript"><span class="hljs-number">1</span>、 最安全，在启用appendfsync always时，任何已写入的数据都不会丢失，使用在启用appendfsync everysec也至多只会丢失<span class="hljs-number">1</span>秒的数据
+<h5 id="AOF优点："><a href="#AOF优点：" class="headerlink" title="AOF优点："></a>AOF优点：</h5><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、 最安全，在启用appendfsync always时，任何已写入的数据都不会丢失，使用在启用appendfsync everysec也至多只会丢失<span class="hljs-number">1</span>秒的数据
 
 <span class="hljs-number">2</span>、 AOF文件在发生断电等问题时也不会损坏，即使出现了某条日志只写入了一半的情况，也可以使用redis-check-aof工具轻松修复。
 
 <span class="hljs-number">3</span>、 AOF文件易读，可修改，在进行了某些错误的数据清除操作后，只要AOF文件没有rewrite，就可以把AOF文件备份出来，把错误的命令删除，然后恢复数据。</code></pre>
 
-<p><strong>AOF的缺点：</strong></p>
-<pre><code class="hljs angelscript"><span class="hljs-number">1</span>、 AOF文件通常比RDB文件更大
+<h5 id="AOF的缺点："><a href="#AOF的缺点：" class="headerlink" title="AOF的缺点："></a>AOF的缺点：</h5><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、 AOF文件通常比RDB文件更大
 
 <span class="hljs-number">2</span>、 性能消耗比RDB高
 
@@ -999,33 +924,186 @@ AOF + fsync never会提供AOF持久化方案下的最优性能使用RDB持久化
 
 Redis在fork子进程时需要将内存分页表拷贝至子进程，以占用了<span class="hljs-number">24</span>GB内存的Redis实例为例，共需要拷贝<span class="hljs-number">24</span>GB / <span class="hljs-number">4</span>kB * <span class="hljs-number">8</span> = <span class="hljs-number">48</span>MB的数据。在使用单Xeon <span class="hljs-number">2.27</span>Ghz的物理机上，这一fork操作耗时<span class="hljs-number">216</span>ms。</code></pre>
 
-<h3 id="Redis-发布订阅"><a href="#Redis-发布订阅" class="headerlink" title="Redis 发布订阅"></a>Redis 发布订阅</h3><pre><code class="hljs angelscript">Redis 的发布与订阅功能可以让用户将消息同时发送给多个客户端。 
+<h4 id="RDB与AOF"><a href="#RDB与AOF" class="headerlink" title="RDB与AOF"></a>RDB与AOF</h4><p><img src="/images/redis/rdb&aof.png" srcset="/img/loading.gif"></p>
+<h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h4><ul>
+<li><p>同步操作</p>
+<ul>
+<li>虽然fork同步操作是非常快的，但是如果需要同步的数据量过大(比如超过20G)，fork就会阻塞redis主进程。</li>
+</ul>
+</li>
+<li><p>与内存量息息相关</p>
+<ul>
+<li>内存越大，fork同步数据耗时越长，当然也跟服务器有关，服务器有物理机，也有虚拟机。</li>
+</ul>
+</li>
+<li><p>info:latest_fork_usec</p>
+<ul>
+<li>使用此命令可以查看持久化花费的时间，如果持久化时间过长，就会造成卡顿。</li>
+<li>例如：如果redis此时QPS上万，此时redis正在持久化，而且持久化时间比较长（1s或者10几秒），此时就会严重阻塞redis。</li>
+</ul>
+<pre><code class="hljs shell">node02:0&gt;info Stats
+&quot;# Stats
+total_connections_received:5
+total_commands_processed:13
+instantaneous_ops_per_sec:0
+total_net_input_bytes:346
+total_net_output_bytes:7191
+instantaneous_input_kbps:0.00
+instantaneous_output_kbps:0.00
+rejected_connections:0
+sync_full:0
+sync_partial_ok:0
+sync_partial_err:0
+expired_keys:0
+evicted_keys:0
+keyspace_hits:0
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+latest_fork_usec:0   # &lt;-------
+migrate_cached_sockets:0
+&quot;
+
+node02:0&gt;info
+&quot;# Server
+redis_version:3.2.8
+redis_git_sha1:00000000
+redis_git_dirty:0
+redis_build_id:3a7af52404e97f38
+redis_mode:standalone
+os:Linux 3.10.0-957.el7.x86_64 x86_64
+arch_bits:64
+multiplexing_api:epoll
+gcc_version:4.8.5
+process_id:26189
+run_id:2cf1aa7e1893ae1b5427ae9e1963e30e10716673
+tcp_port:6379
+uptime_in_seconds:122
+uptime_in_days:0
+hz:10
+lru_clock:6488420
+executable:/weitrue/install/redis-6.0.1/src/redis-server
+config_file:/weitrue/install/redis-6.0.1/redis.conf
+
+<span class="hljs-meta">#</span><span class="bash"> Clients</span>
+connected_clients:2
+client_longest_output_list:0
+client_biggest_input_buf:0
+blocked_clients:0
+
+<span class="hljs-meta">#</span><span class="bash"> Memory</span>
+used_memory:2168928
+used_memory_human:2.07M
+used_memory_rss:4009984
+used_memory_rss_human:3.82M
+used_memory_peak:2201664
+used_memory_peak_human:2.10M
+total_system_memory:1907941376
+total_system_memory_human:1.78G
+used_memory_lua:37888
+used_memory_lua_human:37.00K
+maxmemory:0
+maxmemory_human:0B
+maxmemory_policy:noeviction
+mem_fragmentation_ratio:1.85
+mem_allocator:libc
+
+<span class="hljs-meta">#</span><span class="bash"> Persistence</span>
+loading:0
+rdb_changes_since_last_save:0
+rdb_bgsave_in_progress:0
+rdb_last_save_time:1617101034
+rdb_last_bgsave_status:ok
+rdb_last_bgsave_time_sec:-1
+rdb_current_bgsave_time_sec:-1
+aof_enabled:0
+aof_rewrite_in_progress:0
+aof_rewrite_scheduled:0
+aof_last_rewrite_time_sec:-1
+aof_current_rewrite_time_sec:-1
+aof_last_bgrewrite_status:ok
+aof_last_write_status:ok
+
+<span class="hljs-meta">#</span><span class="bash"> Stats</span>
+total_connections_received:5
+total_commands_processed:11
+instantaneous_ops_per_sec:0
+total_net_input_bytes:298
+total_net_output_bytes:4947
+instantaneous_input_kbps:0.00
+instantaneous_output_kbps:0.00
+rejected_connections:0
+sync_full:0
+sync_partial_ok:0
+sync_partial_err:0
+expired_keys:0
+evicted_keys:0
+keyspace_hits:0
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+latest_fork_usec:0
+migrate_cached_sockets:0
+
+<span class="hljs-meta">#</span><span class="bash"> Replication</span>
+role:master
+connected_slaves:0
+master_repl_offset:0
+repl_backlog_active:0
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:0
+repl_backlog_histlen:0
+
+<span class="hljs-meta">#</span><span class="bash"> CPU</span>
+used_cpu_sys:0.18
+used_cpu_user:0.11
+used_cpu_sys_children:0.00
+used_cpu_user_children:0.00
+
+<span class="hljs-meta">#</span><span class="bash"> Cluster</span>
+cluster_enabled:0
+
+<span class="hljs-meta">#</span><span class="bash"> Keyspace</span>
+db0:keys=79,expires=0,avg_ttl=0
+db15:keys=12,expires=0,avg_ttl=0
+&quot;</code></pre>
+
+</li>
+</ul>
+<h5 id="改善fork"><a href="#改善fork" class="headerlink" title="改善fork"></a>改善fork</h5><p><img src="/images/redis/improve-fork.png" srcset="/img/loading.gif"></p>
+<h3 id="Redis-发布订阅"><a href="#Redis-发布订阅" class="headerlink" title="Redis 发布订阅"></a>Redis 发布订阅</h3><p><img src="/images/redis/pub-sub.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">Redis 的发布与订阅功能可以让用户将消息同时发送给多个客户端。 
 这个功能由几个不同的角色 协作组成： 
 <span class="hljs-number">1.</span>发布者（publisher）：发布消息的客户端。 
 <span class="hljs-number">2.</span>频道（channel）：构建在服务器内部，负责接收发布者发送的消息，并将消息转发给频道的订阅者。 
 <span class="hljs-number">3.</span>模式（pattern）：构建在服务器内部，负责对频道进行匹配，当被匹配的频道接到消息时，模式也会 
 将消息转发给模式的订阅者。 
-<span class="hljs-number">4.</span>订阅者（subscriber）：通过订阅频道或者模式来获取消息的客户端。每个频道或者模式都可以有任 
-意多个订阅者。</code></pre>
+<span class="hljs-number">4.</span>订阅者（subscriber）：通过订阅频道或者模式来获取消息的客户端。每个频道或者模式都可以有任 意多个订阅者(仅能获得开始订阅以后的消息，订阅前的消息无法获得)。</code></pre>
 
-<h5 id="订阅命令"><a href="#订阅命令" class="headerlink" title="订阅命令"></a>订阅命令</h5> <pre><code class="hljs applescript"><span class="hljs-comment">#订阅频道</span>
+<h5 id="订阅命令"><a href="#订阅命令" class="headerlink" title="订阅命令"></a>订阅命令</h5> <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">订阅频道</span>
 SUBSCRIBE channel [channel ...]
 订阅给定的一个或多个频道。
-redis&gt; SUBSCRIBE wo 
-Reading messages... (press Ctrl-C <span class="hljs-keyword">to</span> quit)
-<span class="hljs-number">1</span>) <span class="hljs-string">&quot;subscribe&quot;</span> <span class="hljs-comment"># 订阅频道时返回的消息</span>
-<span class="hljs-number">2</span>) <span class="hljs-string">&quot;news::it&quot;</span> <span class="hljs-comment"># 被订阅的频道</span>
-<span class="hljs-number">3</span>) (<span class="hljs-built_in">integer</span>) <span class="hljs-number">1</span> <span class="hljs-comment"># 客户端目前订阅频道的数量</span>
-<span class="hljs-number">1</span>) <span class="hljs-string">&quot;message&quot;</span> <span class="hljs-comment"># 这是从频道接收到的消息</span>
-<span class="hljs-number">2</span>) <span class="hljs-string">&quot;news::it&quot;</span> <span class="hljs-comment"># 消息来源的频道</span>
-<span class="hljs-number">3</span>) <span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-comment"># 消息内容</span></code></pre>
+node02:15&gt;SUBSCRIBE wo
+Switch to Pub/Sub mode. Close console tab to stop listen for messages.
+ 1)  &quot;subscribe&quot;
+ 2)  &quot;wo&quot;
+ 3)  &quot;1&quot;
+ 1)  &quot;message&quot;
+ 2)  &quot;wo&quot;
+ 3)  &quot;hello&quot;
+ 1)  &quot;message&quot;
+ 2)  &quot;wo&quot;
+ 3)  &quot;test&quot;</code></pre>
 
-<h6 id="消息发布"><a href="#消息发布" class="headerlink" title="消息发布"></a>消息发布</h6><pre><code class="hljs shell"><span class="hljs-meta">redis&gt;</span><span class="bash">PUBLISH wo hello</span></code></pre>
+<h6 id="消息发布"><a href="#消息发布" class="headerlink" title="消息发布"></a>消息发布</h6><pre><code class="hljs shell">node02:15&gt;PUBLISH wo hello
+&quot;1&quot;</code></pre>
 
-<h6 id="订阅多个"><a href="#订阅多个" class="headerlink" title="订阅多个"></a>订阅多个</h6><pre><code class="hljs haxe">通配符*
-redis&gt; PSUBSCRIBE <span class="hljs-keyword">new</span><span class="hljs-type"></span>*</code></pre>
+<h6 id="订阅多个"><a href="#订阅多个" class="headerlink" title="订阅多个"></a>订阅多个</h6><pre><code class="hljs shell">通配符*
+<span class="hljs-meta">redis&gt;</span><span class="bash"> PSUBSCRIBE new*</span></code></pre>
 
-<h6 id="消息发布-1"><a href="#消息发布-1" class="headerlink" title="消息发布"></a>消息发布</h6><pre><code class="hljs haxe">redis&gt;PUBLISH <span class="hljs-keyword">new</span><span class="hljs-type">1</span> hello</code></pre>
+<h6 id="消息发布-1"><a href="#消息发布-1" class="headerlink" title="消息发布"></a>消息发布</h6><pre><code class="hljs shell"><span class="hljs-meta">redis&gt;</span><span class="bash">PUBLISH new1 hello</span></code></pre>
+
+<h6 id="列出指定频道订阅着数量"><a href="#列出指定频道订阅着数量" class="headerlink" title="列出指定频道订阅着数量"></a>列出指定频道订阅着数量</h6><pre><code class="hljs shell"><span class="hljs-meta">redis&gt;</span><span class="bash"> PUBSUB numsub [channel...]</span></code></pre>
 
 <h3 id="Redis-事务"><a href="#Redis-事务" class="headerlink" title="Redis 事务"></a>Redis 事务</h3><pre><code class="hljs nginx"><span class="hljs-attribute">Redis</span> 的事务功能允许用户将多个命令包裹起来，然后一次性地、按 顺序地执行被包裹的所有命令。
 在事务执行的过程中，服务器不会中断事务而改去执行其他命令请求，只有在事务包裹的所有命令都
@@ -1039,213 +1117,89 @@ redis&gt; PSUBSCRIBE <span class="hljs-keyword">new</span><span class="hljs-type
 <p>DISCARD                                                         放弃事务。</p>
 <p>EXEC                                                                 执行事务中的所有命令。</p>
 <p><strong>开始事务</strong></p>
-<pre><code class="hljs mipsasm"><span class="hljs-keyword">MULTI</span>
-<span class="hljs-keyword">开始一个事务。 </span>
+<pre><code class="hljs shell">MULTI
+开始一个事务。 
 在这个命令执行之后，客户端发送的所有针对数据库或者数据库键的命令都不会被立即执行，而是被放
 入到一个事务队列里面，并返回 QUEUED 表示命令已入队。
-redis&gt; <span class="hljs-keyword">MULTI </span><span class="hljs-comment"># 开始一个事务</span>
+<span class="hljs-meta">redis&gt;</span><span class="bash"> MULTI <span class="hljs-comment"># 开始一个事务</span></span>
 OK
-redis&gt; SET msg <span class="hljs-string">&quot;hello world&quot;</span> <span class="hljs-comment"># 将这个 SET 命令放入事务队列</span>
+<span class="hljs-meta">redis&gt;</span><span class="bash"> SET msg <span class="hljs-string">&quot;hello world&quot;</span> <span class="hljs-comment"># 将这个 SET 命令放入事务队列</span></span>
 QUEUED</code></pre>
 
 <p><strong>放弃事务：</strong></p>
-<pre><code class="hljs mipsasm"><span class="hljs-keyword">DISCARD</span>
-<span class="hljs-keyword">取消事务，放弃执行事务队列中的所有命令。</span>
-<span class="hljs-keyword"> </span>redis&gt; <span class="hljs-keyword">MULTI</span>
-<span class="hljs-keyword"> </span>OK
- redis&gt; SET msg <span class="hljs-string">&quot;hello world&quot;</span>
+<pre><code class="hljs shell">DISCARD
+取消事务，放弃执行事务队列中的所有命令。
+<span class="hljs-meta"> redis&gt;</span><span class="bash"> MULTI</span>
+ OK
+<span class="hljs-meta"> redis&gt;</span><span class="bash"> SET msg <span class="hljs-string">&quot;hello world&quot;</span></span>
  QUEUED
- redis&gt; <span class="hljs-keyword">DISCARD </span><span class="hljs-comment"># 事务已被取消</span>
+<span class="hljs-meta"> redis&gt;</span><span class="bash"> DISCARD <span class="hljs-comment"># 事务已被取消</span></span>
  OK</code></pre>
 
 <p><strong>执行事务</strong></p>
-<pre><code class="hljs gams">EXEC
+<pre><code class="hljs shell">EXEC
 按照命令被入队到事务队列中的顺序，执行事务队列中的所有命令。
-redis&gt; MULTI 
+<span class="hljs-meta">redis&gt;</span><span class="bash"> MULTI </span>
 OK
-redis&gt; <span class="hljs-keyword">SET</span> msg <span class="hljs-comment">&quot;hello world&quot;</span>
+<span class="hljs-meta">redis&gt;</span><span class="bash"> SET msg <span class="hljs-string">&quot;hello world&quot;</span></span>
 QUEUED
-redis&gt; <span class="hljs-keyword">SET</span> <span class="hljs-comment">msg</span> <span class="hljs-comment">&quot;hello world&quot;</span>
+<span class="hljs-meta">redis&gt;</span><span class="bash"> SET msg <span class="hljs-string">&quot;hello world&quot;</span></span>
 QUEUED
-redis&gt; EXEC</code></pre>
+<span class="hljs-meta">redis&gt;</span><span class="bash"> EXEC</span></code></pre>
 
 <h3 id="Redis-安全"><a href="#Redis-安全" class="headerlink" title="Redis 安全"></a>Redis 安全</h3><p>我们可以通过 redis 的配置文件设置密码参数，这样客户端连接到 redis 服务就需要密码验证，这样可以让你的 redis 服务更安全。 </p>
-<pre><code class="hljs routeros">实例
+<pre><code class="hljs shell">实例
 我们可以通过以下命令查看是否设置了密码验证：
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">get</span> requirepass
-1) <span class="hljs-string">&quot;requirepass&quot;</span>
-2) <span class="hljs-string">&quot;&quot;</span>
+127.0.0.1:6379&gt; CONFIG get requirepass
+1) &quot;requirepass&quot;
+2) &quot;&quot;
 默认情况下 requirepass 参数是空的，这就意味着你无需通过密码验证就可以连接到 redis 服务。
 你可以通过以下命令来修改该参数：
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">set</span> requirepass <span class="hljs-string">&quot;kkb&quot;</span>
+127.0.0.1:6379&gt; CONFIG set requirepass &quot;weitrue&quot;
 OK
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">get</span> requirepass
-1) <span class="hljs-string">&quot;requirepass&quot;</span>
-2) <span class="hljs-string">&quot;kkb&quot;</span></code></pre>
+127.0.0.1:6379&gt; CONFIG get requirepass
+1) &quot;requirepass&quot;
+2) &quot;weitrue&quot;</code></pre>
 
 <p>设置密码后，客户端连接 redis 服务就需要密码验证，否则无法执行命令。</p>
-<pre><code class="hljs accesslog">语法
+<pre><code class="hljs shell">语法
 AUTH 命令基本语法格式如下：
-<span class="hljs-number">127.0.0.1:6379</span>&gt; AUTH password
+127.0.0.1:6379&gt; AUTH password
 实例
-<span class="hljs-number">127.0.0.1:6379</span>&gt; AUTH <span class="hljs-string">&quot;kkb&quot;</span>
+127.0.0.1:6379&gt; AUTH &quot;weitrue&quot;
 OK</code></pre>
 
-<pre><code class="hljs vala"><span class="hljs-meta">#取消密码</span>
-重启服务</code></pre>
-
+<p>取消密码 —重启服务</p>
 <pre><code class="hljs plain">AUTH命令跟其他redis命令一样，是没有加密的；阻止不了攻击者在网络上窃取你的密码；</code></pre>
 
 <h3 id="Redis-性能测试"><a href="#Redis-性能测试" class="headerlink" title="Redis 性能测试"></a>Redis 性能测试</h3><p>Redis 性能测试是通过同时执行多个命令实现的。</p>
-<pre><code class="hljs yaml"><span class="hljs-string">语法</span>
-<span class="hljs-string">redis</span> <span class="hljs-string">性能测试的基本命令如下：</span>
+<pre><code class="hljs shell">语法
+redis 性能测试的基本命令如下：
 
-<span class="hljs-string">redis-benchmark</span> [<span class="hljs-string">option</span>] [<span class="hljs-string">option</span> <span class="hljs-string">value</span>]
-<span class="hljs-string">注意：该命令是在</span> <span class="hljs-string">redis</span> <span class="hljs-string">的目录下执行的，而不是</span> <span class="hljs-string">redis</span> <span class="hljs-string">客户端的内部指令。</span>
+redis-benchmark [option] [option value]
+注意：该命令是在 redis 的目录下执行的，而不是 redis 客户端的内部指令。
 
-<span class="hljs-string">实例</span>
-<span class="hljs-string">以下实例同时执行</span> <span class="hljs-number">10000</span> <span class="hljs-string">个请求来检测性能：</span>
-
-<span class="hljs-string">$</span> <span class="hljs-string">src/redis-benchmark</span>  <span class="hljs-string">-h</span> <span class="hljs-string">node01</span> <span class="hljs-string">-p</span> <span class="hljs-number">6379</span>  <span class="hljs-string">-n</span> <span class="hljs-number">10000</span> <span class="hljs-string">-q</span>
-
-<span class="hljs-attr">PING_INLINE:</span> <span class="hljs-number">141043.72</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">PING_BULK:</span> <span class="hljs-number">142857.14</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SET:</span> <span class="hljs-number">141442.72</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">GET:</span> <span class="hljs-number">145348.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">INCR:</span> <span class="hljs-number">137362.64</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPUSH:</span> <span class="hljs-number">145348.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPOP:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SADD:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SPOP:</span> <span class="hljs-number">149253.73</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LPUSH</span> <span class="hljs-string">(needed</span> <span class="hljs-string">to</span> <span class="hljs-string">benchmark</span> <span class="hljs-string">LRANGE):</span> <span class="hljs-number">148588.42</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_100</span> <span class="hljs-string">(first</span> <span class="hljs-number">100</span> <span class="hljs-string">elements):</span> <span class="hljs-number">58411.21</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_300</span> <span class="hljs-string">(first</span> <span class="hljs-number">300</span> <span class="hljs-string">elements):</span> <span class="hljs-number">21195.42</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_500</span> <span class="hljs-string">(first</span> <span class="hljs-number">450</span> <span class="hljs-string">elements):</span> <span class="hljs-number">14539.11</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_600</span> <span class="hljs-string">(first</span> <span class="hljs-number">600</span> <span class="hljs-string">elements):</span> <span class="hljs-number">10504.20</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">MSET</span> <span class="hljs-string">(10</span> <span class="hljs-string">keys):</span> <span class="hljs-number">93283.58</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span></code></pre>
-
-<pre><code class="hljs lsl">redis 性能测试工具可选参数如下所示：
-序号	选项	描述	                                 默认值
-<span class="hljs-number">1</span>	-h	指定服务器主机名	                     <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-number">2</span>	-p	指定服务器端口	                            <span class="hljs-number">6379</span>
-<span class="hljs-number">3</span>	-s	指定服务器 socket	
-<span class="hljs-number">4</span>	-c	指定并发连接数	                             <span class="hljs-number">50</span>
-<span class="hljs-number">5</span>	-n	指定请求数	                             <span class="hljs-number">10000</span>
-<span class="hljs-number">6</span>	-d	以字节的形式指定 SET/GET 值的数据大小	         <span class="hljs-number">2</span>
-<span class="hljs-number">7</span>	-k	<span class="hljs-number">1</span>=keep alive <span class="hljs-number">0</span>=reconnect	              <span class="hljs-number">1</span>
-<span class="hljs-number">8</span>	-r	SET/GET/INCR 使用随机 <span class="hljs-type">key</span>, SADD 使用随机值	
-<span class="hljs-number">9</span>	-P	通过管道传输 &lt;numreq&gt; 请求	                 <span class="hljs-number">1</span>
-<span class="hljs-number">10</span>	-q	强制退出 redis。仅显示 query/sec 值	
-<span class="hljs-number">11</span>	--csv	以 CSV 格式输出	
-<span class="hljs-number">12</span>	-l	生成循环，永久执行测试	
-<span class="hljs-number">13</span>	-t	仅运行以逗号分隔的测试命令列表。	
-<span class="hljs-number">14</span>	-I	Idle 模式。仅打开 N 个 idle 连接并等待。</code></pre>
-
-<pre><code class="hljs yaml"><span class="hljs-comment">#以下实例我们使用了多个参数来测试 redis 性能：</span>
-
-<span class="hljs-string">$</span> <span class="hljs-string">src/redis-benchmark</span> <span class="hljs-string">-h</span> <span class="hljs-string">node01</span> <span class="hljs-string">-p</span> <span class="hljs-number">6379</span> <span class="hljs-string">-t</span> <span class="hljs-string">set,lpush</span> <span class="hljs-string">-n</span> <span class="hljs-number">10000</span> <span class="hljs-string">-q</span>
-
-<span class="hljs-attr">SET:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPUSH:</span> <span class="hljs-number">145560.41</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">以上实例中主机为</span> <span class="hljs-string">node01，端口号为</span> <span class="hljs-number">6379</span><span class="hljs-string">，执行的命令为</span> <span class="hljs-string">set,lpush，请求数为</span> <span class="hljs-number">10000</span><span class="hljs-string">，通过</span> <span class="hljs-string">-q</span> <span class="hljs-string">参数让结果只显示每秒执行的请求数。</span></code></pre>
-
-<h3 id="Redis-事务-1"><a href="#Redis-事务-1" class="headerlink" title="Redis 事务"></a>Redis 事务</h3><pre><code class="hljs nginx"><span class="hljs-attribute">Redis</span> 的事务功能允许用户将多个命令包裹起来，然后一次性地、按 顺序地执行被包裹的所有命令。
-在事务执行的过程中，服务器不会中断事务而改去执行其他命令请求，只有在事务包裹的所有命令都
-被执行完毕之后，服务器才会去处理其他命令请求。</code></pre>
-
-<p>事务命令</p>
-<pre><code class="hljs plain">为了避免遇上以上所说的情况， 我们需要用到 Redis 的事务功能， 通过事务， 我们可以让 Redis 
-一次性地执行多个命令， 并且确保事务中的命令要么就全部都 执行，要么就一个都不执行。</code></pre>
-
-<p><strong>事务命令</strong>：                                                     作用： </p>
-<p>MULTI                                                             开始一个新的事务。    </p>
-<p>DISCARD                                                         放弃事务。</p>
-<p>EXEC                                                                 执行事务中的所有命令。</p>
-<p><strong>开始事务</strong></p>
-<pre><code class="hljs mipsasm"><span class="hljs-keyword">MULTI</span>
-<span class="hljs-keyword">开始一个事务。 </span>
-在这个命令执行之后，客户端发送的所有针对数据库或者数据库键的命令都不会被立即执行，而是被放
-入到一个事务队列里面，并返回 QUEUED 表示命令已入队。
-redis&gt; <span class="hljs-keyword">MULTI </span><span class="hljs-comment"># 开始一个事务</span>
-OK
-redis&gt; SET msg <span class="hljs-string">&quot;hello world&quot;</span> <span class="hljs-comment"># 将这个 SET 命令放入事务队列</span>
-QUEUED</code></pre>
-
-<p><strong>放弃事务：</strong></p>
-<pre><code class="hljs mipsasm"><span class="hljs-keyword">DISCARD</span>
-<span class="hljs-keyword">取消事务，放弃执行事务队列中的所有命令。</span>
-<span class="hljs-keyword"> </span>redis&gt; <span class="hljs-keyword">MULTI</span>
-<span class="hljs-keyword"> </span>OK
- redis&gt; SET msg <span class="hljs-string">&quot;hello world&quot;</span>
- QUEUED
- redis&gt; <span class="hljs-keyword">DISCARD </span><span class="hljs-comment"># 事务已被取消</span>
- OK</code></pre>
-
-<p><strong>执行事务</strong></p>
-<pre><code class="hljs gams">EXEC
-按照命令被入队到事务队列中的顺序，执行事务队列中的所有命令。
-redis&gt; MULTI 
-OK
-redis&gt; <span class="hljs-keyword">SET</span> msg <span class="hljs-comment">&quot;hello world&quot;</span>
-QUEUED
-redis&gt; <span class="hljs-keyword">SET</span> <span class="hljs-comment">msg</span> <span class="hljs-comment">&quot;hello world&quot;</span>
-QUEUED
-redis&gt; EXEC</code></pre>
-
-<h3 id="Redis-安全-1"><a href="#Redis-安全-1" class="headerlink" title="Redis 安全"></a>Redis 安全</h3><p>我们可以通过 redis 的配置文件设置密码参数，这样客户端连接到 redis 服务就需要密码验证，这样可以让你的 redis 服务更安全。 </p>
-<pre><code class="hljs routeros">实例
-我们可以通过以下命令查看是否设置了密码验证：
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">get</span> requirepass
-1) <span class="hljs-string">&quot;requirepass&quot;</span>
-2) <span class="hljs-string">&quot;&quot;</span>
-默认情况下 requirepass 参数是空的，这就意味着你无需通过密码验证就可以连接到 redis 服务。
-你可以通过以下命令来修改该参数：
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">set</span> requirepass <span class="hljs-string">&quot;kkb&quot;</span>
-OK
-127.0.0.1:6379&gt;<span class="hljs-built_in"> CONFIG </span><span class="hljs-builtin-name">get</span> requirepass
-1) <span class="hljs-string">&quot;requirepass&quot;</span>
-2) <span class="hljs-string">&quot;kkb&quot;</span></code></pre>
-
-<p>设置密码后，客户端连接 redis 服务就需要密码验证，否则无法执行命令。</p>
-<pre><code class="hljs accesslog">语法
-AUTH 命令基本语法格式如下：
-<span class="hljs-number">127.0.0.1:6379</span>&gt; AUTH password
 实例
-<span class="hljs-number">127.0.0.1:6379</span>&gt; AUTH <span class="hljs-string">&quot;kkb&quot;</span>
-OK</code></pre>
+以下实例同时执行 10000 个请求来检测性能：
 
-<pre><code class="hljs vala"><span class="hljs-meta">#取消密码</span>
-重启服务</code></pre>
-
-<pre><code class="hljs plain">AUTH命令跟其他redis命令一样，是没有加密的；阻止不了攻击者在网络上窃取你的密码；</code></pre>
-
-<h3 id="Redis-性能测试-1"><a href="#Redis-性能测试-1" class="headerlink" title="Redis 性能测试"></a>Redis 性能测试</h3><p>Redis 性能测试是通过同时执行多个命令实现的。</p>
-<pre><code class="hljs yaml"><span class="hljs-string">语法</span>
-<span class="hljs-string">redis</span> <span class="hljs-string">性能测试的基本命令如下：</span>
-
-<span class="hljs-string">redis-benchmark</span> [<span class="hljs-string">option</span>] [<span class="hljs-string">option</span> <span class="hljs-string">value</span>]
-<span class="hljs-string">注意：该命令是在</span> <span class="hljs-string">redis</span> <span class="hljs-string">的目录下执行的，而不是</span> <span class="hljs-string">redis</span> <span class="hljs-string">客户端的内部指令。</span>
-
-<span class="hljs-string">实例</span>
-<span class="hljs-string">以下实例同时执行</span> <span class="hljs-number">10000</span> <span class="hljs-string">个请求来检测性能：</span>
-
-<span class="hljs-string">$</span> <span class="hljs-string">src/redis-benchmark</span>  <span class="hljs-string">-h</span> <span class="hljs-string">node01</span> <span class="hljs-string">-p</span> <span class="hljs-number">6379</span>  <span class="hljs-string">-n</span> <span class="hljs-number">10000</span> <span class="hljs-string">-q</span>
-
-<span class="hljs-attr">PING_INLINE:</span> <span class="hljs-number">141043.72</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">PING_BULK:</span> <span class="hljs-number">142857.14</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SET:</span> <span class="hljs-number">141442.72</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">GET:</span> <span class="hljs-number">145348.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">INCR:</span> <span class="hljs-number">137362.64</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPUSH:</span> <span class="hljs-number">145348.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPOP:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SADD:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">SPOP:</span> <span class="hljs-number">149253.73</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LPUSH</span> <span class="hljs-string">(needed</span> <span class="hljs-string">to</span> <span class="hljs-string">benchmark</span> <span class="hljs-string">LRANGE):</span> <span class="hljs-number">148588.42</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_100</span> <span class="hljs-string">(first</span> <span class="hljs-number">100</span> <span class="hljs-string">elements):</span> <span class="hljs-number">58411.21</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_300</span> <span class="hljs-string">(first</span> <span class="hljs-number">300</span> <span class="hljs-string">elements):</span> <span class="hljs-number">21195.42</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_500</span> <span class="hljs-string">(first</span> <span class="hljs-number">450</span> <span class="hljs-string">elements):</span> <span class="hljs-number">14539.11</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">LRANGE_600</span> <span class="hljs-string">(first</span> <span class="hljs-number">600</span> <span class="hljs-string">elements):</span> <span class="hljs-number">10504.20</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">MSET</span> <span class="hljs-string">(10</span> <span class="hljs-string">keys):</span> <span class="hljs-number">93283.58</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span></code></pre>
+[hadoop@node02 redis-6.0.1]$ src/redis-benchmark  -h node02 -p 6379  -n 10000 -q
+PING_INLINE: 72992.70 requests per second
+PING_BULK: 70921.98 requests per second
+SET: 66666.66 requests per second
+GET: 73529.41 requests per second
+INCR: 75187.97 requests per second
+LPUSH: 68493.15 requests per second
+RPUSH: 76923.08 requests per second
+LPOP: 74626.87 requests per second
+RPOP: 75757.58 requests per second
+SADD: 76335.88 requests per second
+SPOP: 76923.08 requests per second
+LPUSH (needed to benchmark LRANGE): 75757.58 requests per second
+LRANGE_100 (first 100 elements): 40983.61 requests per second
+LRANGE_300 (first 300 elements): 19120.46 requests per second
+LRANGE_500 (first 450 elements): 13605.44 requests per second
+LRANGE_600 (first 600 elements): 10672.36 requests per second
+MSET (10 keys): 59880.24 requests per second</code></pre>
 
 <pre><code class="hljs lsl">redis 性能测试工具可选参数如下所示：
 序号	选项	描述	                                 默认值
@@ -1264,37 +1218,31 @@ OK</code></pre>
 <span class="hljs-number">13</span>	-t	仅运行以逗号分隔的测试命令列表。	
 <span class="hljs-number">14</span>	-I	Idle 模式。仅打开 N 个 idle 连接并等待。</code></pre>
 
-<pre><code class="hljs yaml"><span class="hljs-comment">#以下实例我们使用了多个参数来测试 redis 性能：</span>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">以下实例使用了多个参数来测试 redis 性能：</span>
 
-<span class="hljs-string">$</span> <span class="hljs-string">src/redis-benchmark</span> <span class="hljs-string">-h</span> <span class="hljs-string">node01</span> <span class="hljs-string">-p</span> <span class="hljs-number">6379</span> <span class="hljs-string">-t</span> <span class="hljs-string">set,lpush</span> <span class="hljs-string">-n</span> <span class="hljs-number">10000</span> <span class="hljs-string">-q</span>
+[hadoop@node02 redis-6.0.1]$ src/redis-benchmark -h node02 -p 6379 -t set,lpush -n 10000 -q
+SET: 68493.15 requests per second
+LPUSH: 67114.09 requests per second
+以上实例中主机为 node01，端口号为 6379，执行的命令为 set,lpush，请求数为 10000，通过 -q 参数让结果只显示每秒执行的请求数。</code></pre>
 
-<span class="hljs-attr">SET:</span> <span class="hljs-number">146198.83</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-attr">LPUSH:</span> <span class="hljs-number">145560.41</span> <span class="hljs-string">requests</span> <span class="hljs-string">per</span> <span class="hljs-string">second</span>
-<span class="hljs-string">以上实例中主机为</span> <span class="hljs-string">node01，端口号为</span> <span class="hljs-number">6379</span><span class="hljs-string">，执行的命令为</span> <span class="hljs-string">set,lpush，请求数为</span> <span class="hljs-number">10000</span><span class="hljs-string">，通过</span> <span class="hljs-string">-q</span> <span class="hljs-string">参数让结果只显示每秒执行的请求数。</span></code></pre>
-
-<h3 id="redis的三种集群方式："><a href="#redis的三种集群方式：" class="headerlink" title="redis的三种集群方式："></a>redis的三种集群方式：</h3><h4 id="主从复制架构"><a href="#主从复制架构" class="headerlink" title="主从复制架构"></a>主从复制架构</h4><p>介绍:  </p>
-<pre><code class="hljs crmsh">在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制（replicate）另一个服务器，我们称呼被复制的服务器为主服务器（<span class="hljs-literal">master</span>），而对主服务器进行复制的服务器则被称为从服务器（<span class="hljs-literal">slave</span>）.</code></pre>
-
+<h3 id="redis的三种集群方式："><a href="#redis的三种集群方式：" class="headerlink" title="redis的三种集群方式："></a>redis的三种集群方式：</h3><h4 id="主从复制架构"><a href="#主从复制架构" class="headerlink" title="主从复制架构"></a>主从复制架构</h4><p>在Redis中，<br><code>SLAVEOF  命令或者设置</code>slaveof 选项，让一个服务器去复制（replicate）另一个服务器，被复制的服务器为主服务器（master），而对主服务器进行复制的服务器则被称为从服务器（slave）。<br><code>SLAVEOF no one</code>命令取消成为从节点。</p>
 <p><img src="/images/redis/image-20200526181040434.png" srcset="/img/loading.gif"></p>
 <p><img src="/images/redis/image-20200526181105914.png" srcset="/img/loading.gif"></p>
 <p><img src="/images/redis/image-20200527001642571.png" srcset="/img/loading.gif"></p>
-<p>作用:</p>
- <pre><code class="hljs crmsh">读写分离:<span class="hljs-literal">master</span>写,<span class="hljs-literal">slave</span>读.
-负载均衡:由<span class="hljs-literal">slave</span>分担<span class="hljs-literal">master</span>负载,并根据需求,改变<span class="hljs-literal">slave</span>的数量,通过多个从节点读取负载
-故障恢复:当<span class="hljs-literal">master</span>出现问题的时候,由<span class="hljs-literal">slave</span>提供服务,实现快速恢复.
-数据冗余:实时备份.</code></pre>
-
-<p>工作原理:</p>
-<pre><code class="hljs angelscript">三阶段:
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>读写分离:master写,slave读。</li>
+<li>负载均衡:由slave分担master负载,并根据需求,改变slave的数量,通过多个从节点读取负载。</li>
+<li>故障恢复:当master出现问题的时候,由slave提供服务,实现快速恢复。</li>
+<li>数据冗余:实时备份。</li>
+</ul>
+<h5 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h5><pre><code class="hljs angelscript">三阶段:
  <span class="hljs-number">1.</span>建立连接
  <span class="hljs-number">2.</span>数据同步
  <span class="hljs-number">3.</span>命令传播阶段</code></pre>
 
 <p><img src="/images/redis/image-20200526191458864.png" srcset="/img/loading.gif"></p>
 <p><img src="/images/redis/image-20200527001702103.png" srcset="/img/loading.gif"></p>
-<p>配置:</p>
-<pre><code class="hljs gcode">使用主从复制这种模式，实现<span class="hljs-symbol">node01</span>作为主节点，<span class="hljs-symbol">node02</span>与<span class="hljs-symbol">node03</span>作为从节点，并且将<span class="hljs-symbol">node01</span>所有的数据全部都同步到<span class="hljs-symbol">node02</span>与<span class="hljs-symbol">node03</span>服务器</code></pre>
-
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><p>使用主从复制这种模式，实现node01作为主节点，node02与node03作为从节点，并且将node01所有的数据全部都同步到node02与node03服务器</p>
 <p>第一步: 将node01上的redis拷贝到node02和node03上</p>
 <pre><code class="hljs shell">scp -r /weitrue/install/redis-6.0.1/ node02:/weitrue/install/
 scp -r /weitrue/install/redis-6.0.1/ node03:/weitrue/instal/</code></pre>
@@ -1310,7 +1258,7 @@ vim redis.conf
 bind node02
 daemonize yes
 pidfile /weitrue/install/redis-6.0.1/redis_6379.pid
-logfile &quot;/weitrue/install/redis-3.2.8/logs/redis.log&quot;
+logfile &quot;/weitrue/install/redis-6.0.1/logs/redis.log&quot;
 dir /weitrue/install/redis-6.0.1/redisdata
 slaveof node01 6379
 <span class="hljs-meta">#</span><span class="bash"> node03服务器修改配置文件命令如下</span>
@@ -1338,7 +1286,7 @@ src/redis-server  redis.conf</code></pre>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">注意:务必关掉防火墙</span>
 <span class="hljs-meta">#</span><span class="bash">连接node01</span>
 src/redis-cli -h node01
-set weitrue  1234
+set weitrue 1234
 <span class="hljs-meta">#</span><span class="bash">连接node02</span>
 src/redis-cli -h node02
 get weitrue
@@ -1504,7 +1452,7 @@ src/redis-cli --cluster create <span class="hljs-number">192.168</span><span cla
 <p>那么我们需要清空所有redis节点的所有数据</p>
 <p>执行以下命令连接到各个redis节点，然后清空数据</p>
 <pre><code class="hljs angelscript">示例：
-<span class="hljs-string">[root@node01 redis-3.2.8]</span># src/redis-cli  -h node01 -c -p <span class="hljs-number">7001</span>
+<span class="hljs-string">[root@node01 redis-6.0.1]</span># src/redis-cli  -h node01 -c -p <span class="hljs-number">7001</span>
 node01:<span class="hljs-number">7001</span>&gt; flushall 
 OK
 node01:<span class="hljs-number">7001</span>&gt; cluster reset
@@ -1670,6 +1618,12 @@ Redis服务器命中率随时间逐步降低</code></pre>
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2021/03/30/bloom-filter/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">bloom-filter</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">

@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      4.6k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      37
+      63
        分钟
     </span>
   
@@ -424,7 +424,7 @@ systemctl start docker</code></pre>
 <pre><code class="hljs shell">docker ps -a</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/14.png" srcset="/img/loading.gif"></p>
-<h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署gitlab（私有代码库）"><a href="#部署gitlab（私有代码库）" class="headerlink" title="部署gitlab（私有代码库）"></a><strong>部署gitlab（私有代码库）</strong></h5><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
+<h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署gitlab（私有代码库）"><a href="#部署gitlab（私有代码库）" class="headerlink" title="部署gitlab（私有代码库）"></a><strong>部署gitlab（私有代码库）</strong></h5><h6 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
 docker run --detach \
   --publish 443:443 --publish 80:80 --publish 1022:22 \
   --name gitlab \
@@ -434,42 +434,184 @@ docker run --detach \
   --volume /srv/gitlab/data:/var/opt/gitlab \
   gitlab/gitlab-ce:latest</code></pre>
 
-<h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
-docker run --detach \
-    --hostname 127.0.0.1 \
-    --publish 9000:9000 \
-    --name portainer\
-    --restart=always \
-    --volume /var/run/docker.sock:/var/run/docker.sock \
-    docker.io/portainer/portainer</code></pre>
+<h6 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h6><blockquote>
+<p>等待docker运行gitlab一小段时间后在操作，否则可能出现文件找不到</p>
+</blockquote>
+<p><strong>gitlab.yml文件</strong></p>
+<pre><code class="hljs shell">vim /srv/gitlab/data/gitlab-rails/etc/gitlab.yml
 
-<h5 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a><strong>部署jenkins</strong></h5><pre><code class="hljs shell">mkdir -p /srv/jenkins
-chown -R 1000:1000 /srv/jenkins/
-docker pull jenkins/jenkins:alpine
-docker inspect jenkins/jenkins:alpine
-docker run --detach \
-    --publish 8080:8080 --publish 50000:50000 \
-    --restart unless-stopped \
-    --name jenkins \
-    --volume /srv/jenkins:/var/jenkins_home \
-    jenkins/jenkins:alpine</code></pre>
+<span class="hljs-meta">#</span><span class="bash"> 找到如下配置</span>
+<span class="hljs-meta">  #</span><span class="bash"><span class="hljs-comment"># GitLab settings</span></span>
+  gitlab:
+    ## Web server settings (note: host is the FQDN, do not include http://)
+    host: xx.xx.xx.xx   # 此处替换为自己的ip
+    port: 80
+    https: false</code></pre>
 
-<h5 id="部署gitlab-runner"><a href="#部署gitlab-runner" class="headerlink" title="部署gitlab-runner"></a><strong>部署gitlab-runner</strong></h5><pre><code class="hljs shell">mkdir -p /srv/
-docker pull gitlab/gitlab-runner
-docker run -d --name gitlab-runner --restart always \
+<p><strong>gitlab.rb文件</strong></p>
+<pre><code class="hljs shell">vim /srv/gitlab/config/gitlab.rb</code></pre>
+
+<p>找到<code>external_url</code>，默认是被注释的。</p>
+<p>如果打开，填写暴露出去的<code>http://ip:port</code>，<code>IP</code>一定要和<code>gitlab.yml</code>文件配置的相同，<code>port</code>为你启动时指定的，这里使用默认<code>80</code>作为端口。</p>
+<p>最后加上ssh协议下使用的IP和端口(这里的端口是启动时指定的，这里是<code>1022</code>)，最后保存并退出。</p>
+<pre><code class="hljs shell">external_url &#x27;http://xx.xx.xx.xx:80&#x27;
+gitlab_rails[&#x27;gitlab_ssh_host&#x27;] = &#x27;xx.xx.xx.xx&#x27;
+gitlab_rails[&#x27;gitlab_shell_ssh_host&#x27;] = &#x27;1022&#x27;</code></pre>
+
+<h6 id="停止并移除之前启动的gitlab"><a href="#停止并移除之前启动的gitlab" class="headerlink" title="停止并移除之前启动的gitlab"></a>停止并移除之前启动的gitlab</h6><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 停止并移除之前启动的GitLab容器</span>
+docker rm -f gitlab</code></pre>
+
+<h6 id="重新启动gitlab"><a href="#重新启动gitlab" class="headerlink" title="重新启动gitlab"></a>重新启动gitlab</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
+docker run --detach \
+  --publish 443:443 --publish 80:80 --publish 1022:22 \
+  --name gitlab \
+  --restart always \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest</code></pre>
+
+<p>等待一段时间，就可以访问了，首次需要更改<code>root</code>账户的密码</p>
+<h5 id="部署gitlab-runner"><a href="#部署gitlab-runner" class="headerlink" title="部署gitlab-runner"></a><strong>部署gitlab-runner</strong></h5><h6 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a><strong>全局配置</strong></h6><p>所有项目都可以一起使用</p>
+<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/runner-all.png" srcset="/img/loading.gif"></p>
+<h6 id="拉取Runner镜像并启动"><a href="#拉取Runner镜像并启动" class="headerlink" title="拉取Runner镜像并启动"></a>拉取Runner镜像并启动</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-runner
+docker run -d \
+		--name gitlab-runner \
+		--restart always \
     --volume /srv/gitlab-runner/config:/etc/gitlab-runner \
     --volume /srv/gitlab-runner/run/docker.sock:/var/run/docker.sock \
     gitlab/gitlab-runner:latest</code></pre>
 
-<h5 id="部署Registry服务器"><a href="#部署Registry服务器" class="headerlink" title="部署Registry服务器"></a>部署Registry服务器</h5><p>Docker Registry服务器整合很多服务，配置的参数非常多，包括：存储，Redis，Auth，日志，中间件，监控，HTTP，通知，健康检查，代理，兼容性。</p>
+<h6 id="Runner-注册"><a href="#Runner-注册" class="headerlink" title="Runner 注册"></a>Runner 注册</h6><p><strong>进入Runner容器内</strong></p>
+<pre><code class="hljs shell">docker exec -it gitlab-runner bash</code></pre>
+
+<p><strong>运行命令进行注册</strong></p>
+<pre><code class="hljs shell">gitlab-runner register</code></pre>
+
+<p><strong>输入Gitlab实地址</strong></p>
+<p>地址是手动设置Runner区域里面的URL</p>
+<pre><code class="hljs awk">&gt; Please enter the gitlab-ci coordinator URL (e.g. https:<span class="hljs-regexp">//gi</span>tlab.com )
+http:<span class="hljs-regexp">//</span>xxx</code></pre>
+
+<p><strong>输入token</strong></p>
+<p>token是手动设置Runner区域里面的令牌</p>
+<pre><code class="hljs kotlin">&gt; Please enter the gitlab-ci token <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> runner
+xxx</code></pre>
+
+<p><strong>输入Runner的描述</strong></p>
+<p>Runner的描述，后面可以在GitLab中的UI中进行更改。</p>
+<pre><code class="hljs angelscript">&gt; Please enter the gitlab-ci description <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> runner
+<span class="hljs-string">[hostname]</span> test-runner</code></pre>
+
+<p><strong>输入与Runner关联的标签</strong></p>
+<p>标签是为了让后期在CI脚本中指定选择某个或者多个Runner，这里设置标签为<code>test</code>。当使用这个 Runner时，在<code>.gitlab-ci.yml</code>的 tag字段里也必须明确指明这些 tags)。</p>
+<pre><code class="hljs kotlin">&gt; Please enter the gitlab-ci tags <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> runner (comma separated):
+test</code></pre>
+
+<p><strong>输入Runner的执行器</strong></p>
+<p>由于都是基于Docker，所以这里选择执行器为Docker</p>
+<pre><code class="hljs dockerfile">&gt; Please enter the executor: ssh, docker+machine, docker-ssh+machine, kubernetes, docker, parallels, virtualbox, docker-ssh, <span class="hljs-keyword">shell</span><span class="bash">:</span>
+docker</code></pre>
+
+<p><strong>设置执行器的版本</strong></p>
+<p>选择Docker作为Runner的executor，还需要指定一个默认的 基础镜像 来运行job (这会在<code>.gitlab-ci.yml</code>中未指明基础镜像时作为默认基础镜像使用)，网上很多人都选的 <code>alpine:latest</code>。如果运行java项目，可以选jdk的镜像。</p>
+<pre><code class="hljs less">&gt; <span class="hljs-selector-tag">Please</span> <span class="hljs-selector-tag">enter</span> <span class="hljs-selector-tag">the</span> <span class="hljs-selector-tag">Docker</span> <span class="hljs-selector-tag">image</span> (eg. <span class="hljs-attribute">ruby</span>:<span class="hljs-number">2.1</span>):
+<span class="hljs-selector-tag">alpine</span><span class="hljs-selector-pseudo">:latest</span></code></pre>
+
+<p><strong>退出容器</strong></p>
+<pre><code class="hljs awk"><span class="hljs-keyword">exit</span></code></pre>
+
+<p>通过以上命令后，就创建成功runner啦。这时候去GitLab中创建Runner的区域刷新就能看到了。</p>
+<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/runner-gitlab.png" srcset="/img/loading.gif"></p>
+<h6 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h6><pre><code class="hljs shell">vim /srv/gitlab-runner/config/config.toml</code></pre>
+
+<p>找到<code>volumes</code>配置，修改结果为如下，分别是挂载了宿主机docker的sock文件和Maven的缓存，减少拉取Jar包的时间消耗，其中<code>&quot;/data/.m2/:/.m2/&quot;</code>这块为Maven的Jar包存放地址，左边为宿主机目录，右边为容器内的Jar包存储路径，这个需要根据自己使用的Maven镜像而定</p>
+<pre><code class="hljs shell">volumes = [&quot;/cache&quot;,&quot;/var/run/docker.sock:/var/run/docker.sock&quot;,&quot;/data/.m2/:/.m2/&quot;]</code></pre>
+
+<p>在<code>volumes</code>配置下方增加一行配置，防止Runner重复拉取镜像</p>
+<pre><code class="hljs shell">pull_policy = &quot;if-not-present&quot;</code></pre>
+
+<p>最后重启Runner</p>
+<pre><code class="hljs shell">docker restart gitlab-runner</code></pre>
+
+<h5 id="部署harbor"><a href="#部署harbor" class="headerlink" title="部署harbor"></a>部署harbor</h5><h6 id="下载Harbor"><a href="#下载Harbor" class="headerlink" title="下载Harbor"></a>下载Harbor</h6><p><code>github地址：</code><a target="_blank" rel="noopener" href="https://github.com/vmware/harbor/releases/%60">https://github.com/vmware/harbor/releases/`</a></p>
+<pre><code class="hljs shell">wget https://github.com/goharbor/harbor/releases/download/v2.2.1/harbor-online-installer-v2.2.1.tgz</code></pre>
+
+<h6 id="配置Harbor"><a href="#配置Harbor" class="headerlink" title="配置Harbor"></a>配置Harbor</h6><p>进入Harbor文件夹，找到<code>harbor.yml</code>文件，并配置</p>
+<pre><code class="hljs yml"><span class="hljs-string">cd</span> <span class="hljs-string">/srv/harbor</span>
+<span class="hljs-string">cp</span> <span class="hljs-string">harbor.yml.tmpl</span> <span class="hljs-string">harbor.yml</span>
+<span class="hljs-string">vim</span> <span class="hljs-string">harbor.yml</span>
+
+
+<span class="hljs-attr">hostname:</span> <span class="hljs-string">xx.xx.xx.xx</span>   <span class="hljs-comment"># 需要配置</span>
+<span class="hljs-comment"># http related config</span>
+<span class="hljs-attr">http:</span>
+  <span class="hljs-comment"># port for http, default is 80. If https enabled, this port will redirect to https port</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>      <span class="hljs-comment"># 需要配置 确保未安装registry容器</span>
+
+<span class="hljs-comment"># https需要注释掉</span>
+<span class="hljs-comment"># https related config</span>
+<span class="hljs-comment">#https:</span>
+  <span class="hljs-comment"># https port for harbor, default is 443</span>
+  <span class="hljs-comment"># port: 443</span>
+  <span class="hljs-comment"># The path of cert and key files for nginx</span>
+  <span class="hljs-comment"># certificate: /your/certificate/path</span>
+  <span class="hljs-comment"># private_key: /your/private/key/path</span></code></pre>
+
+<h6 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h6><p>在harbor文件夹执行以下命令启动harbor</p>
+<pre><code class="hljs cmake">./<span class="hljs-keyword">install</span>.sh</code></pre>
+
+<p>启动完毕后浏览器访问<code>http://你设置的IP或者域名:你设置的端口</code>，账号默认为：admin，密码：Harbor12345，登录后就进入了主页</p>
+<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/habor-container.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/habor.png" srcset="/img/loading.gif"></p>
+<h6 id="push镜像"><a href="#push镜像" class="headerlink" title="push镜像"></a>push镜像</h6><p><strong>修改下配置</strong></p>
+<p>由于docker的版本从13开始，register只能用https，这里配置的都是http的，所以要先在<code>/etc/docker/</code>目录创建<code>daemon.json</code>文件并加入如下</p>
+<pre><code class="hljs shell">&#123; &quot;insecure-registries&quot;:[&quot;xxx:5000&quot;] &#125;</code></pre>
+
+<p>重启docker</p>
+<pre><code class="hljs shell">systemctl restart docker</code></pre>
+
+<p>重启harbor相关的容器，因为重启docker后这些都关闭了，所以我们通过<code>docker ps -a</code>找到所有与harbor相关的镜像，通过<code>docker restart xx xx xx</code>对应容器名重启即可</p>
+<h6 id="报错云集"><a href="#报错云集" class="headerlink" title="报错云集"></a>报错云集</h6><pre><code class="hljs shell">prepare base dir is set to /usr/local/harbor
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused &quot;process_linux.go:449: container init caused \&quot;write /proc/self/attr/keycreate: permission denied\&quot;&quot;: unknown.
+ 
+<span class="hljs-meta">#</span><span class="bash"> 解决办法</span>
+把/etc/selinux下的config文件中的
+SELINUX=enforcing  改为 SELINUX=disabled
+ 
+遇到报错：ERROR:root:Please specify hostname， 那原因是启动harbor时没有修改harbor.yml里的内容。 
+<span class="hljs-meta">#</span><span class="bash"> 解决办法</span>
+
+把配置文件中默认的hostname: reg.mydomain.com， 改为本地的ip。
+ 比如： hostname：xx.xx.xx.xx
+ 
+遇到报错：ERROR:root:Error: The protocol is https but attribute ssl_cert is not set。 原因是harbor.yml中默认是配置https的端口及证书路径的。
+<span class="hljs-meta">#</span><span class="bash"> 解决办法</span>
+
+把这些配置都注释掉。
+<span class="hljs-meta">#</span><span class="bash"> https related config</span>
+<span class="hljs-meta">#</span><span class="bash"> https:</span>
+<span class="hljs-meta">  #</span><span class="bash"> https port <span class="hljs-keyword">for</span> harbor, default is 443</span>
+<span class="hljs-meta">  #</span><span class="bash"> port: 443</span>
+<span class="hljs-meta">  #</span><span class="bash"> The path of cert and key files <span class="hljs-keyword">for</span> nginx</span>
+<span class="hljs-meta">  #</span><span class="bash"> certificate: /your/certificate/path</span>
+<span class="hljs-meta">  #</span><span class="bash"> private_key: /your/private/key/path</span>
+ 
+上述问题都解决，并且install.sh正确运行后， 信息如下：
+✔ ----Harbor has been installed and started successfully.----</code></pre>
+
+<h5 id="部署Registry服务器"><a href="#部署Registry服务器" class="headerlink" title="部署Registry服务器"></a>部署Registry服务器</h5><blockquote>
+<p>如果需要安装habor，最好将Registry容器停掉或者 容器名不能为registry.</p>
+</blockquote>
+<p>Docker Registry服务器整合很多服务，配置的参数非常多，包括：存储，Redis，Auth，日志，中间件，监控，HTTP，通知，健康检查，代理，兼容性。</p>
 <p>部署服务器非常简单，只需要一条命令，映射5000端口到容器，restart机制为总是，并分配当前目录下的data目录作为容器卷，存储镜像数据。可以配置HTTPS方式的访问，参考Docker官方文档，如果是在局域网内访问这个方式即可满足需求。</p>
 <h6 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h6><pre><div class="caption"><span>shell ell</span></div><code class="hljs sh">docker run -d \
     -p 5000:5000 \
     --restart always \
     --name registry \
     -e  REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/srv/registry \
+    -e REGISTRY_STORAGE_DELETE_ENABLED=<span class="hljs-literal">true</span> \
     -v /srv/registry/data:/var/lib/registry \
-    -v /srv/registry/conf:/etc/docker/registry \
     registry:latest</code></pre>
 
 <h6 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h6><p>从Docker官方的hub拉取ubuntu镜像，这是简写的方式，完整的命令是这样的<code>docker pull docker.io/library/ubuntu</code>，并命名为<code>localhost:5000/ubuntu</code>。</p>
@@ -497,7 +639,7 @@ docker pull localhost:5000/ubuntu</code></pre>
   registry:2</code></pre>
 
 <p><strong>覆盖配置文件</strong></p>
-<p>可以使用挂载卷的方式覆盖配置，建议使用这种方式配置</p>
+<p>可以使用挂载卷的方式覆盖配置</p>
 <pre><code class="hljs bash">docker run -d -p 5000:5000 --restart=always --name registry \
              -v /srv/registry:/etc/docker/registry \
              registry:latest</code></pre>
@@ -621,6 +763,105 @@ docker pull localhost:5000/ubuntu</code></pre>
   <span class="hljs-attr">schema1:</span>
     <span class="hljs-attr">signingkeyfile:</span> <span class="hljs-string">/etc/registry/key.json</span></code></pre>
 
+<h5 id="Gitlab-ci-yml"><a href="#Gitlab-ci-yml" class="headerlink" title="Gitlab-ci.yml"></a>Gitlab-ci.yml</h5><pre><code class="hljs yml"><span class="hljs-comment"># 定义全局变量</span>
+<span class="hljs-attr">variables:</span>
+  <span class="hljs-attr">PROJECT:</span> <span class="hljs-string">&quot;offer&quot;</span>
+  <span class="hljs-comment"># 这里定义了Maven的jar包存放地址，与我们构建maven私服的时候设置的存放地址一致</span>
+  <span class="hljs-attr">MAVEN_REPO:</span> <span class="hljs-string">&quot;/.m2&quot;</span>
+  <span class="hljs-attr">CI_REGISTRY_USER:</span> <span class="hljs-string">&quot;xxx&quot;</span>
+  <span class="hljs-attr">CI_REGISTRY_PASSWORD:</span> <span class="hljs-string">&quot;xxx&quot;</span>
+  <span class="hljs-comment"># 仓库地址</span>
+  <span class="hljs-attr">CI_REGISTRY:</span> <span class="hljs-string">&quot;xx.xx.xx.xx:5000/&quot;</span>
+  <span class="hljs-comment"># 镜像全称</span>
+  <span class="hljs-attr">CI_REGISTRY_IMAGE:</span> <span class="hljs-string">&quot;mlja/offer&quot;</span>
+  <span class="hljs-attr">CI_COMMIT_REF_SLUG:</span> <span class="hljs-string">&quot;&quot;</span>
+  <span class="hljs-attr">CI_COMMIT_SHA:</span> <span class="hljs-string">&quot;&quot;</span>
+  
+
+<span class="hljs-comment"># 全局脚本，会运行在各个阶段的script前，如果某个阶段里面存在before_script，那么以那个阶段里的为主</span>
+<span class="hljs-attr">before_script:</span>
+  <span class="hljs-comment"># 这里定义了打包成功后的Docker镜像名称，每一次提交代码后构建成功的镜像名称都是唯一的</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">export</span> <span class="hljs-string">IMAGE_FULL_NAME=$&#123;CI_REGISTRY_IMAGE&#125;:$&#123;CI_COMMIT_REF_SLUG&#125;-$&#123;CI_COMMIT_SHA&#125;</span>
+
+<span class="hljs-comment"># 定义CI执行的阶段，这里可以自己根据情况定义多少个阶段</span>
+<span class="hljs-attr">stages:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">compile</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">build</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">run</span>
+
+<span class="hljs-comment"># 编译:</span>
+<span class="hljs-attr">compile:</span>
+  <span class="hljs-comment"># 当前阶段的执行镜像，这是自己构建的镜像</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">xx.xx.xx.xx:5000/root/maven:latest</span>
+  <span class="hljs-comment"># 属于上面定义的哪一个阶段</span>
+  <span class="hljs-attr">stage:</span> <span class="hljs-string">compile</span>
+  <span class="hljs-comment"># 是否允许失败，允许的话如果当前阶段运行失败还会继续执行下一个阶段</span>
+  <span class="hljs-attr">allow_failure:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># 只在哪个分支生效</span>
+  <span class="hljs-attr">only:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">master</span>
+  <span class="hljs-comment"># 这里就是要选择哪个runner来执行了，填写创建runner时候指定的标签</span>
+  <span class="hljs-attr">tags:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">test</span>
+  <span class="hljs-comment"># 运行脚本</span>
+  <span class="hljs-attr">script:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">mvn</span> <span class="hljs-string">-Dmaven.repo.local=$MAVEN_REPO</span> <span class="hljs-string">clean</span> <span class="hljs-string">package</span> <span class="hljs-string">-Dmaven.test.skip=true</span>
+  <span class="hljs-comment"># 因为是Maven编译，所以会有Jar包产物，这里定义产物的过期时间</span>
+  <span class="hljs-attr">artifacts:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">$PROJECT</span>
+    <span class="hljs-attr">expire_in:</span> <span class="hljs-number">7</span> <span class="hljs-string">days</span>
+    <span class="hljs-attr">paths:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">target/*.jar</span>
+
+<span class="hljs-comment"># 构建镜像:</span>
+<span class="hljs-attr">build:</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">docker:stable</span>
+  <span class="hljs-attr">stage:</span> <span class="hljs-string">build</span>
+  <span class="hljs-attr">script:</span>
+    <span class="hljs-comment"># 这里的变量会自动获取你当前推送代码的gitlab用户和密码以及仓库地址</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">docker</span> <span class="hljs-string">login</span> <span class="hljs-string">--username</span> <span class="hljs-string">$CI_REGISTRY_USER</span> <span class="hljs-string">--password</span> <span class="hljs-string">$CI_REGISTRY_PASSWORD</span> <span class="hljs-string">$CI_REGISTRY</span>
+    <span class="hljs-comment"># 这里的变量就是我们全局配置定义的了</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">docker</span> <span class="hljs-string">build</span> <span class="hljs-string">-t</span> <span class="hljs-string">$IMAGE_FULL_NAME</span> <span class="hljs-string">.</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">docker</span> <span class="hljs-string">push</span> <span class="hljs-string">$IMAGE_FULL_NAME</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">rm</span> <span class="hljs-string">-rf</span> <span class="hljs-string">target</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">docker</span> <span class="hljs-string">rmi</span> <span class="hljs-string">$IMAGE_FULL_NAME</span>
+  <span class="hljs-attr">only:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">master</span>
+  <span class="hljs-attr">tags:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">test</span>
+<span class="hljs-comment"># 运行:</span>
+<span class="hljs-attr">run:</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">docker:stable</span>
+  <span class="hljs-attr">stage:</span> <span class="hljs-string">run</span>
+  <span class="hljs-attr">script:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-string">-d</span> <span class="hljs-string">--name</span> <span class="hljs-string">$PROJECT</span> <span class="hljs-string">-p</span> <span class="hljs-number">7777</span><span class="hljs-string">:7777</span> <span class="hljs-string">$IMAGE_FULL_NAME</span>
+  <span class="hljs-attr">only:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">master</span>
+  <span class="hljs-attr">tags:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">test</span></code></pre>
+
+
+
+<h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
+docker run --detach \
+    --hostname 127.0.0.1 \
+    --publish 9000:9000 \
+    --name portainer\
+    --restart=always \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    docker.io/portainer/portainer</code></pre>
+
+<h5 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a><strong>部署jenkins</strong></h5><pre><code class="hljs shell">mkdir -p /srv/jenkins
+chown -R 1000:1000 /srv/jenkins/
+docker pull jenkins/jenkins:alpine
+docker inspect jenkins/jenkins:alpine
+docker run --detach \
+    --publish 8080:8080 --publish 50000:50000 \
+    --restart unless-stopped \
+    --name jenkins \
+    --volume /srv/jenkins:/var/jenkins_home \
+    jenkins/jenkins:alpine</code></pre>
+
 <h5 id="部署RabbitMQ"><a href="#部署RabbitMQ" class="headerlink" title="部署RabbitMQ"></a><strong>部署RabbitMQ</strong></h5><p>获取查询的镜像 </p>
 <pre><code class="hljs shell">docker search rabbitmq:management</code></pre>
 
@@ -676,7 +917,7 @@ docker run -d \
                     
                       <a href="/2020/11/09/Hadoop-HDFS%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【All】HDFS:Hadoop分布式文件系统</span>
+                        <span class="hidden-mobile">【ALL】HDFS:Hadoop分布式文件系统</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

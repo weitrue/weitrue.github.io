@@ -17,7 +17,7 @@
   <meta name="description" content="我们相信，未来可期！">
   <meta name="author" content="嗯，我们是对的">
   <meta name="keywords" content="">
-  <title>【windows】Git的安装与配置 - weitrable</title>
+  <title>【windows】Git使用 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      474 字
+      529 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -217,7 +217,7 @@
             
             <article class="markdown-body">
               <p><img src="/images/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git.jpg" srcset="/img/loading.gif"><a id="more"></a> </p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="查看Git所有配置"><a href="#查看Git所有配置" class="headerlink" title="查看Git所有配置"></a>查看Git所有配置</h4><p>git config –list </p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="查看Git所有配置"><a href="#查看Git所有配置" class="headerlink" title="查看Git所有配置"></a>查看Git所有配置</h4><p><code>git config --list </code></p>
 <h4 id="删除全局配置项"><a href="#删除全局配置项" class="headerlink" title="删除全局配置项"></a>删除全局配置项</h4><p>(1)终端执行命令：</p>
 <p><code>git config --global --unset user.name</code></p>
 <p>(2)编辑配置文件：</p>
@@ -228,21 +228,28 @@
 <p><code>git config --global --list</code></p>
 <p>查看当前仓库配置信息</p>
 <p><code>git config --local --list</code></p>
-<h4 id="切换到需要提交的分支"><a href="#切换到需要提交的分支" class="headerlink" title="切换到需要提交的分支"></a>切换到需要提交的分支</h4><pre><code class="hljs haxe">git status     <span class="hljs-meta">#  查看git状态  </span>
-git branch     <span class="hljs-meta">#  查看git分支  </span>
-git checkout feature/<span class="hljs-keyword">new</span><span class="hljs-type">_branch</span> <span class="hljs-meta"># 切换到feature/new_branch分支 </span></code></pre>
+<h4 id="如果远端仓库没有与本地仓库关联"><a href="#如果远端仓库没有与本地仓库关联" class="headerlink" title="如果远端仓库没有与本地仓库关联"></a>如果远端仓库没有与本地仓库关联</h4><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 本地执行（远端需要创建于本地相同名称的项目）</span>
+<span class="hljs-meta">$</span><span class="bash"> git init</span>
+<span class="hljs-meta">$</span><span class="bash"> git remote add origin https://github.com/xxx/xxx.git</span>
+<span class="hljs-meta">$</span><span class="bash"> git add -A</span>
+<span class="hljs-meta">$</span><span class="bash"> git commit -m <span class="hljs-string">&quot;first commit&quot;</span></span>
+<span class="hljs-meta">$</span><span class="bash"> git push -u origin master</span></code></pre>
 
-<h4 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h4><pre><code class="hljs dockerfile">git <span class="hljs-keyword">add</span><span class="bash"> .                                          <span class="hljs-comment"># 添加数据到镜像仓库                                             </span></span>
-                                                   <span class="hljs-comment"># 提交单个文件，进入你要提交的文件目录          </span>
-                                                   <span class="hljs-comment"># git add &lt;你要提交的文件&gt; </span>
-git commit -m <span class="hljs-string">&#x27;你要写的注释&#x27;</span>                         <span class="hljs-comment"># 提交到本地镜像仓库</span>
-git push -u origin feature/new_branch    <span class="hljs-comment"># 提交到远程镜像仓库</span></code></pre>
+<h4 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h4><pre><code class="hljs shell">git status     #  查看git状态  
+git branch     #  查看git分支  
+git checkout feature/new_branch # 切换到feature/new_branch分支</code></pre>
 
-<h4 id="将远程分支拉取到本地"><a href="#将远程分支拉取到本地" class="headerlink" title="将远程分支拉取到本地"></a>将远程分支拉取到本地</h4><pre><code class="hljs arduino">git branch -a                                            # 查询所有分支,包括远程分支 
-git checkout -b <span class="hljs-built_in">release</span> remotes/origin/<span class="hljs-built_in">release</span>  # 将远程<span class="hljs-built_in">release</span>分支拉取到本地，并在本地创建<span class="hljs-built_in">release</span>分支</code></pre>
+<h4 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h4><pre><code class="hljs shell">git add .                                          # 添加数据到镜像仓库                                             
+                                                   # 提交单个文件，进入你要提交的文件目录          
+                                                   # git add &lt;你要提交的文件&gt; 
+git commit -m &#x27;你要写的注释&#x27;                         # 提交到本地镜像仓库
+git push -u origin feature/new_branch              # 提交到远程镜像仓库</code></pre>
+
+<h4 id="远程分支拉取到本地"><a href="#远程分支拉取到本地" class="headerlink" title="远程分支拉取到本地"></a>远程分支拉取到本地</h4><pre><code class="hljs shell">git branch -a                                            # 查询所有分支,包括远程分支 
+git checkout -b release remotes/origin/release  # 将远程release分支拉取到本地，并在本地创建release分支</code></pre>
 
 <p>绿色是当前所在本地分支，白色是本地分支，红色是远程分支<br><img src="/images/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/git-a.png" srcset="/img/loading.gif"></p>
-<h3 id="分支代码拉取提交流程"><a href="#分支代码拉取提交流程" class="headerlink" title="分支代码拉取提交流程"></a>分支代码拉取提交流程</h3><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 获取主干最新代码 </span>
+<h4 id="分支代码拉取提交流程"><a href="#分支代码拉取提交流程" class="headerlink" title="分支代码拉取提交流程"></a>分支代码拉取提交流程</h4><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 获取主干最新代码 </span>
 <span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> &lt;repo&gt; </span>
 <span class="hljs-meta">$</span><span class="bash"> git checkout develop   <span class="hljs-comment"># 开发分支 </span></span>
 <span class="hljs-meta">$</span><span class="bash"> git pull               <span class="hljs-comment"># 同步分支 </span></span>
@@ -271,7 +278,8 @@ git checkout -b <span class="hljs-built_in">release</span> remotes/origin/<span 
 <span class="hljs-meta">$</span><span class="bash"> git add .                <span class="hljs-comment"># 解决冲突后add </span></span>
 <span class="hljs-meta">$</span><span class="bash"> git rebase --<span class="hljs-built_in">continue</span></span>
 
-<span class="hljs-meta">#</span><span class="bash">删除分支 $ git branch -d feature/my_feature</span>
+<span class="hljs-meta">#</span><span class="bash">删除分支 </span>
+<span class="hljs-meta">$</span><span class="bash"> git branch -d feature/my_feature</span>
 
 <span class="hljs-meta">#</span><span class="bash">取消commit </span>
 <span class="hljs-meta">$</span><span class="bash"> git reset --hard &lt;commit <span class="hljs-built_in">log</span>&gt;</span></code></pre>
@@ -309,7 +317,7 @@ git checkout -b <span class="hljs-built_in">release</span> remotes/origin/<span 
                     
                       <a href="/2020/06/14/git%E5%8A%A8%E5%9B%BE%E5%9B%BE%E8%A7%A3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【All】Git动图图解</span>
+                        <span class="hidden-mobile">【All】【转载】Git动图图解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -508,7 +516,7 @@ git checkout -b <span class="hljs-built_in">release</span> remotes/origin/<span 
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【windows】Git的安装与配置&nbsp;",
+        "【windows】Git使用&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

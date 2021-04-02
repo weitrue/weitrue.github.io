@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.8k 字
+      11.9k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      218
+      219
        分钟
     </span>
   
@@ -319,35 +319,45 @@
 <span class="hljs-number">3</span></code></pre>
 
 <p>参数传递—只有<em>值传递</em>一种方式</p>
-<pre><code class="hljs go"><span class="hljs-comment">// 内建类型值传递</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapV</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span></span> &#123;
+<pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapV</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span></span> &#123;
 	b, a = a, b
+	fmt.Println(<span class="hljs-string">&quot;in &quot;</span>, a, b, &amp;a, &amp;b)
 &#125;
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapRN</span><span class="hljs-params">(a, b *<span class="hljs-keyword">int</span>)</span></span> &#123;
+	<span class="hljs-comment">// 局部变量交换值（地址）</span>
+	b, a = a, b
+	fmt.Println(<span class="hljs-string">&quot;in &quot;</span>, a, b, *a, *b)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapR</span><span class="hljs-params">(a, b *<span class="hljs-keyword">int</span>)</span></span> &#123;
+	<span class="hljs-comment">// 交换变量值（地址）指向的值</span>
+	*b, *a = *a, *b
+	fmt.Println(<span class="hljs-string">&quot;in &quot;</span>, a, b, *a, *b)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pointerSwap</span><span class="hljs-params">()</span></span>  &#123;
 	a, b := <span class="hljs-number">3</span>, <span class="hljs-number">4</span>
 	swapV(a, b)
-	fmt.Println(a, b)
+	fmt.Println(<span class="hljs-string">&quot;out&quot;</span>, a, b, &amp;a, &amp;b)
+
+	a, b = <span class="hljs-number">3</span>, <span class="hljs-number">4</span>
+	swapRN(&amp;a, &amp;b)
+	fmt.Println(<span class="hljs-string">&quot;out&quot;</span>, a, b, &amp;a, &amp;b)
+
+	a, b = <span class="hljs-number">3</span>, <span class="hljs-number">4</span>
+	swapR(&amp;a, &amp;b)
+	fmt.Println(<span class="hljs-string">&quot;out&quot;</span>, a, b, &amp;a, &amp;b)
+
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapR</span><span class="hljs-params">(a, b *<span class="hljs-keyword">int</span>)</span></span> &#123;
-  <span class="hljs-comment">// 这种方式为交换变量地址</span>
-	b, a = a, b
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	a, b := <span class="hljs-number">3</span>, <span class="hljs-number">4</span>
-	swapR(&amp;a, &amp;b)
-	fmt.Println(a, b)
-&#125;
-
-<span class="hljs-comment">// 通过交换变量地址达到址传递</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swapR</span><span class="hljs-params">(a, b *<span class="hljs-keyword">int</span>)</span></span> &#123;
-	*b, *a = *a, *b
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	a, b := <span class="hljs-number">3</span>, <span class="hljs-number">4</span>
-	swapR(&amp;a, &amp;b)
-	fmt.Println(a, b)
-&#125;</code></pre>
+<span class="hljs-comment">// 输出</span>
+in  <span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">0xc00001e0c8</span> <span class="hljs-number">0xc00001e0d0</span>
+out <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc00001e0c0</span>
+in  <span class="hljs-number">0xc00001e0c0</span> <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">4</span> <span class="hljs-number">3</span>
+out <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc00001e0c0</span>
+in  <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc00001e0c0</span> <span class="hljs-number">4</span> <span class="hljs-number">3</span>
+out <span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc00001e0c0</span></code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/pointer.go">https://github.com/weitrue/note/blob/master/go/pointer.go</a></p>
 <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组定义</p>

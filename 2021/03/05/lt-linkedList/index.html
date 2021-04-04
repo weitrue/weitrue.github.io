@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20.7k 字
+      25.8k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      327
+      419
        分钟
     </span>
   
@@ -3176,8 +3176,38 @@
         
 <span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span></code></pre>
 
-<h4 id="线程池与任务队列"><a href="#线程池与任务队列" class="headerlink" title="线程池与任务队列"></a>线程池与任务队列</h4><h6 id="622-设计循环队列"><a href="#622-设计循环队列" class="headerlink" title="622. 设计循环队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-circular-queue/">622. 设计循环队列</a></h6><p>设计你的循环队列实现。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。它也被称为“环形缓冲器”。</p>
+<h4 id="线程池与任务队列"><a href="#线程池与任务队列" class="headerlink" title="线程池与任务队列"></a>线程池与任务队列</h4><h5 id="简单队列设计"><a href="#简单队列设计" class="headerlink" title="简单队列设计"></a>简单队列设计</h5><pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs go"><span class="hljs-keyword">package</span> array
+
+<span class="hljs-keyword">type</span> Queue []<span class="hljs-keyword">interface</span> &#123;&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">push</span><span class="hljs-params">(v <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;
+  <span class="hljs-comment">// 入队</span>
+	*q = <span class="hljs-built_in">append</span>(*q, v)
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">pop</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-keyword">bool</span>)</span></span> &#123;
+  <span class="hljs-comment">// 出队</span>
+	<span class="hljs-keyword">if</span> q.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">false</span>
+	&#125;
+	head := (*q)[<span class="hljs-number">0</span>]
+	*q = (*q)[<span class="hljs-number">1</span>:]
+	<span class="hljs-keyword">return</span> head, <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+  <span class="hljs-comment">// 队列判空</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(*q) == <span class="hljs-number">0</span>
+&#125;</code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="622-设计循环队列"><a href="#622-设计循环队列" class="headerlink" title="622. 设计循环队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-circular-queue/">622. 设计循环队列</a></h6><p>设计你的循环队列实现。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。它也被称为“环形缓冲器”。</p>
 <p>循环队列的一个好处是我们可以利用这个队列之前用过的空间。在一个普通队列里，一旦一个队列满了，我们就不能插入下一个元素，即使在队列前面仍有空间。但是使用循环队列，我们能使用这些空间去存储新的值。</p>
+<p><code>(tail-front)</code></p>
 <p>你的实现应该支持如下操作：</p>
 <ul>
 <li>MyCircularQueue(k): 构造器，设置队列长度为 k 。</li>
@@ -3186,16 +3216,373 @@
 <li>enQueue(value): 向循环队列插入一个元素。如果成功插入则返回真。<br>deQueue(): 从循环队列中删除一个元素。如果成功删除则返回真。<br>isEmpty(): 检查循环队列是否为空。<br>isFull(): 检查循环队列是否已满。</li>
 </ul>
 <p>解题思路</p>
-<pre><code class="hljs plain"></code></pre>
+<pre><code class="hljs plain">基于数组实现
+基于链表实现</code></pre>
 
 <p><code>Java</code></p>
-<pre><code class="hljs Java"></code></pre>
+<pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DesignCircularQueue</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> DesignCircularQueue().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCircularQueue</span> </span>&#123;
+            <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] queue;
+            <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity, front, rear, count;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyCircularQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span> </span>&#123;
+            queue = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+            capacity = k;
+            count = <span class="hljs-number">0</span>;
+            front = <span class="hljs-number">0</span>;
+            rear = <span class="hljs-number">0</span>;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isFull()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            queue[rear++] = value;
+            rear %= capacity;
+            count++;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deQueue</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            front = (front + <span class="hljs-number">1</span>) % capacity;
+            count--;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Front</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            <span class="hljs-keyword">return</span> queue[front];
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Rear</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            <span class="hljs-keyword">return</span> queue[(rear-<span class="hljs-number">1</span>+capacity)%capacity];
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">return</span> count == <span class="hljs-number">0</span>;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">return</span> count == capacity;
+        &#125;
+    &#125;
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;</code></pre>
 
 <p><code>Golang</code></p>
-<pre><code class="hljs Golang"></code></pre>
+<pre><code class="hljs Golang"><span class="hljs-keyword">type</span> MyCircularQueue <span class="hljs-keyword">struct</span> &#123;
+	queue []<span class="hljs-keyword">int</span>
+	capacity <span class="hljs-keyword">int</span>
+	count <span class="hljs-keyword">int</span>
+	front <span class="hljs-keyword">int</span>
+	rear <span class="hljs-keyword">int</span>
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">MyCircularQueue</span></span> &#123;
+	<span class="hljs-keyword">return</span> MyCircularQueue&#123;
+		queue:<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, k),
+		capacity:k,
+	&#125;
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">EnQueue</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsFull() &#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>&#125;
+	this.queue[this.rear] = value
+	this.rear = (this.rear + <span class="hljs-number">1</span>) % this.capacity
+	this.count++
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">DeQueue</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty()&#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>&#125;
+	this.front = (this.front + <span class="hljs-number">1</span>) % this.capacity
+	this.count--
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">Front</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	<span class="hljs-keyword">return</span> this.queue[this.front]
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">Rear</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	<span class="hljs-keyword">return</span> this.queue[(this.rear - <span class="hljs-number">1</span> + this.capacity)%this.capacity]
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">IsEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == <span class="hljs-number">0</span>
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularQueue)</span> <span class="hljs-title">IsFull</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == this.capacity
+&#125;</code></pre>
 
 <p><code>Python</code></p>
-<pre><code class="hljs Python"></code></pre>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 622-设计循环队列</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 设计你的循环队列实现。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。它也被称为“环形缓冲器”。</span>
+<span class="hljs-string">        #  循环队列的一个好处是我们可以利用这个队列之前用过的空间。在一个普通队列里，一旦一个队列满了，我们就不能插入下一个元素，即使在队列前面仍有空间。但是使用循环队列，我们能使用这些空间去存储新的值。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  你的实现应该支持如下操作：</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  MyCircularQueue(k): 构造器，设置队列长度为 k 。</span>
+<span class="hljs-string">        #  Front: 从队首获取元素。如果队列为空，返回 -1 。</span>
+<span class="hljs-string">        #  Rear: 获取队尾元素。如果队列为空，返回 -1 。</span>
+<span class="hljs-string">        #  enQueue(value): 向循环队列插入一个元素。如果成功插入则返回真。</span>
+<span class="hljs-string">        #  deQueue(): 从循环队列中删除一个元素。如果成功删除则返回真。</span>
+<span class="hljs-string">        #  isEmpty(): 检查循环队列是否为空。</span>
+<span class="hljs-string">        #  isFull(): 检查循环队列是否已满。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例：</span>
+<span class="hljs-string">        #  MyCircularQueue circularQueue = new MyCircularQueue(3); // 设置长度为 3</span>
+<span class="hljs-string">        # circularQueue.enQueue(1);  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.enQueue(2);  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.enQueue(3);  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.enQueue(4);  // 返回 false，队列已满</span>
+<span class="hljs-string">        # circularQueue.Rear();  // 返回 3</span>
+<span class="hljs-string">        # circularQueue.isFull();  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.deQueue();  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.enQueue(4);  // 返回 true</span>
+<span class="hljs-string">        # circularQueue.Rear();  // 返回 4</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  提示：</span>
+<span class="hljs-string">        #  所有的值都在 0 至 1000 的范围内；</span>
+<span class="hljs-string">        #  操作数将在 1 至 1000 的范围内；</span>
+<span class="hljs-string">        #  请不要使用内置的队列库。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  Related Topics 设计 队列</span>
+<span class="hljs-string">        #  👍 180 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCircularQueue</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, k: <span class="hljs-built_in">int</span></span>):</span>
+        self.queue = []
+        self.capacity = k
+        self.count = <span class="hljs-number">0</span>
+        self.front = <span class="hljs-number">0</span>
+        self.rear = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, k):
+            self.queue.append(<span class="hljs-number">-1</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enQueue</span>(<span class="hljs-params">self, value: <span class="hljs-built_in">int</span></span>) -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> self.isFull():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        self.queue[self.rear] = value
+        self.rear = (self.rear + <span class="hljs-number">1</span>) % self.capacity
+        self.count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deQueue</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> self.isEmpty():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+        self.front = (self.front + <span class="hljs-number">1</span>) % self.capacity
+        self.count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Front</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.queue[self.front]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Rear</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.queue[(self.rear - <span class="hljs-number">1</span> + self.capacity) % self.capacity]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isEmpty</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">return</span> self.count == <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isFull</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">return</span> self.count == self.capacity
+
+<span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
+
+<p><strong>链表方式</strong></p>
+<pre><code class="hljs Java"><span class="hljs-comment">// 链表方式实现</span>
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+     <span class="hljs-keyword">int</span> val;
+     Node next;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+         <span class="hljs-keyword">this</span>.val = val;
+     &#125;
+ &#125;
+
+ <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CircularQueue</span> </span>&#123;
+     <span class="hljs-keyword">private</span> Node head, tail;
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count, capacity;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CircularQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span> </span>&#123;
+         capacity = k;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+         <span class="hljs-keyword">if</span> (isFull()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+         Node node = <span class="hljs-keyword">new</span> Node(value);
+         <span class="hljs-keyword">if</span> (count == <span class="hljs-number">0</span>) &#123;
+             head = node;
+             tail = node;
+         &#125;<span class="hljs-keyword">else</span>&#123;
+             tail.next = node;
+             tail = tail.next;
+         &#125;
+         count++;
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deQueue</span><span class="hljs-params">()</span> </span>&#123;
+         <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+         head = head.next;
+         <span class="hljs-keyword">if</span> (count == <span class="hljs-number">1</span>) tail = head;
+         count--;
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Front</span><span class="hljs-params">()</span> </span>&#123;
+         <span class="hljs-keyword">return</span> head.val;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Rear</span><span class="hljs-params">()</span> </span>&#123;
+         <span class="hljs-keyword">return</span> tail.val;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;
+         <span class="hljs-keyword">return</span> count == <span class="hljs-number">0</span>;
+     &#125;
+
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;
+         <span class="hljs-keyword">return</span> count == capacity;
+     &#125;
+ &#125;</code></pre>
+
+<pre><code class="hljs Go"><span class="hljs-keyword">type</span> ListNode <span class="hljs-keyword">struct</span> &#123;
+	Val  <span class="hljs-keyword">int</span>
+	Next *ListNode
+&#125;
+
+<span class="hljs-keyword">type</span> CircularQueue <span class="hljs-keyword">struct</span> &#123;
+	capacity <span class="hljs-keyword">int</span>
+	count    <span class="hljs-keyword">int</span>
+	head     *ListNode
+	tail     *ListNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewCircularQueue</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">CircularQueue</span></span> &#123;
+	<span class="hljs-keyword">return</span> CircularQueue&#123;
+		capacity:k,
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">EnQueue</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsFull() &#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>&#125;
+	node := ListNode&#123;Val: value&#125;
+	<span class="hljs-keyword">if</span> this.count == <span class="hljs-number">0</span> &#123;
+		this.head = &amp;node
+		this.tail = &amp;node
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		this.tail.Next = &amp;node
+		this.tail = this.tail.Next
+	&#125;
+	this.count++
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">DeQueue</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty()&#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>&#125;
+	this.head = this.head.Next
+	<span class="hljs-keyword">if</span> this.count == <span class="hljs-number">1</span> &#123;
+		this.tail = this.head
+	&#125;
+	this.count--
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">Front</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	<span class="hljs-keyword">return</span> this.head.Val
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">Rear</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123;<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	<span class="hljs-keyword">return</span> this.tail.Val
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">IsEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == <span class="hljs-number">0</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *CircularQueue)</span> <span class="hljs-title">IsFull</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == this.capacity
+&#125;
+</code></pre>
+
+<pre><code class="hljs Python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, value: <span class="hljs-built_in">int</span></span>):</span>
+        self.val = value
+        self.next_node = <span class="hljs-literal">None</span>
+        
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CircularQueue</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, k: <span class="hljs-built_in">int</span></span>):</span>
+        self.capacity = k
+        self.count = <span class="hljs-number">0</span>
+        self.head = <span class="hljs-literal">None</span>
+        self.tail = <span class="hljs-literal">None</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enQueue</span>(<span class="hljs-params">self, value: <span class="hljs-built_in">int</span></span>) -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> self.isFull():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        node = Node(value)
+        <span class="hljs-keyword">if</span> self.count == <span class="hljs-number">0</span>:
+            self.head = self.tail = node
+        <span class="hljs-keyword">else</span>:
+            self.tail.next_node = node
+            self.tail = self.tail.next_node
+        self.count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deQueue</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">if</span> self.isEmpty():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+        self.head = self.head.next_node
+        <span class="hljs-keyword">if</span> self.count == <span class="hljs-number">1</span>:
+            self.tail = self.head
+        self.count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Front</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.head.val
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Rear</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.tail.val
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isEmpty</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">return</span> self.count == <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isFull</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-keyword">return</span> self.count == self.capacity</code></pre>
 
 <h6 id="641-设计循环双端队列"><a href="#641-设计循环双端队列" class="headerlink" title="641. 设计循环双端队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-circular-deque/">641. 设计循环双端队列</a></h6><p>设计实现双端队列。<br>你的实现需要支持以下操作：</p>
 <ul>
@@ -3210,16 +3597,16 @@
 <li><code>isFull()</code>：检查双端队列是否满了。</li>
 </ul>
 <p><strong>示例：</strong></p>
-<pre><code class="hljs reasonml">MyCircularDeque circularDeque = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MycircularDeque(3)</span>; <span class="hljs-comment">// 设置容量大小为3</span>
-circularDeque.insert<span class="hljs-constructor">Last(1)</span>;			        <span class="hljs-comment">// 返回 true</span>
-circularDeque.insert<span class="hljs-constructor">Last(2)</span>;			        <span class="hljs-comment">// 返回 true</span>
-circularDeque.insert<span class="hljs-constructor">Front(3)</span>;			        <span class="hljs-comment">// 返回 true</span>
-circularDeque.insert<span class="hljs-constructor">Front(4)</span>;			        <span class="hljs-comment">// 已经满了，返回 false</span>
-circularDeque.get<span class="hljs-constructor">Rear()</span>;  				<span class="hljs-comment">// 返回 2</span>
-circularDeque.is<span class="hljs-constructor">Full()</span>;				        <span class="hljs-comment">// 返回 true</span>
-circularDeque.delete<span class="hljs-constructor">Last()</span>;			        <span class="hljs-comment">// 返回 true</span>
-circularDeque.insert<span class="hljs-constructor">Front(4)</span>;			        <span class="hljs-comment">// 返回 true</span>
-circularDeque.get<span class="hljs-constructor">Front()</span>;				<span class="hljs-comment">// 返回 4</span></code></pre>
+<pre><code class="hljs Java">MyCircularDeque circularDeque = <span class="hljs-keyword">new</span> MycircularDeque(<span class="hljs-number">3</span>); <span class="hljs-comment">// 设置容量大小为3</span>
+circularDeque.insertLast(<span class="hljs-number">1</span>);			        <span class="hljs-comment">// 返回 true</span>
+circularDeque.insertLast(<span class="hljs-number">2</span>);			        <span class="hljs-comment">// 返回 true</span>
+circularDeque.insertFront(<span class="hljs-number">3</span>);			        <span class="hljs-comment">// 返回 true</span>
+circularDeque.insertFront(<span class="hljs-number">4</span>);			        <span class="hljs-comment">// 已经满了，返回 false</span>
+circularDeque.getRear();  				<span class="hljs-comment">// 返回 2</span>
+circularDeque.isFull();				        <span class="hljs-comment">// 返回 true</span>
+circularDeque.deleteLast();			        <span class="hljs-comment">// 返回 true</span>
+circularDeque.insertFront(<span class="hljs-number">4</span>);			        <span class="hljs-comment">// 返回 true</span>
+circularDeque.getFront();				<span class="hljs-comment">// 返回 4</span></code></pre>
 
 <p><strong>提示：</strong></p>
 <ul>
@@ -3231,13 +3618,362 @@ circularDeque.get<span class="hljs-constructor">Front()</span>;				<span class="
 <pre><code class="hljs plain"></code></pre>
 
 <p><code>Java</code></p>
-<pre><code class="hljs Java"></code></pre>
+<pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DesignCircularDeque</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        MyCircularDeque s = <span class="hljs-keyword">new</span> DesignCircularDeque().<span class="hljs-function">new <span class="hljs-title">MyCircularDeque</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>;
+        s.insertLast(<span class="hljs-number">1</span>); <span class="hljs-comment">// return True</span>
+        s.insertLast(<span class="hljs-number">2</span>); <span class="hljs-comment">// return True</span>
+        s.insertLast(<span class="hljs-number">3</span>); <span class="hljs-comment">// return True</span>
+        s.insertLast(<span class="hljs-number">4</span>); <span class="hljs-comment">// return False</span>
+        s.getRear();     <span class="hljs-comment">// return 3</span>
+        s.isFull();   <span class="hljs-comment">// return True</span>
+        s.deleteLast();  <span class="hljs-comment">// return True</span>
+        s.insertFront(<span class="hljs-number">4</span>); <span class="hljs-comment">// return True</span>
+        s.getFront();     <span class="hljs-comment">// return 4</span>
+    &#125;
+    
+    <span class="hljs-comment">//Design your implementation of the circular double-ended queue (deque). </span>
+    <span class="hljs-comment">// Your implementation should support following operations:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// MyCircularDeque(k): Constructor, set the size of the deque to be k.</span>
+    <span class="hljs-comment">// insertFront(): Adds an item at the front of Deque. Return true if the operation is successful.</span>
+    <span class="hljs-comment">// insertLast(): Adds an item at the rear of Deque. Return true if the operationis successful.</span>
+    <span class="hljs-comment">// deleteFront(): Deletes an item from the front of Deque. Return true if the operation is successful.</span>
+    <span class="hljs-comment">// deleteLast(): Deletes an item from the rear of Deque. Return true if the operation is successful.</span>
+    <span class="hljs-comment">// getFront(): Gets the front item from the Deque. If the deque is empty, return-1.</span>
+    <span class="hljs-comment">// getRear(): Gets the last item from Deque. If the deque is empty, return -1.</span>
+    <span class="hljs-comment">// isEmpty(): Checks whether Deque is empty or not.</span>
+    <span class="hljs-comment">// isFull(): Checks whether Deque is full or not.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example:</span>
+    <span class="hljs-comment">//MyCircularDeque circularDeque = new MycircularDeque(3); // set the size to be</span>
+    <span class="hljs-comment">//3</span>
+    <span class="hljs-comment">//circularDeque.insertLast(1);			// return true</span>
+    <span class="hljs-comment">//circularDeque.insertLast(2);			// return true</span>
+    <span class="hljs-comment">//circularDeque.insertFront(3);			// return true</span>
+    <span class="hljs-comment">//circularDeque.insertFront(4);			// return false, the queue is full</span>
+    <span class="hljs-comment">//circularDeque.getRear();  			// return 2</span>
+    <span class="hljs-comment">//circularDeque.isFull();				// return true</span>
+    <span class="hljs-comment">//circularDeque.deleteLast();			// return true</span>
+    <span class="hljs-comment">//circularDeque.insertFront(4);			// return true</span>
+    <span class="hljs-comment">//circularDeque.getFront();			// return 4</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Note:</span>
+    <span class="hljs-comment">// All values will be in the range of [0, 1000].</span>
+    <span class="hljs-comment">// The number of operations will be in the range of [1, 1000].</span>
+    <span class="hljs-comment">// Please do not use the built-in Deque library.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 设计 队列</span>
+    <span class="hljs-comment">// 👍 77 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCircularDeque</span> </span>&#123;
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] queue;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> capacity, front, rear, count;
+
+        <span class="hljs-comment">/** Initialize your data structure here. Set the size of the deque to be k. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyCircularDeque</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span> </span>&#123;
+            queue = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[k];
+            capacity = k;
+            count = <span class="hljs-number">0</span>;
+            front = <span class="hljs-number">0</span>;
+            rear = <span class="hljs-number">0</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Adds an item at the front of Deque. Return true if the operation is successful. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">insertFront</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isFull()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            front = (front -<span class="hljs-number">1</span> + capacity) % capacity;
+            queue[front] = value;
+            count++;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Adds an item at the rear of Deque. Return true if the operation is successful. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">insertLast</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isFull()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            queue[rear++] = value;
+            rear %= capacity;
+            count++;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Deletes an item from the front of Deque. Return true if the operation is successful. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deleteFront</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            front = (front + <span class="hljs-number">1</span>) % capacity;
+            count--;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Deletes an item from the rear of Deque. Return true if the operation is successful. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deleteLast</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            rear = (rear -<span class="hljs-number">1</span> + capacity) % capacity;
+            count--;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Get the front item from the deque. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getFront</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            <span class="hljs-keyword">return</span> queue[front];
+        &#125;
+
+        <span class="hljs-comment">/** Get the last item from the deque. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRear</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (isEmpty()) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            <span class="hljs-keyword">return</span> queue[(rear-<span class="hljs-number">1</span>+capacity)%capacity];
+        &#125;
+
+        <span class="hljs-comment">/** Checks whether the circular deque is empty or not. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">return</span> count == <span class="hljs-number">0</span>;
+        &#125;
+
+        <span class="hljs-comment">/** Checks whether the circular deque is full or not. */</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">return</span> count == capacity;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Your MyCircularDeque object will be instantiated and called as such:</span>
+<span class="hljs-comment">     * MyCircularDeque obj = new MyCircularDeque(k);</span>
+<span class="hljs-comment">     * boolean param_1 = obj.insertFront(value);</span>
+<span class="hljs-comment">     * boolean param_2 = obj.insertLast(value);</span>
+<span class="hljs-comment">     * boolean param_3 = obj.deleteFront();</span>
+<span class="hljs-comment">     * boolean param_4 = obj.deleteLast();</span>
+<span class="hljs-comment">     * int param_5 = obj.getFront();</span>
+<span class="hljs-comment">     * int param_6 = obj.getRear();</span>
+<span class="hljs-comment">     * boolean param_7 = obj.isEmpty();</span>
+<span class="hljs-comment">     * boolean param_8 = obj.isFull();</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+
+&#125;</code></pre>
 
 <p><code>Golang</code></p>
-<pre><code class="hljs Golang"></code></pre>
+<pre><code class="hljs Golang"><span class="hljs-keyword">type</span> MyCircularDeque <span class="hljs-keyword">struct</span> &#123;
+	queue []<span class="hljs-keyword">int</span>
+	front <span class="hljs-keyword">int</span>
+	rear <span class="hljs-keyword">int</span>
+	capacity <span class="hljs-keyword">int</span>
+	count <span class="hljs-keyword">int</span>
+&#125;
+
+<span class="hljs-comment">/** Initialize your data structure here. Set the size of the deque to be k. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">MyCircularDeque</span></span> &#123;
+	<span class="hljs-keyword">return</span> MyCircularDeque&#123;
+		queue:    <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, k),
+		capacity: k,
+	&#125;
+&#125;
+
+<span class="hljs-comment">/** Adds an item at the front of Deque. Return true if the operation is successful. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">InsertFront</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsFull() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+	&#125;
+	this.front = (this.front - <span class="hljs-number">1</span> + this.capacity) % this.capacity
+	this.queue[this.front] = value
+	this.count += <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-comment">/** Adds an item at the rear of Deque. Return true if the operation is successful. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">InsertLast</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsFull() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+	&#125;
+	this.queue[this.rear] = value
+	this.rear = (this.rear +<span class="hljs-number">1</span>) % this.capacity
+	this.count += <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-comment">/** Deletes an item from the front of Deque. Return true if the operation is successful. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">DeleteFront</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+	&#125;
+	this.front = (this.front +<span class="hljs-number">1</span>) % this.capacity
+	this.count -= <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-comment">/** Deletes an item from the rear of Deque. Return true if the operation is successful. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">DeleteLast</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+	&#125;
+	this.rear = (this.rear - <span class="hljs-number">1</span> + this.capacity) % this.capacity
+	this.count -= <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-comment">/** Get the front item from the deque. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">GetFront</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+	&#125;
+	<span class="hljs-keyword">return</span> this.queue[this.front]
+&#125;
+
+<span class="hljs-comment">/** Get the last item from the deque. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">GetRear</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.IsEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+	&#125;
+	<span class="hljs-keyword">return</span> this.queue[(this.rear<span class="hljs-number">-1</span>+this.capacity)%this.capacity]
+&#125;
+
+<span class="hljs-comment">/** Checks whether the circular deque is empty or not. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">IsEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == <span class="hljs-number">0</span>
+&#125;
+
+<span class="hljs-comment">/** Checks whether the circular deque is full or not. */</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyCircularDeque)</span> <span class="hljs-title">IsFull</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.count == this.capacity
+&#125;</code></pre>
 
 <p><code>Python</code></p>
-<pre><code class="hljs Python"></code></pre>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 641-设计循环双端队列</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 设计实现双端队列。 </span>
+<span class="hljs-string">        # 你的实现需要支持以下操作：</span>
+<span class="hljs-string">        #  MyCircularDeque(k)：构造函数,双端队列的大小为k。</span>
+<span class="hljs-string">        #  insertFront()：将一个元素添加到双端队列头部。 如果操作成功返回 true。</span>
+<span class="hljs-string">        #  insertLast()：将一个元素添加到双端队列尾部。如果操作成功返回 true。</span>
+<span class="hljs-string">        #  deleteFront()：从双端队列头部删除一个元素。 如果操作成功返回 true。</span>
+<span class="hljs-string">        #  deleteLast()：从双端队列尾部删除一个元素。如果操作成功返回 true。</span>
+<span class="hljs-string">        #  getFront()：从双端队列头部获得一个元素。如果双端队列为空，返回 -1。</span>
+<span class="hljs-string">        #  getRear()：获得双端队列的最后一个元素。 如果双端队列为空，返回 -1。</span>
+<span class="hljs-string">        #  isEmpty()：检查双端队列是否为空。</span>
+<span class="hljs-string">        #  isFull()：检查双端队列是否满了。</span>
+<span class="hljs-string">        #  示例：</span>
+<span class="hljs-string">        #  MyCircularDeque circularDeque = new MycircularDeque(3); // 设置容量大小为3</span>
+<span class="hljs-string">        # circularDeque.insertLast(1);			        // 返回 true</span>
+<span class="hljs-string">        # circularDeque.insertLast(2);			        // 返回 true</span>
+<span class="hljs-string">        # circularDeque.insertFront(3);			        // 返回 true</span>
+<span class="hljs-string">        # circularDeque.insertFront(4);			        // 已经满了，返回 false</span>
+<span class="hljs-string">        # circularDeque.getRear();  				        // 返回 2</span>
+<span class="hljs-string">        # circularDeque.isFull();				            // 返回 true</span>
+<span class="hljs-string">        # circularDeque.deleteLast();			          // 返回 true</span>
+<span class="hljs-string">        # circularDeque.insertFront(4);			        // 返回 true</span>
+<span class="hljs-string">        # circularDeque.getFront();				          // 返回 4</span>
+<span class="hljs-string">        #  </span>
+<span class="hljs-string">        #  提示：</span>
+<span class="hljs-string">        #  所有值的范围为 [1, 1000]</span>
+<span class="hljs-string">        #  操作次数的范围为 [1, 1000]</span>
+<span class="hljs-string">        #  请不要使用内置的双端队列库。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  Related Topics 设计 队列</span>
+<span class="hljs-string">        #  👍 77 👎 0</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCircularDeque</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, k: <span class="hljs-built_in">int</span></span>):</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Initialize your data structure here. Set the size of the deque to be k.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        self.queue = []
+        self.capacity = k
+        self.count = <span class="hljs-number">0</span>
+        self.front = <span class="hljs-number">0</span>
+        self.rear = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, k):
+            self.queue.append(<span class="hljs-number">-1</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insertFront</span>(<span class="hljs-params">self, value: <span class="hljs-built_in">int</span></span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Adds an item at the front of Deque. Return true if the operation is successful.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> self.isFull():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        self.front = (self.front - <span class="hljs-number">1</span> + self.capacity) % self.capacity
+        self.queue[self.front] = value
+        self.count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insertLast</span>(<span class="hljs-params">self, value: <span class="hljs-built_in">int</span></span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Adds an item at the rear of Deque. Return true if the operation is successful.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> self.isFull():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        self.queue[self.rear] = value
+        self.rear = (self.rear + <span class="hljs-number">1</span>) % self.capacity
+        self.count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteFront</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Deletes an item from the front of Deque. Return true if the operation is successful.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> self.isEmpty():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+        self.front = (self.front + <span class="hljs-number">1</span>) % self.capacity
+        self.count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteLast</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Deletes an item from the rear of Deque. Return true if the operation is successful.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> self.isEmpty():
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+        self.rear = (self.rear - <span class="hljs-number">1</span> + self.capacity) % self.capacity
+        self.count -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getFront</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Get the front item from the deque.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.queue[self.front]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getRear</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Get the last item from the deque.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> self.isEmpty() <span class="hljs-keyword">else</span> self.queue[(self.rear - <span class="hljs-number">1</span> + self.capacity) % self.capacity]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isEmpty</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Checks whether the circular deque is empty or not.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> self.count == <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isFull</span>(<span class="hljs-params">self</span>) -&gt; bool:</span>
+        <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">        Checks whether the circular deque is full or not.</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> self.count == self.capacity
+
+    <span class="hljs-comment"># Your MyCircularDeque object will be instantiated and called as such:</span>
+    <span class="hljs-comment"># obj = MyCircularDeque(k)</span>
+    <span class="hljs-comment"># param_1 = obj.insertFront(value)</span>
+    <span class="hljs-comment"># param_2 = obj.insertLast(value)</span>
+    <span class="hljs-comment"># param_3 = obj.deleteFront()</span>
+    <span class="hljs-comment"># param_4 = obj.deleteLast()</span>
+    <span class="hljs-comment"># param_5 = obj.getFront()</span>
+    <span class="hljs-comment"># param_6 = obj.getRear()</span>
+    <span class="hljs-comment"># param_7 = obj.isEmpty()</span>
+    <span class="hljs-comment"># param_8 = obj.isFull()</span>
+    <span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
 
 <h6 id="1670-设计前中后队列"><a href="#1670-设计前中后队列" class="headerlink" title="1670. 设计前中后队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-front-middle-back-queue/">1670. 设计前中后队列</a></h6><p>请你设计一个队列，支持在前，中，后三个位置的 <code>push</code> 和 <code>pop</code> 操作。</p>
 <p>请你完成 <code>FrontMiddleBack</code> 类：</p>
@@ -3253,23 +3989,23 @@ circularDeque.get<span class="hljs-constructor">Front()</span>;				<span class="
 <p>请注意当有<strong>两个</strong>中间位置的时候，选择靠前面的位置进行操作。比方说：</p>
 <p>将 6 添加到 <code>[1, 2, 3, 4, 5] </code>的中间位置，结果数组为<code>[1, 2, 6, 3, 4, 5]</code>。<br>从 <code>[1, 2, 3, 4, 5, 6] </code>的中间位置弹出元素，返回<code>3</code>，数组变为<code>[1, 2, 4, 5, 6]</code>。</p>
 <p><strong>示例 1：</strong></p>
-<pre><code class="hljs yaml"><span class="hljs-string">输入：</span>
+<pre><code class="hljs Java">输入：
 [<span class="hljs-string">&quot;FrontMiddleBackQueue&quot;</span>, <span class="hljs-string">&quot;pushFront&quot;</span>, <span class="hljs-string">&quot;pushBack&quot;</span>, <span class="hljs-string">&quot;pushMiddle&quot;</span>, <span class="hljs-string">&quot;pushMiddle&quot;</span>, <span class="hljs-string">&quot;popFront&quot;</span>, <span class="hljs-string">&quot;popMiddle&quot;</span>, <span class="hljs-string">&quot;popMiddle&quot;</span>, <span class="hljs-string">&quot;popBack&quot;</span>, <span class="hljs-string">&quot;popFront&quot;</span>]
 [[], [<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [<span class="hljs-number">3</span>], [<span class="hljs-number">4</span>], [], [], [], [], []]
-<span class="hljs-string">输出：</span>
-[<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">-1</span>]
+输出：
+[<span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, -<span class="hljs-number">1</span>]
 
-<span class="hljs-string">解释：</span>
-<span class="hljs-string">FrontMiddleBackQueue</span> <span class="hljs-string">q</span> <span class="hljs-string">=</span> <span class="hljs-string">new</span> <span class="hljs-string">FrontMiddleBackQueue();</span>
-<span class="hljs-string">q.pushFront(1);</span>   <span class="hljs-string">//</span> [<span class="hljs-number">1</span>]
-<span class="hljs-string">q.pushBack(2);</span>    <span class="hljs-string">//</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-<span class="hljs-string">q.pushMiddle(3);</span>  <span class="hljs-string">//</span> [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]
-<span class="hljs-string">q.pushMiddle(4);</span>  <span class="hljs-string">//</span> [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]
-<span class="hljs-string">q.popFront();</span>     <span class="hljs-string">//</span> <span class="hljs-string">返回</span> <span class="hljs-number">1</span> <span class="hljs-string">-&gt;</span> [<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]
-<span class="hljs-string">q.popMiddle();</span>    <span class="hljs-string">//</span> <span class="hljs-string">返回</span> <span class="hljs-number">3</span> <span class="hljs-string">-&gt;</span> [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>]
-<span class="hljs-string">q.popMiddle();</span>    <span class="hljs-string">//</span> <span class="hljs-string">返回</span> <span class="hljs-number">4</span> <span class="hljs-string">-&gt;</span> [<span class="hljs-number">2</span>]
-<span class="hljs-string">q.popBack();</span>      <span class="hljs-string">//</span> <span class="hljs-string">返回</span> <span class="hljs-number">2</span> <span class="hljs-string">-&gt;</span> []
-<span class="hljs-string">q.popFront();</span>     <span class="hljs-string">//</span> <span class="hljs-string">返回</span> <span class="hljs-number">-1</span> <span class="hljs-string">-&gt;</span> [] <span class="hljs-string">（队列为空）</span>
+解释：
+FrontMiddleBackQueue q = <span class="hljs-keyword">new</span> FrontMiddleBackQueue();
+q.pushFront(<span class="hljs-number">1</span>);   <span class="hljs-comment">// [1]</span>
+q.pushBack(<span class="hljs-number">2</span>);    <span class="hljs-comment">// [1, 2]</span>
+q.pushMiddle(<span class="hljs-number">3</span>);  <span class="hljs-comment">// [1, 3, 2]</span>
+q.pushMiddle(<span class="hljs-number">4</span>);  <span class="hljs-comment">// [1, 4, 3, 2]</span>
+q.popFront();     <span class="hljs-comment">// 返回 1 -&gt; [4, 3, 2]</span>
+q.popMiddle();    <span class="hljs-comment">// 返回 3 -&gt; [4, 2]</span>
+q.popMiddle();    <span class="hljs-comment">// 返回 4 -&gt; [2]</span>
+q.popBack();      <span class="hljs-comment">// 返回 2 -&gt; []</span>
+q.popFront();     <span class="hljs-comment">// 返回 -1 -&gt; [] （队列为空）</span>
 </code></pre>
 
 <p><strong>提示：</strong></p>
@@ -3281,13 +4017,510 @@ circularDeque.get<span class="hljs-constructor">Front()</span>;				<span class="
 <pre><code class="hljs plain">两个双端队列</code></pre>
 
 <p><code>Java</code></p>
-<pre><code class="hljs Java"></code></pre>
+<pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">import</span> java.util.Deque;
+<span class="hljs-keyword">import</span> java.util.LinkedList;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DesignFrontMiddleBackQueue</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        FrontMiddleBackQueue s = <span class="hljs-keyword">new</span> DesignFrontMiddleBackQueue().<span class="hljs-function">new <span class="hljs-title">FrontMiddleBackQueue</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//Design a queue that supports push and pop operations in the front, middle, and back.</span>
+    <span class="hljs-comment">// Implement the FrontMiddleBack class:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// FrontMiddleBack() Initializes the queue.</span>
+    <span class="hljs-comment">// void pushFront(int val) Adds val to the front of the queue.</span>
+    <span class="hljs-comment">// void pushMiddle(int val) Adds val to the middle of the queue.</span>
+    <span class="hljs-comment">// void pushBack(int val) Adds val to the back of the queue.</span>
+    <span class="hljs-comment">// int popFront() Removes the front element of the queue and returns it. If the queue is empty, return -1.</span>
+    <span class="hljs-comment">// int popMiddle() Removes the middle element of the queue and returns it. If the queue is empty, return -1.</span>
+    <span class="hljs-comment">// int popBack() Removes the back element of the queue and returns it. If the queue is empty, return -1.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Notice that when there are two middle position choices, the operation is performed on the frontmost middle position choice. For example:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Pushing 6 into the middle of [1, 2, 3, 4, 5] results in [1, 2, 6, 3, 4, 5].</span>
+    <span class="hljs-comment">// Popping the middle from [1, 2, 3, 4, 5, 6] returns 3 and results in [1, 2, 4, 5, 6].</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">//Input:</span>
+    <span class="hljs-comment">//[&quot;FrontMiddleBackQueue&quot;, &quot;pushFront&quot;, &quot;pushBack&quot;, &quot;pushMiddle&quot;, &quot;pushMiddle&quot;,</span>
+    <span class="hljs-comment">//&quot;popFront&quot;, &quot;popMiddle&quot;, &quot;popMiddle&quot;, &quot;popBack&quot;, &quot;popFront&quot;]</span>
+    <span class="hljs-comment">//[[], [1], [2], [3], [4], [], [], [], [], []]</span>
+    <span class="hljs-comment">//Output:</span>
+    <span class="hljs-comment">//[null, null, null, null, null, 1, 3, 4, 2, -1]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">//Explanation:</span>
+    <span class="hljs-comment">//FrontMiddleBackQueue q = new FrontMiddleBackQueue();</span>
+    <span class="hljs-comment">//q.pushFront(1);   // [1]</span>
+    <span class="hljs-comment">//q.pushBack(2);    // [1, 2]</span>
+    <span class="hljs-comment">//q.pushMiddle(3);  // [1, 3, 2]</span>
+    <span class="hljs-comment">//q.pushMiddle(4);  // [1, 4, 3, 2]</span>
+    <span class="hljs-comment">//q.popFront();     // return 1 -&gt; [4, 3, 2]</span>
+    <span class="hljs-comment">//q.popMiddle();    // return 3 -&gt; [4, 2]</span>
+    <span class="hljs-comment">//q.popMiddle();    // return 4 -&gt; [2]</span>
+    <span class="hljs-comment">//q.popBack();      // return 2 -&gt; []</span>
+    <span class="hljs-comment">//q.popFront();     // return -1 -&gt; [] (The queue is empty)</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// 1 &lt;= val &lt;= 109</span>
+    <span class="hljs-comment">// At most 1000 calls will be made to pushFront, pushMiddle, pushBack, popFront,</span>
+    <span class="hljs-comment">// popMiddle, and popBack.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 设计 链表</span>
+    <span class="hljs-comment">// 👍 6 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FrontMiddleBackQueue</span> </span>&#123;
+        <span class="hljs-keyword">private</span> Deque&lt;Integer&gt; left;
+        <span class="hljs-keyword">private</span> Deque&lt;Integer&gt; right;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FrontMiddleBackQueue</span><span class="hljs-params">()</span> </span>&#123;
+            left = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+            right = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushFront</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+            left.addFirst(val);
+            balanceQueue();
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushMiddle</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (left.size() &gt; right.size()) &#123;
+                right.addFirst(left.pollLast());
+            &#125;
+            left.addLast(val);
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushBack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+            right.addLast(val);
+            balanceQueue();
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">popFront</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (left.size() + right.size() == <span class="hljs-number">0</span>) &#123;
+                <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            &#125;
+            Integer v;
+            <span class="hljs-keyword">if</span> (left.size() == <span class="hljs-number">0</span>) &#123;
+                v = right.pollFirst();
+            &#125;<span class="hljs-keyword">else</span> &#123;
+                v= left.pollFirst();
+            &#125;
+            balanceQueue();
+            <span class="hljs-keyword">return</span> v == <span class="hljs-keyword">null</span> ? -<span class="hljs-number">1</span>: v;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">popMiddle</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (left.size() + right.size() == <span class="hljs-number">0</span>) &#123;
+                <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            &#125;
+            Integer v = left.pollLast();
+            balanceQueue();
+            <span class="hljs-keyword">return</span> v == <span class="hljs-keyword">null</span> ? -<span class="hljs-number">1</span>: v;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">popBack</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (left.size() + right.size() == <span class="hljs-number">0</span>) &#123;
+                <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            &#125;
+            Integer v;
+            <span class="hljs-keyword">if</span> (right.size() == <span class="hljs-number">0</span>) &#123;
+                v = left.pollLast();
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                v = right.pollLast();
+            &#125;
+            balanceQueue();
+            <span class="hljs-keyword">return</span> v == <span class="hljs-keyword">null</span> ? -<span class="hljs-number">1</span>: v;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">balanceQueue</span><span class="hljs-params">()</span> </span>&#123;
+            <span class="hljs-keyword">if</span> (left.size() - right.size() &gt;=<span class="hljs-number">2</span>) &#123;
+                right.addFirst(left.pollLast());
+            &#125;
+            <span class="hljs-keyword">if</span> (left.size() &lt; right.size()) &#123;
+                left.addLast(right.pollFirst());
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Your FrontMiddleBackQueue object will be instantiated and called as such:</span>
+<span class="hljs-comment">     * FrontMiddleBackQueue obj = new FrontMiddleBackQueue();</span>
+<span class="hljs-comment">     * obj.pushFront(val);</span>
+<span class="hljs-comment">     * obj.pushMiddle(val);</span>
+<span class="hljs-comment">     * obj.pushBack(val);</span>
+<span class="hljs-comment">     * int param_4 = obj.popFront();</span>
+<span class="hljs-comment">     * int param_5 = obj.popMiddle();</span>
+<span class="hljs-comment">     * int param_6 = obj.popBack();</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+&#125;</code></pre>
 
 <p><code>Golang</code></p>
-<pre><code class="hljs Golang"></code></pre>
+<pre><code class="hljs Golang"><span class="hljs-keyword">package</span> leetcode
+
+<span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+
+<span class="hljs-comment">// 双向链表分装</span>
+<span class="hljs-keyword">type</span> DNode <span class="hljs-keyword">struct</span> &#123;
+	val <span class="hljs-keyword">int</span>
+	pre *DNode
+	next *DNode
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d *DNode)</span> <span class="hljs-title">insertPre</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span> &#123;
+	node := &amp;DNode&#123;
+		val: value,
+		pre:d.pre,
+		next: d,
+	&#125;
+	<span class="hljs-keyword">if</span> d.pre != <span class="hljs-literal">nil</span> &#123;
+		d.pre.next = node
+	&#125;
+	d.pre = node
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d *DNode)</span> <span class="hljs-title">insertNext</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span> &#123;
+	node := &amp;DNode&#123;
+		val:  value,
+		pre:  d,
+		next: d.next,
+	&#125;
+	<span class="hljs-keyword">if</span> d.next != <span class="hljs-literal">nil</span> &#123;
+		d.next.pre = node
+	&#125;
+	d.next = node
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d *DNode)</span> <span class="hljs-title">deletePre</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">if</span> d.pre == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span>
+	&#125;
+	d.pre = d.pre.pre
+	<span class="hljs-keyword">if</span> d.pre != <span class="hljs-literal">nil</span> &#123;
+		d.pre.next = d
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d *DNode)</span> <span class="hljs-title">deleteNext</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">if</span> d.next == <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span>
+	&#125;
+	d.next = d.next.next
+	<span class="hljs-keyword">if</span> d.next != <span class="hljs-literal">nil</span> &#123;
+		d.next.pre = d
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(d *DNode)</span> <span class="hljs-title">printNode</span><span class="hljs-params">()</span></span>  &#123;
+	h := d
+	<span class="hljs-keyword">for</span> h != <span class="hljs-literal">nil</span> &#123;
+		fmt.Print(h.val, <span class="hljs-string">&quot;-&gt;&quot;</span>)
+		h = h.next
+	&#125;
+&#125;
+
+<span class="hljs-keyword">type</span> CircularDeque <span class="hljs-keyword">struct</span> &#123;
+	front *DNode
+	rear *DNode
+	count <span class="hljs-keyword">int</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewCircularDeque</span><span class="hljs-params">()</span> <span class="hljs-title">CircularDeque</span></span> &#123;
+	<span class="hljs-keyword">return</span> CircularDeque&#123;
+		front:<span class="hljs-literal">nil</span>,
+		rear:<span class="hljs-literal">nil</span>,
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CircularDeque)</span><span class="hljs-title">pushPre</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> c.count == <span class="hljs-number">0</span> &#123;
+		node := &amp;DNode&#123;
+			val:  value,
+		&#125;
+		c.front = node
+		c.rear = node
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		c.front.insertPre(value)
+		c.front = c.front.pre
+	&#125;
+	c.count += <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CircularDeque)</span><span class="hljs-title">pushTail</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">if</span> c.count == <span class="hljs-number">0</span> &#123;
+		node := &amp;DNode&#123;
+			val:  value,
+		&#125;
+		c.front = node
+		c.rear = node
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		c.rear.insertNext(value)
+		c.rear = c.rear.next
+	&#125;
+	c.count += <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CircularDeque)</span><span class="hljs-title">popFront</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> c.isEmpty() &#123;<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	v := c.front.val
+	<span class="hljs-keyword">if</span> c.count == <span class="hljs-number">1</span> &#123;
+		c.front = <span class="hljs-literal">nil</span>
+		c.rear = <span class="hljs-literal">nil</span>
+	&#125;<span class="hljs-keyword">else</span>&#123;
+		c.front = c.front.next
+		c.front.deletePre()
+	&#125;
+	c.count -= <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> v
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CircularDeque)</span><span class="hljs-title">popTail</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> c.isEmpty() &#123;<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>&#125;
+	v := c.rear.val
+	<span class="hljs-keyword">if</span> c.count == <span class="hljs-number">1</span> &#123;
+		c.front = <span class="hljs-literal">nil</span>
+		c.rear = <span class="hljs-literal">nil</span>
+	&#125;<span class="hljs-keyword">else</span>&#123;
+		c.rear = c.rear.pre
+		c.rear.deleteNext()
+	&#125;
+	c.count -= <span class="hljs-number">1</span>
+	<span class="hljs-keyword">return</span> v
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *CircularDeque)</span><span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> c.count == <span class="hljs-number">0</span>
+&#125;
+
+
+<span class="hljs-keyword">type</span> FrontMiddleBackQueue <span class="hljs-keyword">struct</span> &#123;
+	lQueue CircularDeque
+	rQueue CircularDeque
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">FrontMiddleBackQueue</span></span> &#123;
+	<span class="hljs-keyword">return</span> FrontMiddleBackQueue&#123;
+		lQueue: NewCircularDeque(),
+		rQueue: NewCircularDeque(),
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PushFront</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	this.lQueue.pushPre(val)
+	this.formatQueue()
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PushMiddle</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	<span class="hljs-comment">// 插入中间需要先平衡</span>
+  <span class="hljs-keyword">if</span> this.lQueue.count &gt; this.rQueue.count &#123;
+		this.rQueue.pushPre(this.lQueue.popTail())
+	&#125;
+	this.lQueue.pushTail(val)
+
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PushBack</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span></span>  &#123;
+	this.rQueue.pushTail(val)
+	this.formatQueue()
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PopFront</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	v := <span class="hljs-number">-1</span>
+	<span class="hljs-keyword">if</span> this.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> v
+	&#125;
+	<span class="hljs-keyword">if</span> this.lQueue.count == <span class="hljs-number">0</span> &#123;
+		v = this.rQueue.popFront()
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		v = this.lQueue.popFront()
+	&#125;
+	this.formatQueue()
+
+	<span class="hljs-keyword">return</span> v
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PopMiddle</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	v := <span class="hljs-number">-1</span>
+	<span class="hljs-keyword">if</span> this.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> v
+	&#125;
+	v = this.lQueue.popTail()
+	this.formatQueue()
+
+	<span class="hljs-keyword">return</span> v
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">PopBack</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	v := <span class="hljs-number">-1</span>
+	<span class="hljs-keyword">if</span> this.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> v
+	&#125;
+	<span class="hljs-keyword">if</span> this.rQueue.count == <span class="hljs-number">0</span> &#123;
+		v = this.lQueue.popTail()
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		v = this.rQueue.popTail()
+	&#125;
+	this.formatQueue()
+
+	<span class="hljs-keyword">return</span> v
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">isEmpty</span> <span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> this.lQueue.count + this.rQueue.count == <span class="hljs-number">0</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FrontMiddleBackQueue)</span> <span class="hljs-title">formatQueue</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">if</span> this.lQueue.count &lt; this.rQueue.count &#123;
+		this.lQueue.pushTail(this.rQueue.popFront())
+	&#125;
+	<span class="hljs-keyword">if</span> this.lQueue.count - this.rQueue.count &gt;= <span class="hljs-number">2</span> &#123;
+		this.rQueue.pushPre(this.lQueue.popTail())
+
+	&#125;
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Your FrontMiddleBackQueue object will be instantiated and called as such:</span>
+<span class="hljs-comment"> * obj := Constructor();</span>
+<span class="hljs-comment"> * obj.PushFront(val);</span>
+<span class="hljs-comment"> * obj.PushMiddle(val);</span>
+<span class="hljs-comment"> * obj.PushBack(val);</span>
+<span class="hljs-comment"> * param_4 := obj.PopFront();</span>
+<span class="hljs-comment"> * param_5 := obj.PopMiddle();</span>
+<span class="hljs-comment"> * param_6 := obj.PopBack();</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
 
 <p><code>Python</code></p>
-<pre><code class="hljs Python"></code></pre>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 1670-设计前中后队列</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。 </span>
+<span class="hljs-string">        #  请你完成 FrontMiddleBack 类：</span>
+<span class="hljs-string">        #  FrontMiddleBack() 初始化队列。</span>
+<span class="hljs-string">        #  void pushFront(int val) 将 val 添加到队列的 最前面 。</span>
+<span class="hljs-string">        #  void pushMiddle(int val) 将 val 添加到队列的 正中间 。</span>
+<span class="hljs-string">        #  void pushBack(int val) 将 val 添加到队里的 最后面 。</span>
+<span class="hljs-string">        #  int popFront() 将 最前面 的元素从队列中删除并返回值，如果删除之前队列为空，那么返回 -1 。</span>
+<span class="hljs-string">        #  int popMiddle() 将 正中间 的元素从队列中删除并返回值，如果删除之前队列为空，那么返回 -1 。</span>
+<span class="hljs-string">        #  int popBack() 将 最后面 的元素从队列中删除并返回值，如果删除之前队列为空，那么返回 -1 。</span>
+<span class="hljs-string">        #  请注意当有 两个 中间位置的时候，选择靠前面的位置进行操作。比方说：</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  将 6 添加到 [1, 2, 3, 4, 5] 的中间位置，结果数组为 [1, 2, 6, 3, 4, 5] 。</span>
+<span class="hljs-string">        #  从 [1, 2, 3, 4, 5, 6] 的中间位置弹出元素，返回 3 ，数组变为 [1, 2, 4, 5, 6] 。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  示例 1：</span>
+<span class="hljs-string">        # 输入：</span>
+<span class="hljs-string">        # [&quot;FrontMiddleBackQueue&quot;, &quot;pushFront&quot;, &quot;pushBack&quot;, &quot;pushMiddle&quot;, &quot;pushMiddle&quot;,</span>
+<span class="hljs-string">        # &quot;popFront&quot;, &quot;popMiddle&quot;, &quot;popMiddle&quot;, &quot;popBack&quot;, &quot;popFront&quot;]</span>
+<span class="hljs-string">        # [[], [1], [2], [3], [4], [], [], [], [], []]</span>
+<span class="hljs-string">        # 输出：</span>
+<span class="hljs-string">        # [null, null, null, null, null, 1, 3, 4, 2, -1]</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        # 解释：</span>
+<span class="hljs-string">        # FrontMiddleBackQueue q = new FrontMiddleBackQueue();</span>
+<span class="hljs-string">        # q.pushFront(1);   // [1]</span>
+<span class="hljs-string">        # q.pushBack(2);    // [1, 2]</span>
+<span class="hljs-string">        # q.pushMiddle(3);  // [1, 3, 2]</span>
+<span class="hljs-string">        # q.pushMiddle(4);  // [1, 4, 3, 2]</span>
+<span class="hljs-string">        # q.popFront();     // 返回 1 -&gt; [4, 3, 2]</span>
+<span class="hljs-string">        # q.popMiddle();    // 返回 3 -&gt; [4, 2]</span>
+<span class="hljs-string">        # q.popMiddle();    // 返回 4 -&gt; [2]</span>
+<span class="hljs-string">        # q.popBack();      // 返回 2 -&gt; []</span>
+<span class="hljs-string">        # q.popFront();     // 返回 -1 -&gt; [] （队列为空）</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  提示：</span>
+<span class="hljs-string">        #  1 &lt;= val &lt;= 109</span>
+<span class="hljs-string">        #  最多调用 1000 次 pushFront， pushMiddle， pushBack， popFront， popMiddle 和 popBack 。</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  Related Topics 设计 链表</span>
+<span class="hljs-string">        #  👍 6 👎 0</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FrontMiddleBackQueue</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.left = deque()
+        self.right = deque()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pushFront</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-keyword">None</span>:</span>
+        self.left.appendleft(val)
+        self.balance_queue()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pushMiddle</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-keyword">None</span>:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) &gt; <span class="hljs-built_in">len</span>(self.right):
+            self.right.appendleft(self.left.pop())
+        self.left.append(val)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pushBack</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-keyword">None</span>:</span>
+        self.right.append(val)
+        self.balance_queue()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">popFront</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        v = <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) + <span class="hljs-built_in">len</span>(self.right) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> v
+        v = self.left.popleft()
+        self.balance_queue()
+        <span class="hljs-keyword">return</span> v
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">popMiddle</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        v = <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) + <span class="hljs-built_in">len</span>(self.right) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> v
+        v = self.left.pop()
+        self.balance_queue()
+        <span class="hljs-keyword">return</span> v
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">popBack</span>(<span class="hljs-params">self</span>) -&gt; int:</span>
+        v = <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) + <span class="hljs-built_in">len</span>(self.right) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> v
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.right) == <span class="hljs-number">0</span>:
+            v = self.left.pop()
+        <span class="hljs-keyword">else</span>:
+            v = self.right.pop()
+        self.balance_queue()
+        <span class="hljs-keyword">return</span> v
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">balance_queue</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) - <span class="hljs-built_in">len</span>(self.right) &gt;= <span class="hljs-number">2</span>:
+            self.right.appendleft(self.left.pop())
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.left) &lt; <span class="hljs-built_in">len</span>(self.right):
+                self.left.append(self.right.popleft())
+
+    <span class="hljs-comment"># Your FrontMiddleBackQueue object will be instantiated and called as such:</span>
+    <span class="hljs-comment"># obj = FrontMiddleBackQueue()</span>
+    <span class="hljs-comment"># obj.pushFront(val)</span>
+    <span class="hljs-comment"># obj.pushMiddle(val)</span>
+    <span class="hljs-comment"># obj.pushBack(val)</span>
+    <span class="hljs-comment"># param_4 = obj.popFront()</span>
+    <span class="hljs-comment"># param_5 = obj.popMiddle()</span>
+    <span class="hljs-comment"># param_6 = obj.popBack()</span>
+    <span class="hljs-comment"># leetcode submit region end(Prohibit modification and deletion)</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    obj = FrontMiddleBackQueue()
+    obj.pushFront(<span class="hljs-number">1</span>)
+    obj.pushMiddle(<span class="hljs-number">2</span>)
+    obj.pushBack(<span class="hljs-number">3</span>)
+    print(obj.popFront())
+    print(obj.popMiddle())
+    print(obj.popBack())
+</code></pre>
 
 <h6 id="933-最近的请求次数"><a href="#933-最近的请求次数" class="headerlink" title="933. 最近的请求次数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-recent-calls/">933. 最近的请求次数</a></h6><p>写一个 <code>RecentCounter </code>类来计算特定时间范围内最近的请求。</p>
 <p>请你实现<code>RecentCounter</code>类：</p>
@@ -3296,18 +4529,18 @@ circularDeque.get<span class="hljs-constructor">Front()</span>;				<span class="
 <li><code>int ping(int t) </code>在时间<code>t</code>添加一个新请求，其中 <code>t</code> 表示以毫秒为单位的某个时间，并返回过去 <code>3000</code> 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在<code>[t-3000, t]</code>内发生的请求数。<br>保证 每次对<code>ping</code>的调用都使用比之前更大的<code>t</code>值。</li>
 </ul>
 <p><strong>示例：</strong></p>
-<pre><code class="hljs yaml"><span class="hljs-string">输入：</span>
+<pre><code class="hljs Java">输入：
 [<span class="hljs-string">&quot;RecentCounter&quot;</span>, <span class="hljs-string">&quot;ping&quot;</span>, <span class="hljs-string">&quot;ping&quot;</span>, <span class="hljs-string">&quot;ping&quot;</span>, <span class="hljs-string">&quot;ping&quot;</span>]
 [[], [<span class="hljs-number">1</span>], [<span class="hljs-number">100</span>], [<span class="hljs-number">3001</span>], [<span class="hljs-number">3002</span>]]
-<span class="hljs-string">输出：</span>
-[<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>]
+输出：
+[<span class="hljs-keyword">null</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>]
 
-<span class="hljs-string">解释：</span>
-<span class="hljs-string">RecentCounter</span> <span class="hljs-string">recentCounter</span> <span class="hljs-string">=</span> <span class="hljs-string">new</span> <span class="hljs-string">RecentCounter();</span>
-<span class="hljs-string">recentCounter.ping(1);</span>     <span class="hljs-string">//</span> <span class="hljs-string">requests</span> <span class="hljs-string">=</span> [<span class="hljs-number">1</span>]<span class="hljs-string">，范围是</span> [<span class="hljs-number">-2999</span>,<span class="hljs-number">1</span>]<span class="hljs-string">，返回</span> <span class="hljs-number">1</span>
-<span class="hljs-string">recentCounter.ping(100);</span>   <span class="hljs-string">//</span> <span class="hljs-string">requests</span> <span class="hljs-string">=</span> [<span class="hljs-number">1</span>, <span class="hljs-number">100</span>]<span class="hljs-string">，范围是</span> [<span class="hljs-number">-2900</span>,<span class="hljs-number">100</span>]<span class="hljs-string">，返回</span> <span class="hljs-number">2</span>
-<span class="hljs-string">recentCounter.ping(3001);</span>  <span class="hljs-string">//</span> <span class="hljs-string">requests</span> <span class="hljs-string">=</span> [<span class="hljs-number">1</span>, <span class="hljs-number">100</span>, <span class="hljs-number">3001</span>]<span class="hljs-string">，范围是</span> [<span class="hljs-number">1</span>,<span class="hljs-number">3001</span>]<span class="hljs-string">，返回</span> <span class="hljs-number">3</span>
-<span class="hljs-string">recentCounter.ping(3002);</span>  <span class="hljs-string">//</span> <span class="hljs-string">requests</span> <span class="hljs-string">=</span> [<span class="hljs-number">1</span>, <span class="hljs-number">100</span>, <span class="hljs-number">3001</span>, <span class="hljs-number">3002</span>]<span class="hljs-string">，范围是</span> [<span class="hljs-number">2</span>,<span class="hljs-number">3002</span>]<span class="hljs-string">，返回</span> <span class="hljs-number">3</span></code></pre>
+解释：
+RecentCounter recentCounter = <span class="hljs-keyword">new</span> RecentCounter();
+recentCounter.ping(<span class="hljs-number">1</span>);     <span class="hljs-comment">// requests = [1]，范围是 [-2999,1]，返回 1</span>
+recentCounter.ping(<span class="hljs-number">100</span>);   <span class="hljs-comment">// requests = [1, 100]，范围是 [-2900,100]，返回 2</span>
+recentCounter.ping(<span class="hljs-number">3001</span>);  <span class="hljs-comment">// requests = [1, 100, 3001]，范围是 [1,3001]，返回 3</span>
+recentCounter.ping(<span class="hljs-number">3002</span>);  <span class="hljs-comment">// requests = [1, 100, 3001, 3002]，范围是 [2,3002]，返回 3</span></code></pre>
 
 <p><strong>提示：</strong></p>
 <ul>

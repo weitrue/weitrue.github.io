@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      25.8k 字
+      26.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      419
+      428
        分钟
     </span>
   
@@ -4554,10 +4554,117 @@ recentCounter.ping(<span class="hljs-number">3002</span>);  <span class="hljs-co
   队列中的元素数量即是`[t<span class="hljs-number">-3000</span>, t]`内发生的请求数</code></pre>
 
 <p><code>Java</code></p>
-<pre><code class="hljs Java"></code></pre>
+<pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.weitrue.leetcode.editor.cn;
+
+<span class="hljs-keyword">import</span> java.util.Deque;
+<span class="hljs-keyword">import</span> java.util.LinkedList;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumberOfRecentCalls</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;
+        Solution s = <span class="hljs-keyword">new</span> NumberOfRecentCalls().<span class="hljs-function">new <span class="hljs-title">Solution</span><span class="hljs-params">()</span></span>;
+    &#125;
+    
+    <span class="hljs-comment">//You have a RecentCounter class which counts the number of recent requests with in a certain time frame.</span>
+    <span class="hljs-comment">// Implement the RecentCounter class:</span>
+    <span class="hljs-comment">// RecentCounter() Initializes the counter with zero recent requests.</span>
+    <span class="hljs-comment">// int ping(int t) Adds a new request at time t, where t represents some time in milliseconds, and returns the number</span>
+    <span class="hljs-comment">// of requests that has happened in the past 3000 milliseconds (including the new request). Specifically, return the</span>
+    <span class="hljs-comment">// number of requests that have happened in the inclusive range [t - 3000, t].</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Example 1:</span>
+    <span class="hljs-comment">//Input</span>
+    <span class="hljs-comment">//[&quot;RecentCounter&quot;, &quot;ping&quot;, &quot;ping&quot;, &quot;ping&quot;, &quot;ping&quot;]</span>
+    <span class="hljs-comment">//[[], [1], [100], [3001], [3002]]</span>
+    <span class="hljs-comment">//Output</span>
+    <span class="hljs-comment">//[null, 1, 2, 3, 3]</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">//Explanation</span>
+    <span class="hljs-comment">//RecentCounter recentCounter = new RecentCounter();</span>
+    <span class="hljs-comment">//recentCounter.ping(1);     // requests = [1], range is [-2999,1], return 1</span>
+    <span class="hljs-comment">//recentCounter.ping(100);   // requests = [1, 100], range is [-2900,100], return 2</span>
+    <span class="hljs-comment">//recentCounter.ping(3001);  // requests = [1, 100, 3001], range is [1,3001], return 3</span>
+    <span class="hljs-comment">//recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002], range is [2,3002], return 3</span>
+    <span class="hljs-comment">// Constraints:</span>
+    <span class="hljs-comment">// 1 &lt;= t &lt;= 109</span>
+    <span class="hljs-comment">// Each test case will call ping with strictly increasing values of t.</span>
+    <span class="hljs-comment">// At most 104 calls will be made to ping.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Related Topics 队列</span>
+    <span class="hljs-comment">// 👍 82 👎 0</span>
+ 
+    <span class="hljs-comment">//leetcode submit region begin(Prohibit modification and deletion)</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RecentCounter</span> </span>&#123;
+        <span class="hljs-keyword">private</span> Deque&lt;Integer&gt; deque = <span class="hljs-keyword">new</span> LinkedList();
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RecentCounter</span><span class="hljs-params">()</span> </span>&#123;
+
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ping</span><span class="hljs-params">(<span class="hljs-keyword">int</span> t)</span> </span>&#123;
+            deque.add(t);
+            <span class="hljs-keyword">while</span> (deque.peek() &lt; t-<span class="hljs-number">3000</span>) &#123;
+                deque.poll();
+            &#125;
+            <span class="hljs-keyword">return</span> deque.size();
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * Your RecentCounter object will be instantiated and called as such:</span>
+<span class="hljs-comment">     * RecentCounter obj = new RecentCounter();</span>
+<span class="hljs-comment">     * int param_1 = obj.ping(t);</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-comment">//leetcode submit region end(Prohibit modification and deletion)</span>
+&#125;</code></pre>
 
 <p><code>Golang</code></p>
-<pre><code class="hljs Golang"></code></pre>
+<pre><code class="hljs Golang"><span class="hljs-keyword">type</span> RecentCounter <span class="hljs-keyword">struct</span> &#123;
+	queue Queue
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">RecentCounter</span></span> &#123;
+	<span class="hljs-keyword">return</span> RecentCounter&#123;
+		queue: <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>),
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *RecentCounter)</span> <span class="hljs-title">Ping</span><span class="hljs-params">(t <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;
+	this.queue.push(t)
+	<span class="hljs-keyword">for</span> this.queue.peek() &lt; t<span class="hljs-number">-3000</span> &#123;
+		this.queue.pop()
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(this.queue)
+&#125;
+
+<span class="hljs-keyword">type</span> Queue []<span class="hljs-keyword">int</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">push</span><span class="hljs-params">(v <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">error</span></span> &#123;
+	*q = <span class="hljs-built_in">append</span>(*q, v)
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">pop</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> q.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+	&#125;
+	head := (*q)[<span class="hljs-number">0</span>]
+	*q = (*q)[<span class="hljs-number">1</span>:]
+	<span class="hljs-keyword">return</span> head
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">peek</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
+	<span class="hljs-keyword">if</span> q.isEmpty() &#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+	&#125;
+	<span class="hljs-keyword">return</span> (*q)[<span class="hljs-number">0</span>]
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(q *Queue)</span><span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(*q) == <span class="hljs-number">0</span>
+&#125;</code></pre>
 
 <p><code>Python</code></p>
 <pre><code class="hljs Python"></code></pre>

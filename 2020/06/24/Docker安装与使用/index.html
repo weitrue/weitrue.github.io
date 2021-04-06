@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      63
+      64
        分钟
     </span>
   
@@ -424,7 +424,16 @@ systemctl start docker</code></pre>
 <pre><code class="hljs shell">docker ps -a</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/14.png" srcset="/img/loading.gif"></p>
-<h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署gitlab（私有代码库）"><a href="#部署gitlab（私有代码库）" class="headerlink" title="部署gitlab（私有代码库）"></a><strong>部署gitlab（私有代码库）</strong></h5><h6 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
+<h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
+docker run --detach \
+    --hostname 127.0.0.1 \
+    --publish 9000:9000 \
+    --name portainer\
+    --restart=always \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    docker.io/portainer/portainer</code></pre>
+
+<h5 id="部署gitlab（私有代码库）"><a href="#部署gitlab（私有代码库）" class="headerlink" title="部署gitlab（私有代码库）"></a><strong>部署gitlab（私有代码库）</strong></h5><h6 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-ce
 docker run --detach \
   --publish 443:443 --publish 80:80 --publish 1022:22 \
   --name gitlab \
@@ -534,7 +543,17 @@ docker</code></pre>
 <p>最后重启Runner</p>
 <pre><code class="hljs shell">docker restart gitlab-runner</code></pre>
 
-<h5 id="部署harbor"><a href="#部署harbor" class="headerlink" title="部署harbor"></a>部署harbor</h5><h6 id="下载Harbor"><a href="#下载Harbor" class="headerlink" title="下载Harbor"></a>下载Harbor</h6><p><code>github地址：</code><a target="_blank" rel="noopener" href="https://github.com/vmware/harbor/releases/%60">https://github.com/vmware/harbor/releases/`</a></p>
+<h5 id="部署harbor"><a href="#部署harbor" class="headerlink" title="部署harbor"></a>部署harbor</h5><h6 id="安装最新的docker-compose"><a href="#安装最新的docker-compose" class="headerlink" title="安装最新的docker-compose"></a>安装最新的docker-compose</h6><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 下载</span>
+wget https://github.com/docker/compose/releases/download/1.28.6/docker-compose-Linux-x86_64
+<span class="hljs-meta">#</span><span class="bash"> 移动到/usr/<span class="hljs-built_in">local</span>/bin</span>
+mv docker-compose-Linux-x86_64 /usr/local/bin
+<span class="hljs-meta">#</span><span class="bash"> 改名</span>
+mv docker-compose-Linux-x86_64 docker-compose</code></pre>
+
+<p>将可执行权限用于二进制文件</p>
+<pre><code class="hljs shell">sudo chmod +x /usr/local/bin/docker-compose</code></pre>
+
+<h6 id="下载Harbor"><a href="#下载Harbor" class="headerlink" title="下载Harbor"></a>下载Harbor</h6><p><code>github地址：</code><a target="_blank" rel="noopener" href="https://github.com/vmware/harbor/releases/%60">https://github.com/vmware/harbor/releases/`</a></p>
 <pre><code class="hljs shell">wget https://github.com/goharbor/harbor/releases/download/v2.2.1/harbor-online-installer-v2.2.1.tgz</code></pre>
 
 <h6 id="配置Harbor"><a href="#配置Harbor" class="headerlink" title="配置Harbor"></a>配置Harbor</h6><p>进入Harbor文件夹，找到<code>harbor.yml</code>文件，并配置</p>
@@ -839,17 +858,6 @@ docker pull localhost:5000/ubuntu</code></pre>
     <span class="hljs-bullet">-</span> <span class="hljs-string">master</span>
   <span class="hljs-attr">tags:</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">test</span></code></pre>
-
-
-
-<h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
-docker run --detach \
-    --hostname 127.0.0.1 \
-    --publish 9000:9000 \
-    --name portainer\
-    --restart=always \
-    --volume /var/run/docker.sock:/var/run/docker.sock \
-    docker.io/portainer/portainer</code></pre>
 
 <h5 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a><strong>部署jenkins</strong></h5><pre><code class="hljs shell">mkdir -p /srv/jenkins
 chown -R 1000:1000 /srv/jenkins/

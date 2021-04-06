@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      26.2k 字
+      26.6k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      428
+      434
        分钟
     </span>
   
@@ -4667,7 +4667,71 @@ recentCounter.ping(<span class="hljs-number">3002</span>);  <span class="hljs-co
 &#125;</code></pre>
 
 <p><code>Python</code></p>
-<pre><code class="hljs Python"></code></pre>
+<pre><code class="hljs Python"><span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">Module Description: 933-最近的请求次数</span>
+<span class="hljs-string">Solution：</span>
+<span class="hljs-string">Author: Wang P</span>
+<span class="hljs-string">Problem:# 写一个 RecentCounter 类来计算特定时间范围内最近的请求。 </span>
+<span class="hljs-string">        #  请你实现 RecentCounter 类：</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  RecentCounter() 初始化计数器，请求数为 0 。</span>
+<span class="hljs-string">        #  int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。</span>
+<span class="hljs-string">        #  保证 每次对 ping 的调用都使用比之前更大的 t 值。</span>
+<span class="hljs-string">        #  示例：</span>
+<span class="hljs-string">        # 输入：</span>
+<span class="hljs-string">        # [&quot;RecentCounter&quot;, &quot;ping&quot;, &quot;ping&quot;, &quot;ping&quot;, &quot;ping&quot;]</span>
+<span class="hljs-string">        # [[], [1], [100], [3001], [3002]]</span>
+<span class="hljs-string">        # 输出：</span>
+<span class="hljs-string">        # [null, 1, 2, 3, 3]</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        # 解释：</span>
+<span class="hljs-string">        # RecentCounter recentCounter = new RecentCounter();</span>
+<span class="hljs-string">        # recentCounter.ping(1);     // requests = [1]，范围是 [-2999,1]，返回 1</span>
+<span class="hljs-string">        # recentCounter.ping(100);   // requests = [1, 100]，范围是 [-2900,100]，返回 2</span>
+<span class="hljs-string">        # recentCounter.ping(3001);  // requests = [1, 100, 3001]，范围是 [1,3001]，返回 3</span>
+<span class="hljs-string">        # recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002]，范围是 [2,3002]，返回 3</span>
+<span class="hljs-string">        #  提示：</span>
+<span class="hljs-string">        #  1 &lt;= t &lt;= 109</span>
+<span class="hljs-string">        #  保证每次对 ping 调用所使用的 t 值都 严格递增</span>
+<span class="hljs-string">        #  至多调用 ping 方法 104 次</span>
+<span class="hljs-string">        #</span>
+<span class="hljs-string">        #  Related Topics 队列</span>
+<span class="hljs-string">        #  👍 82 👎 0</span>
+<span class="hljs-string">        &quot;&quot;&quot;</span>
+<span class="hljs-comment"># leetcode submit region begin(Prohibit modification and deletion)</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RecentCounter</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.queue = []
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ping</span>(<span class="hljs-params">self, t: <span class="hljs-built_in">int</span></span>) -&gt; int:</span>
+        self.push(t)
+        <span class="hljs-keyword">while</span> self.peek() &lt; t - <span class="hljs-number">3000</span>:
+            self.pop()
+        <span class="hljs-keyword">return</span> self.size()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span>(<span class="hljs-params">self, t: <span class="hljs-built_in">int</span></span>):</span>
+        self.queue.append(t)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> self.is_empty():
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+        t = self.queue[<span class="hljs-number">0</span>]
+        self.queue = self.queue[<span class="hljs-number">1</span>:]
+        <span class="hljs-keyword">return</span> t
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">if</span> self.is_empty():
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">return</span> self.queue[<span class="hljs-number">0</span>]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_empty</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.queue) == <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">size</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.queue)</code></pre>
 
 <h6 id="621-任务调度器"><a href="#621-任务调度器" class="headerlink" title="621. 任务调度器"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/task-scheduler/">621. 任务调度器</a></h6><p>给你一个用字符数组 tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。在任何一个单位时间，CPU 可以完成一个任务，或者处于待命状态。</p>
 <p>然而，两个 相同种类 的任务之间必须有长度为整数 n 的冷却时间，因此至少有连续 n 个单位时间内 CPU 在执行不同的任务，或者在待命状态。</p>

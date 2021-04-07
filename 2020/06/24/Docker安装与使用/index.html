@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.6k 字
+      4.7k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      64
+      65
        分钟
     </span>
   
@@ -369,7 +369,10 @@ systemctl start docker</code></pre>
 <p>–publish 10443:443 –publish 1080:80 –publish 1022:22 是指将443端口对外映射（暴露）成10443，22端口对外映射（暴露）成1022，80端口对外映射（暴露）成1080。</p>
 <p>（5）访问gitlab</p>
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/7.png" srcset="/img/loading.gif"></p>
-<h4 id="容器化（github-com上项目）"><a href="#容器化（github-com上项目）" class="headerlink" title="容器化（github.com上项目）"></a><strong>容器化（github.com上项目）</strong></h4><h5 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a><strong>删除镜像</strong></h5><p>（1）查看镜像</p>
+<h5 id="容器化方式（github-com上项目）"><a href="#容器化方式（github-com上项目）" class="headerlink" title="容器化方式（github.com上项目）"></a><strong>容器化方式（github.com上项目）</strong></h5><blockquote>
+<p>待更新</p>
+</blockquote>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a><strong>常用命令</strong></h4><p>（1）查看镜像</p>
 <pre><code class="hljs shell">docker ps -a</code></pre>
 
 <p>这里docker ps 的命令包括： </p>
@@ -403,6 +406,12 @@ systemctl start docker</code></pre>
 <pre><code class="hljs shell">docker image ls</code></pre>
 
 <p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/11.png" srcset="/img/loading.gif"></p>
+<p>（5）进入容器Console</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 进入控制台</span>
+docker exec -it [container name] [/bin/sh|bash]
+<span class="hljs-meta">#</span><span class="bash"> 退出</span>
+exit</code></pre>
+
 <h4 id="修改映射端口"><a href="#修改映射端口" class="headerlink" title="修改映射端口"></a><strong>修改映射端口</strong></h4><h5 id="重新部署镜像"><a href="#重新部署镜像" class="headerlink" title="重新部署镜像"></a><strong>重新部署镜像</strong></h5><h5 id="修改部署容器配置文件"><a href="#修改部署容器配置文件" class="headerlink" title="修改部署容器配置文件"></a><strong>修改部署容器配置文件</strong></h5><p>（1）停止需要修改的容器</p>
 <pre><code class="hljs shell">docker ps -a docker stop &lt;容器ID或容器名&gt;</code></pre>
 

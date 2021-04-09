@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.9k 字
+      12.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      219
+      225
        分钟
     </span>
   
@@ -2524,7 +2524,77 @@ safe Increase
 <li>colly</li>
 <li>hu17889/go_spider</li>
 </ul>
-<h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><p>实现了程序命令行参数的解析。</p>
+<h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><pre><code class="hljs golang"><span class="hljs-comment">// Signals</span>
+<span class="hljs-keyword">const</span> (
+	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)
+	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)
+	SIGBUS    = Signal(<span class="hljs-number">0xa</span>)
+	SIGCHLD   = Signal(<span class="hljs-number">0x14</span>)
+	SIGCONT   = Signal(<span class="hljs-number">0x13</span>)
+	SIGEMT    = Signal(<span class="hljs-number">0x7</span>)
+	SIGFPE    = Signal(<span class="hljs-number">0x8</span>)
+	SIGHUP    = Signal(<span class="hljs-number">0x1</span>)
+	SIGILL    = Signal(<span class="hljs-number">0x4</span>)
+	SIGINFO   = Signal(<span class="hljs-number">0x1d</span>)
+	SIGINT    = Signal(<span class="hljs-number">0x2</span>)
+	SIGIO     = Signal(<span class="hljs-number">0x17</span>)
+	SIGIOT    = Signal(<span class="hljs-number">0x6</span>)
+	SIGKILL   = Signal(<span class="hljs-number">0x9</span>)
+	SIGPIPE   = Signal(<span class="hljs-number">0xd</span>)
+	SIGPROF   = Signal(<span class="hljs-number">0x1b</span>)
+	SIGQUIT   = Signal(<span class="hljs-number">0x3</span>)
+	SIGSEGV   = Signal(<span class="hljs-number">0xb</span>)
+	SIGSTOP   = Signal(<span class="hljs-number">0x11</span>)
+	SIGSYS    = Signal(<span class="hljs-number">0xc</span>)
+	SIGTERM   = Signal(<span class="hljs-number">0xf</span>)
+	SIGTRAP   = Signal(<span class="hljs-number">0x5</span>)
+	SIGTSTP   = Signal(<span class="hljs-number">0x12</span>)
+	SIGTTIN   = Signal(<span class="hljs-number">0x15</span>)
+	SIGTTOU   = Signal(<span class="hljs-number">0x16</span>)
+	SIGURG    = Signal(<span class="hljs-number">0x10</span>)
+	SIGUSR1   = Signal(<span class="hljs-number">0x1e</span>)
+	SIGUSR2   = Signal(<span class="hljs-number">0x1f</span>)
+	SIGVTALRM = Signal(<span class="hljs-number">0x1a</span>)
+	SIGWINCH  = Signal(<span class="hljs-number">0x1c</span>)
+	SIGXCPU   = Signal(<span class="hljs-number">0x18</span>)
+	SIGXFSZ   = Signal(<span class="hljs-number">0x19</span>)
+)
+<span class="hljs-comment">// Signal table</span>
+<span class="hljs-keyword">var</span> signals = [...]<span class="hljs-keyword">string</span>&#123;
+	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,
+	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,
+	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,
+	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,
+	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,
+	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,
+	<span class="hljs-number">7</span>:  <span class="hljs-string">&quot;EMT trap&quot;</span>,
+	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,
+	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,
+	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,
+	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,
+	<span class="hljs-number">12</span>: <span class="hljs-string">&quot;bad system call&quot;</span>,
+	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,
+	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,
+	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,
+	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,
+	<span class="hljs-number">17</span>: <span class="hljs-string">&quot;suspended (signal)&quot;</span>,
+	<span class="hljs-number">18</span>: <span class="hljs-string">&quot;suspended&quot;</span>,
+	<span class="hljs-number">19</span>: <span class="hljs-string">&quot;continued&quot;</span>,
+	<span class="hljs-number">20</span>: <span class="hljs-string">&quot;child exited&quot;</span>,
+	<span class="hljs-number">21</span>: <span class="hljs-string">&quot;stopped (tty input)&quot;</span>,
+	<span class="hljs-number">22</span>: <span class="hljs-string">&quot;stopped (tty output)&quot;</span>,
+	<span class="hljs-number">23</span>: <span class="hljs-string">&quot;I/O possible&quot;</span>,
+	<span class="hljs-number">24</span>: <span class="hljs-string">&quot;cputime limit exceeded&quot;</span>,
+	<span class="hljs-number">25</span>: <span class="hljs-string">&quot;filesize limit exceeded&quot;</span>,
+	<span class="hljs-number">26</span>: <span class="hljs-string">&quot;virtual timer expired&quot;</span>,
+	<span class="hljs-number">27</span>: <span class="hljs-string">&quot;profiling timer expired&quot;</span>,
+	<span class="hljs-number">28</span>: <span class="hljs-string">&quot;window size changes&quot;</span>,
+	<span class="hljs-number">29</span>: <span class="hljs-string">&quot;information request&quot;</span>,
+	<span class="hljs-number">30</span>: <span class="hljs-string">&quot;user defined signal 1&quot;</span>,
+	<span class="hljs-number">31</span>: <span class="hljs-string">&quot;user defined signal 2&quot;</span>,
+&#125;</code></pre>
+
+<h5 id="encoding-json"><a href="#encoding-json" class="headerlink" title="encoding/json"></a>encoding/json</h5><p>实现了程序命令行参数的解析。</p>
 
             </article>
             <hr>

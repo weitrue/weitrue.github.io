@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6k 字
+      10.1k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      99
+      149
        分钟
     </span>
   
@@ -1632,7 +1632,419 @@
 
 
 
-<h4 id="堆（Heap）与优先队列"><a href="#堆（Heap）与优先队列" class="headerlink" title="堆（Heap）与优先队列"></a><strong>堆（Heap）与优先队列</strong></h4><h4 id="并查集（Union-find）及经典问题"><a href="#并查集（Union-find）及经典问题" class="headerlink" title="并查集（Union-find）及经典问题"></a><strong>并查集（Union-find）及经典问题</strong></h4>
+<h4 id="堆（Heap）与优先队列"><a href="#堆（Heap）与优先队列" class="headerlink" title="堆（Heap）与优先队列"></a><strong>堆（Heap）与优先队列</strong></h4><blockquote>
+<p>维护集合最值</p>
+</blockquote>
+<h5 id="基础应用"><a href="#基础应用" class="headerlink" title="基础应用"></a>基础应用</h5><h6 id="剑指-Offer-40-最小的k个数"><a href="#剑指-Offer-40-最小的k个数" class="headerlink" title="剑指 Offer 40. 最小的k个数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/">剑指 Offer 40. 最小的k个数</a></h6><p>输入整数数组 <code>arr</code> ，找出其中最小的 <code>k</code> 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code class="hljs angelscript">输入：arr = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>], k = <span class="hljs-number">2</span>
+输出：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>] 或者 [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre><code class="hljs angelscript">输入：arr = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>], k = <span class="hljs-number">1</span>
+输出：[<span class="hljs-number">0</span>]</code></pre>
+
+<p><strong>限制：</strong></p>
+<ul>
+<li><code>0 &lt;= k &lt;= arr.length &lt;= 10000</code></li>
+<li><code>0 &lt;= arr[i] &lt;= 10000</code></li>
+</ul>
+<pre><code class="hljs plain">大顶堆堆顶为k个数的最大的
+遍历数组，入堆 如果入堆后堆的大小大于k，出堆</code></pre>
+
+
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="1046-最后一块石头的重量"><a href="#1046-最后一块石头的重量" class="headerlink" title="1046. 最后一块石头的重量"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/last-stone-weight/">1046. 最后一块石头的重量</a></h6><p>有一堆石头，每块石头的重量都是正整数。</p>
+<p>每一回合，从中选出两块 <strong>最重的</strong> 石头，然后将它们一起粉碎。假设石头的重量分别为 x 和 y，且 x &lt;= y。那么粉碎的可能结果如下：</p>
+<ul>
+<li>如果 x == y，那么两块石头都会被完全粉碎；</li>
+<li>如果 x != y，那么重量为 x 的石头将会完全粉碎，而重量为 y 的石头新重量为 y-x。</li>
+</ul>
+<p>最后，最多只会剩下一块石头。返回此石头的重量。如果没有石头剩下，就返回 <code>0</code>。</p>
+<p><strong>示例：</strong></p>
+<pre><code class="hljs angelscript">输入：[<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">1</span>]
+输出：<span class="hljs-number">1</span>
+解释：
+先选出 <span class="hljs-number">7</span> 和 <span class="hljs-number">8</span>，得到 <span class="hljs-number">1</span>，所以数组转换为 [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]，
+再选出 <span class="hljs-number">2</span> 和 <span class="hljs-number">4</span>，得到 <span class="hljs-number">2</span>，所以数组转换为 [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]，
+接着是 <span class="hljs-number">2</span> 和 <span class="hljs-number">1</span>，得到 <span class="hljs-number">1</span>，所以数组转换为 [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]，
+最后选出 <span class="hljs-number">1</span> 和 <span class="hljs-number">1</span>，得到 <span class="hljs-number">0</span>，最终数组转换为 [<span class="hljs-number">1</span>]，这就是最后剩下那块石头的重量。</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= stones.length &lt;= 30</code></li>
+<li><code>1 &lt;= stones[i] &lt;= 1000</code></li>
+</ul>
+<pre><code class="hljs plain">大顶堆</code></pre>
+
+
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="703-数据流中的第-K-大元素"><a href="#703-数据流中的第-K-大元素" class="headerlink" title="703. 数据流中的第 K 大元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/">703. 数据流中的第 K 大元素</a></h6><p>设计一个找到数据流中第 <code>k</code> 大元素的类<code>（class）</code>。注意是排序后的第 <code>k</code> 大元素，不是第 <code>k</code> 个不同的元素。</p>
+<p>请实现 <code>KthLargest</code> 类：</p>
+<ul>
+<li><code>KthLargest(int k, int[] nums)</code> 使用整数 k 和整数流 <code>nums </code>初始化对象。</li>
+<li><code>int add(int val) </code>将 val 插入数据流 <code>nums </code>后，返回当前数据流中第 <code>k</code> 大的元素。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code class="hljs lsl">输入：
+[<span class="hljs-string">&quot;KthLargest&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>]
+[[<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>]], [<span class="hljs-number">3</span>], [<span class="hljs-number">5</span>], [<span class="hljs-number">10</span>], [<span class="hljs-number">9</span>], [<span class="hljs-number">4</span>]]
+输出：
+[null, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">8</span>]
+
+解释：
+KthLargest kthLargest = new KthLargest(<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>]);
+kthLargest.add(<span class="hljs-number">3</span>);   <span class="hljs-comment">// return 4</span>
+kthLargest.add(<span class="hljs-number">5</span>);   <span class="hljs-comment">// return 5</span>
+kthLargest.add(<span class="hljs-number">10</span>);  <span class="hljs-comment">// return 5</span>
+kthLargest.add(<span class="hljs-number">9</span>);   <span class="hljs-comment">// return 8</span>
+kthLargest.add(<span class="hljs-number">4</span>);   <span class="hljs-comment">// return 8</span></code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= k &lt;= 10^4</code></li>
+<li><code>0 &lt;= nums.length &lt;= 10^4</code></li>
+<li><code>-10^4 &lt;= nums[i] &lt;= 10^4</code></li>
+<li><code>-10^4 &lt;= val &lt;= 10^4</code></li>
+<li>最多调用 add 方法<code> 10^4</code> 次</li>
+<li>题目数据保证，在查找第 k 大元素时，数组中至少有 k 个元素</li>
+</ul>
+<pre><code class="hljs plain">小顶堆堆顶为k个数的最大的</code></pre>
+
+
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">215. 数组中的第K个最大元素</a></h6><p>在未排序的数组中找到第 <strong>k</strong> 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>] 和 k = <span class="hljs-number">2</span>
+输出: <span class="hljs-number">5</span></code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>] 和 k = <span class="hljs-number">4</span>
+输出: <span class="hljs-number">4</span></code></pre>
+
+<p><strong>说明:</strong></p>
+<p>你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</p>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h5 id="373-查找和最小的K对数字"><a href="#373-查找和最小的K对数字" class="headerlink" title="373. 查找和最小的K对数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/">373. 查找和最小的K对数字</a></h5><p>给定两个以升序排列的整形数组 nums1 和 nums2, 以及一个整数 k。</p>
+<p>定义一对值 (u,v)，其中第一个元素来自 nums1，第二个元素来自 nums2。</p>
+<p>找到和最小的 k 对数字 (u1,v1), (u2,v2) … (uk,vk)。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs angelscript">输入: nums1 = [<span class="hljs-number">1</span>,<span class="hljs-number">7</span>,<span class="hljs-number">11</span>], nums2 = [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>], k = <span class="hljs-number">3</span>
+输出: [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">6</span>]
+解释: 返回序列中的前 <span class="hljs-number">3</span> 对数：
+<span class="hljs-string">     [1,2]</span>,[<span class="hljs-number">1</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">6</span>],[<span class="hljs-number">7</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">7</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">11</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">7</span>,<span class="hljs-number">6</span>],[<span class="hljs-number">11</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">11</span>,<span class="hljs-number">6</span>]</code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs angelscript">输入: nums1 = [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], nums2 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>], k = <span class="hljs-number">2</span>
+输出: [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]
+解释: 返回序列中的前 <span class="hljs-number">2</span> 对数：
+<span class="hljs-string">     [1,1]</span>,[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]</code></pre>
+
+<p><strong>示例 3:</strong></p>
+<pre><code class="hljs angelscript">输入: nums1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], nums2 = [<span class="hljs-number">3</span>], k = <span class="hljs-number">3</span> 
+输出: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+解释: 也可能序列中所有的数对都被返回:[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]</code></pre>
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h5 id="进阶应用"><a href="#进阶应用" class="headerlink" title="进阶应用"></a>进阶应用</h5><h6 id="692-前K个高频单词"><a href="#692-前K个高频单词" class="headerlink" title="692. 前K个高频单词"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/top-k-frequent-words/">692. 前K个高频单词</a></h6><p>给一非空的单词列表，返回前 <em>k</em> 个出现次数最多的单词。</p>
+<p>返回的答案应该按单词出现频率由高到低排序。如果不同的单词有相同出现频率，按字母顺序排序。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code class="hljs prolog">输入: [<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-string">&quot;love&quot;</span>, <span class="hljs-string">&quot;leetcode&quot;</span>, <span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-string">&quot;love&quot;</span>, <span class="hljs-string">&quot;coding&quot;</span>], k = <span class="hljs-number">2</span>
+输出: [<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-string">&quot;love&quot;</span>]
+解析: <span class="hljs-string">&quot;i&quot;</span> 和 <span class="hljs-string">&quot;love&quot;</span> 为出现次数最多的两个单词，均为<span class="hljs-number">2</span>次。
+    注意，按字母顺序 <span class="hljs-string">&quot;i&quot;</span> 在 <span class="hljs-string">&quot;love&quot;</span> 之前。</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre><code class="hljs smalltalk">输入: [<span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;day&quot;</span>, <span class="hljs-comment">&quot;is&quot;</span>, <span class="hljs-comment">&quot;sunny&quot;</span>, <span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;sunny&quot;</span>, <span class="hljs-comment">&quot;is&quot;</span>, <span class="hljs-comment">&quot;is&quot;</span>], k = <span class="hljs-number">4</span>
+输出: [<span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;is&quot;</span>, <span class="hljs-comment">&quot;sunny&quot;</span>, <span class="hljs-comment">&quot;day&quot;</span>]
+解析: <span class="hljs-comment">&quot;the&quot;</span>, <span class="hljs-comment">&quot;is&quot;</span>, <span class="hljs-comment">&quot;sunny&quot;</span> 和 <span class="hljs-comment">&quot;day&quot;</span> 是出现次数最多的四个单词，
+    出现次数依次为 <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span> 和 <span class="hljs-number">1</span> 次。</code></pre>
+
+<p><strong>注意：</strong></p>
+<ol>
+<li>假定 <em>k</em> 总为有效值， 1 ≤ <em>k</em> ≤ 集合元素数。</li>
+<li>输入的单词均由小写字母组成。</li>
+</ol>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="剑指-Offer-41-数据流中的中位数"><a href="#剑指-Offer-41-数据流中的中位数" class="headerlink" title="剑指 Offer 41. 数据流中的中位数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/">剑指 Offer 41. 数据流中的中位数</a></h6><p>如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。</p>
+<p>例如，</p>
+<p>[2,3,4] 的中位数是 3</p>
+<p>[2,3] 的中位数是 (2 + 3) / 2 = 2.5</p>
+<p>设计一个支持以下两种操作的数据结构：</p>
+<ul>
+<li>void addNum(int num) - 从数据流中添加一个整数到数据结构中。</li>
+<li>double findMedian() - 返回目前所有元素的中位数。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<pre><code class="hljs prolog">输入：
+[<span class="hljs-string">&quot;MedianFinder&quot;</span>,<span class="hljs-string">&quot;addNum&quot;</span>,<span class="hljs-string">&quot;addNum&quot;</span>,<span class="hljs-string">&quot;findMedian&quot;</span>,<span class="hljs-string">&quot;addNum&quot;</span>,<span class="hljs-string">&quot;findMedian&quot;</span>]
+[[],[<span class="hljs-number">1</span>],[<span class="hljs-number">2</span>],[],[<span class="hljs-number">3</span>],[]]
+输出：[null,null,null,<span class="hljs-number">1.50000</span>,null,<span class="hljs-number">2.00000</span>]</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre><code class="hljs prolog">输入：
+[<span class="hljs-string">&quot;MedianFinder&quot;</span>,<span class="hljs-string">&quot;addNum&quot;</span>,<span class="hljs-string">&quot;findMedian&quot;</span>,<span class="hljs-string">&quot;addNum&quot;</span>,<span class="hljs-string">&quot;findMedian&quot;</span>]
+[[],[<span class="hljs-number">2</span>],[],[<span class="hljs-number">3</span>],[]]
+输出：[null,null,<span class="hljs-number">2.00000</span>,null,<span class="hljs-number">2.50000</span>]</code></pre>
+
+<h6 id="295-数据流的中位数"><a href="#295-数据流的中位数" class="headerlink" title="295. 数据流的中位数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-median-from-data-stream/">295. 数据流的中位数</a></h6><p>中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。</p>
+<p>例如，</p>
+<p>[2,3,4] 的中位数是 3</p>
+<p>[2,3] 的中位数是 (2 + 3) / 2 = 2.5</p>
+<p>设计一个支持以下两种操作的数据结构：</p>
+<ul>
+<li>void addNum(int num) - 从数据流中添加一个整数到数据结构中。</li>
+<li>double findMedian() - 返回目前所有元素的中位数。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">findMedian</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-number">1.5</span>
+<span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span> 
+<span class="hljs-function"><span class="hljs-title">findMedian</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-number">2</span></code></pre>
+
+<p>进阶:</p>
+<ul>
+<li>如果数据流中所有整数都在 0 到 100 范围内，你将如何优化你的算法？</li>
+<li>如果数据流中 99% 的整数都在 0 到 100 范围内，你将如何优化你的算法？</li>
+</ul>
+<pre><code class="hljs plain">两个堆</code></pre>
+
+
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="355-设计推特"><a href="#355-设计推特" class="headerlink" title="355. 设计推特"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-twitter/">355. 设计推特</a></h6><p>设计一个简化版的推特(Twitter)，可以让用户实现发送推文，关注/取消关注其他用户，能够看见关注人（包括自己）的最近十条推文。你的设计需要支持以下的几个功能</p>
+<ul>
+<li><code>postTweet(userId, tweetId)</code>: 创建一条新的推文</li>
+<li><code>getNewsFeed(userId)</code>: 检索最近的十条推文。每个推文都必须是由此用户关注的人或者是用户自己发出的。推文必须按照时间顺序由最近的开始排序。</li>
+<li><code>follow(followerId, followeeId)</code>: 关注一个用户</li>
+<li><code>unfollow(followerId, followeeId)</code>: 取消关注一个用户</li>
+</ul>
+<p><strong>示例:</strong></p>
+<pre><code class="hljs angelscript">Twitter twitter = new Twitter();
+
+<span class="hljs-comment">// 用户1发送了一条新推文 (用户id = 1, 推文id = 5).</span>
+twitter.postTweet(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>);
+
+<span class="hljs-comment">// 用户1的获取推文应当返回一个列表，其中包含一个id为5的推文.</span>
+twitter.getNewsFeed(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">// 用户1关注了用户2.</span>
+twitter.follow(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+
+<span class="hljs-comment">// 用户2发送了一个新推文 (推文id = 6).</span>
+twitter.postTweet(<span class="hljs-number">2</span>, <span class="hljs-number">6</span>);
+
+<span class="hljs-comment">// 用户1的获取推文应当返回一个列表，其中包含两个推文，id分别为 -&gt; [6, 5].</span>
+<span class="hljs-comment">// 推文id6应当在推文id5之前，因为它是在5之后发送的.</span>
+twitter.getNewsFeed(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">// 用户1取消关注了用户2.</span>
+twitter.unfollow(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+
+<span class="hljs-comment">// 用户1的获取推文应当返回一个列表，其中包含一个id为5的推文.</span>
+<span class="hljs-comment">// 因为用户1已经不再关注用户2.</span>
+twitter.getNewsFeed(<span class="hljs-number">1</span>);</code></pre>
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="面试题-17-20-连续中值"><a href="#面试题-17-20-连续中值" class="headerlink" title="面试题 17.20. 连续中值"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/continuous-median-lcci/">面试题 17.20. 连续中值</a></h6><p>随机产生数字并传递给一个方法。你能否完成这个方法，在每次产生新值时，寻找当前所有值的中间值（中位数）并保存。</p>
+<p>中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。</p>
+<p>例如，</p>
+<p>[2,3,4] 的中位数是 3</p>
+<p>[2,3] 的中位数是 (2 + 3) / 2 = 2.5</p>
+<p>设计一个支持以下两种操作的数据结构：</p>
+<ul>
+<li>void addNum(int num) - 从数据流中添加一个整数到数据结构中。</li>
+<li>double findMedian() - 返回目前所有元素的中位数。</li>
+</ul>
+<p><strong>示例：</strong></p>
+ <pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">findMedian</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-number">1.5</span>
+<span class="hljs-function"><span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span> 
+<span class="hljs-function"><span class="hljs-title">findMedian</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-number">2</span></code></pre>
+
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="1801-积压订单中的订单总数"><a href="#1801-积压订单中的订单总数" class="headerlink" title="1801. 积压订单中的订单总数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/">1801. 积压订单中的订单总数</a></h6><p>给你一个二维整数数组 <code>orders</code> ，其中每个 <code>orders[i] = [pricei, amounti, orderTypei] </code>表示有 <code>amounti </code>笔类型为 <code>orderTypei </code>、价格为<code> pricei</code> 的订单。</p>
+<p>订单类型 <code>orderTypei</code> 可以分为两种：</p>
+<ul>
+<li><code>0</code> 表示这是一批采购订单 <code>buy</code></li>
+<li><code>1</code> 表示这是一批销售订单 <code>sell</code></li>
+</ul>
+<p>注意，orders[i] 表示一批共计 amounti 笔的独立订单，这些订单的价格和类型相同。对于所有有效的 i ，由 orders[i] 表示的所有订单提交时间均早于 orders[i+1] 表示的所有订单。</p>
+<p>存在由未执行订单组成的 <strong>积压订单</strong> 。积压订单最初是空的。提交订单时，会发生以下情况：</p>
+<ul>
+<li>如果该订单是一笔采购订单 buy ，则可以查看积压订单中价格 最低 的销售订单 sell 。如果该销售订单 sell 的价格 低于或等于 当前采购订单 buy 的价格，则匹配并执行这两笔订单，并将销售订单 sell 从积压订单中删除。否则，采购订单 buy 将会添加到积压订单中。</li>
+<li>反之亦然，如果该订单是一笔销售订单 sell ，则可以查看积压订单中价格 最高 的采购订单 buy 。如果该采购订单 buy 的价格 高于或等于 当前销售订单 sell 的价格，则匹配并执行这两笔订单，并将采购订单 buy 从积压订单中删除。否则，销售订单 sell 将会添加到积压订单中。</li>
+</ul>
+<p>输入所有订单后，返回积压订单中的 <strong>订单总数</strong> 。由于数字可能很大，所以需要返回对 <code>109 + 7</code> 取余的结果。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/03/21/ex1.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">输入：orders = [[<span class="hljs-number">10</span>,<span class="hljs-number">5</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">15</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">25</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">30</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0</span>]]
+输出：<span class="hljs-number">6</span>
+解释：输入订单后会发生下述情况：
+- 提交 <span class="hljs-number">5</span> 笔采购订单，价格为 <span class="hljs-number">10</span> 。没有销售订单，所以这 <span class="hljs-number">5</span> 笔订单添加到积压订单中。
+- 提交 <span class="hljs-number">2</span> 笔销售订单，价格为 <span class="hljs-number">15</span> 。没有采购订单的价格大于或等于 <span class="hljs-number">15</span> ，所以这 <span class="hljs-number">2</span> 笔订单添加到积压订单中。
+- 提交 <span class="hljs-number">1</span> 笔销售订单，价格为 <span class="hljs-number">25</span> 。没有采购订单的价格大于或等于 <span class="hljs-number">25</span> ，所以这 <span class="hljs-number">1</span> 笔订单添加到积压订单中。
+- 提交 <span class="hljs-number">4</span> 笔采购订单，价格为 <span class="hljs-number">30</span> 。前 <span class="hljs-number">2</span> 笔采购订单与价格最低（价格为 <span class="hljs-number">15</span>）的 <span class="hljs-number">2</span> 笔销售订单匹配，从积压订单中删除这 <span class="hljs-number">2</span> 笔销售订单。第 <span class="hljs-number">3</span> 笔采购订单与价格最低的 <span class="hljs-number">1</span> 笔销售订单匹配，销售订单价格为 <span class="hljs-number">25</span> ，从积压订单中删除这 <span class="hljs-number">1</span> 笔销售订单。积压订单中不存在更多销售订单，所以第 <span class="hljs-number">4</span> 笔采购订单需要添加到积压订单中。
+最终，积压订单中有 <span class="hljs-number">5</span> 笔价格为 <span class="hljs-number">10</span> 的采购订单，和 <span class="hljs-number">1</span> 笔价格为 <span class="hljs-number">30</span> 的采购订单。所以积压订单中的订单总数为 <span class="hljs-number">6</span> 。</code></pre>
+
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/03/21/ex2.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs angelscript">输入：orders = [[<span class="hljs-number">7</span>,<span class="hljs-number">1000000000</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">15</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">5</span>,<span class="hljs-number">999999995</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">5</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]]
+输出：<span class="hljs-number">999999984</span>
+解释：输入订单后会发生下述情况：
+- 提交 <span class="hljs-number">109</span> 笔销售订单，价格为 <span class="hljs-number">7</span> 。没有采购订单，所以这 <span class="hljs-number">109</span> 笔订单添加到积压订单中。
+- 提交 <span class="hljs-number">3</span> 笔采购订单，价格为 <span class="hljs-number">15</span> 。这些采购订单与价格最低（价格为 <span class="hljs-number">7</span> ）的 <span class="hljs-number">3</span> 笔销售订单匹配，从积压订单中删除这 <span class="hljs-number">3</span> 笔销售订单。
+- 提交 <span class="hljs-number">999999995</span> 笔采购订单，价格为 <span class="hljs-number">5</span> 。销售订单的最低价为 <span class="hljs-number">7</span> ，所以这 <span class="hljs-number">999999995</span> 笔订单添加到积压订单中。
+- 提交 <span class="hljs-number">1</span> 笔销售订单，价格为 <span class="hljs-number">5</span> 。这笔销售订单与价格最高（价格为 <span class="hljs-number">5</span> ）的 <span class="hljs-number">1</span> 笔采购订单匹配，从积压订单中删除这 <span class="hljs-number">1</span> 笔采购订单。
+最终，积压订单中有 (<span class="hljs-number">1000000000</span><span class="hljs-number">-3</span>) 笔价格为 <span class="hljs-number">7</span> 的销售订单，和 (<span class="hljs-number">999999995</span><span class="hljs-number">-1</span>) 笔价格为 <span class="hljs-number">5</span> 的采购订单。所以积压订单中的订单总数为 <span class="hljs-number">1999999991</span> ，等于 <span class="hljs-number">999999984</span> % (<span class="hljs-number">109</span> + <span class="hljs-number">7</span>) 。</code></pre>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= orders.length &lt;= 10^5</code></li>
+<li><code>orders[i].length == 3</code></li>
+<li><code>1 &lt;= pricei, amounti &lt;= 10^9</code></li>
+<li><code>orderTypei 为 0 或 1</code></li>
+</ul>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h5 id="智力题"><a href="#智力题" class="headerlink" title="智力题"></a>智力题</h5><h6 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ugly-number-ii/">264. 丑数 II</a></h6><p>编写一个程序，找出第 <code>n</code> 个丑数。</p>
+<p>丑数就是质因数只包含 <code>2, 3, 5</code> 的<strong>正整数</strong>。</p>
+<p><strong>示例:</strong></p>
+<pre><code class="hljs angelscript">输入: n = <span class="hljs-number">10</span>
+输出: <span class="hljs-number">12</span>
+解释: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span> 是前 <span class="hljs-number">10</span> 个丑数。</code></pre>
+
+<p><strong>说明:</strong> </p>
+<ol>
+<li><code>1</code> 是丑数。</li>
+<li><code>n</code> <strong>不超过</strong>1690。</li>
+</ol>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="313-超级丑数"><a href="#313-超级丑数" class="headerlink" title="313. 超级丑数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/super-ugly-number/">313. 超级丑数</a></h6><p>编写一段程序来查找第 <code>*n*</code> 个超级丑数。</p>
+<p>超级丑数是指其所有质因数都是长度为 <code>k</code> 的质数列表 <code>primes</code> 中的正整数。</p>
+<p><strong>示例:</strong></p>
+<pre><code class="hljs angelscript">输入: n = <span class="hljs-number">12</span>, primes = [<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">13</span>,<span class="hljs-number">19</span>]
+输出: <span class="hljs-number">32</span> 
+解释: 给定长度为 <span class="hljs-number">4</span> 的质数列表 primes = [<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">13</span>,<span class="hljs-number">19</span>]，前 <span class="hljs-number">12</span> 个超级丑数序列为：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>,<span class="hljs-number">16</span>,<span class="hljs-number">19</span>,<span class="hljs-number">26</span>,<span class="hljs-number">28</span>,<span class="hljs-number">32</span>] 。</code></pre>
+
+<p>说明:</p>
+<ul>
+<li>1 是任何给定 primes 的超级丑数。</li>
+<li> 给定 primes 中的数字以升序排列。</li>
+<li>0 &lt; k ≤ 100, 0 &lt; n ≤ 10^6, 0 &lt; primes[i] &lt; 1000 。</li>
+<li>第 n 个超级丑数确保在 32 位有符整数范围内。</li>
+</ul>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h6 id="1753-移除石子的最大得分"><a href="#1753-移除石子的最大得分" class="headerlink" title="1753. 移除石子的最大得分"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-score-from-removing-stones/">1753. 移除石子的最大得分</a></h6><p>你正在玩一个单人游戏，面前放置着大小分别为 <code>a</code>、<code>b</code> 和 <code>c</code> 的 <strong>三堆</strong> 石子。</p>
+<p>每回合你都要从两个 <strong>不同的非空堆</strong> 中取出一颗石子，并在得分上加 <code>1</code> 分。当存在 <strong>两个或更多</strong> 的空堆时，游戏停止。</p>
+<p>给你三个整数 <code>a</code> 、<code>b</code> 和 <code>c</code> ，返回可以得到的 <strong>最大分数</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code class="hljs angelscript">输入：a = <span class="hljs-number">2</span>, b = <span class="hljs-number">4</span>, c = <span class="hljs-number">6</span>
+输出：<span class="hljs-number">6</span>
+解释：石子起始状态是 (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>) ，最优的一组操作是：
+- 从第一和第三堆取，石子状态现在是 (<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
+- 从第一和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+总分：<span class="hljs-number">6</span> 分 。</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre><code class="hljs angelscript">输入：a = <span class="hljs-number">4</span>, b = <span class="hljs-number">4</span>, c = <span class="hljs-number">6</span>
+输出：<span class="hljs-number">7</span>
+解释：石子起始状态是 (<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>) ，最优的一组操作是：
+- 从第一和第二堆取，石子状态现在是 (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>)
+- 从第一和第三堆取，石子状态现在是 (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>)
+- 从第一和第三堆取，石子状态现在是 (<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)
+- 从第一和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+- 从第二和第三堆取，石子状态现在是 (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+总分：<span class="hljs-number">7</span> 分 。
+</code></pre>
+
+<p><strong>示例 3：</strong></p>
+<pre><code class="hljs angelscript">输入：a = <span class="hljs-number">1</span>, b = <span class="hljs-number">8</span>, c = <span class="hljs-number">8</span>
+输出：<span class="hljs-number">8</span>
+解释：最优的一组操作是连续从第二和第三堆取 <span class="hljs-number">8</span> 回合，直到将它们取空。
+注意，由于第二和第三堆已经空了，游戏结束，不能继续从第一堆中取石子。</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= a, b, c &lt;= 10^5</code></li>
+</ul>
+<pre><code class="hljs Java"></code></pre>
+
+<pre><code class="hljs Go"></code></pre>
+
+<pre><code class="hljs Python"></code></pre>
+
+<h4 id="并查集（Union-find）及经典问题"><a href="#并查集（Union-find）及经典问题" class="headerlink" title="并查集（Union-find）及经典问题"></a><strong>并查集（Union-find）及经典问题</strong></h4>
             </article>
             <hr>
             <div>

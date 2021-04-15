@@ -1285,7 +1285,7 @@ mysql&gt; desc mylock;
 5 rows in set (0.00 sec)</code></pre>
 
 <h5 id="两阶段锁"><a href="#两阶段锁" class="headerlink" title="两阶段锁"></a>两阶段锁</h5><p>传统的RDMS加锁原则就是2PL（Two-Phase Locking,两阶段锁）。相对而言，2PL比较容易理解：加锁阶段与解锁阶段，并且保证加锁阶段与解锁阶段不相交。</p>
-<p><img src="/2021/03/21/mysql/mysql/2pl.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/mysql/2pll.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs plain">加锁阶段：只加锁，不放锁
 解锁阶段：只放锁，不加锁</code></pre>
 

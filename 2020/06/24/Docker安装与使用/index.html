@@ -898,6 +898,14 @@ docker run -d \
 
 
 
+<pre><code class="hljs shell">docker run \
+			-p 6379:6379 \
+			--name myredis \
+			-v /weitrue/install/redis/redis.conf:/etc/redis/redis.conf  \
+			-v /weitrue/install/redis/data:/data \
+			-d redis redis-server /etc/redis/redis.conf \
+			--appendonly yes</code></pre>
+
 
             </article>
             <hr>

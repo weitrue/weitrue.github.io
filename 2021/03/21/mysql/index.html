@@ -342,7 +342,7 @@ COMMIT;</code></pre>
 <h5 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h5><p>当客户端登陆MySQL的时候，对身份认证和权限判断。</p>
 <h5 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h5><p>执行查询语句的时候，会先查询缓存(MySQL 8.0 版本后移除)。</p>
 <h5 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h5><p>假设在没有命中查询缓存的情况下，SQL请求就会来到分析器。分析器负责明确SQL要完成的功能，以及检查SQL的语法是否正确。</p>
-<h5 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h5><p>优化器会计算「IO 成本 + CPU」成本最小的那个索引来执行。优化器执行选出最优索引等步骤后，会去调用存储引擎接口，开始去执行被 MySQL 解析过和优化过的 SQL 语句。</p>
+<h5 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h5><p>优化器会计算「IO 成本 + CPU」成本最小的那个索引来执行。优化器执行选出最优索引生成执行计划后，调用存储引擎接口被优化过的SQL语句。</p>
 <h5 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h5><p>执行 SQL 的动作是在存储引擎中完成的，数据是被存放在内存或者是磁盘中的。</p>
 <h5 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h5><p>执行器从准备更新一条数据到事务的提交的流程</p>
 <ol>
@@ -1303,10 +1303,10 @@ mysql&gt; select * from mylock where id&#x3D;1 lock in share mode; -- 手动id&#
 -- session2
 
 mysql&gt; update mylock set name&#x3D;&#39;bb&#39; where id&#x3D;2;  -- 未锁定可以修改
+mysql&gt; update mylock set name&#x3D;&#39;aa&#39; where id&#x3D;1;  -- 锁定不可修改
 ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction   -- 锁定超时
 Query OK, 1 row affected (0.01 sec) 
 Rows matched: 1  Changed: 1  Warnings: 0
-mysql&gt; update mylock set name&#x3D;&#39;aa&#39; where id&#x3D;1;  -- 锁定不可修改
 -- session1
 mysql&gt; commit;  -- 提交事务&#x2F;rollback释放锁
 Query OK, 0 rows affected (0.00 sec)

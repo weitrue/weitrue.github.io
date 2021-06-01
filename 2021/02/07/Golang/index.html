@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17.2k 字
+      17.3k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      291
+      294
        分钟
     </span>
   
@@ -762,7 +762,7 @@ main.main()
 &#125;</code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/object/queue.go">https://github.com/weitrue/note/blob/master/go/object/queue.go</a></p>
-<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><h4 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h4><p>接口由使用者定义</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><h4 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h4><h5 id="Duck-Typing"><a href="#Duck-Typing" class="headerlink" title="Duck Typing"></a>Duck Typing</h5><p>接口由使用者定义</p>
 <p>​    Python的在运行时才能知道被调用的对象是否实现某个方法</p>
 <p>​    Java中编译前，调用的对象就必须实现接口所有方法</p>
 <p>接口变量自带指针（参数传递也是值传递），因此几乎不需要使用接口指针    </p>
@@ -815,6 +815,48 @@ main.main()
 <span class="hljs-comment">// 输出</span>
 这是一个鸭子！
 这是一只假鸭子</code></pre>
+
+<h5 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h5><pre><code class="hljs go"><span class="hljs-keyword">type</span> MemberRights <span class="hljs-keyword">interface</span> &#123;
+ Information () <span class="hljs-keyword">string</span>
+&#125;
+
+<span class="hljs-keyword">type</span> BronzeMember <span class="hljs-keyword">struct</span> &#123;
+ Discount <span class="hljs-keyword">uint8</span>
+&#125;
+
+<span class="hljs-keyword">type</span> SilverMember <span class="hljs-keyword">struct</span> &#123;
+ Discount <span class="hljs-keyword">uint8</span>
+&#125;
+
+<span class="hljs-keyword">type</span> GoldMember <span class="hljs-keyword">struct</span> &#123;
+ Discount <span class="hljs-keyword">uint8</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(b *BronzeMember)</span> <span class="hljs-title">Information</span> <span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;
+ <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;Discount:%d&quot;</span>, b.Discount)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *SilverMember)</span> <span class="hljs-title">Information</span> <span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;
+ <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;Discount:%d&quot;</span>, s.Discount)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(g *GoldMember)</span> <span class="hljs-title">Information</span> <span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;
+ <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;Discount:%d&quot;</span>, g.Discount)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Price</span> <span class="hljs-params">(m MemberRights)</span></span> &#123;
+ fmt.Println(m.Information())
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span> <span class="hljs-params">()</span></span> &#123;
+ b := &amp;BronzeMember&#123;Discount: <span class="hljs-number">9</span>&#125;
+ Price(b)
+ s := &amp;SilverMember&#123;<span class="hljs-number">8</span>&#125;
+ Price(s)
+ g := <span class="hljs-built_in">new</span>(GoldMember)
+ g.Discount = <span class="hljs-number">7</span>
+ Price(g)
+&#125;</code></pre>
 
 <h4 id="任何类型"><a href="#任何类型" class="headerlink" title="任何类型"></a>任何类型</h4><p><code>interface&#123;&#125;</code></p>
 <pre><code class="hljs go"><span class="hljs-keyword">type</span> Queue []<span class="hljs-keyword">interface</span>&#123;&#125;

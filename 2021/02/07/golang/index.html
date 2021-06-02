@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17.3k 字
+      18.1k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      294
+      306
        分钟
     </span>
   
@@ -2569,7 +2569,100 @@ safe Increase
 <h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/spf13/viper">https://github.com/spf13/viper</a></li>
 </ul>
-<h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><pre><code class="hljs golang"><span class="hljs-comment">// Signals</span>
+<h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="unsafe"><a href="#unsafe" class="headerlink" title="unsafe"></a>unsafe</h5><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span>  &#123;
+
+	<span class="hljs-comment">// 任何类型的指针值都可以转换为Pointer // unsafe.Pointer(&amp;a1)</span>
+	<span class="hljs-comment">// Pointer可以转换为任何类型的指针值 // (*float32)(unsafe.Pointer(numPointer))</span>
+	<span class="hljs-comment">// uintptr可以转换为 Pointer // unsafe.Pointer(uintptr(nPointer) + + unsafe.Sizeof(&amp;a) * 3)</span>
+	<span class="hljs-comment">// Pointer可以转换为 uintptr // uintptr(unsafe.Pointer(numPointer))</span>
+	<span class="hljs-comment">// uintptr 是一个整数类型，它足够大，可以存储. 只有将Pointer转换成uintptr才能进行指针的相关操作</span>
+
+	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">int32</span> = <span class="hljs-number">10</span>
+	tt := unsafe.Sizeof(a)
+	fmt.Println(tt)  <span class="hljs-comment">// 4</span>
+
+	<span class="hljs-keyword">var</span> ab <span class="hljs-keyword">int64</span> = <span class="hljs-number">10</span>
+	fmt.Println(unsafe.Sizeof(ab))  <span class="hljs-comment">// 8</span>
+
+	<span class="hljs-keyword">var</span> abc <span class="hljs-keyword">int</span> = <span class="hljs-number">10</span>
+	fmt.Println(unsafe.Sizeof(abc))  <span class="hljs-comment">// 8</span>
+
+	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test&quot;</span>
+	fmt.Println(unsafe.Sizeof(b))   <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span>
+
+	<span class="hljs-keyword">var</span> bc <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test-test-test-test-test-test-test-test-test-test-test-test-test-test&quot;</span>
+	fmt.Println(unsafe.Sizeof(bc))  <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span>
+
+	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;
+		B <span class="hljs-keyword">bool</span>
+		C <span class="hljs-keyword">uint64</span>
+	&#125;
+	c := aa&#123;&#125;
+	fmt.Println(unsafe.Sizeof(c))  <span class="hljs-comment">// 16 涉及到内存对齐的问题</span>
+	<span class="hljs-comment">// 返回结构体中某个字段的偏移量, 这个字段必须是structValue.field形式. 也就是返回结构体变量的开始位置到那个字段的开始位置之间字节数.</span>
+	fmt.Println(unsafe.Offsetof(c.B), unsafe.Offsetof(c.C)) <span class="hljs-comment">// 0 8</span>
+
+	fmt.Println(unsafe.Sizeof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span>
+
+	<span class="hljs-keyword">type</span> bb <span class="hljs-keyword">struct</span> &#123;
+		B *<span class="hljs-keyword">bool</span>
+	&#125;
+	c1 := bb&#123;&#125;
+	fmt.Println(unsafe.Sizeof(c1)) <span class="hljs-comment">// 指针占8个字节(64位机器)</span>
+
+	<span class="hljs-comment">// 内存对齐</span>
+	<span class="hljs-comment">// 就是为了加快内存的存取速度, 用空间换时间的做法</span>
+	fmt.Printf(<span class="hljs-string">&quot;bool: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span>
+	fmt.Printf(<span class="hljs-string">&quot;int32: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int32</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 4</span>
+	fmt.Printf(<span class="hljs-string">&quot;int8: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int8</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span>
+	fmt.Printf(<span class="hljs-string">&quot;int64: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 8</span>
+	fmt.Printf(<span class="hljs-string">&quot;byte: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">byte</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span>
+	fmt.Printf(<span class="hljs-string">&quot;string: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">string</span>(<span class="hljs-string">&quot;true&quot;</span>)))     <span class="hljs-comment">// 8</span>
+	fmt.Printf(<span class="hljs-string">&quot;map: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;&#125;))   <span class="hljs-comment">// 8</span>
+
+	<span class="hljs-comment">// 对齐规则</span>
+	<span class="hljs-comment">// 1.结构体的成员变量，第一个成员变量的偏移量为 0。往后的每个成员变量的对齐值必须为编译器默认对齐长度（#pragma pack(n)）或当前成员变量类型的长度（unsafe.Sizeof），取最小值作为当前类型的对齐值。其偏移量必须为对齐值的整数倍</span>
+	<span class="hljs-comment">// 2.结构体本身，对齐值必须为编译器默认对齐长度（#pragma pack(n)）或结构体的所有成员变量类型中的最大长度，取最大数的最小整数倍作为对齐值</span>
+	<span class="hljs-comment">// 3.结合以上两点，可得知若编译器默认对齐长度（#pragma pack(n)）超过结构体内成员变量的类型最大长度时，默认对齐长度是没有任何意义的</span>
+	<span class="hljs-keyword">type</span> Part1 <span class="hljs-keyword">struct</span> &#123;
+		a <span class="hljs-keyword">bool</span>
+		b <span class="hljs-keyword">int32</span>
+		c <span class="hljs-keyword">int8</span>
+		d <span class="hljs-keyword">int64</span>
+		e <span class="hljs-keyword">byte</span>
+	&#125;
+	part := Part1&#123;&#125;
+	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(part), unsafe.Alignof(part))   <span class="hljs-comment">// 32 8</span>
+
+	<span class="hljs-keyword">type</span> Part2 <span class="hljs-keyword">struct</span> &#123;
+		a <span class="hljs-keyword">bool</span>
+		e <span class="hljs-keyword">byte</span>
+		c <span class="hljs-keyword">int8</span>
+		b <span class="hljs-keyword">int32</span>
+		d <span class="hljs-keyword">int64</span>
+	&#125;
+	par2 := Part2&#123;&#125;
+	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(par2), unsafe.Alignof(par2))   <span class="hljs-comment">// 16 8</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestApply</span><span class="hljs-params">(t *testing.T)</span></span> &#123;
+	<span class="hljs-comment">// Float64的bits</span>
+	<span class="hljs-keyword">var</span> f <span class="hljs-keyword">float64</span> = <span class="hljs-number">0.1</span>
+	fmt.Println(*(*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(&amp;f)))  <span class="hljs-comment">// 4591870180066957722</span>
+
+	<span class="hljs-comment">// 计算偏移量</span>
+	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;
+		B <span class="hljs-keyword">bool</span>
+		C <span class="hljs-keyword">uint64</span>
+	&#125;
+	c := aa&#123;&#125;
+	fmt.Println(c)  <span class="hljs-comment">// &#123;false 0&#125;</span>
+	aac := (*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(<span class="hljs-keyword">uintptr</span>(unsafe.Pointer(&amp;c)) + unsafe.Offsetof(c.C)))
+	*aac = <span class="hljs-number">10</span>
+	fmt.Println(c)  <span class="hljs-comment">// &#123;false 10&#125;</span>
+&#125;</code></pre>
+
+<h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><pre><code class="hljs golang"><span class="hljs-comment">// Signals</span>
 <span class="hljs-keyword">const</span> (
 	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)
 	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)

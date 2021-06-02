@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.2k 字
+      4.6k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      48
+      53
        分钟
     </span>
   
@@ -216,7 +216,9 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/images/git/git.jpg" srcset="/img/loading.gif"><a id="more"></a> </p>
+              <blockquote>
+<p>a <a target="_blank" rel="noopener" href="http://git-scm.com/about/free-and-open-source">free and open source</a> distributed version control system designed to handle everything from small to very large projects with speed and efficiency.<a id="more"></a> </p>
+</blockquote>
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a><code>git config</code></h4><pre><code class="hljs shell">git config --list                               # 查看git所有配置
 git config --global --unset user.name           # 删除用户
 git config --global --edit                      # 编辑配置文件
@@ -442,6 +444,37 @@ git checkout -b release remotes/origin/release  # 将远程release分支拉取�
 <p>假设我们实际上并不需要合并原有分支。当我们执行 git reflog 命令时，我们可以看到这个 repo 的状态在合并前位于 HEAD@{1}。那我们就执行一次 git reset，将 HEAD 重新指向在 HEAD@{1} 的位置。</p>
 <p><img src="/images/git/image15.gif" srcset="/img/loading.gif"></p>
 <p>我们可以看到最新的动作已被推送给 reflog。</p>
+<h3 id="Octotree-Chrome-github-浏览插件"><a href="#Octotree-Chrome-github-浏览插件" class="headerlink" title="Octotree: Chrome github 浏览插件"></a>Octotree: Chrome github 浏览插件</h3><p> 可以把 github 项目的目录树结构展示出来 </p>
+<p><img src="/images/git/octotree_1.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/images/git/octotree_2.jpg" srcset="/img/loading.gif"></p>
+<h4 id="GitHub搜索"><a href="#GitHub搜索" class="headerlink" title="GitHub搜索"></a>GitHub搜索</h4><p> 假如，正在做一个python项目，正好要用到一个爬虫处理的框架，关键词就是 <strong>Spider</strong> ，那就可以先试试搜索项目名称里面包含 <strong>Spider</strong> 的项目： </p>
+<h5 id="in-name-Spider"><a href="#in-name-Spider" class="headerlink" title="in:name Spider"></a>in:name Spider</h5><p><img src="/images/git/git_hub_1.jpg" srcset="/img/loading.gif"></p>
+<h5 id="in-name-Spider-stars-gt-3000"><a href="#in-name-Spider-stars-gt-3000" class="headerlink" title="in:name Spider stars:&gt;3000"></a>in:name Spider stars:&gt;3000</h5><p>如果 需要约束搜索结果的star数大于3000+ </p>
+<p><img src="/images/git/github_2.jpg" srcset="/img/loading.gif"></p>
+<h5 id="in-name-Spider-stars-gt-3000-forks-gt-1000"><a href="#in-name-Spider-stars-gt-3000-forks-gt-1000" class="headerlink" title="in:name Spider stars:&gt;3000 forks:&gt;1000"></a>in:name Spider stars:&gt;3000 forks:&gt;1000</h5><p>如果需要更小范围, 可以约束fork数 </p>
+<p><img src="/images/git/github_3.jpg" srcset="/img/loading.gif"></p>
+<h5 id="in-name-Spider-stars-gt-3000-forks-gt-1000-language-python"><a href="#in-name-Spider-stars-gt-3000-forks-gt-1000-language-python" class="headerlink" title="in:name Spider stars:&gt;3000 forks:&gt;1000 language:python"></a>in:name Spider stars:&gt;3000 forks:&gt;1000 language:python</h5><p>当然，也可以约束语言</p>
+<p><img src="/images/git/github_4.jpg" srcset="/img/loading.gif"></p>
+<h5 id="in-readme-Spider-stars-gt-3000-forks-gt-1000-language-python"><a href="#in-readme-Spider-stars-gt-3000-forks-gt-1000-language-python" class="headerlink" title="in:readme Spider stars:&gt;3000 forks:&gt;1000 language:python"></a>in:readme Spider stars:&gt;3000 forks:&gt;1000 language:python</h5><p> 如果不确定关键词是否会命中项目名称，那可以通过 <strong>readme</strong> 来搜索 。此时，就需要重新调整 star和fork数 了。</p>
+<p><img src="/images/git/github_5.jpg" srcset="/img/loading.gif"></p>
+<h5 id="in-description-Spider-stars-gt-3000-forks-gt-1000-language-python"><a href="#in-description-Spider-stars-gt-3000-forks-gt-1000-language-python" class="headerlink" title="in:description Spider stars:&gt;3000 forks:&gt;1000 language:python"></a>in:description Spider stars:&gt;3000 forks:&gt;1000 language:python</h5><p>如果，我们想要找的项目，想不到一个英文关键词去描述，怎么办？</p>
+<p>这种情况下，我们直接用一种简单粗暴的方式，按照 <strong>description</strong> 的方式来搜索：</p>
+<p><img src="/images/git/github_6.jpg" srcset="/img/loading.gif"></p>
+<h5 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h5><p>根据开源项目的主要组成部分：</p>
+<p>​    ◆ name: 项目名</p>
+<p>​    ◆ description: 项目的简要描述</p>
+<p>​    ◆ 项目的源码</p>
+<p>​    ◆ README.md: 项目的详细情况的介绍</p>
+<pre><code class="hljs markdown">|      筛选条件       |            备注            |
+| ------------------ | ------------------------- |
+| in:name xxx        | 按照项目名搜索              ｜
+| in:readme xxx      | 按照README搜索             ｜
+| in:description xxx | 按照description搜索        ｜
+| stars:&gt;xxx         | stars数大于xxx             ｜
+| forks:&gt;xxx         | forks数大于xxx             ｜
+| language:xxx       | 编程语言是xxx              ｜
+| pushed:&gt;YYYY-MM-DD | 最后更新时间大于YYYY-MM-DD  ｜</code></pre>
+
 
             </article>
             <hr>
@@ -472,7 +505,7 @@ git checkout -b release remotes/origin/release  # 将远程release分支拉取�
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/15/mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83/">
+                      <a href="/2020/06/15/hadoop-env/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">【Mac】搭建hadoop集群环境（三台）</span>
                         <span class="visible-mobile">上一篇</span>
@@ -482,8 +515,8 @@ git checkout -b release remotes/origin/release  # 将远程release分支拉取�
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/14/Windows%E4%B8%8B%E7%9A%84git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
-                        <span class="hidden-mobile">【ALL】Git使用</span>
+                      <a href="/2020/06/14/golang-concurrency/">
+                        <span class="hidden-mobile">【Go】并发之道</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -466,7 +466,7 @@ main.main()
         ~/Projects/golang/src/offer/note/ab_test_func.<span class="hljs-keyword">go</span>:<span class="hljs-number">28</span> +<span class="hljs-number">0x20</span>
 </code></pre>
 
-<p><img src="/images/Golang/slice.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/slice.png" srcset="/img/loading.gif"></p>
 <ul>
 <li><p>向slice添加元素，如果超越cap，系统会自动分配更大的底层数组</p>
 </li>
@@ -766,7 +766,7 @@ main.main()
 <p>​    Python的在运行时才能知道被调用的对象是否实现某个方法</p>
 <p>​    Java中编译前，调用的对象就必须实现接口所有方法</p>
 <p>接口变量自带指针（参数传递也是值传递），因此几乎不需要使用接口指针    </p>
-<p><img src="/images/Golang/interface.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/interface.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs go"><span class="hljs-comment">// offer/note/interfaces/mock/duck.go</span>
 <span class="hljs-keyword">package</span> mock
 
@@ -1104,7 +1104,7 @@ Calling function main.main.func1 with params (<span class="hljs-number">3</span>
 &#125;</code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/functions/func.go">https://github.com/weitrue/note/blob/master/go/functions/func.go</a></p>
-<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p><img src="/images/Golang/func.png" srcset="/img/loading.gif"></p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p><img src="/images/golang/func.png" srcset="/img/loading.gif"></p>
 <p>其中，<code>func(i int)</code>中<code>i</code>为局部变量，<code>sum</code>为自由变量</p>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">adder</span><span class="hljs-params">()</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;
 	sum := <span class="hljs-number">0</span>
@@ -1220,7 +1220,7 @@ Calling function main.main.func1 with params (<span class="hljs-number">3</span>
     &#125;
 &#125;</code></pre>
 
-<h4 id="闭包应用"><a href="#闭包应用" class="headerlink" title="闭包应用"></a>闭包应用</h4><h6 id="为函数实现接口"><a href="#为函数实现接口" class="headerlink" title="为函数实现接口"></a>为函数实现接口</h6><h6 id="实现函数遍历二叉树"><a href="#实现函数遍历二叉树" class="headerlink" title="实现函数遍历二叉树"></a>实现函数遍历二叉树</h6><h3 id="defer-recover在简单web服务应用"><a href="#defer-recover在简单web服务应用" class="headerlink" title="defer/recover在简单web服务应用"></a>defer/recover在简单web服务应用</h3><p>代码结构<img src="/images/Golang/web.jpg" srcset="/img/loading.gif"></p>
+<h4 id="闭包应用"><a href="#闭包应用" class="headerlink" title="闭包应用"></a>闭包应用</h4><h6 id="为函数实现接口"><a href="#为函数实现接口" class="headerlink" title="为函数实现接口"></a>为函数实现接口</h6><h6 id="实现函数遍历二叉树"><a href="#实现函数遍历二叉树" class="headerlink" title="实现函数遍历二叉树"></a>实现函数遍历二叉树</h6><h3 id="defer-recover在简单web服务应用"><a href="#defer-recover在简单web服务应用" class="headerlink" title="defer/recover在简单web服务应用"></a>defer/recover在简单web服务应用</h3><p>代码结构<img src="/images/golang/web.jpg" srcset="/img/loading.gif"></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/tree/master/go/web/">https://github.com/weitrue/note/tree/master/go/web/</a></p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><em>表格驱动</em>测试</p>
 <pre><code class="hljs golang"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestMaxNoRepeatedZhn</span><span class="hljs-params">(t *testing.T)</span></span> &#123;
@@ -1653,10 +1653,10 @@ Error: Failure <span class="hljs-keyword">while</span> executing; `tar xof /User
 <span class="hljs-string">Rust-dependent formulae on Apple Silicon - upstream issue tracker https://github.com/Homebrew/homebrew-core/issues/68301</span></code></pre>
 
 <h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p><code>godoc -http :6060</code>,生成网页文档</p>
-<p><img src="/images/Golang/doc.jpg" srcset="/img/loading.gif"></p>
-<p><img src="/images/Golang/doc1.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/doc.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/doc1.jpg" srcset="/img/loading.gif"></p>
 <p><code>go doc 方法名（包括包名）</code>,查看方法注释</p>
-<p><img src="/images/Golang/doc2.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/doc2.jpg" srcset="/img/loading.gif"></p>
 <p><code>xxx_test.go</code>生成示例</p>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExampleQueue_Pop</span><span class="hljs-params">()</span></span> &#123;
 	q := Queue&#123;&#125;
@@ -1674,8 +1674,8 @@ Error: Failure <span class="hljs-keyword">while</span> executing; `tar xof /User
 	<span class="hljs-comment">//123</span>
 &#125;</code></pre>
 
-<p><img src="/images/Golang/doc_output.jpg" srcset="/img/loading.gif"></p>
-<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h3><p><img src="/images/Golang/goroutine.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/golang/doc_output.jpg" srcset="/img/loading.gif"></p>
+<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h3><p><img src="/images/golang/goroutine.png" srcset="/img/loading.gif"></p>
 <h4 id="协程-Coroutine"><a href="#协程-Coroutine" class="headerlink" title="协程 Coroutine"></a>协程 <code>Coroutine</code></h4><ul>
 <li><p><em>轻量级</em>线程</p>
 </li>
@@ -1719,7 +1719,7 @@ Error: Failure <span class="hljs-keyword">while</span> executing; `tar xof /User
 	time.Sleep(time.Minute)
 &#125;</code></pre>
 
-<h4 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h4><p><img src="/images/Golang/channel.png" srcset="/img/loading.gif"></p>
+<h4 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h4><p><img src="/images/golang/channel.png" srcset="/img/loading.gif"></p>
  <pre><code class="hljs golang"><span class="hljs-keyword">import</span> (
 	<span class="hljs-string">&quot;fmt&quot;</span>
 	<span class="hljs-string">&quot;time&quot;</span>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我们相信，未来可期！">
+  <meta name="author" content="嗯，我们是对的">
+  <meta name="keywords" content="">
+  <title>【Go】测试之道 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/images/img/banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-02 10:04">
+      2021年6月2日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      81
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <blockquote>
+<a id="more"></a>
+</blockquote>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><em>表格驱动</em>测试</p>
+<pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestMaxNoRepeatedZhn</span><span class="hljs-params">(t *testing.T)</span></span> &#123;
+	tests := []<span class="hljs-keyword">struct</span>&#123;
+		s <span class="hljs-keyword">string</span>
+		ans <span class="hljs-keyword">int</span>
+	&#125;&#123;
+		&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>&#125;,
+		&#123;<span class="hljs-string">&quot;yes, 我爱gogogo&quot;</span>, <span class="hljs-number">9</span>&#125;,
+		&#123;<span class="hljs-string">&quot;abcadcb&quot;</span>, <span class="hljs-number">4</span>&#125;,
+		&#123;<span class="hljs-string">&quot;黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花&quot;</span>, <span class="hljs-number">8</span>&#125;,
+	&#125;
+
+	<span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests &#123;
+		act := MaxNoRepeatedZhn(tt.s)
+		<span class="hljs-keyword">if</span> act != tt.ans &#123;
+			t.Errorf(<span class="hljs-string">&quot;get %d for input %s , but expect %d&quot;</span>, act, tt.s, tt.ans)
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-comment">// 输出</span>
+=== RUN   TestMaxNoRepeatedZhn
+--- PASS: TestMaxNoRepeatedZhn (<span class="hljs-number">0.00</span>s)
+PASS</code></pre>
+
+<h4 id="覆盖测试"><a href="#覆盖测试" class="headerlink" title="覆盖测试"></a>覆盖测试</h4><p><code>go tool cover</code></p>
+<pre><code class="hljs shell">Usage of &#x27;go tool cover&#x27;:
+Given a coverage profile produced by &#x27;go test&#x27;:
+        go test -coverprofile=c.out
+
+Open a web browser displaying annotated source code:
+        go tool cover -html=c.out    # 常用
+
+Write out an HTML file instead of launching a web browser:
+        go tool cover -html=c.out -o coverage.html
+
+Display coverage percentages to stdout for each function:
+        go tool cover -func=c.out
+
+Finally, to generate modified source code with coverage annotations
+(what go test -cover does):
+        go tool cover -mode=set -var=CoverageVariableName program.go
+
+Flags:
+  -V    print version and exit
+  -func string
+        output coverage profile information for each function
+  -html string
+        generate HTML representation of coverage profile
+  -mode string
+        coverage mode: set, count, atomic
+  -o string
+        file for output; default: stdout
+  -var string
+        name of coverage variable to generate (default &quot;GoCover&quot;)
+
+  Only one of -html, -func, or -mode may be set.</code></pre>
+
+<h4 id="Benchmark"><a href="#Benchmark" class="headerlink" title="Benchmark"></a><code>Benchmark</code></h4><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BenchmarkMaxNoRepeatedZhn</span><span class="hljs-params">(b *testing.B)</span></span> &#123;
+	s := <span class="hljs-string">&quot;黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花&quot;</span>
+	ans := <span class="hljs-number">8</span>
+
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; b.N; i++ &#123;
+		act := MaxNoRepeatedZhn(s)
+		<span class="hljs-keyword">if</span> act != ans &#123;
+			b.Errorf(<span class="hljs-string">&quot;get %d for input %s , but expect %d&quot;</span>, act, s, ans)
+		&#125;
+	&#125;
+&#125;
+
+
+<span class="hljs-comment">// 输出</span>
+goos: darwin
+goarch: amd64
+pkg: offer/note/collections
+BenchmarkMaxNoRepeatedZhn
+BenchmarkMaxNoRepeatedZhn<span class="hljs-number">-8</span>   	 <span class="hljs-number">1097594</span>	      <span class="hljs-number">1024</span> ns/op
+PASS</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/collections/strings_test.go">https://github.com/weitrue/note/collections/strings_test.go</a></p>
+<h4 id="pprof性能测试"><a href="#pprof性能测试" class="headerlink" title="pprof性能测试"></a>pprof性能测试</h4><pre><code class="hljs shell">xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note/collections master ±✚ go test -bench . -cpuprofile cpu.out
+goos: darwin
+goarch: amd64
+pkg: offer/note/collections
+BenchmarkMaxNoRepeatedZhn-8      1286594               934 ns/op
+PASS
+ok      offer/note/collections  2.656s
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note/collections master ±✚ go tool pprof cpu.out               
+Type: cpu
+Time: Mar 2, 2021 at 6:03pm (CST)
+Duration: 2.34s, Total samples = 2.05s (87.57%)
+Entering interactive mode (type &quot;help&quot; for commands, &quot;o&quot; for options)
+(pprof) web
+failed to execute dot. Is Graphviz installed? Error: exec: &quot;dot&quot;: executable file not found in $PATH
+(pprof)</code></pre>
+
+<p>☞<code>failed to execute dot. Is Graphviz installed? Error: exec: &quot;dot&quot;: executable file not found in $PATH</code>是因为电脑未安装生成.svg文件的工具<code>Graphviz</code></p>
+<h5 id="安装Graphviz"><a href="#安装Graphviz" class="headerlink" title="安装Graphviz"></a>安装<code>Graphviz</code></h5><pre><code class="hljs shell">brew install graphviz
+xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/github.com  brew install graphviz
+Error:
+  homebrew-core is a shallow clone.
+  homebrew-cask is a shallow clone.
+To `brew update`, first run:
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+  git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+These commands may take a few minutes to run due to the large size of the repositories.
+This restriction has been made on GitHub&#x27;s request because updating shallow
+clones is an extremely expensive operation due to the tree layout and traffic of
+Homebrew/homebrew-core and Homebrew/homebrew-cask. We don&#x27;t do this for you
+automatically to avoid repeatedly performing an expensive unshallow operation in
+CI systems (which should instead be fixed to not use shallow clones). Sorry for
+the inconvenience!
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libpng-1.6.37.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/freetype-2.10.4.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fontconfig-2.13.1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jpeg-9d.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">########################################                                 58.1%</span></span>
+curl: (56) LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Error: Failed to download resource &quot;libtiff&quot;
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://download.osgeo.org/libtiff/tiff-4.1.0.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/webp-1.1.0.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gd-2.3.0.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libffi-3.3.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pcre-8.44.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#########                                                                14.5%</span></span>
+curl: (56) LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Error: Failed to download resource &quot;glib&quot;
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://raw.githubusercontent.com/Homebrew/formula-patches/6164294a75541c278f3863b111791376caa3ad26/glib/hardcoded-paths.diff
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://download.gnome.org/sources/glib/2.66/glib-2.66.2.tar.xz
+==&gt; Downloading from https://mirrors.ustc.edu.cn/gnome/sources/glib/2.66/glib-2.66.2.tar.xz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jasper-2.0.22.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/ad3715537b3001b9a8924896e5c4e7eb90b21bb37e7171d964de2008edb13910?response-content-disposition=attachment%3Bfilename%3D%22jasper-2.0.22.big_sur.bo
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/netpbm-10.86.17.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/3540b31b88e9d8fc7288de5dac7b96be6f1c6652c604cfd167113bdf07738ca7?response-content-disposition=attachment%3Bfilename%3D%22netpbm-10.86.17.big_sur.
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gts-0.7.6_2.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/lzo-2.10.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pixman-0.40.0.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/cairo-1.16.0_3.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; Downloading from https://d29vzk4ow07wi7.cloudfront.net/1819bb48f7487d522a69c564dca6fe5dff4da658269f067e47edccddfaab9440?response-content-disposition=attachment%3Bfilename%3D%22gdk-pixbuf-2.42.0.big_su
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fribidi-1.0.10.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphite2-1.3.14.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/icu4c-67.1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/harfbuzz-2.7.2.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pango-1.48.0.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################                                                     29.6%</span></span>
+curl: (18) transfer closed with 28187304 bytes remaining to read
+Error: Failed to download resource &quot;librsvg&quot;
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://download.gnome.org/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+==&gt; Downloading from https://mirrors.ustc.edu.cn/gnome/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtool-2.4.6_2.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphviz-2.44.1.big_sur.bottle.1.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#####################################                                    52.9%</span></span>
+curl: (18) transfer closed with 6363689 bytes remaining to read
+Error: Failed to download resource &quot;graphviz&quot;
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphviz-2.44.1.big_sur.bottle.1.tar.gz
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/autoconf-2.69.big_sur.bottle.4.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/automake-1.16.3.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/c393e3a39326eab27929f0f2ce40cb425e78bd8812166e6d835a08a8bf0c5f56--pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libpng-1.6.37.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/3bd2e2a75fbfc893d9acc20eeafc5274e260ed2ca39483ccbb1450a734bc6775--libpng-1.6.37.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/freetype-2.10.4.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1399fc577f7998623378e7bb01f8a716a43eff701304059936d592a76d5a4d31--freetype-2.10.4.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fontconfig-2.13.1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/3790f4e94c8e7c868307933e3445a1244aadd794adaa6ed5f743533334489f93--fontconfig-2.13.1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jpeg-9d.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/7ed5b41c2937740eca747a8077502454971fbbe02cfb5cfbd9b9e7379345d0cd--jpeg-9d.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtiff-4.1.0_1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/webp-1.1.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1ae441623b4c63d896b5566300b24c06d772ff9f2676d7c9bd692ff6b8e22edb--webp-1.1.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gd-2.3.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/d71eed744db212a24cc7f607842253aacf0e1d25cd7891c884ec7ffc969162ac--gd-2.3.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libffi-3.3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/49892306006d42a1f69ae4b36ff44b37c8e7170f6cf73a20e97f10bf9fa10e72--libffi-3.3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pcre-8.44.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9998b74590fa558f4c346e9770a62495d4aca8e992d0e883435e3574303ee241--pcre-8.44.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/glib-2.66.2_1.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/jasper-2.0.22.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/86ba13e63264cbcafb0dbec9e35960e2662f9e4bde0306bd52984bf487e6581a--jasper-2.0.22.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/netpbm-10.86.17.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9f8fa63491038e9bb811b03f09660342641c7f8132169bdb3800631d8d2b189e--netpbm-10.86.17.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gts-0.7.6_2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/eab94b3870ce0c63232e9a992963c8a32ea53a7efa8a09e639066b40ae0a132b--gts-0.7.6_2.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/lzo-2.10.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/0020e09d8a2c473efa8db2af4b402358f5184578c801c7a7650de6c8bedca06a--lzo-2.10.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pixman-0.40.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/ddf94c89d763f2c63c00ce2090ff16d5abd832ca0e1e9beb2245da3cc159ce41--pixman-0.40.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/cairo-1.16.0_3.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/8ad096f68fcc70615ff77f14b50eafbed94e4a261c7860dcda41ba25c7d12f52--cairo-1.16.0_3.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/fb191d15b537de812241fe664f4149209c4d58ce3fbdd5e98a292fe495420f39--gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/fribidi-1.0.10.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/9013c8a0aeb1d2fee9a999ef14adfb2416fef4e8399d87a65d753d44a586427b--fribidi-1.0.10.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/a7f9a1bcb83a7d322e495d163f15b4b8f4d0c05649eeacfcef2681a23b3eb8dd--gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/graphite2-1.3.14.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/5ce053636ab73845d956142cfd518a21701d3ec972e73367d204b81619b8b845--graphite2-1.3.14.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/icu4c-67.1.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/ddca8d436054c0f9c8c333d2e8dd957ccd3902680baf619e4baed434c9806998--icu4c-67.1.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/harfbuzz-2.7.2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/1aead0f1ab97b4307a9c487a3191213ff63fd200d5eb9be947a11e8ca78df24a--harfbuzz-2.7.2.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/pango-1.48.0.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/eded163bf136aa7a73e07f22c8b16f3a406bbd849b865246a95ee89ecd60aa4e--pango-1.48.0.big_sur.bottle.tar.gz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">##################################################                       71.3%</span></span>
+curl: (18) transfer closed with 11492026 bytes remaining to read
+Error: Failed to download resource &quot;librsvg&quot;
+Download failed: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/librsvg-2.50.2.big_sur.bottle.tar.gz
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://download.gnome.org/sources/librsvg/2.50/librsvg-2.50.2.tar.xz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/0388827e738392e3705cbb8800e43f279723caf5126ba50c7cd4e1ca5e2af872--librsvg-2.50.2.tar.xz
+==&gt; Downloading https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/bottles/libtool-2.4.6_2.big_sur.bottle.tar.gz
+Already downloaded: /Users/wangpeng/Library/Caches/Homebrew/downloads/59a8e4e9bff6153b4cb25fda4de99648330e04fefdd7e9c98f92fa4d049a9f30--libtool-2.4.6_2.big_sur.bottle.tar.gz
+==&gt; Downloading https://www2.graphviz.org/Packages/stable/portable_source/graphviz-2.44.1.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">###################                                                      28.5%</span></span>
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; Installing dependencies for graphviz: autoconf, automake, pkg-config, libpng, freetype, fontconfig, jpeg, libtiff, webp, gd, libffi, pcre, glib, jasper, netpbm, gts, lzo, pixman, cairo, gdk-pixbuf, fribidi, gobject-introspection, graphite2, icu4c, harfbuzz, pango, librsvg and libtool
+==&gt; Installing graphviz dependency: autoconf
+==&gt; Pouring autoconf-2.69.big_sur.bottle.4.tar.gz
+🍺  /usr/local/Cellar/autoconf/2.69: 68 files, 3.0MB
+==&gt; Installing graphviz dependency: automake
+==&gt; Pouring automake-1.16.3.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/automake/1.16.3: 131 files, 3.4MB
+==&gt; Installing graphviz dependency: pkg-config
+==&gt; Pouring pkg-config-0.29.2_3.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/pkg-config/0.29.2_3: 11 files, 656.6KB
+==&gt; Installing graphviz dependency: libpng
+==&gt; Pouring libpng-1.6.37.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/libpng/1.6.37: 27 files, 1.3MB
+==&gt; Installing graphviz dependency: freetype
+==&gt; Pouring freetype-2.10.4.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/freetype/2.10.4: 64 files, 2.3MB
+==&gt; Installing graphviz dependency: fontconfig
+==&gt; Pouring fontconfig-2.13.1.big_sur.bottle.tar.gz
+==&gt; Regenerating font cache, this may take a while
+==&gt; /usr/local/Cellar/fontconfig/2.13.1/bin/fc-cache -frv
+🍺  /usr/local/Cellar/fontconfig/2.13.1: 531 files, 3.6MB
+==&gt; Installing graphviz dependency: jpeg
+==&gt; Pouring jpeg-9d.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/jpeg/9d: 21 files, 953.8KB
+==&gt; Installing graphviz dependency: libtiff
+==&gt; Pouring libtiff-4.1.0_1.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/libtiff/4.1.0_1: 247 files, 4.2MB
+==&gt; Installing graphviz dependency: webp
+==&gt; Pouring webp-1.1.0.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/webp/1.1.0: 39 files, 2.4MB
+==&gt; Installing graphviz dependency: gd
+==&gt; Pouring gd-2.3.0.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/gd/2.3.0: 34 files, 1.4MB
+==&gt; Installing graphviz dependency: libffi
+==&gt; Pouring libffi-3.3.big_sur.bottle.tar.gz
+==&gt; Caveats
+libffi is keg-only, which means it was not symlinked into /usr/local,
+because macOS already provides this software and installing another version in
+parallel can cause all kinds of trouble.
+
+For compilers to find libffi you may need to set:
+  export LDFLAGS=&quot;-L/usr/local/opt/libffi/lib&quot;
+  export CPPFLAGS=&quot;-I/usr/local/opt/libffi/include&quot;
+
+For pkg-config to find libffi you may need to set:
+  export PKG_CONFIG_PATH=&quot;/usr/local/opt/libffi/lib/pkgconfig&quot;
+
+==&gt; Summary
+🍺  /usr/local/Cellar/libffi/3.3: 17 files, 540.2KB
+==&gt; Installing graphviz dependency: pcre
+==&gt; Pouring pcre-8.44.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/pcre/8.44: 204 files, 5.8MB
+==&gt; Installing graphviz dependency: glib
+==&gt; Pouring glib-2.66.2_1.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/glib/2.66.2_1: 436 files, 15.5MB
+==&gt; Installing graphviz dependency: jasper
+==&gt; Pouring jasper-2.0.22.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/jasper/2.0.22: 42 files, 1.5MB
+==&gt; Installing graphviz dependency: netpbm
+==&gt; Pouring netpbm-10.86.17.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/netpbm/10.86.17: 410 files, 17.7MB
+==&gt; Installing graphviz dependency: gts
+==&gt; Pouring gts-0.7.6_2.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/gts/0.7.6_2: 27 files, 1.4MB
+==&gt; Installing graphviz dependency: lzo
+==&gt; Pouring lzo-2.10.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/lzo/2.10: 31 files, 570.7KB
+==&gt; Installing graphviz dependency: pixman
+==&gt; Pouring pixman-0.40.0.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/pixman/0.40.0: 14 files, 1.3MB
+==&gt; Installing graphviz dependency: cairo
+==&gt; Pouring cairo-1.16.0_3.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/cairo/1.16.0_3: 119 files, 5.9MB
+==&gt; Installing graphviz dependency: gdk-pixbuf
+==&gt; Pouring gdk-pixbuf-2.42.0.big_sur.bottle.tar.gz
+==&gt; /usr/local/Cellar/gdk-pixbuf/2.42.0/bin/gdk-pixbuf-query-loaders --update-cache
+🍺  /usr/local/Cellar/gdk-pixbuf/2.42.0: 149 files, 3.8MB
+==&gt; Installing graphviz dependency: fribidi
+==&gt; Pouring fribidi-1.0.10.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/fribidi/1.0.10: 67 files, 669.0KB
+==&gt; Installing graphviz dependency: gobject-introspection
+==&gt; Pouring gobject-introspection-1.66.1_1.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/gobject-introspection/1.66.1_1: 191 files, 12.7MB
+==&gt; Installing graphviz dependency: graphite2
+==&gt; Pouring graphite2-1.3.14.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/graphite2/1.3.14: 18 files, 291.7KB
+==&gt; Installing graphviz dependency: icu4c
+==&gt; Pouring icu4c-67.1.big_sur.bottle.tar.gz
+==&gt; Caveats
+icu4c is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides libicucore.dylib (but nothing else).
+
+If you need to have icu4c first in your PATH run:
+  echo &#x27;export PATH=&quot;/usr/local/opt/icu4c/bin:$PATH&quot;&#x27; &gt;&gt; ~/.zshrc
+  echo &#x27;export PATH=&quot;/usr/local/opt/icu4c/sbin:$PATH&quot;&#x27; &gt;&gt; ~/.zshrc
+
+For compilers to find icu4c you may need to set:
+  export LDFLAGS=&quot;-L/usr/local/opt/icu4c/lib&quot;
+  export CPPFLAGS=&quot;-I/usr/local/opt/icu4c/include&quot;
+
+For pkg-config to find icu4c you may need to set:
+  export PKG_CONFIG_PATH=&quot;/usr/local/opt/icu4c/lib/pkgconfig&quot;
+
+==&gt; Summary
+🍺  /usr/local/Cellar/icu4c/67.1: 258 files, 71.8MB
+==&gt; Installing graphviz dependency: harfbuzz
+==&gt; Pouring harfbuzz-2.7.2.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/harfbuzz/2.7.2: 68 files, 6.4MB
+==&gt; Installing graphviz dependency: pango
+==&gt; Pouring pango-1.48.0.big_sur.bottle.tar.gz
+🍺  /usr/local/Cellar/pango/1.48.0: 64 files, 3MB
+==&gt; Installing graphviz dependency: librsvg
+==&gt; Pouring librsvg-2.50.2.big_sur.bottle.tar.gz
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz&#x27;
+Error: Failure while executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-102pbtw` exited with 1. Here&#x27;s the output:
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/3eb605900a29b02eb026199f14474efc43e313ee2b9de389706c795eebdc24f5--librsvg-2.50.2.big_sur.bottle.tar.gz&#x27;
+
+Warning: Bottle installation failed: building from source.
+==&gt; Installing dependencies for librsvg: libssh2 and rust
+==&gt; Installing librsvg dependency: libssh2
+==&gt; Pouring libssh2-1.9.0_1.big_sur.bottle.tar.gz
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz&#x27;
+Error: Failure while executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-qzrgbb` exited with 1. Here&#x27;s the output:
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/45db0c196aa97bf6c0a9c6e7787ad2cd0d14d563c03d0f4e0d52392a0f3a1c81--libssh2-1.9.0_1.big_sur.bottle.tar.gz&#x27;
+
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://libssh2.org/download/libssh2-1.9.0.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; ./configure --prefix=/usr/local/Cellar/libssh2/1.9.0_1 --disable-examples-build --with-openssl --with-libz --with-libssl-prefix=/usr/local/opt/openssl@1.1
+==&gt; make install
+🍺  /usr/local/Cellar/libssh2/1.9.0_1: 184 files, 969.9KB, built in 33 seconds
+==&gt; Installing librsvg dependency: rust
+==&gt; Pouring rust-1.47.0.big_sur.bottle.tar.gz
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz&#x27;
+Error: Failure while executing; `tar xof /Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz -C /var/folders/zs/2875szcx7jn6lbmqd0jfbprr0000gn/T/d20210302-22554-16tqegl` exited with 1. Here&#x27;s the output:
+tar: Error opening archive: Failed to open &#x27;/Users/wangpeng/Library/Caches/Homebrew/downloads/f1482d118ddb120ff152e8f8aa88afa9bebc5674cc42aebca96249cffbdd8bdb--rust-1.47.0.big_sur.bottle.tar.gz&#x27;
+
+Warning: Bottle installation failed: building from source.
+==&gt; Downloading https://static.rust-lang.org/dist/rustc-1.47.0-src.tar.gz
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">####################################################################### 100.0%</span></span>
+==&gt; ./configure --prefix=/usr/local/Cellar/rust/1.47.0 --release-channel=stable
+==&gt; make
+Last 15 lines from /Users/wangpeng/Library/Logs/Homebrew/rust/02.make:
+error: failed to get `cc` as a dependency of package `bootstrap v0.0.0 (/private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/src/bootstrap)`
+
+Caused by:
+  failed to fetch `https://github.com/rust-lang/crates.io-index`
+
+Caused by:
+  network failure seems to have happened
+  if a proxy or similar is necessary `net.git-fetch-with-cli` may help here
+  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli
+
+Caused by:
+  http parser error: stream ended at an unexpected time; class=Http (34)
+failed to run: /private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/build/x86_64-apple-darwin/stage0/bin/cargo build --manifest-path /private/tmp/rust-20210302-29879-dftrmf/rustc-1.47.0-src/src/bootstrap/Cargo.toml
+Build completed unsuccessfully in 0:33:17
+make: *** [all] Error 1
+
+READ THIS: https://docs.brew.sh/Troubleshooting
+
+These open issues may also help:
+rust 1.50.0 https://github.com/Homebrew/homebrew-core/pull/70922
+Rust-dependent formulae on Apple Silicon - upstream issue tracker https://github.com/Homebrew/homebrew-core/issues/68301</code></pre>
+
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/02/golang-doc/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【Go】文档之道</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/30/bloom-filter/">
+                        <span class="hidden-mobile">【】bloom-filter</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
+        <span>Trable</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">杭ICP证123456号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>杭公网安备12345678号</span>
+      </a>
+     
+  </div>
+
+
+    
+     <div>
+  	<span id="timeDate">载入天数...</span>
+ 	<span id="times">载入时分秒...</span>
+ 	<script>
+          var now = new Date();
+          function createtime(){
+           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+           now.setTime(now.getTime()+250);
+           days = (now - grt ) / 1000 / 60 / 60 / 24;
+           dnum = Math.floor(days);
+           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+           hnum = Math.floor(hours);
+           if(String(hnum).length ==1 ){
+                hnum = "0" + hnum;
+           }
+           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+           mnum = Math.floor(minutes);
+           if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+           }
+           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+           snum = Math.round(seconds);
+           if(String(snum).length ==1 ){
+                snum = "0" + snum;
+           }
+           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+          }
+          setInterval("createtime()",250);
+       </script>
+    </div>
+ </div>
+ </footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【Go】测试之道&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

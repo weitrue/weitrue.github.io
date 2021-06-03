@@ -229,16 +229,16 @@
 <pre><code class="hljs shell">yum update
 yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/1.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/1.png" srcset="/img/loading.gif"></p>
 <p>（2）将docker源添加到系统中</p>
 <pre><code class="hljs shell">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/1-1.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/1-1.png" srcset="/img/loading.gif"></p>
 <p>（3）Docker安装</p>
 <pre><code class="hljs shell">yum install docker-ce docker-ce-cli containerd.io</code></pre>
 
 <p>此时，可能会报错：</p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/2.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/2.png" srcset="/img/loading.gif"></p>
 <p>该图中原因是</p>
 <p>containerd.io此软件包已经安装，并且是较低版本，与要安装的docker-ce所依赖containerd.io的版本不符，因此最好安装较新版本的containerd.io</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 下面网址可以看到一系列版本的containerd.io</span>
@@ -246,16 +246,16 @@ https://download.docker.com/linux/centos/7/x86_64/edge/Packages/
 <span class="hljs-meta">#</span><span class="bash">wget 命令下载指定版本的containerd.io（如果未安装wget，需要yum -y install wget）</span>
 wget https://download.docker.com/linux/centos/7/x86_64/edge/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/3.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/3.png" srcset="/img/loading.gif"></p>
 <p> 重新执行安装命令</p>
 <pre><code class="hljs shell">yum -y install docker-ce</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/4.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/4.png" srcset="/img/loading.gif"></p>
 <p>（4）Docker启动设置-—启动docker和添加开启自启动</p>
 <pre><code class="hljs shell">systemctl enable docker
 systemctl start docker</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/5.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/5.png" srcset="/img/loading.gif"></p>
 <p>（5）查看Docker版本</p>
 <pre><code class="hljs shell">docker -v</code></pre>
 
@@ -351,7 +351,7 @@ systemctl start docker</code></pre>
 <p>下载的镜像所在位置（其中一个）</p>
 <pre><code class="hljs shell">cd var/lib/docker/containers</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/6.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/6.png" srcset="/img/loading.gif"></p>
 <p>（3）查看镜像详细信息</p>
 <pre><code class="hljs shell">docker inspect gitlab/gitlab-ce</code></pre>
 
@@ -370,7 +370,7 @@ systemctl start docker</code></pre>
 <p>127.0.0.1为服务器IP地址；</p>
 <p>–publish 10443:443 –publish 1080:80 –publish 1022:22 是指将443端口对外映射（暴露）成10443，22端口对外映射（暴露）成1022，80端口对外映射（暴露）成1080。</p>
 <p>（5）访问gitlab</p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/7.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/7.png" srcset="/img/loading.gif"></p>
 <h5 id="容器化方式（github-com上项目）"><a href="#容器化方式（github-com上项目）" class="headerlink" title="容器化方式（github.com上项目）"></a><strong>容器化方式（github.com上项目）</strong></h5><blockquote>
 <p>待更新</p>
 </blockquote>
@@ -385,7 +385,7 @@ systemctl start docker</code></pre>
 <li>-q 仅列出容器ID </li>
 <li>-s 显示容器大小 </li>
 </ul>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/8.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/8.png" srcset="/img/loading.gif"></p>
 <p>其中，</p>
 <p>CONTAINER ID：容器ID</p>
 <p>IMAGE：镜像名</p>
@@ -393,7 +393,7 @@ systemctl start docker</code></pre>
 <p>（2）stop容器</p>
 <pre><code class="hljs shell">docker stop&lt;容器ID或容器名&gt;</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/9.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/9.png" srcset="/img/loading.gif"></p>
 <p>（3）删除容器</p>
 <pre><code class="hljs shell">docker rm &lt;容器ID或容器名&gt;</code></pre>
 
@@ -403,11 +403,11 @@ systemctl start docker</code></pre>
 <p>镜像ID可以通过docker images</p>
 <pre><code class="hljs shell">docker images</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/10.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/10.png" srcset="/img/loading.gif"></p>
 <p>或docker image ls</p>
 <pre><code class="hljs shell">docker image ls</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/11.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/11.png" srcset="/img/loading.gif"></p>
 <p>（5）进入容器Console</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 进入控制台</span>
 docker exec -it [container name] [/bin/sh|bash]
@@ -420,11 +420,11 @@ exit</code></pre>
 <p>（2）找到hostconfig.json文件</p>
 <pre><code class="hljs shell">cd /var/lib/docker/containers/&lt;容器对应ID目录，例如651dcd904c5eec9617ea006f2ac3e59a9a015de237cae891fc5ef46a17bd3033&gt;/</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/12.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/12.png" srcset="/img/loading.gif"></p>
 <p>（3）修改hostconfig.json文件中”PortBindings”配置</p>
 <pre><code class="hljs shell">vim hostconfig.json</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/13.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/13.png" srcset="/img/loading.gif"></p>
 <p>（4）重启docker[非常重要]，否则修改会失效</p>
 <pre><code class="hljs shell">systemctl restart docker</code></pre>
 
@@ -434,7 +434,7 @@ exit</code></pre>
 <p>（6）查看是否修改成功</p>
 <pre><code class="hljs shell">docker ps -a</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/14.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/14.png" srcset="/img/loading.gif"></p>
 <h3 id="Docker镜像部署容器"><a href="#Docker镜像部署容器" class="headerlink" title="Docker镜像部署容器"></a><strong>Docker镜像部署容器</strong></h3><h4 id="拉取远端镜像方式"><a href="#拉取远端镜像方式" class="headerlink" title="拉取远端镜像方式"></a><strong>拉取远端镜像方式</strong></h4><h5 id="部署portainer（docker可视化管理工具）"><a href="#部署portainer（docker可视化管理工具）" class="headerlink" title="部署portainer（docker可视化管理工具）"></a><strong>部署portainer（docker可视化管理工具）</strong></h5><pre><code class="hljs shell">docker pull docker.io/portainer/portainer
 docker run --detach \
     --hostname 127.0.0.1 \
@@ -493,7 +493,7 @@ docker run --detach \
 
 <p>等待一段时间，就可以访问了，首次需要更改<code>root</code>账户的密码</p>
 <h5 id="部署gitlab-runner"><a href="#部署gitlab-runner" class="headerlink" title="部署gitlab-runner"></a><strong>部署gitlab-runner</strong></h5><h6 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a><strong>全局配置</strong></h6><p>所有项目都可以一起使用</p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/runner-all.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/runner-all.png" srcset="/img/loading.gif"></p>
 <h6 id="拉取Runner镜像并启动"><a href="#拉取Runner镜像并启动" class="headerlink" title="拉取Runner镜像并启动"></a>拉取Runner镜像并启动</h6><pre><code class="hljs shell">docker pull gitlab/gitlab-runner
 docker run -d \
 		--name gitlab-runner \
@@ -542,7 +542,7 @@ docker</code></pre>
 <pre><code class="hljs awk"><span class="hljs-keyword">exit</span></code></pre>
 
 <p>通过以上命令后，就创建成功runner啦。这时候去GitLab中创建Runner的区域刷新就能看到了。</p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/runner-gitlab.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/runner-gitlab.png" srcset="/img/loading.gif"></p>
 <h6 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h6><pre><code class="hljs shell">vim /srv/gitlab-runner/config/config.toml</code></pre>
 
 <p>找到<code>volumes</code>配置，修改结果为如下，分别是挂载了宿主机docker的sock文件和Maven的缓存，减少拉取Jar包的时间消耗，其中<code>&quot;/data/.m2/:/.m2/&quot;</code>这块为Maven的Jar包存放地址，左边为宿主机目录，右边为容器内的Jar包存储路径，这个需要根据自己使用的Maven镜像而定</p>
@@ -592,8 +592,8 @@ mv docker-compose-Linux-x86_64 docker-compose</code></pre>
 <pre><code class="hljs cmake">./<span class="hljs-keyword">install</span>.sh</code></pre>
 
 <p>启动完毕后浏览器访问<code>http://你设置的IP或者域名:你设置的端口</code>，账号默认为：admin，密码：Harbor12345，登录后就进入了主页</p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/habor-container.png" srcset="/img/loading.gif"></p>
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/habor.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/habor-container.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/habor.png" srcset="/img/loading.gif"></p>
 <h6 id="push镜像"><a href="#push镜像" class="headerlink" title="push镜像"></a>push镜像</h6><p><strong>修改下配置</strong></p>
 <p>由于docker的版本从13开始，register只能用https，这里配置的都是http的，所以要先在<code>/etc/docker/</code>目录创建<code>daemon.json</code>文件并加入如下</p>
 <pre><code class="hljs shell">&#123; &quot;insecure-registries&quot;:[&quot;xxx:5000&quot;] &#125;</code></pre>
@@ -884,11 +884,11 @@ docker run --detach \
 <h5 id="部署RabbitMQ"><a href="#部署RabbitMQ" class="headerlink" title="部署RabbitMQ"></a><strong>部署RabbitMQ</strong></h5><p>获取查询的镜像 </p>
 <pre><code class="hljs shell">docker search rabbitmq:management</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/15.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/15.png" srcset="/img/loading.gif"></p>
 <p>拉取镜像 </p>
 <pre><code class="hljs shell">docker pull rabbitmq:management</code></pre>
 
-<p><img src="/images/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/16.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/Docker/16.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 运行镜像    </span>
 docker run -d \
     -p 5672:5672 -p 15672:15672 \

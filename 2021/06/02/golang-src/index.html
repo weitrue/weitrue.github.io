@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      2.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      31
        分钟
     </span>
   
@@ -312,7 +312,8 @@
 	fmt.Println(c)  <span class="hljs-comment">// &#123;false 10&#125;</span>
 &#125;</code></pre>
 
-<h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><pre><code class="hljs go"><span class="hljs-comment">// Signals</span>
+<h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><p>每个平台的信号定义或许有些不同。下面列出了POSIX中定义的信号。 Linux 使用34-64信号用作实时系统中。</p>
+<h6 id="在POSIX-1-1990标准中定义的信号列表"><a href="#在POSIX-1-1990标准中定义的信号列表" class="headerlink" title="在POSIX.1-1990标准中定义的信号列表"></a><strong>在POSIX.1-1990标准中定义的信号列表</strong></h6><pre><code class="hljs go"><span class="hljs-comment">// Signals</span>
 <span class="hljs-keyword">const</span> (
 	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)
 	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)
@@ -349,22 +350,22 @@
 )
 <span class="hljs-comment">// Signal table</span>
 <span class="hljs-keyword">var</span> signals = [...]<span class="hljs-keyword">string</span>&#123;
-	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,
-	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,
-	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,
-	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,
-	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,
-	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,
+	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,                     <span class="hljs-comment">// 终端控制进程结束(终端连接断开)</span>
+	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,                  <span class="hljs-comment">// 用户发送INTR字符(Ctrl+C)触发</span>
+	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,                       <span class="hljs-comment">// 用户发送QUIT字符(Ctrl+/)触发</span>
+	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,        <span class="hljs-comment">// 非法指令(程序错误、试图执行数据段、栈溢出等)</span>
+	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,             <span class="hljs-comment">// Trap指令触发(如断点，在调试器中使用)</span>
+	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,                 <span class="hljs-comment">// 调用abort函数触发</span>
 	<span class="hljs-number">7</span>:  <span class="hljs-string">&quot;EMT trap&quot;</span>,
-	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,
-	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,
-	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,
-	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,
+	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,   <span class="hljs-comment">// 算术运行错误(浮点运算错误、除数为零等)</span>
+	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,                     <span class="hljs-comment">// 无条件结束程序(不能被捕获、阻塞或忽略)</span>
+	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,                  <span class="hljs-comment">// 非法地址(内存地址对齐错误)</span>
+	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,         <span class="hljs-comment">// 无效内存引用(试图访问不属于自己的内存空间、对只读内存空间进行写操作)</span>
 	<span class="hljs-number">12</span>: <span class="hljs-string">&quot;bad system call&quot;</span>,
-	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,
-	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,
-	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,
-	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,
+	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,                <span class="hljs-comment">// 消息管道损坏(FIFO/Socket通信时，管道未打开而进行写操作)</span>
+	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,                <span class="hljs-comment">// 时钟定时信号</span>
+	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,                 <span class="hljs-comment">// 结束程序(可以被捕获、阻塞或忽略)</span>
+	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,       <span class="hljs-comment">// </span>
 	<span class="hljs-number">17</span>: <span class="hljs-string">&quot;suspended (signal)&quot;</span>,
 	<span class="hljs-number">18</span>: <span class="hljs-string">&quot;suspended&quot;</span>,
 	<span class="hljs-number">19</span>: <span class="hljs-string">&quot;continued&quot;</span>,
@@ -380,6 +381,101 @@
 	<span class="hljs-number">29</span>: <span class="hljs-string">&quot;information request&quot;</span>,
 	<span class="hljs-number">30</span>: <span class="hljs-string">&quot;user defined signal 1&quot;</span>,
 	<span class="hljs-number">31</span>: <span class="hljs-string">&quot;user defined signal 2&quot;</span>,
+&#125;</code></pre>
+
+<h6 id="kill-pid-与-kill-9-pid的区别"><a href="#kill-pid-与-kill-9-pid的区别" class="headerlink" title="kill pid 与 kill -9 pid的区别"></a><strong>kill pid 与 kill -9 pid的区别</strong></h6><p>kill pid的作用是向进程号为pid的进程发送SIGTERM（这是kill默认发送的信号），该信号是一个结束进程的信号且可以被应用程序捕获。若应用程序没有捕获并响应该信号的逻辑代码，则该信号的默认动作是kill掉进程。这是终止指定进程的推荐做法。</p>
+<p><code>kill -9 pid</code> 则是向进程号为pid的进程发送 SIGKILL（该信号的编号为9），从本文上面的说明可知，SIGKILL既不能被应用程序捕获，也不能被阻塞或忽略，其动作是立即结束指定进程。通俗地说，应用程序根本无法“感知”SIGKILL信号，它在完全无准备的情况下，就被收到SIGKILL信号的操作系统给干掉了，显然，在这种“暴力”情况下，应用程序完全没有释放当前占用资源的机会。事实上，SIGKILL信号是直接发给init进程的，它收到该信号后，负责终止pid指定的进程。在某些情况下（如进程已经hang死，无法响应正常信号），就可以使用 <code>kill -9</code> 来结束进程。</p>
+<h6 id="应用程序如何优雅退出"><a href="#应用程序如何优雅退出" class="headerlink" title="应用程序如何优雅退出?"></a><strong>应用程序如何优雅退出?</strong></h6><p>Linux Server端的应用程序经常会长时间运行，在运行过程中，可能申请了很多系统资源，也可能保存了很多状态，在这些场景下，我们希望进程在退出前，可以释放资源或将当前状态dump到磁盘上或打印一些重要的日志，也就是希望进程优雅退出（exit gracefully）。</p>
+<h6 id="Go中的Signal发送和处理"><a href="#Go中的Signal发送和处理" class="headerlink" title="Go中的Signal发送和处理"></a>Go中的Signal发送和处理</h6><ul>
+<li>golang中对信号的处理主要使用os/signal包中的两个方法：</li>
+<li>notify方法用来监听收到的信号</li>
+<li>stop方法用来取消监听</li>
+</ul>
+<p>监听全部信号</p>
+<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;os&quot;</span>
+	<span class="hljs-string">&quot;os/signal&quot;</span>
+)
+
+<span class="hljs-comment">// 监听全部信号</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
+	<span class="hljs-comment">// 监听所有信号</span>
+	signal.Notify(c)
+	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
+	s := &lt;-c
+	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)
+&#125;</code></pre>
+
+<p>监听指定信号</p>
+<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;os&quot;</span>
+	<span class="hljs-string">&quot;os/signal&quot;</span>
+)
+<span class="hljs-comment">// 监听指定信号</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
+	<span class="hljs-comment">// 监听指定信号</span>
+	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGUSR1, syscall.SIGUSR2)
+	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
+	s := &lt;-c
+	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)
+&#125;</code></pre>
+
+<p>优雅退出go守护进程</p>
+<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;os&quot;</span>
+	<span class="hljs-string">&quot;os/signal&quot;</span>
+	<span class="hljs-string">&quot;syscall&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-comment">// 优雅退出go守护进程</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-comment">// 信号通知chan</span>
+	onSignal := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
+	<span class="hljs-comment">// 优雅退出</span>
+	<span class="hljs-comment">// 监听指定信号 ctrl+c 结束程序(可以被捕获、阻塞或忽略)</span>
+	signal.Notify(onSignal, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGUSR1, syscall.SIGUSR2)
+	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">select</span> &#123;
+		<span class="hljs-keyword">case</span> sig := &lt;-onSignal:
+			<span class="hljs-keyword">switch</span> sig &#123;
+			<span class="hljs-keyword">case</span> syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM:
+				fmt.Println(<span class="hljs-string">&quot;退出:&quot;</span>, sig)
+				ExitFunc()
+			<span class="hljs-keyword">case</span> syscall.SIGUSR1:
+				fmt.Println(<span class="hljs-string">&quot;usr1&quot;</span>, sig)
+			<span class="hljs-keyword">case</span> syscall.SIGUSR2:
+				fmt.Println(<span class="hljs-string">&quot;usr2&quot;</span>, sig)
+			<span class="hljs-keyword">default</span>:
+				fmt.Println(<span class="hljs-string">&quot;其他信号:&quot;</span>, sig)
+			&#125;
+		&#125;
+	&#125;()
+	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
+	sum := <span class="hljs-number">0</span>
+	<span class="hljs-keyword">for</span> &#123;
+		sum++
+		fmt.Println(<span class="hljs-string">&quot;休眠了:&quot;</span>, sum, <span class="hljs-string">&quot;秒&quot;</span>)
+		time.Sleep(<span class="hljs-number">1</span> * time.Second)
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExitFunc</span><span class="hljs-params">()</span></span> &#123;
+	fmt.Println(<span class="hljs-string">&quot;开始退出...&quot;</span>)
+	fmt.Println(<span class="hljs-string">&quot;执行清理...&quot;</span>)
+	fmt.Println(<span class="hljs-string">&quot;结束退出...&quot;</span>)
+	os.Exit(<span class="hljs-number">0</span>)
 &#125;</code></pre>
 
 <h5 id="encoding-json"><a href="#encoding-json" class="headerlink" title="encoding/json"></a>encoding/json</h5><p>实现了程序命令行参数的解析。</p>

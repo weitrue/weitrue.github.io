@@ -536,6 +536,13 @@ let mapleader=&#x27;,&#x27;
 map <span class="hljs-tag">&lt;<span class="hljs-name">F4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">leader</span>&gt;</span>ci<span class="hljs-tag">&lt;<span class="hljs-name">CR</span>&gt;</span></code></pre>
 
 <h6 id="使用插件-2"><a href="#使用插件-2" class="headerlink" title="使用插件"></a>使用插件</h6><p>在normal模式下按v并移动光标选择需要注释的行，再按F4就可以为所有选中的行添加注释</p>
+<h3 id="Vim日常"><a href="#Vim日常" class="headerlink" title="Vim日常"></a>Vim日常</h3><h5 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h5><p>简单粗暴的方法</p>
+<pre><code class="hljs shell">vim ~/.vimrc
+
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8</code></pre>
+
 
             </article>
             <hr>

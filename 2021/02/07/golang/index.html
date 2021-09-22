@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.8k 字
+      9.9k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      148
+      150
        分钟
     </span>
   
@@ -360,7 +360,20 @@ in  <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc0
 out <span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">0xc00001e0b8</span> <span class="hljs-number">0xc00001e0c0</span></code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/weitrue/note/blob/master/go/pointer.go">https://github.com/weitrue/note/blob/master/go/pointer.go</a></p>
-<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组定义</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>Go 语言的数组有两种不同的创建方式</p>
+<ul>
+<li><p>一种是显式的指定数组大小</p>
+<ul>
+<li>变量的类型在编译进行到<strong>类型检查</strong>阶段就会被提取出来，随后使用 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/cmd/compile/internal/types.NewArray"><code>cmd/compile/internal/types.NewArray</code></a>创建包含数组大小的 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/cmd/compile/internal/types.Array"><code>cmd/compile/internal/types.Array</code></a> 结构体。</li>
+</ul>
+</li>
+<li><p>一种是使用 <code>[...]T</code> 声明数组</p>
+<ul>
+<li>Go 语言编译器会在的 <a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/cmd/compile/internal/gc.typecheckcomplit"><code>cmd/compile/internal/gc.typecheckcomplit</code></a> 函数中对该数组的大小进行推导</li>
+<li><code>[...]T</code> 这种初始化方式也只是 Go 语言为我们提供的一种语法糖，当我们不想计算数组中的元素个数时可以通过这种方法减少一些工作量</li>
+</ul>
+</li>
+</ul>
 <pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">define</span><span class="hljs-params">()</span></span>  &#123;
 	<span class="hljs-keyword">var</span> arr1 [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>
 	arr2 := [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;

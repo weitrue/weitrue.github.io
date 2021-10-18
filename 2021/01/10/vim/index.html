@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.4k 字
+      3.7k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      54
        分钟
     </span>
   
@@ -462,6 +462,30 @@ nnoremap &lt;C-L&gt; &lt;C-W&gt;&lt;C-L&gt;    <span class="hljs-string">&quot; 
 <span class="hljs-string">nnoremap &lt;C-H&gt; &lt;C-W&gt;&lt;C-H&gt;    &quot;</span> 组合快捷键：- Ctrl-h 切换到左侧的分割窗口</code></pre>
 
 <p>nnoremap将一个组合快捷键映射为另一个快捷键。no部分，指的是在Vim的正常模式（Normal Mode）下，<br>而不是可视模式下重新映射，更多信息请看<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping">这里</a></p>
+<h5 id="Go开发插件—vim-go"><a href="#Go开发插件—vim-go" class="headerlink" title="Go开发插件—vim-go"></a>Go开发插件—vim-go</h5><p><a target="_blank" rel="noopener" href="https://github.com/fatih/vim-go">vim-go</a> 包含了运行、调试、重命名、增加移除 tag、运行单元测试、静态检查、格式化等非常多的功能。</p>
+<ul>
+<li>编译使用命令 <code>:GoBuild</code>, 安装使用命令 <code>:GoInstall</code> or测试使用命令 <code>:GoTest</code>. 运行单元测试命令 <code>:GoTestFunc</code>).</li>
+<li>运行当前文件 <code>:GoRun</code>.</li>
+<li>改进了语法突出显示和折叠.</li>
+<li>调试集成 <a target="_blank" rel="noopener" href="https://github.com/go-delve/delve"><code>delve</code></a> 的程序 <code>:GoDebugStart</code>.</li>
+<li>Completion and many other features support via <code>gopls</code>.</li>
+<li>formatting on save keeps the cursor position and undo history.</li>
+<li>Go to symbol/declaration with <code>:GoDef</code>.</li>
+<li>Look up documentation with <code>:GoDoc</code> or <code>:GoDocBrowser</code>.</li>
+<li>Easily import packages via <code>:GoImport</code>, remove them via <code>:GoDrop</code>.</li>
+<li>Precise type-safe renaming of identifiers with <code>:GoRename</code>.</li>
+<li>See which code is covered by tests with <code>:GoCoverage</code>.</li>
+<li>Add or remove tags on struct fields with <code>:GoAddTags</code> and <code>:GoRemoveTags</code>.</li>
+<li>Call <a target="_blank" rel="noopener" href="https://staticcheck.io/"><code>staticcheck</code></a> with <code>:GoMetaLinter</code> to invoke all possible linters (<code>golint</code>, <code>vet</code>, <code>errcheck</code>, <code>deadcode</code>, etc.) and put the result in the quickfix or location list.</li>
+<li>Lint your code with <code>:GoLint</code>, run your code through <code>:GoVet</code> to catch static errors, or make sure errors are checked with <code>:GoErrCheck</code>.</li>
+<li>Advanced source analysis tools utilizing <code>guru</code>, such as <code>:GoImplements</code>, <code>:GoCallees</code>, and <code>:GoReferrers</code>.</li>
+<li>… and many more! Please see <a target="_blank" rel="noopener" href="https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt">doc/vim-go.txt</a> for more information.</li>
+<li>Integration with <a target="_blank" rel="noopener" href="https://github.com/golang/tools/blob/master/gopls/README.md"><code>gopls</code></a>.</li>
+<li>The <code>gopls</code> instance can be shared with other Vim plugins.</li>
+<li>Vim-go’s use of <code>gopls</code> can be disabled and alternative tools can be used when desired.</li>
+<li>Integration with <a target="_blank" rel="noopener" href="https://github.com/preservim/tagbar"><code>Tagbar</code></a> via <a target="_blank" rel="noopener" href="https://github.com/jstemmer/gotags"><code>gotags</code></a>.</li>
+<li>Integration with <a target="_blank" rel="noopener" href="https://github.com/SirVer/ultisnips"><code>Ultisnips</code></a> and other snippet engines.</li>
+</ul>
 <h5 id="python代码缩进"><a href="#python代码缩进" class="headerlink" title="python代码缩进"></a>python代码缩进</h5><p>代码的正确缩进是至关重要的，我们将从以下几个方面为vim配置代码缩进功能：</p>
 <ol>
 <li>python代码的自动缩进</li>

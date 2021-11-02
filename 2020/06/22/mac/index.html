@@ -139,6 +139,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -175,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.1k 字
+      7.5k 字
     </span>
   
 
@@ -185,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      128
+      134
        分钟
     </span>
   
@@ -448,14 +460,43 @@ tldr-pages/tldr</code></pre>
 
 <h4 id="镜像源"><a href="#镜像源" class="headerlink" title="镜像源"></a>镜像源</h4><p>清华大学开源软件镜像站</p>
 <p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/">Homebrew 镜像使用帮助</a></p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 替换现有上游</span>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查看 brew.git 当前源</span>
+<span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo)</span>&quot;</span> &amp;&amp; git remote -v</span>
+origin    https://github.com/Homebrew/brew.git (fetch)
+origin    https://github.com/Homebrew/brew.git (push)
+
+<span class="hljs-meta">#</span><span class="bash"> 查看 homebrew-core.git 当前源</span>
+<span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo homebrew/core)</span>&quot;</span> &amp;&amp; git remote -v</span>
+origin    https://github.com/Homebrew/homebrew-core.git (fetch)
+origin    https://github.com/Homebrew/homebrew-core.git (push)
+
+<span class="hljs-meta">#</span><span class="bash"> 查看 homebrew-core.git 当前源</span>
+<span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo homebrew/cask)</span>&quot;</span> &amp;&amp; git remote -v</span>
+origin	  https://github.com/homebrew/homebrew-cask.git (fetch)
+origin	  https://github.com/homebrew/homebrew-cask.git (push)
+
+<span class="hljs-meta">#</span><span class="bash"> 替换现有上游</span>
 <span class="hljs-meta">#</span><span class="bash"> 以下针对 mac OS 系统上的 Homebrew</span>
+git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
 git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
 git -C &quot;$(brew --repo homebrew/cask-fonts)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-fonts.git
 git -C &quot;$(brew --repo homebrew/cask-drivers)&quot; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-drivers.git
 <span class="hljs-meta">#</span><span class="bash"> 更换后测试工作是否正常</span>
 brew update
+
+<span class="hljs-meta">#</span><span class="bash"> 替换为阿里源</span>
+<span class="hljs-meta">#</span><span class="bash"> 修改 brew.git 为阿里源</span>
+git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+<span class="hljs-meta">#</span><span class="bash"> 修改 homebrew-core.git 为阿里源</span>
+git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-cask.git
+
+<span class="hljs-meta">#</span><span class="bash"> 替换为中科大源</span>
+<span class="hljs-meta">#</span><span class="bash"> 替换各个源</span>
+git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+git -C &quot;$(brew --repo homebrew/cask)&quot; remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
 
 <span class="hljs-meta">#</span><span class="bash"> 复原</span>
 <span class="hljs-meta">#</span><span class="bash"> 以下针对 mac OS 系统上的 Homebrew</span>
@@ -472,6 +513,14 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bott
 
 <span class="hljs-meta">#</span><span class="bash"> 长期替换</span>
 echo &#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+
+<span class="hljs-meta">#</span><span class="bash"> 阿里源</span>
+echo &#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#x27; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+
+<span class="hljs-meta">#</span><span class="bash"> 中科大</span>
+echo &#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles&#x27; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile</code></pre>
 
 <h3 id="Python虚拟环境（VirtualEnv）"><a href="#Python虚拟环境（VirtualEnv）" class="headerlink" title="Python虚拟环境（VirtualEnv）"></a>Python虚拟环境（VirtualEnv）</h3><h4 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h4><h5 id="安装virtualenv环境"><a href="#安装virtualenv环境" class="headerlink" title="安装virtualenv环境"></a>安装virtualenv环境</h5><pre><code class="hljs shell">pip install virtualenv
@@ -1350,7 +1399,7 @@ ohai <span class="hljs-string">&quot;Next steps:&quot;</span>
                     
                     
                       <a href="/2020/06/17/hadoop-dev-env/">
-                        <span class="hidden-mobile">【Mac】hadoop开发环境配置</span>
+                        <span class="hidden-mobile">【Hadoop】Mac下开发环境配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

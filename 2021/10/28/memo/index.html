@@ -1,0 +1,709 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="
+ 生活工作备忘录与待办事项。">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  <meta name="description" content="生活工作备忘录与待办事项。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【备忘录】工作与学习">
+<meta property="og:url" content="https://weitrue.github.io/2021/10/28/memo/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="生活工作备忘录与待办事项。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-28T02:53:39.733Z">
+<meta property="article:modified_time" content="2021-10-28T02:53:39.733Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="备忘录">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>【备忘录】工作与学习 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/img/banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【备忘录】工作与学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Pony W
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-28 10:53" pubdate>
+        2021年10月28日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【备忘录】工作与学习</h1>
+            
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p> 生活工作备忘录与待办事项。 <span id="more"></span></p>
+</blockquote>
+<h3 id="Google浏览器插件"><a href="#Google浏览器插件" class="headerlink" title="Google浏览器插件"></a>Google浏览器插件</h3><figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html">&#123;% label primary @Tampermonkey %&#125;<br></code></pre></div></td></tr></table></figure>
+<p>Tampermonkey（油猴）是一款针对于浏览器运行脚本的插件，一款必装的浏览器插件神器。</p>
+<p>可以去脚本市场 <a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts">greasyfork</a> 去下载自己想要的插件，非常实用。</p>
+<p>这里推荐两个常用的脚本：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/14178-ac-baidu-重定向优化百度搜狗谷歌搜索-去广告-favicon-双列">AC-baidu 重定向优化百度搜狗谷歌搜索；</a></li>
+<li>破解 VIP 会员视频集合。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?utm_source=chrome-ntp-icon">下载地址</a></p>
+<p>!!! note “Wappalyzer”</p>
+<p>可以发现网站上使用的技术。 它检测内容管理系统，电子商务平台，Web 框架，服务器软件，分析工具等。</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg?utm_source=chrome-ntp-icon">下载地址</a></p>
+<p>!!! note “OneTab”</p>
+<p>当有太多的标签页时，单击OneTab图标，将所有标签页转换成一个列表。再次访问这些标签页时，可以单独或全部恢复它们。</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall?utm_source=chrome-ntp-icon">下载地址</a></p>
+<p>!!! note “Adblock Plus”</p>
+<p>Adblock Plus 广告拦截器可有效的拦截所有网页上的所有类型的广告。</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb?utm_source=chrome-ntp-icon">下载地址</a></p>
+<p>!!! note “Octotree”</p>
+<p>这款神器可以GitHub平台代码在最左侧显示出树状目录，非常人性化的设计，你可以点击左侧目录切换到项目中的任意一个位置中去。</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc">下载地址</a></p>
+<h3 id="Hexo插件"><a href="#Hexo插件" class="headerlink" title="Hexo插件"></a>Hexo插件</h3><p>!!! note “hexo-admonition”</p>
+<p>​    Hexo 内容辅助插件，支持将类似 <a target="_blank" rel="noopener" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html">reStructuredText</a> 的警告提示块添加到 Markdown 文档中。</p>
+<p>​    <a target="_blank" rel="noopener" href="https://github.com/lxl80/hexo-admonition">安装</a></p>
+<p>!!! note “hexo-butterfly-charts “</p>
+<p>​    将 hexo poats、类别和标签的统计数据呈现到图表中。</p>
+<p>​    <a target="_blank" rel="noopener" href="https://github.com/kuole-o/hexo-butterfly-charts">安装</a></p>
+<p>!!! note “hexo-deployer-rss3”</p>
+<p>​    Hexo 的 RSS3 部署插件。</p>
+<p>   <a target="_blank" rel="noopener" href="https://github.com/NaturalSelectionLabs/hexo-deployer-rss3">安装</a> </p>
+<p>!!! note “hexo-math”</p>
+<p>​    通过标签插件在 Hexo 帖子/页面中嵌入 KaTeX 和 MathJax。</p>
+<p>​    <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-math">安装</a></p>
+<p>!!! note “hexo-reference”</p>
+<p>​    在 Hexo 博客文章中支持 Markdown 脚注和 Wiki 样式工具提示参考的插件<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label=" [测试](https://en.wikipedia.org/wiki/Markdown)
+">[1]</span></a></sup>。</p>
+<p>​    <a target="_blank" rel="noopener" href="https://github.com/kchen0x/hexo-reference">安装</a></p>
+<p>流程图</p>
+<pre><code class=" mermaid">classDiagram
+Class01 &lt;|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --&gt; C2 : Where am i?
+Class09 --* C3
+Class09 --|&gt; Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 &lt;--&gt; C2: Cool label
+</code></pre>
+<p>数学公式</p>
+<script type="math/tex; mode=display">
+E=mc^2</script><h3 id="npm与node环境更新"><a href="#npm与node环境更新" class="headerlink" title="npm与node环境更新"></a>npm与node环境更新</h3><h4 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h4><p><code>npm install -g npm</code>更新npm失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">/usr/local/bin/npm -&gt; /usr/local/lib/node_modules/npm/bin/npm-cli.js<br>/usr/local/bin/npx -&gt; /usr/local/lib/node_modules/npm/bin/npx-cli.js<br>npm WARN notsup Unsupported engine for npm@8.2.0: wanted: &#123;&quot;node&quot;:&quot;^12.13.0 || ^14.15.0 || &gt;=16&quot;&#125; (current: &#123;&quot;node&quot;:&quot;13.9.0&quot;,&quot;npm&quot;:&quot;6.14.8&quot;&#125;)<br>npm WARN notsup Not compatible with your version of node/npm: npm@8.2.0<br><br>+ npm@8.2.0<br>added 67 packages from 17 contributors, removed 287 packages and updated 147 packages in 4.402s<br></code></pre></div></td></tr></table></figure>
+<p>发现需要依赖的node版本不对</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 输入命令 npm install -g n</span><br>npm does not support Node.js v13.9.0<br>You should probably upgrade to a newer version of node as we<br>can&#x27;t make any promises that npm will work with this version.<br>You can find the latest version at https://nodejs.org/<br></code></pre></div></td></tr></table></figure>
+<p>因此单独更新node</p>
+<h4 id="更新node"><a href="#更新node" class="headerlink" title="更新node"></a>更新node</h4><h5 id="查看当前node版本"><a href="#查看当前node版本" class="headerlink" title="查看当前node版本"></a>查看当前node版本</h5><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">node –v<br>internal/modules/cjs/loader.js:983<br>  throw err;<br>  ^<br><br>Error: Cannot find module &#x27;/Users/wangpeng/Projects/MyProject/weitrue.github.io/–v&#x27;<br>    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:980:15)<br>    at Function.Module._load (internal/modules/cjs/loader.js:862:27)<br>    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:71:12)<br>    at internal/main/run_main_module.js:17:47 &#123;<br>  code: &#x27;MODULE_NOT_FOUND&#x27;,<br>  requireStack: []<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>直接报错</p>
+<h4 id="安装n模块"><a href="#安装n模块" class="headerlink" title="安装n模块"></a>安装n模块</h4><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">npm install -g n<br></code></pre></div></td></tr></table></figure>
+<h4 id="升级到指定版本-最新版本"><a href="#升级到指定版本-最新版本" class="headerlink" title="升级到指定版本/最新版本"></a>升级到指定版本/最新版本</h4><p><code>n v@version</code></p>
+<p>可以告诉管理器，安装最新的稳定版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">n stable<br>  installing : node-v16.13.1<br>       mkdir : /usr/local/n/versions/node/16.13.1<br></code></pre></div></td></tr></table></figure>
+<p>安装稳定版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">n v16.13.1<br>  installing : node-v16.13.1<br>       mkdir : /usr/local/n/versions/node/16.13.1<br>mkdir: /usr/local/n/versions/node/16.13.1: Permission denied<br><br>  Error: sudo required (or change ownership, or define N_PREFIX)<br></code></pre></div></td></tr></table></figure>
+<p>需要授权</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">sudo n v16.13.1<br>Password:<br>  installing : node-v16.13.1<br>       mkdir : /usr/local/n/versions/node/16.13.1<br>       fetch : https://nodejs.org/dist/v16.13.1/node-v16.13.1-darwin-x64.tar.xz<br>   installed : v16.13.1 (with npm 8.1.2)<br></code></pre></div></td></tr></table></figure>
+<p>检查是否安装成功</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-keyword">node</span> <span class="hljs-title">-v</span><br>v16.<span class="hljs-number">13.1</span><br></code></pre></div></td></tr></table></figure>
+<h4 id="更新npm"><a href="#更新npm" class="headerlink" title="更新npm"></a>更新npm</h4><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">npm install -g npm<br>npm ERR! code EACCES<br>npm ERR! syscall rename<br>npm ERR! path /usr/local/lib/node_modules/npm<br>npm ERR! dest /usr/local/lib/node_modules/.npm-i9nnxROI<br>npm ERR! errno -13<br>npm ERR! Error: EACCES: permission denied, rename &#x27;/usr/local/lib/node_modules/npm&#x27; -&gt; &#x27;/usr/local/lib/node_modules/.npm-i9nnxROI&#x27;<br>npm ERR!  [Error: EACCES: permission denied, rename &#x27;/usr/local/lib/node_modules/npm&#x27; -&gt; &#x27;/usr/local/lib/node_modules/.npm-i9nnxROI&#x27;] &#123;<br>npm ERR!   errno: -13,<br>npm ERR!   code: &#x27;EACCES&#x27;,<br>npm ERR!   syscall: &#x27;rename&#x27;,<br>npm ERR!   path: &#x27;/usr/local/lib/node_modules/npm&#x27;,<br>npm ERR!   dest: &#x27;/usr/local/lib/node_modules/.npm-i9nnxROI&#x27;<br>npm ERR! &#125;<br>npm ERR!<br>npm ERR! The operation was rejected by your operating system.<br>npm ERR! It is likely you do not have the permissions to access this file as the current user<br>npm ERR!<br>npm ERR! If you believe this might be a permissions issue, please double-check the<br>npm ERR! permissions of the file and its containing directories, or try running<br>npm ERR! the command again as root/Administrator.<br><br>npm ERR! A complete log of this run can be found in:<br>npm ERR!     /Users/wangpeng/.npm/_logs/2021-12-07T02_12_59_256Z-debug.log<br></code></pre></div></td></tr></table></figure>
+<p>需要授权</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">npm install npm -g<br><br>changed 14 packages in 2s<br><br>10 packages are looking for funding<br>  run `npm fund` for details<br></code></pre></div></td></tr></table></figure>
+<h4 id="更新后带来问题"><a href="#更新后带来问题" class="headerlink" title="更新后带来问题"></a>更新后带来问题</h4><h5 id="fluid主题hero-g报错"><a href="#fluid主题hero-g报错" class="headerlink" title="fluid主题hero g报错"></a>fluid主题<code>hero g</code>报错</h5><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">exo g<br>INFO  Validating config<br>INFO  Start processing<br>INFO<br>------------------------------------------------<br>|                                              |<br>|     ________  __            _        __      |<br>|    |_   __  |[  |          (_)      |  ]     |<br>|      | |_ \_| | | __   _   __   .--.| |      |<br>|      |  _|    | |[  | | | [  |/ /&#x27;`\&#x27; |      |<br>|     _| |_     | | | \_/ |, | || \__/  |      |<br>|    |_____|   [___]&#x27;.__.&#x27;_/[___]&#x27;.__.;__]     |<br>|                                              |<br>|       Thank you for using Fluid theme !      |<br>|    Docs: https://hexo.fluid-dev.com/docs/    |<br>|                                              |<br>------------------------------------------------<br><br>FATAL &#123;<br>  err: Error: Function yaml.safeLoad is removed in js-yaml 4. Use yaml.load instead, which is now safe by default.<br>      at Object.safeLoad (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/js-yaml/index.js:10:11)<br>      at module.exports (/Users/wangpeng/Projects/MyProject/weitrue.github.io/themes/fluid/scripts/events/lib/merge-configs.js:32:24)<br>      at Hexo.&lt;anonymous&gt; (/Users/wangpeng/Projects/MyProject/weitrue.github.io/themes/fluid/scripts/events/index.js:7:33)<br>      at Hexo.emit (node:events:402:35)<br>      at Hexo._generate (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/hexo/lib/hexo/index.js:452:10)<br>      at /Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/hexo/lib/hexo/index.js:324:24<br>      at tryCatcher (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/util.js:16:23)<br>      at Promise._settlePromiseFromHandler (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:547:31)<br>      at Promise._settlePromise (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:604:18)<br>      at Promise._settlePromise0 (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:649:10)<br>      at Promise._settlePromises (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:729:18)<br>      at Promise._fulfill (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:673:18)<br>      at Promise._resolveCallback (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:466:57)<br>      at Promise._settlePromiseFromHandler (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:559:17)<br>      at Promise._settlePromise (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:604:18)<br>      at Promise._settlePromise0 (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:649:10)<br>      at Promise._settlePromises (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:729:18)<br>      at Promise._fulfill (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:673:18)<br>      at PromiseArray._resolve (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise_array.js:127:19)<br>      at PromiseArray._promiseFulfilled (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise_array.js:145:14)<br>      at Promise._settlePromise (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:609:26)<br>      at Promise._settlePromise0 (/Users/wangpeng/Projects/MyProject/weitrue.github.io/node_modules/bluebird/js/release/promise.js:649:10)<br>&#125; Something&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html<br></code></pre></div></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid/issues/446">解决办法</a></p>
+<h5 id="npm与node后引发问题-循环依赖"><a href="#npm与node后引发问题-循环依赖" class="headerlink" title="npm与node后引发问题-循环依赖"></a>npm与node后引发问题-循环依赖</h5><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> hexo s</span><br>INFO  Validating config<br>INFO  Start processing<br>INFO<br>------------------------------------------------<br>|                                              |<br>|     ________  __            _        __      |<br>|    |_   __  |[  |          (_)      |  ]     |<br>|      | |_ \_| | | __   _   __   .--.| |      |<br>|      |  _|    | |[  | | | [  |/ /&#x27;`\&#x27; |      |<br>|     _| |_     | | | \_/ |, | || \__/  |      |<br>|    |_____|   [___]&#x27;.__.&#x27;_/[___]&#x27;.__.;__]     |<br>|                                              |<br>|       Thank you for using Fluid theme !      |<br>|    Docs: https://hexo.fluid-dev.com/docs/    |<br>|                                              |<br>------------------------------------------------<br><br>INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.<br>(node:87224) Warning: Accessing non-existent property &#x27;lineno&#x27; of module exports inside circular dependency<br>(Use `node --trace-warnings ...` to show where the warning was created)<br>(node:87224) Warning: Accessing non-existent property &#x27;column&#x27; of module exports inside circular dependency<br>(node:87224) Warning: Accessing non-existent property &#x27;filename&#x27; of module exports inside circular dependency<br>(node:87224) Warning: Accessing non-existent property &#x27;lineno&#x27; of module exports inside circular dependency<br>(node:87224) Warning: Accessing non-existent property &#x27;column&#x27; of module exports inside circular dependency<br>(node:87224) Warning: Accessing non-existent property &#x27;filename&#x27; of module exports inside circular dependency<br></code></pre></div></td></tr></table></figure>
+<p>google后，发现一位博主<a target="_blank" rel="noopener" href="https://www.haoyizebo.com/posts/710984d0/">修改nib@1.1.2依赖</a>，尝试后不成功。</p>
+<p>于是，采用主流办法<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/4257">node.js降级</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"> node -v<br>v12.22.7<br></code></pre></div></td></tr></table></figure>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Markdown">测试</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/29/chain/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【区块链与元宇宙】学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/27/prometheus-blackbox/">
+                        <span class="hidden-mobile">【Prometheus】Blackbox黑盒测试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

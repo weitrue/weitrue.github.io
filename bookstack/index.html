@@ -1,0 +1,497 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我们相信，未来可期！">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  <meta name="description" content="zinxzinx是一个基于Go语言开发的TCP长连接服务器框架，其可以应用在游戏领域或其他长连接领域；我们可以学习zinx框架的设计思路，他有完整的视频教程和文档，通过这个我们可以完全理解如何设计一个轻量级并发服务器。 项目地址：https:&#x2F;&#x2F;github.com&#x2F;aceld&#x2F;zinx 文档地址：https:&#x2F;&#x2F;www.kancloud.cn&#x2F;aceld&#x2F;zinx 视频地址：https:&#x2F;&#x2F;ww">
+<meta property="og:type" content="website">
+<meta property="og:title" content="bookstack">
+<meta property="og:url" content="https://weitrue.github.io/bookstack/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="zinxzinx是一个基于Go语言开发的TCP长连接服务器框架，其可以应用在游戏领域或其他长连接领域；我们可以学习zinx框架的设计思路，他有完整的视频教程和文档，通过这个我们可以完全理解如何设计一个轻量级并发服务器。 项目地址：https:&#x2F;&#x2F;github.com&#x2F;aceld&#x2F;zinx 文档地址：https:&#x2F;&#x2F;www.kancloud.cn&#x2F;aceld&#x2F;zinx 视频地址：https:&#x2F;&#x2F;ww">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-14T06:43:00.061Z">
+<meta property="article:modified_time" content="2021-12-14T06:43:00.061Z">
+<meta property="article:author" content="Pony W">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>bookstack - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                电子书
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/img/bookstack.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="bookstack">
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h3 id="zinx"><a href="#zinx" class="headerlink" title="zinx"></a>zinx</h3><p><code>zinx</code>是一个基于<code>Go</code>语言开发的<code>TCP</code>长连接服务器框架，其可以应用在游戏领域或其他长连接领域；我们可以学习<code>zinx</code>框架的设计思路，他有完整的视频教程和文档，通过这个我们可以完全理解如何设计一个轻量级并发服务器。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/aceld/zinx">https://github.com/aceld/zinx</a></p>
+<p>文档地址：<a target="_blank" rel="noopener" href="https://www.kancloud.cn/aceld/zinx">https://www.kancloud.cn/aceld/zinx</a></p>
+<p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av71067087">https://www.bilibili.com/video/av71067087</a></p>
+<h3 id="go-zero"><a href="#go-zero" class="headerlink" title="go-zero"></a>go-zero</h3><p><code>go-zero</code>一款企业框架，我们可以从中学习到值得借鉴的的设计；它集成了<code>web</code>和<code>rpc</code>框架，是在<code>20</code>年由好未来开源的一款微服务框架，由于<code>go-zero</code>项目还是比较大的，最好带着目的性去学习，比如我想了解微服务注册与发现的原理实现、自适应负载均衡算法原理与实现。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/zeromicro/go-zero/blob/master/readme-cn.md">https://github.com/zeromicro/go-zero/blob/master/readme-cn.md</a></p>
+<h3 id="go-nsq"><a href="#go-nsq" class="headerlink" title="go-nsq"></a>go-nsq</h3><p><code>NSQ</code>是一个基于Go语言的分布式实时消息平台，可用于大规模系统中的实时消息服务，并且每天能够处理数亿级别的消息，其设计目标是为在分布式环境下运行的去中心化服务提供一个强大的基础架构。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/nsqio/go-nsq">https://github.com/nsqio/go-nsq</a></p>
+<p>学习地址：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1735996">https://cloud.tencent.com/developer/article/1735996</a></p>
+<h3 id="Tidb"><a href="#Tidb" class="headerlink" title="Tidb"></a>Tidb</h3><p><code>Tidb</code>是<code>NewSQL</code>行业中的代表性产品，由<code>PingCAP</code>公司自主设计、研发的开源分布式关系型数据库，兼容MySQL 5.7 协议和 MySQL 生态等重要特性。目前很多公司都在使用<code>Tidb</code>，解决了关系型数据库、弹性扩展以及全球分布的问题。<code>Tidb</code>采用<code>Go</code>语言开发<code>SQL</code>层，下边的分布式存储引擎使用<code>rust</code>语言，使用<code>Tidb</code>具有以下优势：</p>
+<ul>
+<li>支持弹性的扩缩容；</li>
+<li>支持 SQL，兼容大多数 MySQL 的语法，在大多数场景下可以直接替换 MySQL；</li>
+<li>默认支持高可用，自动进行数据修复和故障转移；</li>
+<li>支持 ACID 事务；</li>
+</ul>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/pingcap/tidb">https://github.com/pingcap/tidb</a></p>
+<p>文档地址：<a target="_blank" rel="noopener" href="https://docs.pingcap.com/zh/tidb/stable">https://docs.pingcap.com/zh/tidb/stable</a></p>
+<h3 id="kubernetes"><a href="#kubernetes" class="headerlink" title="kubernetes"></a>kubernetes</h3><p><code>Kubernetes</code> 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。<code>Kubernetes</code> 拥有一个庞大且快速增长的生态系统；<code>Kubernetes</code>由于是<code>Go</code>语言编写，可以从源码开始学习，配合着官方文档，仔细专研一番。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes">https://github.com/kubernetes/kubernetes</a></p>
+<p>官网文档：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/home/">https://kubernetes.io/docs/home/</a></p>
+<p>中文文档：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/">https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/</a></p>
+<h3 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h3><p><code>Prometheus</code> 是<code>Cloud Native Computing Foundation</code> 的一个项目，是一个系统和服务监控系统。它以给定的时间间隔从配置的目标收集指标，评估规则表达式，显示结果，并可以在观察到指定条件时触发警报。</p>
+<p>现在企业基本都使用<code>Prometheus</code>做监控上报。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus">https://github.com/prometheus/prometheus</a></p>
+<p>文档地址：<a target="_blank" rel="noopener" href="https://prometheus.io/blog/">https://prometheus.io/blog/</a></p>
+<h3 id="Zinc"><a href="#Zinc" class="headerlink" title="Zinc"></a>Zinc</h3><p><code>Zinc</code> 是一个全文索引的搜索引擎。它是<code>Elasticsearch</code> 的轻量级替代品，可以在不到 100 MB 的<code>RAM</code> 中运行。它使用 <code>bluge</code>作为底层索引库。</p>
+<p>而且，<code>Zinc</code> 使用 Vue 打造了一个比 <code>Elasticsearch</code> 更简单、更易于操作的界面。</p>
+<p>Zinc 主要有如下特性：</p>
+<ul>
+<li>提供全文索引功能</li>
+<li>单个二进制文件即可安装、运行，支持多平台。这得益于 Go 语言</li>
+<li>用 Vue 编写的用于查询数据的 Web UI</li>
+<li>与 Elasticsearch 兼容的数据获取 API（单记录和批量 API）</li>
+<li>开箱即用的身份验证</li>
+<li>Schema less - 无需预先定义 schema，同一索引中的不同文档可以有不同的字段</li>
+</ul>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/prabhatsharma/zinc">https://github.com/prabhatsharma/zinc</a></p>
+
+
+  
+</article>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

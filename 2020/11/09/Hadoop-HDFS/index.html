@@ -1,44 +1,102 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
-  <link rel="icon" type="image/png" href="/img/logo.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="我们相信，未来可期！">
-  <meta name="author" content="嗯，我们是对的">
+  <meta name="description" content="
+ HDFS is the primary distributed storage used by Hadoop applications. A HDFS cluster primarily consists of a NameNode that manages the file system metadata and DataNodes that store the actual data. T">
+  <meta name="author" content="Pony W">
   <meta name="keywords" content="">
+  <meta name="description" content="HDFS is the primary distributed storage used by Hadoop applications. A HDFS cluster primarily consists of a NameNode that manages the file system metadata and DataNodes that store the actual data. T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Hadoop】HDFS:分布式文件系统">
+<meta property="og:url" content="https://weitrue.github.io/2020/11/09/Hadoop-HDFS/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="HDFS is the primary distributed storage used by Hadoop applications. A HDFS cluster primarily consists of a NameNode that manages the file system metadata and DataNodes that store the actual data. T">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20190629152840146.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20190629153348534.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20190629153652036.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20190629153835100.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20200414134203318.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20200414134230170.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/block3.gif">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20200414151438737.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20200416160250256.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20200416160339310.png">
+<meta property="og:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/checkpoint.gif">
+<meta property="article:published_time" content="2020-11-09T11:34:46.006Z">
+<meta property="article:modified_time" content="2020-11-09T11:34:46.006Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="大数据">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/bdata/hadoop-hdfs/image-20190629152840146.png">
+  
   <title>【Hadoop】HDFS:分布式文件系统 - weitrable</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
   
 
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -46,16 +104,23 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -120,6 +185,18 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -153,8 +230,15 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -162,47 +246,60 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/images/img/banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【Hadoop】HDFS:分布式文件系统">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-09 19:34">
-      2020年11月9日 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Pony W
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-09 19:34" pubdate>
+        2020年11月9日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      6.7k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      39
-       分钟
+      21 分钟
     </span>
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -219,51 +316,48 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Hadoop】HDFS:分布式文件系统</h1>
             
-            <article class="markdown-body">
-              <blockquote>
-<p> HDFS is the primary distributed storage used by Hadoop applications. A HDFS cluster primarily consists of a NameNode that manages the file system metadata and DataNodes that store the actual data. The HDFS Architecture Guide describes HDFS in detail. This user guide primarily deals with the interaction of users and administrators with HDFS clusters. The HDFS architecture diagram depicts basic interactions among NameNode, the DataNodes, and the clients. Clients contact NameNode for file metadata or file modifications and perform actual file I/O directly with the DataNodes.<a id="more"></a> </p>
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p> HDFS is the primary distributed storage used by Hadoop applications. A HDFS cluster primarily consists of a NameNode that manages the file system metadata and DataNodes that store the actual data. The HDFS Architecture Guide describes HDFS in detail. This user guide primarily deals with the interaction of users and administrators with HDFS clusters. The HDFS architecture diagram depicts basic interactions among NameNode, the DataNodes, and the clients. Clients contact NameNode for file metadata or file modifications and perform actual file I/O directly with the DataNodes.<span id="more"></span> </p>
 </blockquote>
 <h3 id="大数据全链路架构"><a href="#大数据全链路架构" class="headerlink" title="大数据全链路架构"></a>大数据全链路架构</h3><p>数据在生产环境中的流向及处理流程</p>
-<p><img src="/images/hdfs/image-20190629152840146.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20190629152840146.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <h3 id="大数据主流框架"><a href="#大数据主流框架" class="headerlink" title="大数据主流框架"></a>大数据主流框架</h3><p>1 第一代大数据框架: 各自为战</p>
-<p><img src="/images/hdfs/image-20190629153348534.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20190629153348534.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <p>2 第二代大数据计算框架</p>
-<p><img src="/images/hdfs/image-20190629153652036.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20190629153652036.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <p>3 第三代大数据计算框架 Flink</p>
-<p><img src="/images/hdfs/image-20190629153835100.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20190629153835100.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <h3 id="Hadoop的架构模块"><a href="#Hadoop的架构模块" class="headerlink" title="Hadoop的架构模块"></a>Hadoop的架构模块</h3><div align="center">
-  <img src="/images/hdfs/image-20200414134203318.png" srcset="/img/loading.gif" alt="image-20200414134203318" style="zoom:50%;align: center">
+  <img src="/images/bdata/hadoop-hdfs/image-20200414134203318.png" srcset="/images/img/loading.gif" lazyload alt="image-20200414134203318" style="zoom:50%;align: center">
 </div>
 
 
+
 <ul>
-<li>Hadoop由三个模块组成：**<em>分布式**</em>存储HDFS、分布式计算MapReduce、资源调度引擎Yarn</li>
+<li>Hadoop由三个模块组成：<strong><em>分布式</em></strong>存储HDFS、分布式计算MapReduce、资源调度引擎Yarn</li>
 </ul>
 <div align="center">
-  <img src="/images/hdfs/image-20200414134230170.png" srcset="/img/loading.gif" alt="image-20200414134230170" style="zoom: 33%;align: center">
+  <img src="/images/bdata/hadoop-hdfs/image-20200414134230170.png" srcset="/images/img/loading.gif" lazyload alt="image-20200414134230170" style="zoom: 33%;align: center">
 </div>
 
 
-<pre><code class="hljs markdown"><span class="hljs-bullet">-</span> HDFS模块：
-<span class="hljs-bullet">  -</span>  namenode：主节点，主要负责集群的管理以及元数据信息管理
-<span class="hljs-bullet">  -</span>  datanode：从节点，主要负责存储用户数据
-<span class="hljs-bullet">  -</span>  secondaryNameNode：辅助namenode管理元数据信息，以及元数据信息的冷备份
-<span class="hljs-bullet">-</span> Yarn模块：
-<span class="hljs-bullet">  -</span> ResourceManager：主节点，主要负责资源分配
-<span class="hljs-bullet">  -</span> NodeManager：从节点，主要负责执行任务</code></pre>
 
-<h3 id="HDFS功能模块"><a href="#HDFS功能模块" class="headerlink" title="HDFS功能模块"></a>HDFS功能模块</h3><h4 id="hdfs的架构"><a href="#hdfs的架构" class="headerlink" title="hdfs的架构"></a>hdfs的架构</h4><h5 id="文件分块存储-amp-3副本"><a href="#文件分块存储-amp-3副本" class="headerlink" title="文件分块存储&amp;3副本"></a>文件分块存储&amp;3副本</h5><p><img src="/images/hdfs/block3.gif" srcset="/img/loading.gif"></p>
-<p><img src="/images/hdfs/image-20200414151438737.png" srcset="/img/loading.gif"></p>
+<figure class="highlight markdown"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown"><span class="hljs-bullet">-</span> HDFS模块：<br><span class="hljs-bullet">  -</span>  namenode：主节点，主要负责集群的管理以及元数据信息管理<br><span class="hljs-bullet">  -</span>  datanode：从节点，主要负责存储用户数据<br><span class="hljs-bullet">  -</span>  secondaryNameNode：辅助namenode管理元数据信息，以及元数据信息的冷备份<br><span class="hljs-bullet">-</span> Yarn模块：<br><span class="hljs-bullet">  -</span> ResourceManager：主节点，主要负责资源分配<br><span class="hljs-bullet">  -</span> NodeManager：从节点，主要负责执行任务<br></code></pre></div></td></tr></table></figure>
+<h3 id="HDFS功能模块"><a href="#HDFS功能模块" class="headerlink" title="HDFS功能模块"></a>HDFS功能模块</h3><h4 id="hdfs的架构"><a href="#hdfs的架构" class="headerlink" title="hdfs的架构"></a>hdfs的架构</h4><h5 id="文件分块存储-amp-3副本"><a href="#文件分块存储-amp-3副本" class="headerlink" title="文件分块存储&amp;3副本"></a>文件分块存储&amp;3副本</h5><p><img src="/images/bdata/hadoop-hdfs/block3.gif" srcset="/images/img/loading.gif" lazyload alt></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20200414151438737.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <ul>
-<li><p>保存文件到HDFS时，会先默认按**<em>128M**</em>的大小对文件进行切分；效果如上图</p>
+<li><p>保存文件到HDFS时，会先默认按<strong><em>128M</em></strong>的大小对文件进行切分；效果如上图</p>
 <ul>
 <li>数据以block块的形式进统一存储管理，每个block块默认最多可以存储128M的文件。</li>
 <li>如果有一个文件大小为1KB，也是要占用一个block块，但是实际占用磁盘空间还是1KB大小，类似于有一个水桶可以装128斤的水，但是我只装了1斤的水，那么我的水桶里面水的重量就是1斤，而不是128斤</li>
@@ -274,22 +368,14 @@
 <li><p>所有的文件都是以block块的方式存放在HDFS文件系统当中，在hadoop1当中，文件的block块默认大小是64M，hadoop2当中，文件的block块大小默认是128M，block块的大小可以通过hdfs-site.xml当中的配置文件进行指定</p>
 </li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.block.size<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>块大小 以字节为单位<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><span class="hljs-comment">&lt;!-- 只写数值就可以 --&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span></code></pre>
-
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.block.size<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>块大小 以字节为单位<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><span class="hljs-comment">&lt;!-- 只写数值就可以 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <ul>
-<li><p>为了保证block块的安全性，也就是数据的安全性，在hadoop2当中，文件默认保存**<em>三个副本**</em>，我们可以更改副本数以提高数据的安全性</p>
+<li><p>为了保证block块的安全性，也就是数据的安全性，在hadoop2当中，文件默认保存<strong><em>三个副本</em></strong>，我们可以更改副本数以提高数据的安全性</p>
 </li>
 <li><p>在hdfs-site.xml当中修改以下配置属性，即可更改文件的副本数</p>
 </li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span></code></pre>
-
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h5 id="抽象成数据块的好处"><a href="#抽象成数据块的好处" class="headerlink" title="抽象成数据块的好处"></a>抽象成数据块的好处</h5><ol>
 <li><p>一个文件有可能大于集群中任意一个磁盘<br>10T*3/128 = xxx块 2T，2T，2T 文件方式存—–&gt;多个block块，这些block块属于一个文件</p>
 </li>
@@ -299,7 +385,7 @@
 <li><p>块非常适合用于数据备份进而提供数据容错能力和可用性</p>
 </li>
 </ol>
-<h5 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h5><p><img src="/images/hdfs/image-20200416160250256.png" srcset="/img/loading.gif"></p>
+<h5 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h5><p><img src="/images/bdata/hadoop-hdfs/image-20200416160250256.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <ul>
 <li>HDFS集群包括，NameNode和DataNode以及Secondary Namenode。<ul>
 <li>NameNode负责管理整个文件系统的元数据，以及每一个路径（文件）所对应的数据块信息。</li>
@@ -309,7 +395,7 @@
 </li>
 <li>NameNode与Datanode的总结概述</li>
 </ul>
-<p><img src="/images/hdfs/image-20200416160339310.png" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/image-20200416160339310.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <h5 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h5><p>块缓存</p>
 <ul>
 <li><p>通常DataNode从磁盘中读取块，但对于访问频繁的文件，其对应的块可能被显示的缓存在DataNode的内存中，以堆外块缓存的形式存在。默认情况下，一个块仅缓存在一个DataNode的内存中，当然可以针对每个文件配置DataNode的数量。作业调度器通过在缓存块的DataNode上运行任务，可以利用块缓存的优势提高读操作的性能。</p>
@@ -333,58 +419,33 @@
 </li>
 </ul>
 <p>查看hdfs或hadoop子命令的帮助信息，如ls子命令</p>
-<pre><code class="hljs shell">hdfs dfs -help ls
-hadoop fs -help ls #两个命令等价</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -help ls<br>hadoop fs -help ls #两个命令等价<br></code></pre></div></td></tr></table></figure>
 <p>查看hdfs文件系统中指定目录的文件列表。对比linux命令ls</p>
-<pre><code class="hljs shell">hdfs dfs -ls /
-hadoop fs -ls /
-hdfs dfs -ls -R /</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -ls /<br>hadoop fs -ls /<br>hdfs dfs -ls -R /<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs文件系统中创建文件</p>
-<pre><code class="hljs shell">hdfs dfs -touchz /edits.txt</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -touchz /edits.txt<br></code></pre></div></td></tr></table></figure>
 <p>向HDFS文件中追加内容</p>
-<pre><code class="hljs shell">hadoop fs -appendToFile edit1.xml /edits.txt #将本地磁盘当前目录的edit1.xml内容追加到HDFS根目录 的edits.txt文件</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hadoop fs -appendToFile edit1.xml /edits.txt #将本地磁盘当前目录的edit1.xml内容追加到HDFS根目录 的edits.txt文件<br></code></pre></div></td></tr></table></figure>
 <p>查看HDFS文件内容</p>
-<pre><code class="hljs shell">hdfs dfs -cat /edits.txt</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -cat /edits.txt<br></code></pre></div></td></tr></table></figure>
 <p>从本地路径上传文件至HDFS</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">用法：hdfs dfs -put /本地路径 /hdfs路径</span>
-hdfs dfs -put /linux本地磁盘文件 /hdfs路径文件
-hdfs dfs -copyFromLocal /linux本地磁盘文件 /hdfs路径文件  #跟put作用一样
-hdfs dfs -moveFromLocal /linux本地磁盘文件 /hdfs路径文件  #跟put作用一样，只不过，源文件被拷贝成功后，会被删除</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">用法：hdfs dfs -put /本地路径 /hdfs路径</span><br>hdfs dfs -put /linux本地磁盘文件 /hdfs路径文件<br>hdfs dfs -copyFromLocal /linux本地磁盘文件 /hdfs路径文件  #跟put作用一样<br>hdfs dfs -moveFromLocal /linux本地磁盘文件 /hdfs路径文件  #跟put作用一样，只不过，源文件被拷贝成功后，会被删除<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs文件系统中下载文件</p>
-<pre><code class="hljs shell">hdfs dfs -get /hdfs路径 /本地路径
-hdfs dfs -copyToLocal /hdfs路径 /本地路径  #根get作用一样</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -get /hdfs路径 /本地路径<br>hdfs dfs -copyToLocal /hdfs路径 /本地路径  #根get作用一样<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs文件系统中创建目录</p>
-<pre><code class="hljs shell">hdfs dfs -mkdir /shell</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -mkdir /shell<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs文件系统中删除文件</p>
-<pre><code class="hljs shell">hdfs dfs -rm /edits.txt</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -rm /edits.txt<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs文件系统中修改文件名称（也可以用来移动文件到目录）</p>
-<pre><code class="hljs shell">hdfs dfs -mv /xcall.sh /call.sh
-hdfs dfs -mv /call.sh /shell</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -mv /xcall.sh /call.sh<br>hdfs dfs -mv /call.sh /shell<br></code></pre></div></td></tr></table></figure>
 <p>在hdfs中拷贝文件到目录</p>
-<pre><code class="hljs shell">hdfs dfs -cp /xrsync.sh /shell</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -cp /xrsync.sh /shell<br></code></pre></div></td></tr></table></figure>
 <p>递归删除目录</p>
-<pre><code class="hljs shell">hdfs dfs -rm -r /shell</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -rm -r /shell<br></code></pre></div></td></tr></table></figure>
 <p>列出本地文件的内容（默认是hdfs文件系统）</p>
-<pre><code class="hljs shell">hdfs dfs -ls file:///home/hadoop/</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">hdfs dfs -ls file:///home/hadoop/<br></code></pre></div></td></tr></table></figure>
 <p>查找文件</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> linux find命令</span>
-find . -name &#x27;edit*&#x27;
-<span class="hljs-meta">#</span><span class="bash"> HDFS find命令</span>
-hadoop fs -find / -name part-r-00000 # 在HDFS根目录中，查找part-r-00000文件</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> linux find命令</span><br>find . -name &#x27;edit*&#x27;<br><span class="hljs-meta">#</span><span class="bash"> HDFS find命令</span><br>hadoop fs -find / -name part-r-00000 # 在HDFS根目录中，查找part-r-00000文件<br></code></pre></div></td></tr></table></figure>
 <h4 id="HDFS安全模式"><a href="#HDFS安全模式" class="headerlink" title="HDFS安全模式"></a>HDFS安全模式</h4><ul>
 <li>安全模式是HDFS所处的一种特殊状态，在这种状态下，文件系统只接受读数据请求，而不接受删除、修改等变更请求。在NameNode主节点启动时，HDFS首先进入安全模式，DataNode在启动的时候会向namenode汇报可用的block等状态，当整个系统达到安全标准时，HDFS自动离开安全模式。如果HDFS出于安全模式下，则文件block不能进行任何的副本复制操作，因此达到最小的副本数量要求是基于datanode启动时的状态来判定的，启动时不会再做任何复制（从而达到最小副本数量要求），hdfs集群刚启动的时候，默认30S钟的时间是出于安全期的，只有过了30S之后，集群脱离了安全期，然后才可以对集群进行操作</li>
 <li>何时推出安全模式<ul>
@@ -394,9 +455,7 @@ hadoop fs -find / -name part-r-00000 # 在HDFS根目录中，查找part-r-00000�
 </ul>
 </li>
 </ul>
-<pre><code class="hljs shell">[hadoop@node01 hadoop]$ hdfs dfsadmin -safemode  
-Usage: hdfs dfsadmin [-safemode enter | leave | get | wait]</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">[hadoop@node01 hadoop]$ hdfs dfsadmin -safemode  <br>Usage: hdfs dfsadmin [-safemode enter | leave | get | wait]<br></code></pre></div></td></tr></table></figure>
 <h4 id="NameNode和SecondaryNameNode"><a href="#NameNode和SecondaryNameNode" class="headerlink" title="NameNode和SecondaryNameNode"></a>NameNode和SecondaryNameNode</h4><h5 id="namenode与secondaryName"><a href="#namenode与secondaryName" class="headerlink" title="namenode与secondaryName"></a>namenode与secondaryName</h5><ul>
 <li><p>NameNode主要负责集群当中的元数据信息管理，而且元数据信息需要经常随机访问，因为元数据信息必须高效的检索，那么如何保证namenode快速检索呢？？元数据信息保存在哪里能够快速检索呢？？如何保证元数据的持久安全呢？？</p>
 </li>
@@ -405,7 +464,7 @@ Usage: hdfs dfsadmin [-safemode enter | leave | get | wait]</code></pre>
 <li><p>如果所有的元数据信息都存放内存，服务器断电，内存当中所有数据都消失，为了保证元数据的安全持久，元数据信息必须做可靠的持久化，在hadoop当中为了持久化存储元数据信息，将所有的元数据信息保存在了FSImage文件当中，那么FSImage随着时间推移，必然越来越膨胀，FSImage的操作变得越来越难，为了解决元数据信息的增删改，hadoop当中还引入了元数据操作日志edits文件，edits文件记录了客户端操作元数据的信息，随着时间的推移，edits信息也会越来越大，为了解决edits文件膨胀的问题，hadoop当中引入了secondaryNamenode来专门做fsimage与edits文件的合并</p>
 </li>
 </ul>
-<p><img src="/images/hdfs/checkpoint.gif" srcset="/img/loading.gif"></p>
+<p><img src="/images/bdata/hadoop-hdfs/checkpoint.gif" srcset="/images/img/loading.gif" lazyload alt></p>
 <h5 id="namenode工作机制"><a href="#namenode工作机制" class="headerlink" title="namenode工作机制"></a>namenode工作机制</h5><p>（1）第一次启动namenode格式化后，创建fsimage和edits文件。如果不是第一次启动，直接加载编辑日志和镜像文件到内存。</p>
 <p>（2）客户端对元数据进行增删改的请求</p>
 <p>（3）namenode记录操作日志，更新滚动日志。</p>
@@ -421,15 +480,7 @@ Usage: hdfs dfsadmin [-safemode enter | leave | get | wait]</code></pre>
 <h5 id="FSImage与edits详解"><a href="#FSImage与edits详解" class="headerlink" title="FSImage与edits详解"></a>FSImage与edits详解</h5><ul>
 <li>所有的元数据信息都保存在了FsImage与Eidts文件当中，这两个文件就记录了所有的数据的元数据信息，元数据信息的保存目录配置在了hdfs-site.xml当中</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
-   <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.edits.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-   <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/dfs/nn/edits<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span></code></pre>
-
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.edits.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/dfs/nn/edits<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <ul>
 <li><p>客户端对hdfs进行写文件时会首先被记录在edits文件中。</p>
 <p>edits修改时元数据也会更新。</p>
@@ -447,9 +498,7 @@ Usage: hdfs dfsadmin [-safemode enter | leave | get | wait]</code></pre>
 <li><p>使用命令 hdfs oiv </p>
 </li>
 </ul>
-<pre><code class="hljs shell">cd  /weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas/current
-hdfs oiv -i fsimage_0000000000000000864 -p XML -o hello.xml</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">cd  /weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas/current<br>hdfs oiv -i fsimage_0000000000000000864 -p XML -o hello.xml<br></code></pre></div></td></tr></table></figure>
 <h5 id="edits当中的文件信息查看"><a href="#edits当中的文件信息查看" class="headerlink" title="edits当中的文件信息查看"></a>edits当中的文件信息查看</h5><ul>
 <li><p>官方查看文档</p>
 <p><a target="_blank" rel="noopener" href="http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.14.0/hadoop-project-dist/hadoop-hdfs/HdfsEditsViewer.html">http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.14.2/hadoop-project-dist/hadoop-hdfs/HdfsEditsViewer.html</a></p>
@@ -457,9 +506,7 @@ hdfs oiv -i fsimage_0000000000000000864 -p XML -o hello.xml</code></pre>
 <li><p>查看命令 hdfs oev</p>
 </li>
 </ul>
-<pre><code class="hljs shell">cd /weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/dfs/nn/edits
-hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</code></pre>
-
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">cd /weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/dfs/nn/edits<br>hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML<br></code></pre></div></td></tr></table></figure>
 <h5 id="secondarynameNode如何辅助管理FSImage与Edits文件"><a href="#secondarynameNode如何辅助管理FSImage与Edits文件" class="headerlink" title="secondarynameNode如何辅助管理FSImage与Edits文件"></a>secondarynameNode如何辅助管理FSImage与Edits文件</h5><h5 id="namenode元数据信息多目录配置"><a href="#namenode元数据信息多目录配置" class="headerlink" title="namenode元数据信息多目录配置"></a>namenode元数据信息多目录配置</h5><ul>
 <li><p>为了保证元数据的安全性，我们一般都是先确定好我们的磁盘挂载目录，将元数据的磁盘做RAID1</p>
 <p>namenode的本地目录可以配置成多个，且每个目录存放内容相同，增加了可靠性。</p>
@@ -468,13 +515,9 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
 <p>hdfs-site.xml</p>
 </li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
-   <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-   <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:///weitrue/install/hadoop-2.6.0-cdh5.14.2/hadoopDatas/namenodeDatas<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -482,7 +525,7 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Bdata/">Bdata</a>
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
                     
                   </div>
                 
@@ -498,11 +541,15 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2020/11/20/python/">
@@ -511,8 +558,8 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2020/06/24/docker/">
@@ -521,13 +568,13 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -535,7 +582,7 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -547,16 +594,15 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -577,248 +623,143 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
-        <span>Trable</span></a>
-    </div>
     
 
     
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">杭ICP证123456号</a>
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
     
-      <a
-        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
-        rel="nofollow noopener"
-        class="beian-police"
-        target="_blank"
-      >
-        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
-        
-          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
-        
-        <span>杭公网安备12345678号</span>
-      </a>
-     
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
   </div>
 
 
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
     
-     <div>
-  	<span id="timeDate">载入天数...</span>
- 	<span id="times">载入时分秒...</span>
- 	<script>
-          var now = new Date();
-          function createtime(){
-           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
-           now.setTime(now.getTime()+250);
-           days = (now - grt ) / 1000 / 60 / 60 / 24;
-           dnum = Math.floor(days);
-           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
-           hnum = Math.floor(hours);
-           if(String(hnum).length ==1 ){
-                hnum = "0" + hnum;
-           }
-           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-           mnum = Math.floor(minutes);
-           if(String(mnum).length ==1 ){
-                mnum = "0" + mnum;
-           }
-           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-           snum = Math.round(seconds);
-           if(String(snum).length ==1 ){
-                snum = "0" + snum;
-           }
-           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
-           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
-          }
-          setInterval("createtime()",250);
-       </script>
-    </div>
- </div>
- </footer>
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "【Hadoop】HDFS:分布式文件系统&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
   <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
@@ -830,20 +771,9 @@ hdfs oev -i edits_0000000000000000865-0000000000000000866 -o myedit.xml -p XML</
 
 
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>

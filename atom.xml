@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>weitrable</title>
+  <icon>https://weitrue.github.io/images/img/avatar.png</icon>
+  <subtitle>weitrable的技术博客</subtitle>
+  <link href="https://weitrue.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://weitrue.github.io/"/>
+  <updated>2021-11-29T09:50:58.069Z</updated>
+  <id>https://weitrue.github.io/</id>
+  
+  <author>
+    <name>Pony W</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【区块链与元宇宙】学习笔记</title>
+    <link href="https://weitrue.github.io/2021/11/29/chain/"/>
+    <id>https://weitrue.github.io/2021/11/29/chain/</id>
+    <published>2021-11-29T09:50:58.069Z</published>
+    <updated>2021-11-29T09:50:58.069Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="区块链与元宇宙" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E5%85%83%E5%AE%87%E5%AE%99/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【备忘录】工作与学习</title>
+    <link href="https://weitrue.github.io/2021/10/28/memo/"/>
+    <id>https://weitrue.github.io/2021/10/28/memo/</id>
+    <published>2021-10-28T02:53:39.733Z</published>
+    <updated>2021-10-28T02:53:39.733Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt; 生活工作备忘录与待办事项。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Prometheus】Blackbox黑盒测试</title>
+    <link href="https://weitrue.github.io/2021/10/27/prometheus-blackbox/"/>
+    <id>https://weitrue.github.io/2021/10/27/prometheus-blackbox/</id>
+    <published>2021-10-27T02:11:25.657Z</published>
+    <updated>2021-10-27T02:11:25.657Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
+    
+    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+    <category term="网络探测" scheme="https://weitrue.github.io/tags/%E7%BD%91%E7%BB%9C%E6%8E%A2%E6%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Prometheus】Exporter</title>
+    <link href="https://weitrue.github.io/2021/10/25/prometheus-exporter/"/>
+    <id>https://weitrue.github.io/2021/10/25/prometheus-exporter/</id>
+    <published>2021-10-25T02:57:27.198Z</published>
+    <updated>2021-10-25T02:57:27.198Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
+    
+    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+    <category term="Exporter" scheme="https://weitrue.github.io/tags/Exporter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Prometheus】Alertmanage告警</title>
+    <link href="https://weitrue.github.io/2021/10/25/prometheus-alert/"/>
+    <id>https://weitrue.github.io/2021/10/25/prometheus-alert/</id>
+    <published>2021-10-25T02:55:34.188Z</published>
+    <updated>2021-10-25T02:55:34.188Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
+    
+    <category term="Alertmanage" scheme="https://weitrue.github.io/tags/Alertmanage/"/>
+    
+    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Prometheus】基础理论与安装</title>
+    <link href="https://weitrue.github.io/2021/10/25/prometheus/"/>
+    <id>https://weitrue.github.io/2021/10/25/prometheus/</id>
+    <published>2021-10-25T02:54:16.127Z</published>
+    <updated>2021-10-25T02:54:16.127Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
+    
+    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】设计模式</title>
+    <link href="https://weitrue.github.io/2021/10/09/go-design/"/>
+    <id>https://weitrue.github.io/2021/10/09/go-design/</id>
+    <published>2021-10-09T09:13:58.004Z</published>
+    <updated>2021-10-09T09:13:58.004Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Design patterns&lt;/strong&gt; are typical solutions to common problemsin software design. Each pattern is like a blueprintthat you can customize to solve a particulardesign problem in your code.&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://weitrue.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="设计模式" scheme="https://weitrue.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【ETCD】分布式键值存储系统</title>
+    <link href="https://weitrue.github.io/2021/07/01/etcd/"/>
+    <id>https://weitrue.github.io/2021/07/01/etcd/</id>
+    <published>2021-07-01T02:22:41.301Z</published>
+    <updated>2021-07-01T02:22:41.301Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;A highly-available key value store for shared configuration and service discovery.&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="Raft" scheme="https://weitrue.github.io/tags/Raft/"/>
+    
+    <category term="Etcd" scheme="https://weitrue.github.io/tags/Etcd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【LeetCode】查找与搜索</title>
+    <link href="https://weitrue.github.io/2021/06/21/lt-search/"/>
+    <id>https://weitrue.github.io/2021/06/21/lt-search/</id>
+    <published>2021-06-21T02:47:56.617Z</published>
+    <updated>2021-06-21T02:47:56.617Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;查找与搜索&quot;&gt;&lt;a href=&quot;#查找与搜索&quot; class=&quot;headerlink&quot; title=&quot;查找与搜索&quot;&gt;&lt;/a&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://weitrue.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
+    
+    <category term="scala" scheme="https://weitrue.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】面试之道</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-interview/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-interview/</id>
+    <published>2021-06-02T02:05:27.569Z</published>
+    <updated>2021-06-02T02:05:27.569Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】使用之道</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-src/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-src/</id>
+    <published>2021-06-02T02:04:44.129Z</published>
+    <updated>2021-06-02T02:04:44.129Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】文档之道</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-doc/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-doc/</id>
+    <published>2021-06-02T02:04:36.324Z</published>
+    <updated>2021-06-02T02:04:36.324Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】测试之道</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-test/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-test/</id>
+    <published>2021-06-02T02:04:26.152Z</published>
+    <updated>2021-06-02T02:04:26.152Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】并发之道</title>
+    <link href="https://weitrue.github.io/2021/03/30/golang-concurrency/"/>
+    <id>https://weitrue.github.io/2021/03/30/golang-concurrency/</id>
+    <published>2021-03-30T01:52:20.005Z</published>
+    <updated>2021-03-30T01:52:20.005Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Redis】学习笔记</title>
+    <link href="https://weitrue.github.io/2021/03/22/redis/"/>
+    <id>https://weitrue.github.io/2021/03/22/redis/</id>
+    <published>2021-03-22T09:58:10.598Z</published>
+    <updated>2021-03-22T09:58:10.598Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Remote DictIOnary Server（远程数据服务），是一个基于内存且支持持久化的高性能 key-value 数据库&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
+    
+    <category term="Redis" scheme="https://weitrue.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【MySQL】学习笔记</title>
+    <link href="https://weitrue.github.io/2021/03/21/mysql/"/>
+    <id>https://weitrue.github.io/2021/03/21/mysql/</id>
+    <published>2021-03-21T04:21:39.197Z</published>
+    <updated>2021-03-21T04:21:39.197Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最流行的&lt;a href=&quot;https://baike.baidu.com/item/关系型数据库管理系统/696511&quot;&gt;关系型数据库管理系统&lt;/a&gt;之一。在 WEB 应用方面，是最好的 &lt;a href=&quot;https://baike.baidu.com/item/RDBMS/1048260&quot;&gt;RDBMS&lt;/a&gt;。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
+    
+    <category term="MySQL" scheme="https://weitrue.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【LeetCode】图结构相关</title>
+    <link href="https://weitrue.github.io/2021/03/12/lt-graph/"/>
+    <id>https://weitrue.github.io/2021/03/12/lt-graph/</id>
+    <published>2021-03-12T08:57:45.405Z</published>
+    <updated>2021-03-12T08:57:45.405Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://weitrue.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
+    
+    <category term="scala" scheme="https://weitrue.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【LeetCode】排序算法</title>
+    <link href="https://weitrue.github.io/2021/03/10/lt-sort/"/>
+    <id>https://weitrue.github.io/2021/03/10/lt-sort/</id>
+    <published>2021-03-10T09:07:40.557Z</published>
+    <updated>2021-03-10T09:07:40.557Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;排序算法&quot;&gt;&lt;a href=&quot;#排序算法&quot; class=&quot;headerlink&quot; title=&quot;排序算法&quot;&gt;&lt;/a&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://weitrue.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
+    
+    <category term="scala" scheme="https://weitrue.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【LeetCode】树结构相关</title>
+    <link href="https://weitrue.github.io/2021/03/08/lt-tree/"/>
+    <id>https://weitrue.github.io/2021/03/08/lt-tree/</id>
+    <published>2021-03-08T01:02:29.051Z</published>
+    <updated>2021-03-08T01:02:29.051Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;数结构相关与递归&quot;&gt;&lt;a href=&quot;#数结构相关与递归&quot; class=&quot;headerlink&quot; title=&quot; 数结构相关与递归&quot;&gt;&lt;/a&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://weitrue.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
+    
+    <category term="scala" scheme="https://weitrue.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【LeetCode】线性表相关问题</title>
+    <link href="https://weitrue.github.io/2021/03/05/lt-linkedList/"/>
+    <id>https://weitrue.github.io/2021/03/05/lt-linkedList/</id>
+    <published>2021-03-05T02:36:54.440Z</published>
+    <updated>2021-03-05T02:36:54.440Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;把所有数据用一根线儿串起来，再存储到物理空间中的数据结构&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://weitrue.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
+    
+    <category term="scala" scheme="https://weitrue.github.io/tags/scala/"/>
+    
+  </entry>
+  
+</feed>

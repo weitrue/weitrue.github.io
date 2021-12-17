@@ -1,44 +1,86 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
-  <link rel="icon" type="image/png" href="/img/logo.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="我们相信，未来可期！">
-  <meta name="author" content="嗯，我们是对的">
+  <meta name="description" content="">
+  <meta name="author" content="Pony W">
   <meta name="keywords" content="">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="【Go】使用之道">
+<meta property="og:url" content="https://weitrue.github.io/2021/06/02/golang-src/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-02T02:04:44.129Z">
+<meta property="article:modified_time" content="2021-06-02T02:04:44.129Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary_large_image">
+  
   <title>【Go】使用之道 - weitrable</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
   
 
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -46,16 +88,23 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -120,6 +169,18 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -153,8 +214,15 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -162,47 +230,60 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/images/img/banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【Go】使用之道">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-06-02 10:04">
-      2021年6月2日 上午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Pony W
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-02 10:04" pubdate>
+        2021年6月2日 上午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      7.3k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      31
-       分钟
+      23 分钟
     </span>
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -219,182 +300,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Go】使用之道</h1>
             
-            <article class="markdown-body">
-              <blockquote>
-<a id="more"></a>
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<span id="more"></span>
 </blockquote>
-<h3 id="常见库-框架"><a href="#常见库-框架" class="headerlink" title="常见库/框架"></a>常见库/框架</h3><h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="unsafe"><a href="#unsafe" class="headerlink" title="unsafe"></a>unsafe</h5><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span>  &#123;
-
-	<span class="hljs-comment">// 任何类型的指针值都可以转换为Pointer // unsafe.Pointer(&amp;a1)</span>
-	<span class="hljs-comment">// Pointer可以转换为任何类型的指针值 // (*float32)(unsafe.Pointer(numPointer))</span>
-	<span class="hljs-comment">// uintptr可以转换为 Pointer // unsafe.Pointer(uintptr(nPointer) + + unsafe.Sizeof(&amp;a) * 3)</span>
-	<span class="hljs-comment">// Pointer可以转换为 uintptr // uintptr(unsafe.Pointer(numPointer))</span>
-	<span class="hljs-comment">// uintptr 是一个整数类型，它足够大，可以存储. 只有将Pointer转换成uintptr才能进行指针的相关操作</span>
-
-	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">int32</span> = <span class="hljs-number">10</span>
-	tt := unsafe.Sizeof(a)
-	fmt.Println(tt)  <span class="hljs-comment">// 4</span>
-
-	<span class="hljs-keyword">var</span> ab <span class="hljs-keyword">int64</span> = <span class="hljs-number">10</span>
-	fmt.Println(unsafe.Sizeof(ab))  <span class="hljs-comment">// 8</span>
-
-	<span class="hljs-keyword">var</span> abc <span class="hljs-keyword">int</span> = <span class="hljs-number">10</span>
-	fmt.Println(unsafe.Sizeof(abc))  <span class="hljs-comment">// 8</span>
-
-	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test&quot;</span>
-	fmt.Println(unsafe.Sizeof(b))   <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span>
-
-	<span class="hljs-keyword">var</span> bc <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test-test-test-test-test-test-test-test-test-test-test-test-test-test&quot;</span>
-	fmt.Println(unsafe.Sizeof(bc))  <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span>
-
-	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;
-		B <span class="hljs-keyword">bool</span>
-		C <span class="hljs-keyword">uint64</span>
-	&#125;
-	c := aa&#123;&#125;
-	fmt.Println(unsafe.Sizeof(c))  <span class="hljs-comment">// 16 涉及到内存对齐的问题</span>
-	<span class="hljs-comment">// 返回结构体中某个字段的偏移量, 这个字段必须是structValue.field形式. 也就是返回结构体变量的开始位置到那个字段的开始位置之间字节数.</span>
-	fmt.Println(unsafe.Offsetof(c.B), unsafe.Offsetof(c.C)) <span class="hljs-comment">// 0 8</span>
-
-	fmt.Println(unsafe.Sizeof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span>
-
-	<span class="hljs-keyword">type</span> bb <span class="hljs-keyword">struct</span> &#123;
-		B *<span class="hljs-keyword">bool</span>
-	&#125;
-	c1 := bb&#123;&#125;
-	fmt.Println(unsafe.Sizeof(c1)) <span class="hljs-comment">// 指针占8个字节(64位机器)</span>
-
-	<span class="hljs-comment">// 内存对齐</span>
-	<span class="hljs-comment">// 就是为了加快内存的存取速度, 用空间换时间的做法</span>
-	fmt.Printf(<span class="hljs-string">&quot;bool: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span>
-	fmt.Printf(<span class="hljs-string">&quot;int32: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int32</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 4</span>
-	fmt.Printf(<span class="hljs-string">&quot;int8: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int8</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span>
-	fmt.Printf(<span class="hljs-string">&quot;int64: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 8</span>
-	fmt.Printf(<span class="hljs-string">&quot;byte: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">byte</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span>
-	fmt.Printf(<span class="hljs-string">&quot;string: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">string</span>(<span class="hljs-string">&quot;true&quot;</span>)))     <span class="hljs-comment">// 8</span>
-	fmt.Printf(<span class="hljs-string">&quot;map: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;&#125;))   <span class="hljs-comment">// 8</span>
-
-	<span class="hljs-comment">// 对齐规则</span>
-	<span class="hljs-comment">// 1.结构体的成员变量，第一个成员变量的偏移量为 0。往后的每个成员变量的对齐值必须为编译器默认对齐长度（#pragma pack(n)）或当前成员变量类型的长度（unsafe.Sizeof），取最小值作为当前类型的对齐值。其偏移量必须为对齐值的整数倍</span>
-	<span class="hljs-comment">// 2.结构体本身，对齐值必须为编译器默认对齐长度（#pragma pack(n)）或结构体的所有成员变量类型中的最大长度，取最大数的最小整数倍作为对齐值</span>
-	<span class="hljs-comment">// 3.结合以上两点，可得知若编译器默认对齐长度（#pragma pack(n)）超过结构体内成员变量的类型最大长度时，默认对齐长度是没有任何意义的</span>
-	<span class="hljs-keyword">type</span> Part1 <span class="hljs-keyword">struct</span> &#123;
-		a <span class="hljs-keyword">bool</span>
-		b <span class="hljs-keyword">int32</span>
-		c <span class="hljs-keyword">int8</span>
-		d <span class="hljs-keyword">int64</span>
-		e <span class="hljs-keyword">byte</span>
-	&#125;
-	part := Part1&#123;&#125;
-	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(part), unsafe.Alignof(part))   <span class="hljs-comment">// 32 8</span>
-
-	<span class="hljs-keyword">type</span> Part2 <span class="hljs-keyword">struct</span> &#123;
-		a <span class="hljs-keyword">bool</span>
-		e <span class="hljs-keyword">byte</span>
-		c <span class="hljs-keyword">int8</span>
-		b <span class="hljs-keyword">int32</span>
-		d <span class="hljs-keyword">int64</span>
-	&#125;
-	par2 := Part2&#123;&#125;
-	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(par2), unsafe.Alignof(par2))   <span class="hljs-comment">// 16 8</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestApply</span><span class="hljs-params">(t *testing.T)</span></span> &#123;
-	<span class="hljs-comment">// Float64的bits</span>
-	<span class="hljs-keyword">var</span> f <span class="hljs-keyword">float64</span> = <span class="hljs-number">0.1</span>
-	fmt.Println(*(*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(&amp;f)))  <span class="hljs-comment">// 4591870180066957722</span>
-
-	<span class="hljs-comment">// 计算偏移量</span>
-	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;
-		B <span class="hljs-keyword">bool</span>
-		C <span class="hljs-keyword">uint64</span>
-	&#125;
-	c := aa&#123;&#125;
-	fmt.Println(c)  <span class="hljs-comment">// &#123;false 0&#125;</span>
-	aac := (*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(<span class="hljs-keyword">uintptr</span>(unsafe.Pointer(&amp;c)) + unsafe.Offsetof(c.C)))
-	*aac = <span class="hljs-number">10</span>
-	fmt.Println(c)  <span class="hljs-comment">// &#123;false 10&#125;</span>
-&#125;</code></pre>
-
+<h3 id="常见库-框架"><a href="#常见库-框架" class="headerlink" title="常见库/框架"></a>常见库/框架</h3><h4 id="原生库"><a href="#原生库" class="headerlink" title="原生库"></a>原生库</h4><h5 id="unsafe"><a href="#unsafe" class="headerlink" title="unsafe"></a>unsafe</h5><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span>  &#123;<br><br>	<span class="hljs-comment">// 任何类型的指针值都可以转换为Pointer // unsafe.Pointer(&amp;a1)</span><br>	<span class="hljs-comment">// Pointer可以转换为任何类型的指针值 // (*float32)(unsafe.Pointer(numPointer))</span><br>	<span class="hljs-comment">// uintptr可以转换为 Pointer // unsafe.Pointer(uintptr(nPointer) + + unsafe.Sizeof(&amp;a) * 3)</span><br>	<span class="hljs-comment">// Pointer可以转换为 uintptr // uintptr(unsafe.Pointer(numPointer))</span><br>	<span class="hljs-comment">// uintptr 是一个整数类型，它足够大，可以存储. 只有将Pointer转换成uintptr才能进行指针的相关操作</span><br><br>	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">int32</span> = <span class="hljs-number">10</span><br>	tt := unsafe.Sizeof(a)<br>	fmt.Println(tt)  <span class="hljs-comment">// 4</span><br><br>	<span class="hljs-keyword">var</span> ab <span class="hljs-keyword">int64</span> = <span class="hljs-number">10</span><br>	fmt.Println(unsafe.Sizeof(ab))  <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-keyword">var</span> abc <span class="hljs-keyword">int</span> = <span class="hljs-number">10</span><br>	fmt.Println(unsafe.Sizeof(abc))  <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test&quot;</span><br>	fmt.Println(unsafe.Sizeof(b))   <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span><br><br>	<span class="hljs-keyword">var</span> bc <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test-test-test-test-test-test-test-test-test-test-test-test-test-test&quot;</span><br>	fmt.Println(unsafe.Sizeof(bc))  <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; uint8 *str; int len;&#125;</span><br><br>	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;<br>		B <span class="hljs-keyword">bool</span><br>		C <span class="hljs-keyword">uint64</span><br>	&#125;<br>	c := aa&#123;&#125;<br>	fmt.Println(unsafe.Sizeof(c))  <span class="hljs-comment">// 16 涉及到内存对齐的问题</span><br>	<span class="hljs-comment">// 返回结构体中某个字段的偏移量, 这个字段必须是structValue.field形式. 也就是返回结构体变量的开始位置到那个字段的开始位置之间字节数.</span><br>	fmt.Println(unsafe.Offsetof(c.B), unsafe.Offsetof(c.C)) <span class="hljs-comment">// 0 8</span><br><br>	fmt.Println(unsafe.Sizeof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span><br><br>	<span class="hljs-keyword">type</span> bb <span class="hljs-keyword">struct</span> &#123;<br>		B *<span class="hljs-keyword">bool</span><br>	&#125;<br>	c1 := bb&#123;&#125;<br>	fmt.Println(unsafe.Sizeof(c1)) <span class="hljs-comment">// 指针占8个字节(64位机器)</span><br><br>	<span class="hljs-comment">// 内存对齐</span><br>	<span class="hljs-comment">// 就是为了加快内存的存取速度, 用空间换时间的做法</span><br>	fmt.Printf(<span class="hljs-string">&quot;bool: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;int32: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int32</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 4</span><br>	fmt.Printf(<span class="hljs-string">&quot;int8: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int8</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;int64: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 8</span><br>	fmt.Printf(<span class="hljs-string">&quot;byte: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">byte</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;string: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">string</span>(<span class="hljs-string">&quot;true&quot;</span>)))     <span class="hljs-comment">// 8</span><br>	fmt.Printf(<span class="hljs-string">&quot;map: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;&#125;))   <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-comment">// 对齐规则</span><br>	<span class="hljs-comment">// 1.结构体的成员变量，第一个成员变量的偏移量为 0。往后的每个成员变量的对齐值必须为编译器默认对齐长度（#pragma pack(n)）或当前成员变量类型的长度（unsafe.Sizeof），取最小值作为当前类型的对齐值。其偏移量必须为对齐值的整数倍</span><br>	<span class="hljs-comment">// 2.结构体本身，对齐值必须为编译器默认对齐长度（#pragma pack(n)）或结构体的所有成员变量类型中的最大长度，取最大数的最小整数倍作为对齐值</span><br>	<span class="hljs-comment">// 3.结合以上两点，可得知若编译器默认对齐长度（#pragma pack(n)）超过结构体内成员变量的类型最大长度时，默认对齐长度是没有任何意义的</span><br>	<span class="hljs-keyword">type</span> Part1 <span class="hljs-keyword">struct</span> &#123;<br>		a <span class="hljs-keyword">bool</span><br>		b <span class="hljs-keyword">int32</span><br>		c <span class="hljs-keyword">int8</span><br>		d <span class="hljs-keyword">int64</span><br>		e <span class="hljs-keyword">byte</span><br>	&#125;<br>	part := Part1&#123;&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(part), unsafe.Alignof(part))   <span class="hljs-comment">// 32 8</span><br><br>	<span class="hljs-keyword">type</span> Part2 <span class="hljs-keyword">struct</span> &#123;<br>		a <span class="hljs-keyword">bool</span><br>		e <span class="hljs-keyword">byte</span><br>		c <span class="hljs-keyword">int8</span><br>		b <span class="hljs-keyword">int32</span><br>		d <span class="hljs-keyword">int64</span><br>	&#125;<br>	par2 := Part2&#123;&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(par2), unsafe.Alignof(par2))   <span class="hljs-comment">// 16 8</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestApply</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">// Float64的bits</span><br>	<span class="hljs-keyword">var</span> f <span class="hljs-keyword">float64</span> = <span class="hljs-number">0.1</span><br>	fmt.Println(*(*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(&amp;f)))  <span class="hljs-comment">// 4591870180066957722</span><br><br>	<span class="hljs-comment">// 计算偏移量</span><br>	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;<br>		B <span class="hljs-keyword">bool</span><br>		C <span class="hljs-keyword">uint64</span><br>	&#125;<br>	c := aa&#123;&#125;<br>	fmt.Println(c)  <span class="hljs-comment">// &#123;false 0&#125;</span><br>	aac := (*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(<span class="hljs-keyword">uintptr</span>(unsafe.Pointer(&amp;c)) + unsafe.Offsetof(c.C)))<br>	*aac = <span class="hljs-number">10</span><br>	fmt.Println(c)  <span class="hljs-comment">// &#123;false 10&#125;</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h5 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h5><h5 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h5><h5 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h5><p>每个平台的信号定义或许有些不同。下面列出了POSIX中定义的信号。 Linux 使用34-64信号用作实时系统中。</p>
-<h6 id="在POSIX-1-1990标准中定义的信号列表"><a href="#在POSIX-1-1990标准中定义的信号列表" class="headerlink" title="在POSIX.1-1990标准中定义的信号列表"></a><strong>在POSIX.1-1990标准中定义的信号列表</strong></h6><pre><code class="hljs go"><span class="hljs-comment">// Signals</span>
-<span class="hljs-keyword">const</span> (
-	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)
-	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)
-	SIGBUS    = Signal(<span class="hljs-number">0xa</span>)
-	SIGCHLD   = Signal(<span class="hljs-number">0x14</span>)
-	SIGCONT   = Signal(<span class="hljs-number">0x13</span>)
-	SIGEMT    = Signal(<span class="hljs-number">0x7</span>)
-	SIGFPE    = Signal(<span class="hljs-number">0x8</span>)
-	SIGHUP    = Signal(<span class="hljs-number">0x1</span>)
-	SIGILL    = Signal(<span class="hljs-number">0x4</span>)
-	SIGINFO   = Signal(<span class="hljs-number">0x1d</span>)
-	SIGINT    = Signal(<span class="hljs-number">0x2</span>)
-	SIGIO     = Signal(<span class="hljs-number">0x17</span>)
-	SIGIOT    = Signal(<span class="hljs-number">0x6</span>)
-	SIGKILL   = Signal(<span class="hljs-number">0x9</span>)
-	SIGPIPE   = Signal(<span class="hljs-number">0xd</span>)
-	SIGPROF   = Signal(<span class="hljs-number">0x1b</span>)
-	SIGQUIT   = Signal(<span class="hljs-number">0x3</span>)
-	SIGSEGV   = Signal(<span class="hljs-number">0xb</span>)
-	SIGSTOP   = Signal(<span class="hljs-number">0x11</span>)
-	SIGSYS    = Signal(<span class="hljs-number">0xc</span>)
-	SIGTERM   = Signal(<span class="hljs-number">0xf</span>)
-	SIGTRAP   = Signal(<span class="hljs-number">0x5</span>)
-	SIGTSTP   = Signal(<span class="hljs-number">0x12</span>)
-	SIGTTIN   = Signal(<span class="hljs-number">0x15</span>)
-	SIGTTOU   = Signal(<span class="hljs-number">0x16</span>)
-	SIGURG    = Signal(<span class="hljs-number">0x10</span>)
-	SIGUSR1   = Signal(<span class="hljs-number">0x1e</span>)
-	SIGUSR2   = Signal(<span class="hljs-number">0x1f</span>)
-	SIGVTALRM = Signal(<span class="hljs-number">0x1a</span>)
-	SIGWINCH  = Signal(<span class="hljs-number">0x1c</span>)
-	SIGXCPU   = Signal(<span class="hljs-number">0x18</span>)
-	SIGXFSZ   = Signal(<span class="hljs-number">0x19</span>)
-)
-<span class="hljs-comment">// Signal table</span>
-<span class="hljs-keyword">var</span> signals = [...]<span class="hljs-keyword">string</span>&#123;
-	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,                     <span class="hljs-comment">// 终端控制进程结束(终端连接断开)</span>
-	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,                  <span class="hljs-comment">// 用户发送INTR字符(Ctrl+C)触发</span>
-	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,                       <span class="hljs-comment">// 用户发送QUIT字符(Ctrl+/)触发</span>
-	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,        <span class="hljs-comment">// 非法指令(程序错误、试图执行数据段、栈溢出等)</span>
-	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,             <span class="hljs-comment">// Trap指令触发(如断点，在调试器中使用)</span>
-	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,                 <span class="hljs-comment">// 调用abort函数触发</span>
-	<span class="hljs-number">7</span>:  <span class="hljs-string">&quot;EMT trap&quot;</span>,
-	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,   <span class="hljs-comment">// 算术运行错误(浮点运算错误、除数为零等)</span>
-	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,                     <span class="hljs-comment">// 无条件结束程序(不能被捕获、阻塞或忽略)</span>
-	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,                  <span class="hljs-comment">// 非法地址(内存地址对齐错误)</span>
-	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,         <span class="hljs-comment">// 无效内存引用(试图访问不属于自己的内存空间、对只读内存空间进行写操作)</span>
-	<span class="hljs-number">12</span>: <span class="hljs-string">&quot;bad system call&quot;</span>,
-	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,                <span class="hljs-comment">// 消息管道损坏(FIFO/Socket通信时，管道未打开而进行写操作)</span>
-	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,                <span class="hljs-comment">// 时钟定时信号</span>
-	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,                 <span class="hljs-comment">// 结束程序(可以被捕获、阻塞或忽略)</span>
-	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,       <span class="hljs-comment">// </span>
-	<span class="hljs-number">17</span>: <span class="hljs-string">&quot;suspended (signal)&quot;</span>,
-	<span class="hljs-number">18</span>: <span class="hljs-string">&quot;suspended&quot;</span>,
-	<span class="hljs-number">19</span>: <span class="hljs-string">&quot;continued&quot;</span>,
-	<span class="hljs-number">20</span>: <span class="hljs-string">&quot;child exited&quot;</span>,
-	<span class="hljs-number">21</span>: <span class="hljs-string">&quot;stopped (tty input)&quot;</span>,
-	<span class="hljs-number">22</span>: <span class="hljs-string">&quot;stopped (tty output)&quot;</span>,
-	<span class="hljs-number">23</span>: <span class="hljs-string">&quot;I/O possible&quot;</span>,
-	<span class="hljs-number">24</span>: <span class="hljs-string">&quot;cputime limit exceeded&quot;</span>,
-	<span class="hljs-number">25</span>: <span class="hljs-string">&quot;filesize limit exceeded&quot;</span>,
-	<span class="hljs-number">26</span>: <span class="hljs-string">&quot;virtual timer expired&quot;</span>,
-	<span class="hljs-number">27</span>: <span class="hljs-string">&quot;profiling timer expired&quot;</span>,
-	<span class="hljs-number">28</span>: <span class="hljs-string">&quot;window size changes&quot;</span>,
-	<span class="hljs-number">29</span>: <span class="hljs-string">&quot;information request&quot;</span>,
-	<span class="hljs-number">30</span>: <span class="hljs-string">&quot;user defined signal 1&quot;</span>,
-	<span class="hljs-number">31</span>: <span class="hljs-string">&quot;user defined signal 2&quot;</span>,
-&#125;</code></pre>
-
+<h6 id="在POSIX-1-1990标准中定义的信号列表"><a href="#在POSIX-1-1990标准中定义的信号列表" class="headerlink" title="在POSIX.1-1990标准中定义的信号列表"></a><strong>在POSIX.1-1990标准中定义的信号列表</strong></h6><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">// Signals</span><br><span class="hljs-keyword">const</span> (<br>	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)<br>	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)<br>	SIGBUS    = Signal(<span class="hljs-number">0xa</span>)<br>	SIGCHLD   = Signal(<span class="hljs-number">0x14</span>)<br>	SIGCONT   = Signal(<span class="hljs-number">0x13</span>)<br>	SIGEMT    = Signal(<span class="hljs-number">0x7</span>)<br>	SIGFPE    = Signal(<span class="hljs-number">0x8</span>)<br>	SIGHUP    = Signal(<span class="hljs-number">0x1</span>)<br>	SIGILL    = Signal(<span class="hljs-number">0x4</span>)<br>	SIGINFO   = Signal(<span class="hljs-number">0x1d</span>)<br>	SIGINT    = Signal(<span class="hljs-number">0x2</span>)<br>	SIGIO     = Signal(<span class="hljs-number">0x17</span>)<br>	SIGIOT    = Signal(<span class="hljs-number">0x6</span>)<br>	SIGKILL   = Signal(<span class="hljs-number">0x9</span>)<br>	SIGPIPE   = Signal(<span class="hljs-number">0xd</span>)<br>	SIGPROF   = Signal(<span class="hljs-number">0x1b</span>)<br>	SIGQUIT   = Signal(<span class="hljs-number">0x3</span>)<br>	SIGSEGV   = Signal(<span class="hljs-number">0xb</span>)<br>	SIGSTOP   = Signal(<span class="hljs-number">0x11</span>)<br>	SIGSYS    = Signal(<span class="hljs-number">0xc</span>)<br>	SIGTERM   = Signal(<span class="hljs-number">0xf</span>)<br>	SIGTRAP   = Signal(<span class="hljs-number">0x5</span>)<br>	SIGTSTP   = Signal(<span class="hljs-number">0x12</span>)<br>	SIGTTIN   = Signal(<span class="hljs-number">0x15</span>)<br>	SIGTTOU   = Signal(<span class="hljs-number">0x16</span>)<br>	SIGURG    = Signal(<span class="hljs-number">0x10</span>)<br>	SIGUSR1   = Signal(<span class="hljs-number">0x1e</span>)<br>	SIGUSR2   = Signal(<span class="hljs-number">0x1f</span>)<br>	SIGVTALRM = Signal(<span class="hljs-number">0x1a</span>)<br>	SIGWINCH  = Signal(<span class="hljs-number">0x1c</span>)<br>	SIGXCPU   = Signal(<span class="hljs-number">0x18</span>)<br>	SIGXFSZ   = Signal(<span class="hljs-number">0x19</span>)<br>)<br><span class="hljs-comment">// Signal table</span><br><span class="hljs-keyword">var</span> signals = [...]<span class="hljs-keyword">string</span>&#123;<br>	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,                     <span class="hljs-comment">// 终端控制进程结束(终端连接断开)</span><br>	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,                  <span class="hljs-comment">// 用户发送INTR字符(Ctrl+C)触发</span><br>	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,                       <span class="hljs-comment">// 用户发送QUIT字符(Ctrl+/)触发</span><br>	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,        <span class="hljs-comment">// 非法指令(程序错误、试图执行数据段、栈溢出等)</span><br>	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,             <span class="hljs-comment">// Trap指令触发(如断点，在调试器中使用)</span><br>	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,                 <span class="hljs-comment">// 调用abort函数触发</span><br>	<span class="hljs-number">7</span>:  <span class="hljs-string">&quot;EMT trap&quot;</span>,<br>	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,   <span class="hljs-comment">// 算术运行错误(浮点运算错误、除数为零等)</span><br>	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,                     <span class="hljs-comment">// 无条件结束程序(不能被捕获、阻塞或忽略)</span><br>	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,                  <span class="hljs-comment">// 非法地址(内存地址对齐错误)</span><br>	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,         <span class="hljs-comment">// 无效内存引用(试图访问不属于自己的内存空间、对只读内存空间进行写操作)</span><br>	<span class="hljs-number">12</span>: <span class="hljs-string">&quot;bad system call&quot;</span>,<br>	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,                <span class="hljs-comment">// 消息管道损坏(FIFO/Socket通信时，管道未打开而进行写操作)</span><br>	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,                <span class="hljs-comment">// 时钟定时信号</span><br>	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,                 <span class="hljs-comment">// 结束程序(可以被捕获、阻塞或忽略)</span><br>	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,       <span class="hljs-comment">// </span><br>	<span class="hljs-number">17</span>: <span class="hljs-string">&quot;suspended (signal)&quot;</span>,<br>	<span class="hljs-number">18</span>: <span class="hljs-string">&quot;suspended&quot;</span>,<br>	<span class="hljs-number">19</span>: <span class="hljs-string">&quot;continued&quot;</span>,<br>	<span class="hljs-number">20</span>: <span class="hljs-string">&quot;child exited&quot;</span>,<br>	<span class="hljs-number">21</span>: <span class="hljs-string">&quot;stopped (tty input)&quot;</span>,<br>	<span class="hljs-number">22</span>: <span class="hljs-string">&quot;stopped (tty output)&quot;</span>,<br>	<span class="hljs-number">23</span>: <span class="hljs-string">&quot;I/O possible&quot;</span>,<br>	<span class="hljs-number">24</span>: <span class="hljs-string">&quot;cputime limit exceeded&quot;</span>,<br>	<span class="hljs-number">25</span>: <span class="hljs-string">&quot;filesize limit exceeded&quot;</span>,<br>	<span class="hljs-number">26</span>: <span class="hljs-string">&quot;virtual timer expired&quot;</span>,<br>	<span class="hljs-number">27</span>: <span class="hljs-string">&quot;profiling timer expired&quot;</span>,<br>	<span class="hljs-number">28</span>: <span class="hljs-string">&quot;window size changes&quot;</span>,<br>	<span class="hljs-number">29</span>: <span class="hljs-string">&quot;information request&quot;</span>,<br>	<span class="hljs-number">30</span>: <span class="hljs-string">&quot;user defined signal 1&quot;</span>,<br>	<span class="hljs-number">31</span>: <span class="hljs-string">&quot;user defined signal 2&quot;</span>,<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h6 id="kill-pid-与-kill-9-pid的区别"><a href="#kill-pid-与-kill-9-pid的区别" class="headerlink" title="kill pid 与 kill -9 pid的区别"></a><strong>kill pid 与 kill -9 pid的区别</strong></h6><p>kill pid的作用是向进程号为pid的进程发送SIGTERM（这是kill默认发送的信号），该信号是一个结束进程的信号且可以被应用程序捕获。若应用程序没有捕获并响应该信号的逻辑代码，则该信号的默认动作是kill掉进程。这是终止指定进程的推荐做法。</p>
 <p><code>kill -9 pid</code> 则是向进程号为pid的进程发送 SIGKILL（该信号的编号为9），从本文上面的说明可知，SIGKILL既不能被应用程序捕获，也不能被阻塞或忽略，其动作是立即结束指定进程。通俗地说，应用程序根本无法“感知”SIGKILL信号，它在完全无准备的情况下，就被收到SIGKILL信号的操作系统给干掉了，显然，在这种“暴力”情况下，应用程序完全没有释放当前占用资源的机会。事实上，SIGKILL信号是直接发给init进程的，它收到该信号后，负责终止pid指定的进程。在某些情况下（如进程已经hang死，无法响应正常信号），就可以使用 <code>kill -9</code> 来结束进程。</p>
 <h6 id="应用程序如何优雅退出"><a href="#应用程序如何优雅退出" class="headerlink" title="应用程序如何优雅退出?"></a><strong>应用程序如何优雅退出?</strong></h6><p>Linux Server端的应用程序经常会长时间运行，在运行过程中，可能申请了很多系统资源，也可能保存了很多状态，在这些场景下，我们希望进程在退出前，可以释放资源或将当前状态dump到磁盘上或打印一些重要的日志，也就是希望进程优雅退出（exit gracefully）。</p>
@@ -404,92 +326,11 @@
 <li>stop方法用来取消监听</li>
 </ul>
 <p>监听全部信号</p>
-<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;os&quot;</span>
-	<span class="hljs-string">&quot;os/signal&quot;</span>
-)
-
-<span class="hljs-comment">// 监听全部信号</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
-	<span class="hljs-comment">// 监听所有信号</span>
-	signal.Notify(c)
-	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
-	s := &lt;-c
-	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)
-&#125;</code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>)<br><br><span class="hljs-comment">// 监听全部信号</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 监听所有信号</span><br>	signal.Notify(c)<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	s := &lt;-c<br>	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>监听指定信号</p>
-<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;os&quot;</span>
-	<span class="hljs-string">&quot;os/signal&quot;</span>
-)
-<span class="hljs-comment">// 监听指定信号</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
-	<span class="hljs-comment">// 监听指定信号</span>
-	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGUSR1, syscall.SIGUSR2)
-	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
-	s := &lt;-c
-	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)
-&#125;</code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>)<br><span class="hljs-comment">// 监听指定信号</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 监听指定信号</span><br>	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGUSR1, syscall.SIGUSR2)<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	s := &lt;-c<br>	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>优雅退出go守护进程</p>
-<pre><code class="hljs go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;os&quot;</span>
-	<span class="hljs-string">&quot;os/signal&quot;</span>
-	<span class="hljs-string">&quot;syscall&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-comment">// 优雅退出go守护进程</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	<span class="hljs-comment">// 信号通知chan</span>
-	onSignal := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)
-	<span class="hljs-comment">// 优雅退出</span>
-	<span class="hljs-comment">// 监听指定信号 ctrl+c 结束程序(可以被捕获、阻塞或忽略)</span>
-	signal.Notify(onSignal, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGUSR1, syscall.SIGUSR2)
-	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-		<span class="hljs-keyword">select</span> &#123;
-		<span class="hljs-keyword">case</span> sig := &lt;-onSignal:
-			<span class="hljs-keyword">switch</span> sig &#123;
-			<span class="hljs-keyword">case</span> syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM:
-				fmt.Println(<span class="hljs-string">&quot;退出:&quot;</span>, sig)
-				ExitFunc()
-			<span class="hljs-keyword">case</span> syscall.SIGUSR1:
-				fmt.Println(<span class="hljs-string">&quot;usr1&quot;</span>, sig)
-			<span class="hljs-keyword">case</span> syscall.SIGUSR2:
-				fmt.Println(<span class="hljs-string">&quot;usr2&quot;</span>, sig)
-			<span class="hljs-keyword">default</span>:
-				fmt.Println(<span class="hljs-string">&quot;其他信号:&quot;</span>, sig)
-			&#125;
-		&#125;
-	&#125;()
-	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)
-	sum := <span class="hljs-number">0</span>
-	<span class="hljs-keyword">for</span> &#123;
-		sum++
-		fmt.Println(<span class="hljs-string">&quot;休眠了:&quot;</span>, sum, <span class="hljs-string">&quot;秒&quot;</span>)
-		time.Sleep(<span class="hljs-number">1</span> * time.Second)
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExitFunc</span><span class="hljs-params">()</span></span> &#123;
-	fmt.Println(<span class="hljs-string">&quot;开始退出...&quot;</span>)
-	fmt.Println(<span class="hljs-string">&quot;执行清理...&quot;</span>)
-	fmt.Println(<span class="hljs-string">&quot;结束退出...&quot;</span>)
-	os.Exit(<span class="hljs-number">0</span>)
-&#125;</code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;syscall&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-comment">// 优雅退出go守护进程</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 信号通知chan</span><br>	onSignal := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 优雅退出</span><br>	<span class="hljs-comment">// 监听指定信号 ctrl+c 结束程序(可以被捕获、阻塞或忽略)</span><br>	signal.Notify(onSignal, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGUSR1, syscall.SIGUSR2)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> sig := &lt;-onSignal:<br>			<span class="hljs-keyword">switch</span> sig &#123;<br>			<span class="hljs-keyword">case</span> syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM:<br>				fmt.Println(<span class="hljs-string">&quot;退出:&quot;</span>, sig)<br>				ExitFunc()<br>			<span class="hljs-keyword">case</span> syscall.SIGUSR1:<br>				fmt.Println(<span class="hljs-string">&quot;usr1&quot;</span>, sig)<br>			<span class="hljs-keyword">case</span> syscall.SIGUSR2:<br>				fmt.Println(<span class="hljs-string">&quot;usr2&quot;</span>, sig)<br>			<span class="hljs-keyword">default</span>:<br>				fmt.Println(<span class="hljs-string">&quot;其他信号:&quot;</span>, sig)<br>			&#125;<br>		&#125;<br>	&#125;()<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	sum := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		sum++<br>		fmt.Println(<span class="hljs-string">&quot;休眠了:&quot;</span>, sum, <span class="hljs-string">&quot;秒&quot;</span>)<br>		time.Sleep(<span class="hljs-number">1</span> * time.Second)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExitFunc</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;开始退出...&quot;</span>)<br>	fmt.Println(<span class="hljs-string">&quot;执行清理...&quot;</span>)<br>	fmt.Println(<span class="hljs-string">&quot;结束退出...&quot;</span>)<br>	os.Exit(<span class="hljs-number">0</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h5 id="encoding-json"><a href="#encoding-json" class="headerlink" title="encoding/json"></a>encoding/json</h5><p>实现了程序命令行参数的解析。</p>
 <h4 id="第三方"><a href="#第三方" class="headerlink" title="第三方"></a>第三方</h4><h5 id="爬虫相关"><a href="#爬虫相关" class="headerlink" title="爬虫相关"></a>爬虫相关</h5><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/henrylee2cn/pholcus">henrylee2cn/pholcus</a></li>
@@ -502,11 +343,10 @@
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/spf13/viper">viper</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/spf13/cobra">CLI applications</a></p>
-</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spf13/cobra">CLI applications</a></li>
 </ul>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -528,21 +368,25 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2021/06/02/golang-interview/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【Go】面试/笔试之道</span>
+                        <span class="hidden-mobile">【Go】面试之道</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2021/06/02/golang-doc/">
@@ -551,13 +395,13 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -565,7 +409,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -577,16 +421,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -607,248 +450,143 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
-        <span>Trable</span></a>
-    </div>
     
 
     
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">杭ICP证123456号</a>
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
     
-      <a
-        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
-        rel="nofollow noopener"
-        class="beian-police"
-        target="_blank"
-      >
-        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
-        
-          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
-        
-        <span>杭公网安备12345678号</span>
-      </a>
-     
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
   </div>
 
 
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
     
-     <div>
-  	<span id="timeDate">载入天数...</span>
- 	<span id="times">载入时分秒...</span>
- 	<script>
-          var now = new Date();
-          function createtime(){
-           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
-           now.setTime(now.getTime()+250);
-           days = (now - grt ) / 1000 / 60 / 60 / 24;
-           dnum = Math.floor(days);
-           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
-           hnum = Math.floor(hours);
-           if(String(hnum).length ==1 ){
-                hnum = "0" + hnum;
-           }
-           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-           mnum = Math.floor(minutes);
-           if(String(mnum).length ==1 ){
-                mnum = "0" + mnum;
-           }
-           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-           snum = Math.round(seconds);
-           if(String(snum).length ==1 ){
-                snum = "0" + snum;
-           }
-           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
-           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
-          }
-          setInterval("createtime()",250);
-       </script>
-    </div>
- </div>
- </footer>
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "【Go】使用之道&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
   <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
@@ -860,20 +598,9 @@
 
 
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>

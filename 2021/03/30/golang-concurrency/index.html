@@ -1,44 +1,92 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
-  <link rel="icon" type="image/png" href="/img/logo.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="我们相信，未来可期！">
-  <meta name="author" content="嗯，我们是对的">
+  <meta name="description" content="
+“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程">
+  <meta name="author" content="Pony W">
   <meta name="keywords" content="">
+  <meta name="description" content="“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Go】并发之道">
+<meta property="og:url" content="https://weitrue.github.io/2021/03/30/golang-concurrency/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/golang/goroutine.png">
+<meta property="og:image" content="https://weitrue.github.io/images/golang/channel.png">
+<meta property="article:published_time" content="2021-03-30T01:52:20.005Z">
+<meta property="article:modified_time" content="2021-03-30T01:52:20.005Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/golang/goroutine.png">
+  
   <title>【Go】并发之道 - weitrable</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
   
 
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -46,16 +94,23 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -120,6 +175,18 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -153,8 +220,15 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -162,47 +236,60 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/images/img/banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【Go】并发之道">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-03-30 09:52">
-      2021年3月30日 上午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Pony W
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-30 09:52" pubdate>
+        2021年3月30日 上午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.1k 字
+      15k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56
-       分钟
+      48 分钟
     </span>
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -219,28 +306,28 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Go】并发之道</h1>
             
-            <article class="markdown-body">
-              <blockquote>
-<p>“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程<a id="more"></a></p>
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程<span id="more"></span></p>
 </blockquote>
-<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h3><p><img src="/images/golang/goroutine.png" srcset="/img/loading.gif"></p>
+<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h3><p><img src="/images/golang/goroutine.png" srcset="/images/img/loading.gif" lazyload alt></p>
 <h4 id="协程-Coroutine"><a href="#协程-Coroutine" class="headerlink" title="协程 Coroutine"></a>协程 <code>Coroutine</code></h4><ul>
 <li><p><em>轻量级</em>线程</p>
 </li>
 <li><p><strong>非抢占式</strong>多任务处理，由协程主动交出控制权</p>
 </li>
-<li><p>编译器/解释器/虚拟机层的多任务</p>
-</li>
-<li><p>多个协程可以在一个或者多个线程上运行</p>
-</li>
+<li>编译器/解释器/虚拟机层的多任务</li>
+<li>多个协程可以在一个或者多个线程上运行</li>
 </ul>
 <h5 id="其他语言对协程的支持"><a href="#其他语言对协程的支持" class="headerlink" title="其他语言对协程的支持"></a>其他语言对协程的支持</h5><p><code>Java</code>：标准库不支持</p>
 <p><code>Python</code>：3.5版本前使用yield关键字</p>
@@ -253,853 +340,27 @@
 <li><code>runtime.Gosched()</code></li>
 <li><code>.e.g</code></li>
 </ul>
-<pre><code class="hljs go"><span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i ++ &#123;
-		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>)</span></span> &#123;
-			<span class="hljs-keyword">for</span>&#123;
-				fmt.Println(<span class="hljs-string">&quot;go run from&quot;</span>, j)
-			&#125;
-		&#125;(i)
-	&#125;
-	time.Sleep(time.Minute)
-&#125;</code></pre>
-
-<h4 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h4><p><img src="/images/golang/channel.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs go"><span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">works</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
-	<span class="hljs-comment">// 不断的从channel取</span>
-	<span class="hljs-keyword">for</span>  &#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, &lt;-c)
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotClose</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span>  &#123;
-		n, ok := &lt;-c
-		<span class="hljs-keyword">if</span> !ok&#123;
-			<span class="hljs-keyword">break</span>
-		&#125;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotCloseSimple</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorks</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">chan</span>&lt;- <span class="hljs-title">int</span></span> &#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
-	<span class="hljs-keyword">go</span> works(id, c)
-	<span class="hljs-keyword">return</span> c
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">first</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 创建channel用例</span>
-	<span class="hljs-keyword">var</span> chans [<span class="hljs-number">10</span>]<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	<span class="hljs-keyword">for</span>  i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chans[i] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
-		<span class="hljs-keyword">go</span> works(i, chans[i])
-	&#125;
-	<span class="hljs-comment">// 往channel放</span>
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chans[i] &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-	&#125;
-	<span class="hljs-comment">// 往channel放</span>
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chans[i] &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">second</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> chann [<span class="hljs-number">10</span>] <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-keyword">int</span>
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chann[i] = createWorks(i)
-	&#125;
-
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chann[i] &lt;- <span class="hljs-string">&#x27;k&#x27;</span> + i
-	&#125;
-
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		chann[i] &lt;- <span class="hljs-string">&#x27;K&#x27;</span> + i
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">thirdBufferedChannel</span><span class="hljs-params">()</span></span> &#123;
-	<span class="hljs-comment">// channel缓冲区   可以放入不大于缓冲区的大小时，可以不用取</span>
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)
-	<span class="hljs-keyword">go</span> works(<span class="hljs-number">0</span>, c)
-	c &lt;- <span class="hljs-string">&#x27;u&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;v&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;w&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;x&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;y&#x27;</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelClose</span><span class="hljs-params">()</span></span>  &#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)
-	<span class="hljs-keyword">go</span> workIfNotCloseSimple(<span class="hljs-number">0</span>, c)
-	c &lt;- <span class="hljs-string">&#x27;U&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;V&#x27;</span>
-	c &lt;- <span class="hljs-string">&#x27;W&#x27;</span>
-	<span class="hljs-built_in">close</span>(c)
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ChanDemo</span><span class="hljs-params">()</span></span>  &#123;
-
-	<span class="hljs-comment">//  channel也是一等公民</span>
-	first()
-	second()
-	fmt.Println(<span class="hljs-string">&quot;-----------------&quot;</span>)
-	thirdBufferedChannel()
-
-	channelClose()
-
-	time.Sleep(time.Second)
-&#125;
-
-
-<span class="hljs-comment">// 输出</span>
-channel <span class="hljs-number">7</span> receive h
-channel <span class="hljs-number">9</span> receive j
-channel <span class="hljs-number">8</span> receive i
-channel <span class="hljs-number">5</span> receive f
-channel <span class="hljs-number">3</span> receive d
-channel <span class="hljs-number">6</span> receive g
-channel <span class="hljs-number">4</span> receive e
-channel <span class="hljs-number">2</span> receive c
-channel <span class="hljs-number">1</span> receive b
-channel <span class="hljs-number">0</span> receive a
-channel <span class="hljs-number">0</span> receive A
------------------
-channel <span class="hljs-number">4</span> receive E
-channel <span class="hljs-number">3</span> receive D
-channel <span class="hljs-number">1</span> receive B
-channel <span class="hljs-number">7</span> receive H
-channel <span class="hljs-number">2</span> receive C
-channel <span class="hljs-number">5</span> receive F
-channel <span class="hljs-number">6</span> receive G
-channel <span class="hljs-number">9</span> receive J
-channel <span class="hljs-number">8</span> receive I
-channel <span class="hljs-number">0</span> receive k
-channel <span class="hljs-number">1</span> receive l
-channel <span class="hljs-number">2</span> receive m
-channel <span class="hljs-number">3</span> receive n
-channel <span class="hljs-number">4</span> receive o
-channel <span class="hljs-number">5</span> receive p
-channel <span class="hljs-number">6</span> receive q
-channel <span class="hljs-number">7</span> receive r
-channel <span class="hljs-number">7</span> receive R
-channel <span class="hljs-number">8</span> receive s
-channel <span class="hljs-number">8</span> receive S
-channel <span class="hljs-number">3</span> receive N
-channel <span class="hljs-number">5</span> receive P
-channel <span class="hljs-number">0</span> receive K
-channel <span class="hljs-number">6</span> receive Q
-channel <span class="hljs-number">9</span> receive t
-channel <span class="hljs-number">9</span> receive T
-channel <span class="hljs-number">2</span> receive M
-channel <span class="hljs-number">4</span> receive O
-channel <span class="hljs-number">1</span> receive L
------------------
-channel <span class="hljs-number">0</span> receive u
-channel <span class="hljs-number">0</span> receive v
-channel <span class="hljs-number">0</span> receive w
-channel <span class="hljs-number">0</span> receive x
-channel <span class="hljs-number">0</span> receive y
-channel <span class="hljs-number">0</span> receive U
-channel <span class="hljs-number">0</span> receive V
-channel <span class="hljs-number">0</span> receive W
-Exiting.</code></pre>
-
-<h5 id="通过通信来共享内存"><a href="#通过通信来共享内存" class="headerlink" title="通过通信来共享内存"></a>通过通信来共享内存</h5><pre><code class="hljs go"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Author: Wang P</span>
-<span class="hljs-comment"> * Version: 1.0.0</span>
-<span class="hljs-comment"> * Date: 2021/2/5 下午5:05</span>
-<span class="hljs-comment"> * Description:</span>
-<span class="hljs-comment"> **/</span>
-
-<span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> Worker <span class="hljs-keyword">struct</span> &#123;
-	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	done <span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		w.done &lt;- <span class="hljs-literal">true</span>
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;
-	w := Worker&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),
-	&#125;
-	<span class="hljs-keyword">go</span> doWork(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicate</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]Worker
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		works[i] = createWorkers(i)
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-	&#125;
-
-	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;
-		&lt;- worker.done
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-	&#125;
-
-	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;
-		&lt;- worker.done
-	&#125;
-&#125;
-
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-			w.done &lt;- <span class="hljs-literal">true</span>
-		&#125;()
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;
-	w := Worker&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),
-	&#125;
-	<span class="hljs-keyword">go</span> doWork2(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDoneAll</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> worksAll [<span class="hljs-number">10</span>]Worker
-
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		worksAll[i] = createWorkers2(i)
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;j&#x27;</span> + i
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;J&#x27;</span> + i
-	&#125;
-
-	<span class="hljs-comment">// 等所有任务都取完 再结束</span>
-	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> worksAll &#123;
-		&lt;- worker.done
-		&lt;- worker.done
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDemo</span><span class="hljs-params">()</span></span>  &#123;
-	communicate()
-	fmt.Println(<span class="hljs-string">&quot;----------------&quot;</span>)
-	communicateDoneAll()
-&#125;
-
-<span class="hljs-comment">// 输出</span>
-channel <span class="hljs-number">7</span> receive h
-channel <span class="hljs-number">5</span> receive f
-channel <span class="hljs-number">8</span> receive i
-channel <span class="hljs-number">9</span> receive j
-channel <span class="hljs-number">2</span> receive c
-channel <span class="hljs-number">3</span> receive d
-channel <span class="hljs-number">1</span> receive b
-channel <span class="hljs-number">0</span> receive a
-channel <span class="hljs-number">4</span> receive e
-channel <span class="hljs-number">6</span> receive g
-channel <span class="hljs-number">6</span> receive G
-channel <span class="hljs-number">7</span> receive H
-channel <span class="hljs-number">8</span> receive I
-channel <span class="hljs-number">9</span> receive J
-channel <span class="hljs-number">0</span> receive A
-channel <span class="hljs-number">1</span> receive B
-channel <span class="hljs-number">2</span> receive C
-channel <span class="hljs-number">3</span> receive D
-channel <span class="hljs-number">5</span> receive F
-channel <span class="hljs-number">4</span> receive E
-----------------
-channel <span class="hljs-number">0</span> receive j
-channel <span class="hljs-number">1</span> receive k
-channel <span class="hljs-number">4</span> receive n
-channel <span class="hljs-number">2</span> receive l
-channel <span class="hljs-number">3</span> receive m
-channel <span class="hljs-number">2</span> receive L
-channel <span class="hljs-number">8</span> receive r
-channel <span class="hljs-number">0</span> receive J
-channel <span class="hljs-number">1</span> receive K
-channel <span class="hljs-number">7</span> receive q
-channel <span class="hljs-number">5</span> receive o
-channel <span class="hljs-number">9</span> receive s
-channel <span class="hljs-number">3</span> receive M
-channel <span class="hljs-number">5</span> receive O
-channel <span class="hljs-number">6</span> receive p
-channel <span class="hljs-number">4</span> receive N
-channel <span class="hljs-number">6</span> receive P
-channel <span class="hljs-number">9</span> receive S
-channel <span class="hljs-number">7</span> receive Q
-channel <span class="hljs-number">8</span> receive R</code></pre>
-
-<h5 id="利用channel遍历树"><a href="#利用channel遍历树" class="headerlink" title="利用channel遍历树"></a>利用channel遍历树</h5><pre><code class="hljs go"><span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-
-<span class="hljs-keyword">type</span> Node <span class="hljs-keyword">struct</span> &#123;
-	Value       <span class="hljs-keyword">int</span>
-	Left, Right *Node
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createNode</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">Node</span></span> &#123;
-	<span class="hljs-keyword">return</span> &amp;Node&#123;Value: value&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span> &#123;
-	<span class="hljs-comment">// 接收者使用指针才可以改变结构内容</span>
-	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
-		fmt.Println(<span class="hljs-string">&quot;Setting Value to nil node. Ignored.&quot;</span>)
-		<span class="hljs-keyword">return</span>
-	&#125;
-	node.Value = value
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span> &#123;
-	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
-		<span class="hljs-keyword">return</span>
-	&#125;
-	fmt.Print(node.Value, <span class="hljs-string">&quot; &quot;</span>)
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelsWithFunc</span><span class="hljs-params">(f <span class="hljs-keyword">func</span>(*Node)</span>)</span> &#123;
-	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;
-		<span class="hljs-keyword">return</span>
-	&#125;
-	node.Left.travelsWithFunc(f)
-	f(node)
-	node.Right.travelsWithFunc(f)
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelWithChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> *<span class="hljs-title">Node</span></span>&#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *Node)
-	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-		node.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;
-			c &lt;- node
-		&#125;)
-		<span class="hljs-built_in">close</span>(c)
-	&#125;()
-	<span class="hljs-keyword">return</span> c
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">initTree</span><span class="hljs-params">()</span> *<span class="hljs-title">Node</span></span> &#123;
-	<span class="hljs-keyword">var</span> root Node
-	root = Node&#123;Value: <span class="hljs-number">3</span>&#125;
-	root.Left = &amp;Node&#123;&#125;
-	root.Right = &amp;Node&#123;<span class="hljs-number">5</span>, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>&#125;
-	root.Right.Left = <span class="hljs-built_in">new</span>(Node)
-	root.Left.Right = createNode(<span class="hljs-number">2</span>)
-	root.Right.Left.setValue(<span class="hljs-number">4</span>)
-	<span class="hljs-keyword">return</span> &amp;root
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Demo</span><span class="hljs-params">()</span></span>  &#123;
-	t := initTree()
-
-	<span class="hljs-comment">// 计数</span>
-  nodeCount := <span class="hljs-number">0</span>
-	t.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;
-		nodeCount++
-	&#125;)
-	fmt.Println(<span class="hljs-string">&quot;Node counts&quot;</span>, nodeCount)
-
-	<span class="hljs-comment">// 树中最大值</span>
-  c := t.travelWithChannel()
-	maxNode := <span class="hljs-number">0</span>
-	<span class="hljs-comment">// 从channel中取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c &#123;
-		<span class="hljs-keyword">if</span> maxNode &lt; n.Value &#123;
-			maxNode = n.Value
-		&#125;
-	&#125;
-	fmt.Println(<span class="hljs-string">&quot;Max node:&quot;</span>, maxNode)
-&#125;</code></pre>
-
-<h4 id="Select调度"><a href="#Select调度" class="headerlink" title="Select调度"></a><code>Select</code>调度</h4><pre><code class="hljs go"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Author: Wang P</span>
-<span class="hljs-comment"> * Version: 1.0.0</span>
-<span class="hljs-comment"> * Date: 2021/2/5 上午10:37</span>
-<span class="hljs-comment"> * Description: select</span>
-<span class="hljs-comment"> **/</span>
-
-<span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;math/rand&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> SelectWorker <span class="hljs-keyword">struct</span> &#123;
-	id <span class="hljs-keyword">string</span>
-	c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *SelectWorker)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span></span>  &#123;
-	w.id = id
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectNotBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
-	<span class="hljs-keyword">for</span> &#123;
-		<span class="hljs-keyword">select</span> &#123;
-		<span class="hljs-keyword">case</span> n := &lt;- c1:
-			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)
-		<span class="hljs-keyword">case</span> n := &lt;-c2:
-			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)
-		<span class="hljs-keyword">default</span>:
-			fmt.Println(<span class="hljs-string">&quot;not receive anything&quot;</span>)
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;
-	<span class="hljs-keyword">for</span> &#123;
-		<span class="hljs-keyword">select</span> &#123;
-		<span class="hljs-keyword">case</span> n := &lt;- c1:
-			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)
-		<span class="hljs-keyword">case</span> n := &lt;-c2:
-			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)
-
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorkConditionBlock</span><span class="hljs-params">(rw, sw1, sw2 SelectWorker)</span></span>  &#123;
-	<span class="hljs-keyword">var</span> values []<span class="hljs-keyword">int</span>
-	id := <span class="hljs-string">&quot;&quot;</span>
-	endTime := time.After(time.Second * <span class="hljs-number">10</span>)
-	tick := time.Tick(time.Second)
-	<span class="hljs-keyword">for</span> &#123;
-		activeWorker := SelectWorker&#123;
-			c:  <span class="hljs-literal">nil</span>,
-		&#125;
-		<span class="hljs-keyword">var</span> activeValue <span class="hljs-keyword">int</span>
-		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(values) &gt;<span class="hljs-number">0</span> &#123;
-			rw.setValue(id)
-			activeWorker = rw
-			activeValue = values[<span class="hljs-number">0</span>]
-		&#125;
-		<span class="hljs-keyword">select</span> &#123;
-		<span class="hljs-keyword">case</span> n := &lt;-sw1.c:
-			id = sw1.id
-			values = <span class="hljs-built_in">append</span>(values, n)
-		<span class="hljs-keyword">case</span> n := &lt;-sw2.c:
-			id = sw2.id
-			values = <span class="hljs-built_in">append</span>(values, n)
-		<span class="hljs-keyword">case</span> activeWorker.c &lt;- activeValue:
-			values = values[<span class="hljs-number">1</span>:]
-		<span class="hljs-keyword">case</span> &lt;-time.After(time.Millisecond * <span class="hljs-number">600</span>):  <span class="hljs-comment">// 500毫秒未产生数据</span>
-			fmt.Println(<span class="hljs-string">&quot;程序超时&quot;</span>)
-		<span class="hljs-keyword">case</span> &lt;- tick:
-			fmt.Println(<span class="hljs-string">&quot;queue len = &quot;</span>, <span class="hljs-built_in">len</span>(values))
-		<span class="hljs-keyword">case</span> &lt;- endTime:  <span class="hljs-comment">// 程序执行到endTime时结束</span>
-			fmt.Println(<span class="hljs-string">&quot;程序执行结束&quot;</span>)
-			<span class="hljs-keyword">return</span>
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> <span class="hljs-title">int</span></span>&#123;
-	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
-	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-		i := <span class="hljs-number">0</span>
-		<span class="hljs-keyword">for</span> &#123;
-			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)
-			c &lt;- i
-			i++
-		&#125;
-	&#125;()
-	<span class="hljs-keyword">return</span> c
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateWorkChannel</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;
-	w := SelectWorker&#123;
-		id:id,
-		c: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-	&#125;
-	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-		i := <span class="hljs-number">0</span>
-		<span class="hljs-keyword">for</span> &#123;
-			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)
-			w.c &lt;- i
-			i++
-		&#125;
-	&#125;()
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>, rw SelectWorker)</span></span>  &#123;
-	<span class="hljs-comment">// 不断的从channel取</span>
-	<span class="hljs-keyword">for</span>  &#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %s from %s receive %d\n&quot;</span>, id, rw.id, &lt;-rw.c)
-		time.Sleep(time.Second)
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createSelectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;
-	rw := SelectWorker&#123;
-		c:  <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-	&#125;
-	<span class="hljs-keyword">go</span> selectWorks(id, rw)
-	<span class="hljs-keyword">return</span> rw
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectBlock</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-keyword">var</span> c1, c2 = generateChannel(), generateChannel()
-	selectBlock(c1, c2)
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectWork</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-keyword">var</span> sw1, sw2 = generateWorkChannel(<span class="hljs-string">&quot;send worker1&quot;</span>), generateWorkChannel(<span class="hljs-string">&quot;send worker2&quot;</span>)
-	rw := createSelectWorks(<span class="hljs-string">&quot;receive work1&quot;</span>)
-	selectWorkConditionBlock(rw, sw1, sw2)
-&#125;
-
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectDemo</span><span class="hljs-params">()</span></span>  &#123;
-
-	<span class="hljs-comment">//var c1, c2 chan int</span>
-	<span class="hljs-comment">//selectNotBlock(c1, c2)</span>
-
-	<span class="hljs-comment">//channelSelectBlock()</span>
-
-	channelSelectWork()
-&#125;</code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i ++ &#123;<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>)</span></span> &#123;<br>			<span class="hljs-keyword">for</span>&#123;<br>				fmt.Println(<span class="hljs-string">&quot;go run from&quot;</span>, j)<br>			&#125;<br>		&#125;(i)<br>	&#125;<br>	time.Sleep(time.Minute)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h4><p><img src="/images/golang/channel.png" srcset="/images/img/loading.gif" lazyload alt></p>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">works</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 不断的从channel取</span><br>	<span class="hljs-keyword">for</span>  &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, &lt;-c)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotClose</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span>  &#123;<br>		n, ok := &lt;-c<br>		<span class="hljs-keyword">if</span> !ok&#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">workIfNotCloseSimple</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorks</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">chan</span>&lt;- <span class="hljs-title">int</span></span> &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>	<span class="hljs-keyword">go</span> works(id, c)<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">first</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 创建channel用例</span><br>	<span class="hljs-keyword">var</span> chans [<span class="hljs-number">10</span>]<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span><br>	<span class="hljs-keyword">for</span>  i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chans[i] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>		<span class="hljs-keyword">go</span> works(i, chans[i])<br>	&#125;<br>	<span class="hljs-comment">// 往channel放</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chans[i] &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i<br>	&#125;<br>	<span class="hljs-comment">// 往channel放</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chans[i] &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">second</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span><br>	<span class="hljs-keyword">var</span> chann [<span class="hljs-number">10</span>] <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-keyword">int</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chann[i] = createWorks(i)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chann[i] &lt;- <span class="hljs-string">&#x27;k&#x27;</span> + i<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		chann[i] &lt;- <span class="hljs-string">&#x27;K&#x27;</span> + i<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">thirdBufferedChannel</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// channel缓冲区   可以放入不大于缓冲区的大小时，可以不用取</span><br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)<br>	<span class="hljs-keyword">go</span> works(<span class="hljs-number">0</span>, c)<br>	c &lt;- <span class="hljs-string">&#x27;u&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;v&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;w&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;x&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;y&#x27;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelClose</span><span class="hljs-params">()</span></span>  &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">4</span>)<br>	<span class="hljs-keyword">go</span> workIfNotCloseSimple(<span class="hljs-number">0</span>, c)<br>	c &lt;- <span class="hljs-string">&#x27;U&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;V&#x27;</span><br>	c &lt;- <span class="hljs-string">&#x27;W&#x27;</span><br>	<span class="hljs-built_in">close</span>(c)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ChanDemo</span><span class="hljs-params">()</span></span>  &#123;<br><br>	<span class="hljs-comment">//  channel也是一等公民</span><br>	first()<br>	second()<br>	fmt.Println(<span class="hljs-string">&quot;-----------------&quot;</span>)<br>	thirdBufferedChannel()<br><br>	channelClose()<br><br>	time.Sleep(time.Second)<br>&#125;<br><br><br><span class="hljs-comment">// 输出</span><br>channel <span class="hljs-number">7</span> receive h<br>channel <span class="hljs-number">9</span> receive j<br>channel <span class="hljs-number">8</span> receive i<br>channel <span class="hljs-number">5</span> receive f<br>channel <span class="hljs-number">3</span> receive d<br>channel <span class="hljs-number">6</span> receive g<br>channel <span class="hljs-number">4</span> receive e<br>channel <span class="hljs-number">2</span> receive c<br>channel <span class="hljs-number">1</span> receive b<br>channel <span class="hljs-number">0</span> receive a<br>channel <span class="hljs-number">0</span> receive A<br>-----------------<br>channel <span class="hljs-number">4</span> receive E<br>channel <span class="hljs-number">3</span> receive D<br>channel <span class="hljs-number">1</span> receive B<br>channel <span class="hljs-number">7</span> receive H<br>channel <span class="hljs-number">2</span> receive C<br>channel <span class="hljs-number">5</span> receive F<br>channel <span class="hljs-number">6</span> receive G<br>channel <span class="hljs-number">9</span> receive J<br>channel <span class="hljs-number">8</span> receive I<br>channel <span class="hljs-number">0</span> receive k<br>channel <span class="hljs-number">1</span> receive l<br>channel <span class="hljs-number">2</span> receive m<br>channel <span class="hljs-number">3</span> receive n<br>channel <span class="hljs-number">4</span> receive o<br>channel <span class="hljs-number">5</span> receive p<br>channel <span class="hljs-number">6</span> receive q<br>channel <span class="hljs-number">7</span> receive r<br>channel <span class="hljs-number">7</span> receive R<br>channel <span class="hljs-number">8</span> receive s<br>channel <span class="hljs-number">8</span> receive S<br>channel <span class="hljs-number">3</span> receive N<br>channel <span class="hljs-number">5</span> receive P<br>channel <span class="hljs-number">0</span> receive K<br>channel <span class="hljs-number">6</span> receive Q<br>channel <span class="hljs-number">9</span> receive t<br>channel <span class="hljs-number">9</span> receive T<br>channel <span class="hljs-number">2</span> receive M<br>channel <span class="hljs-number">4</span> receive O<br>channel <span class="hljs-number">1</span> receive L<br>-----------------<br>channel <span class="hljs-number">0</span> receive u<br>channel <span class="hljs-number">0</span> receive v<br>channel <span class="hljs-number">0</span> receive w<br>channel <span class="hljs-number">0</span> receive x<br>channel <span class="hljs-number">0</span> receive y<br>channel <span class="hljs-number">0</span> receive U<br>channel <span class="hljs-number">0</span> receive V<br>channel <span class="hljs-number">0</span> receive W<br>Exiting.<br></code></pre></div></td></tr></table></figure>
+<h5 id="通过通信来共享内存"><a href="#通过通信来共享内存" class="headerlink" title="通过通信来共享内存"></a>通过通信来共享内存</h5><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Author: Wang P</span><br><span class="hljs-comment"> * Version: 1.0.0</span><br><span class="hljs-comment"> * Date: 2021/2/5 下午5:05</span><br><span class="hljs-comment"> * Description:</span><br><span class="hljs-comment"> **/</span><br><br><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Worker <span class="hljs-keyword">struct</span> &#123;<br>	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span><br>	done <span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>		w.done &lt;- <span class="hljs-literal">true</span><br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;<br>	w := Worker&#123;<br>		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),<br>	&#125;<br>	<span class="hljs-keyword">go</span> doWork(id, w)<br>	<span class="hljs-keyword">return</span> w<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicate</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span><br>	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]Worker<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		works[i] = createWorkers(i)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;<br>		&lt;- worker.done<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> works&#123;<br>		&lt;- worker.done<br>	&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWork2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w Worker)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			w.done &lt;- <span class="hljs-literal">true</span><br>		&#125;()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">Worker</span></span> &#123;<br>	w := Worker&#123;<br>		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>		done: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>),<br>	&#125;<br>	<span class="hljs-keyword">go</span> doWork2(id, w)<br>	<span class="hljs-keyword">return</span> w<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDoneAll</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span><br>	<span class="hljs-keyword">var</span> worksAll [<span class="hljs-number">10</span>]Worker<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		worksAll[i] = createWorkers2(i)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;j&#x27;</span> + i<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> worksAll &#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;J&#x27;</span> + i<br>	&#125;<br><br>	<span class="hljs-comment">// 等所有任务都取完 再结束</span><br>	<span class="hljs-keyword">for</span> _, worker := <span class="hljs-keyword">range</span> worksAll &#123;<br>		&lt;- worker.done<br>		&lt;- worker.done<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateDemo</span><span class="hljs-params">()</span></span>  &#123;<br>	communicate()<br>	fmt.Println(<span class="hljs-string">&quot;----------------&quot;</span>)<br>	communicateDoneAll()<br>&#125;<br><br><span class="hljs-comment">// 输出</span><br>channel <span class="hljs-number">7</span> receive h<br>channel <span class="hljs-number">5</span> receive f<br>channel <span class="hljs-number">8</span> receive i<br>channel <span class="hljs-number">9</span> receive j<br>channel <span class="hljs-number">2</span> receive c<br>channel <span class="hljs-number">3</span> receive d<br>channel <span class="hljs-number">1</span> receive b<br>channel <span class="hljs-number">0</span> receive a<br>channel <span class="hljs-number">4</span> receive e<br>channel <span class="hljs-number">6</span> receive g<br>channel <span class="hljs-number">6</span> receive G<br>channel <span class="hljs-number">7</span> receive H<br>channel <span class="hljs-number">8</span> receive I<br>channel <span class="hljs-number">9</span> receive J<br>channel <span class="hljs-number">0</span> receive A<br>channel <span class="hljs-number">1</span> receive B<br>channel <span class="hljs-number">2</span> receive C<br>channel <span class="hljs-number">3</span> receive D<br>channel <span class="hljs-number">5</span> receive F<br>channel <span class="hljs-number">4</span> receive E<br>----------------<br>channel <span class="hljs-number">0</span> receive j<br>channel <span class="hljs-number">1</span> receive k<br>channel <span class="hljs-number">4</span> receive n<br>channel <span class="hljs-number">2</span> receive l<br>channel <span class="hljs-number">3</span> receive m<br>channel <span class="hljs-number">2</span> receive L<br>channel <span class="hljs-number">8</span> receive r<br>channel <span class="hljs-number">0</span> receive J<br>channel <span class="hljs-number">1</span> receive K<br>channel <span class="hljs-number">7</span> receive q<br>channel <span class="hljs-number">5</span> receive o<br>channel <span class="hljs-number">9</span> receive s<br>channel <span class="hljs-number">3</span> receive M<br>channel <span class="hljs-number">5</span> receive O<br>channel <span class="hljs-number">6</span> receive p<br>channel <span class="hljs-number">4</span> receive N<br>channel <span class="hljs-number">6</span> receive P<br>channel <span class="hljs-number">9</span> receive S<br>channel <span class="hljs-number">7</span> receive Q<br>channel <span class="hljs-number">8</span> receive R<br></code></pre></div></td></tr></table></figure>
+<h5 id="利用channel遍历树"><a href="#利用channel遍历树" class="headerlink" title="利用channel遍历树"></a>利用channel遍历树</h5><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Node <span class="hljs-keyword">struct</span> &#123;<br>	Value       <span class="hljs-keyword">int</span><br>	Left, Right *Node<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createNode</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">Node</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;Node&#123;Value: value&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span> &#123;<br>	<span class="hljs-comment">// 接收者使用指针才可以改变结构内容</span><br>	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;Setting Value to nil node. Ignored.&quot;</span>)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	node.Value = value<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	fmt.Print(node.Value, <span class="hljs-string">&quot; &quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelsWithFunc</span><span class="hljs-params">(f <span class="hljs-keyword">func</span>(*Node)</span>)</span> &#123;<br>	<span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	node.Left.travelsWithFunc(f)<br>	f(node)<br>	node.Right.travelsWithFunc(f)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(node *Node)</span><span class="hljs-title">travelWithChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> *<span class="hljs-title">Node</span></span>&#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *Node)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		node.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;<br>			c &lt;- node<br>		&#125;)<br>		<span class="hljs-built_in">close</span>(c)<br>	&#125;()<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">initTree</span><span class="hljs-params">()</span> *<span class="hljs-title">Node</span></span> &#123;<br>	<span class="hljs-keyword">var</span> root Node<br>	root = Node&#123;Value: <span class="hljs-number">3</span>&#125;<br>	root.Left = &amp;Node&#123;&#125;<br>	root.Right = &amp;Node&#123;<span class="hljs-number">5</span>, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>&#125;<br>	root.Right.Left = <span class="hljs-built_in">new</span>(Node)<br>	root.Left.Right = createNode(<span class="hljs-number">2</span>)<br>	root.Right.Left.setValue(<span class="hljs-number">4</span>)<br>	<span class="hljs-keyword">return</span> &amp;root<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Demo</span><span class="hljs-params">()</span></span>  &#123;<br>	t := initTree()<br><br>	<span class="hljs-comment">// 计数</span><br>  nodeCount := <span class="hljs-number">0</span><br>	t.travelsWithFunc(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *Node)</span></span> &#123;<br>		nodeCount++<br>	&#125;)<br>	fmt.Println(<span class="hljs-string">&quot;Node counts&quot;</span>, nodeCount)<br><br>	<span class="hljs-comment">// 树中最大值</span><br>  c := t.travelWithChannel()<br>	maxNode := <span class="hljs-number">0</span><br>	<span class="hljs-comment">// 从channel中取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> c &#123;<br>		<span class="hljs-keyword">if</span> maxNode &lt; n.Value &#123;<br>			maxNode = n.Value<br>		&#125;<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;Max node:&quot;</span>, maxNode)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="Select调度"><a href="#Select调度" class="headerlink" title="Select调度"></a><code>Select</code>调度</h4><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Author: Wang P</span><br><span class="hljs-comment"> * Version: 1.0.0</span><br><span class="hljs-comment"> * Date: 2021/2/5 上午10:37</span><br><span class="hljs-comment"> * Description: select</span><br><span class="hljs-comment"> **/</span><br><br><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> SelectWorker <span class="hljs-keyword">struct</span> &#123;<br>	id <span class="hljs-keyword">string</span><br>	c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(w *SelectWorker)</span> <span class="hljs-title">setValue</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span></span>  &#123;<br>	w.id = id<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectNotBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> n := &lt;- c1:<br>			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)<br>		<span class="hljs-keyword">case</span> n := &lt;-c2:<br>			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)<br>		<span class="hljs-keyword">default</span>:<br>			fmt.Println(<span class="hljs-string">&quot;not receive anything&quot;</span>)<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectBlock</span><span class="hljs-params">(c1, c2 <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> n := &lt;- c1:<br>			fmt.Printf(<span class="hljs-string">&quot;receice %d from c1\n&quot;</span>, n)<br>		<span class="hljs-keyword">case</span> n := &lt;-c2:<br>			fmt.Printf(<span class="hljs-string">&quot;receice %d from c2\n&quot;</span>, n)<br><br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorkConditionBlock</span><span class="hljs-params">(rw, sw1, sw2 SelectWorker)</span></span>  &#123;<br>	<span class="hljs-keyword">var</span> values []<span class="hljs-keyword">int</span><br>	id := <span class="hljs-string">&quot;&quot;</span><br>	endTime := time.After(time.Second * <span class="hljs-number">10</span>)<br>	tick := time.Tick(time.Second)<br>	<span class="hljs-keyword">for</span> &#123;<br>		activeWorker := SelectWorker&#123;<br>			c:  <span class="hljs-literal">nil</span>,<br>		&#125;<br>		<span class="hljs-keyword">var</span> activeValue <span class="hljs-keyword">int</span><br>		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(values) &gt;<span class="hljs-number">0</span> &#123;<br>			rw.setValue(id)<br>			activeWorker = rw<br>			activeValue = values[<span class="hljs-number">0</span>]<br>		&#125;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> n := &lt;-sw1.c:<br>			id = sw1.id<br>			values = <span class="hljs-built_in">append</span>(values, n)<br>		<span class="hljs-keyword">case</span> n := &lt;-sw2.c:<br>			id = sw2.id<br>			values = <span class="hljs-built_in">append</span>(values, n)<br>		<span class="hljs-keyword">case</span> activeWorker.c &lt;- activeValue:<br>			values = values[<span class="hljs-number">1</span>:]<br>		<span class="hljs-keyword">case</span> &lt;-time.After(time.Millisecond * <span class="hljs-number">600</span>):  <span class="hljs-comment">// 500毫秒未产生数据</span><br>			fmt.Println(<span class="hljs-string">&quot;程序超时&quot;</span>)<br>		<span class="hljs-keyword">case</span> &lt;- tick:<br>			fmt.Println(<span class="hljs-string">&quot;queue len = &quot;</span>, <span class="hljs-built_in">len</span>(values))<br>		<span class="hljs-keyword">case</span> &lt;- endTime:  <span class="hljs-comment">// 程序执行到endTime时结束</span><br>			fmt.Println(<span class="hljs-string">&quot;程序执行结束&quot;</span>)<br>			<span class="hljs-keyword">return</span><br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateChannel</span><span class="hljs-params">()</span> <span class="hljs-title">chan</span> <span class="hljs-title">int</span></span>&#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		i := <span class="hljs-number">0</span><br>		<span class="hljs-keyword">for</span> &#123;<br>			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)<br>			c &lt;- i<br>			i++<br>		&#125;<br>	&#125;()<br>	<span class="hljs-keyword">return</span> c<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateWorkChannel</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;<br>	w := SelectWorker&#123;<br>		id:id,<br>		c: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>	&#125;<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		i := <span class="hljs-number">0</span><br>		<span class="hljs-keyword">for</span> &#123;<br>			time.Sleep(time.Duration(rand.Intn(<span class="hljs-number">1000</span>)) * time.Millisecond)<br>			w.c &lt;- i<br>			i++<br>		&#125;<br>	&#125;()<br>	<span class="hljs-keyword">return</span> w<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>, rw SelectWorker)</span></span>  &#123;<br>	<span class="hljs-comment">// 不断的从channel取</span><br>	<span class="hljs-keyword">for</span>  &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %s from %s receive %d\n&quot;</span>, id, rw.id, &lt;-rw.c)<br>		time.Sleep(time.Second)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createSelectWorks</span><span class="hljs-params">(id <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">SelectWorker</span></span> &#123;<br>	rw := SelectWorker&#123;<br>		c:  <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>	&#125;<br>	<span class="hljs-keyword">go</span> selectWorks(id, rw)<br>	<span class="hljs-keyword">return</span> rw<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectBlock</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span> c1, c2 = generateChannel(), generateChannel()<br>	selectBlock(c1, c2)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">channelSelectWork</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span> sw1, sw2 = generateWorkChannel(<span class="hljs-string">&quot;send worker1&quot;</span>), generateWorkChannel(<span class="hljs-string">&quot;send worker2&quot;</span>)<br>	rw := createSelectWorks(<span class="hljs-string">&quot;receive work1&quot;</span>)<br>	selectWorkConditionBlock(rw, sw1, sw2)<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectDemo</span><span class="hljs-params">()</span></span>  &#123;<br><br>	<span class="hljs-comment">//var c1, c2 chan int</span><br>	<span class="hljs-comment">//selectNotBlock(c1, c2)</span><br><br>	<span class="hljs-comment">//channelSelectBlock()</span><br><br>	channelSelectWork()<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h4 id="同步机制"><a href="#同步机制" class="headerlink" title="同步机制"></a>同步机制</h4><ul>
 <li><code>WaitGroup</code></li>
 </ul>
 <p>基于<code>WaitGroup</code>实现通信来共享内存</p>
-<pre><code class="hljs go"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Author: Wang P</span>
-<span class="hljs-comment"> * Version: 1.0.0</span>
-<span class="hljs-comment"> * Date: 2021/2/5 下午5:37</span>
-<span class="hljs-comment"> * Description: 基于WaitGroup实现通信来共享内存</span>
-<span class="hljs-comment"> **/</span>
-
-<span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;sync&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> WorkerWG <span class="hljs-keyword">struct</span> &#123;
-	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	wg *sync.WaitGroup
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		w.wg.Done()
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG</span></span> &#123;
-	w := WorkerWG&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		wg: wg,
-	&#125;
-	<span class="hljs-keyword">go</span> doWorkWaitDone(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG
-	<span class="hljs-keyword">var</span> wg sync.WaitGroup
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		works[i] = createWaitDoneWorkers(i, &amp;wg)
-	&#125;
-
-	<span class="hljs-comment">//wg.Add(20)</span>
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-		wg.Add(<span class="hljs-number">1</span>)
-	&#125;
-
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-		wg.Add(<span class="hljs-number">1</span>)
-	&#125;
-
-	wg.Wait()
-&#125;
-
-
-<span class="hljs-keyword">type</span> WorkerWG2 <span class="hljs-keyword">struct</span> &#123;
-	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
-	done <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span>  // 函数式编程</span>
-&#125;
-
-<span class="hljs-comment">// WorkerWG封装</span>
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG2)</span></span>  &#123;
-	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span>
-	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;
-		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)
-		w.done()
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG2</span></span> &#123;
-	w := WorkerWG2&#123;
-		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),
-		done: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-			wg.Done()
-		&#125;,
-	&#125;
-	<span class="hljs-keyword">go</span> doWorkWaitDone2(id, w)
-	<span class="hljs-keyword">return</span> w
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone2</span><span class="hljs-params">()</span></span>  &#123;
-	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span>
-	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG2
-	<span class="hljs-keyword">var</span> wg sync.WaitGroup
-	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;
-		works[i] = createWaitDoneWorkers2(i, &amp;wg)
-	&#125;
-
-	wg.Add(<span class="hljs-number">20</span>)
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i
-		<span class="hljs-comment">//wg.Add(1)</span>
-	&#125;
-	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;
-		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i
-		<span class="hljs-comment">//wg.Add(1)</span>
-	&#125;
-	wg.Wait()
-&#125;
-
-<span class="hljs-comment">// 输出</span>
-channel <span class="hljs-number">7</span> receive h
-channel <span class="hljs-number">5</span> receive f
-channel <span class="hljs-number">6</span> receive g
-channel <span class="hljs-number">0</span> receive a
-channel <span class="hljs-number">8</span> receive i
-channel <span class="hljs-number">1</span> receive b
-channel <span class="hljs-number">3</span> receive d
-channel <span class="hljs-number">2</span> receive c
-channel <span class="hljs-number">4</span> receive e
-channel <span class="hljs-number">9</span> receive j
-channel <span class="hljs-number">9</span> receive J
-channel <span class="hljs-number">3</span> receive D
-channel <span class="hljs-number">0</span> receive A
-channel <span class="hljs-number">5</span> receive F
-channel <span class="hljs-number">2</span> receive C
-channel <span class="hljs-number">4</span> receive E
-channel <span class="hljs-number">6</span> receive G
-channel <span class="hljs-number">1</span> receive B
-channel <span class="hljs-number">7</span> receive H
-channel <span class="hljs-number">8</span> receive I
-channel <span class="hljs-number">9</span> receive j
-channel <span class="hljs-number">6</span> receive g
-channel <span class="hljs-number">8</span> receive i
-channel <span class="hljs-number">4</span> receive e
-channel <span class="hljs-number">0</span> receive a
-channel <span class="hljs-number">0</span> receive A
-channel <span class="hljs-number">2</span> receive c
-channel <span class="hljs-number">3</span> receive d
-channel <span class="hljs-number">5</span> receive f
-channel <span class="hljs-number">1</span> receive b
-channel <span class="hljs-number">1</span> receive B
-channel <span class="hljs-number">7</span> receive h
-channel <span class="hljs-number">7</span> receive H
-channel <span class="hljs-number">3</span> receive D
-channel <span class="hljs-number">5</span> receive F
-channel <span class="hljs-number">4</span> receive E
-channel <span class="hljs-number">6</span> receive G
-channel <span class="hljs-number">9</span> receive J
-channel <span class="hljs-number">2</span> receive C
-channel <span class="hljs-number">8</span> receive I</code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Author: Wang P</span><br><span class="hljs-comment"> * Version: 1.0.0</span><br><span class="hljs-comment"> * Date: 2021/2/5 下午5:37</span><br><span class="hljs-comment"> * Description: 基于WaitGroup实现通信来共享内存</span><br><span class="hljs-comment"> **/</span><br><br><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> WorkerWG <span class="hljs-keyword">struct</span> &#123;<br>	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span><br>	wg *sync.WaitGroup<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>		w.wg.Done()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG</span></span> &#123;<br>	w := WorkerWG&#123;<br>		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>		wg: wg,<br>	&#125;<br>	<span class="hljs-keyword">go</span> doWorkWaitDone(id, w)<br>	<span class="hljs-keyword">return</span> w<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span><br>	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG<br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		works[i] = createWaitDoneWorkers(i, &amp;wg)<br>	&#125;<br><br>	<span class="hljs-comment">//wg.Add(20)</span><br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i<br>		wg.Add(<span class="hljs-number">1</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i<br>		wg.Add(<span class="hljs-number">1</span>)<br>	&#125;<br><br>	wg.Wait()<br>&#125;<br><br><br><span class="hljs-keyword">type</span> WorkerWG2 <span class="hljs-keyword">struct</span> &#123;<br>	in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span><br>	done <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span>  // 函数式编程</span><br>&#125;<br><br><span class="hljs-comment">// WorkerWG封装</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">doWorkWaitDone2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, w WorkerWG2)</span></span>  &#123;<br>	<span class="hljs-comment">// 接收方判断channel中有数据就不断的从channel取</span><br>	<span class="hljs-keyword">for</span> n := <span class="hljs-keyword">range</span> w.in&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;channel %d receive %c\n&quot;</span>, id, n)<br>		w.done()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createWaitDoneWorkers2</span><span class="hljs-params">(id <span class="hljs-keyword">int</span>, wg *sync.WaitGroup)</span> <span class="hljs-title">WorkerWG2</span></span> &#123;<br>	w := WorkerWG2&#123;<br>		in: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>),<br>		done: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>			wg.Done()<br>		&#125;,<br>	&#125;<br>	<span class="hljs-keyword">go</span> doWorkWaitDone2(id, w)<br>	<span class="hljs-keyword">return</span> w<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">communicateWaitDone2</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-comment">// 只能发数据  chan&lt;- int 将channel 作为函数返回参数  即 channel也是一等公民</span><br>	<span class="hljs-keyword">var</span> works [<span class="hljs-number">10</span>]WorkerWG2<br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		works[i] = createWaitDoneWorkers2(i, &amp;wg)<br>	&#125;<br><br>	wg.Add(<span class="hljs-number">20</span>)<br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;a&#x27;</span> + i<br>		<span class="hljs-comment">//wg.Add(1)</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> i, worker := <span class="hljs-keyword">range</span> works&#123;<br>		worker.in &lt;- <span class="hljs-string">&#x27;A&#x27;</span> + i<br>		<span class="hljs-comment">//wg.Add(1)</span><br>	&#125;<br>	wg.Wait()<br>&#125;<br><br><span class="hljs-comment">// 输出</span><br>channel <span class="hljs-number">7</span> receive h<br>channel <span class="hljs-number">5</span> receive f<br>channel <span class="hljs-number">6</span> receive g<br>channel <span class="hljs-number">0</span> receive a<br>channel <span class="hljs-number">8</span> receive i<br>channel <span class="hljs-number">1</span> receive b<br>channel <span class="hljs-number">3</span> receive d<br>channel <span class="hljs-number">2</span> receive c<br>channel <span class="hljs-number">4</span> receive e<br>channel <span class="hljs-number">9</span> receive j<br>channel <span class="hljs-number">9</span> receive J<br>channel <span class="hljs-number">3</span> receive D<br>channel <span class="hljs-number">0</span> receive A<br>channel <span class="hljs-number">5</span> receive F<br>channel <span class="hljs-number">2</span> receive C<br>channel <span class="hljs-number">4</span> receive E<br>channel <span class="hljs-number">6</span> receive G<br>channel <span class="hljs-number">1</span> receive B<br>channel <span class="hljs-number">7</span> receive H<br>channel <span class="hljs-number">8</span> receive I<br>channel <span class="hljs-number">9</span> receive j<br>channel <span class="hljs-number">6</span> receive g<br>channel <span class="hljs-number">8</span> receive i<br>channel <span class="hljs-number">4</span> receive e<br>channel <span class="hljs-number">0</span> receive a<br>channel <span class="hljs-number">0</span> receive A<br>channel <span class="hljs-number">2</span> receive c<br>channel <span class="hljs-number">3</span> receive d<br>channel <span class="hljs-number">5</span> receive f<br>channel <span class="hljs-number">1</span> receive b<br>channel <span class="hljs-number">1</span> receive B<br>channel <span class="hljs-number">7</span> receive h<br>channel <span class="hljs-number">7</span> receive H<br>channel <span class="hljs-number">3</span> receive D<br>channel <span class="hljs-number">5</span> receive F<br>channel <span class="hljs-number">4</span> receive E<br>channel <span class="hljs-number">6</span> receive G<br>channel <span class="hljs-number">9</span> receive J<br>channel <span class="hljs-number">2</span> receive C<br>channel <span class="hljs-number">8</span> receive I<br></code></pre></div></td></tr></table></figure>
 <ul>
 <li><code>Mutux</code></li>
 </ul>
-<pre><code class="hljs go"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Author: Wang P</span>
-<span class="hljs-comment"> * Version: 1.0.0</span>
-<span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span>
-<span class="hljs-comment"> * Description:</span>
-<span class="hljs-comment"> **/</span>
-
-<span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;sync&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;
-	value <span class="hljs-keyword">int</span>
-	lock sync.Mutex
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;
-	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)
-	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;
-		<span class="hljs-comment">//a.lock.Lock()</span>
-		<span class="hljs-comment">//defer a.lock.Unlock()</span>
-		a.value++
-	&#125;()
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
-	<span class="hljs-comment">//a.lock.Lock()</span>
-	<span class="hljs-comment">//defer a.lock.Unlock()</span>
-	<span class="hljs-keyword">return</span> a.value
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;
-	 i := AtomicInt&#123;&#125;
-	 i.increase()
-	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-	 	i.increase()
-	 &#125;()
-	time.Sleep(time.Millisecond)
-	 fmt.Println(i.get())
-&#125;
-
-
-<span class="hljs-comment">// 输出</span>
-xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span>
-safe Increase
-safe Increase
-==================
-WARNING: DATA RACE
-Read at <span class="hljs-number">0x00c000134010</span> by main goroutine:
-  offer/note/goroutines.(*AtomicInt).get()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">33</span> +<span class="hljs-number">0xab</span>
-  offer/note/goroutines.AtomicDemo()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">43</span> +<span class="hljs-number">0xb4</span>
-  main.main()
-      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span>
-
-Previous write at <span class="hljs-number">0x00c000134010</span> by goroutine <span class="hljs-number">7</span>:
-  offer/note/goroutines.(*AtomicInt).increase.func1()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">26</span> +<span class="hljs-number">0xbd</span>
-  offer/note/goroutines.(*AtomicInt).increase()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">27</span> +<span class="hljs-number">0x9e</span>
-  offer/note/goroutines.AtomicDemo.func1()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">40</span> +<span class="hljs-number">0x38</span>
-
-Goroutine <span class="hljs-number">7</span> (finished) created at:
-  offer/note/goroutines.AtomicDemo()
-      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">39</span> +<span class="hljs-number">0x90</span>
-  main.main()
-      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span>
-==================
-<span class="hljs-number">2</span>
-Found <span class="hljs-number">1</span> data race(s)
-exit status <span class="hljs-number">66</span></code></pre>
-
-<pre><code class="hljs go"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Author: Wang P</span>
-<span class="hljs-comment"> * Version: 1.0.0</span>
-<span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span>
-<span class="hljs-comment"> * Description:</span>
-<span class="hljs-comment"> **/</span>
-
-<span class="hljs-keyword">package</span> goroutines
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-	<span class="hljs-string">&quot;sync&quot;</span>
-	<span class="hljs-string">&quot;time&quot;</span>
-)
-
-<span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;
-	value <span class="hljs-keyword">int</span>
-	lock sync.Mutex
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;
-	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)
-	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;
-		a.lock.Lock()
-		<span class="hljs-keyword">defer</span> a.lock.Unlock()
-		a.value++
-	&#125;()
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;
-	a.lock.Lock()
-	<span class="hljs-keyword">defer</span> a.lock.Unlock()
-	<span class="hljs-keyword">return</span> a.value
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;
-	 i := AtomicInt&#123;&#125;
-	 i.increase()
-	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
-	 	i.increase()
-	 &#125;()
-	time.Sleep(time.Millisecond)
-	 fmt.Println(i.get())
-&#125;
-
-
-<span class="hljs-comment">// 输出</span>
-xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span>
-safe Increase
-safe Increase
-<span class="hljs-number">2</span></code></pre>
-
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Author: Wang P</span><br><span class="hljs-comment"> * Version: 1.0.0</span><br><span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span><br><span class="hljs-comment"> * Description:</span><br><span class="hljs-comment"> **/</span><br><br><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">int</span><br>	lock sync.Mutex<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;<br>	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>		<span class="hljs-comment">//a.lock.Lock()</span><br>		<span class="hljs-comment">//defer a.lock.Unlock()</span><br>		a.value++<br>	&#125;()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>	<span class="hljs-comment">//a.lock.Lock()</span><br>	<span class="hljs-comment">//defer a.lock.Unlock()</span><br>	<span class="hljs-keyword">return</span> a.value<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;<br>	 i := AtomicInt&#123;&#125;<br>	 i.increase()<br>	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>	 	i.increase()<br>	 &#125;()<br>	time.Sleep(time.Millisecond)<br>	 fmt.Println(i.get())<br>&#125;<br><br><br><span class="hljs-comment">// 输出</span><br>xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span><br>safe Increase<br>safe Increase<br>==================<br>WARNING: DATA RACE<br>Read at <span class="hljs-number">0x00c000134010</span> by main goroutine:<br>  offer/note/goroutines.(*AtomicInt).get()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">33</span> +<span class="hljs-number">0xab</span><br>  offer/note/goroutines.AtomicDemo()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">43</span> +<span class="hljs-number">0xb4</span><br>  main.main()<br>      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span><br><br>Previous write at <span class="hljs-number">0x00c000134010</span> by goroutine <span class="hljs-number">7</span>:<br>  offer/note/goroutines.(*AtomicInt).increase.func1()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">26</span> +<span class="hljs-number">0xbd</span><br>  offer/note/goroutines.(*AtomicInt).increase()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">27</span> +<span class="hljs-number">0x9e</span><br>  offer/note/goroutines.AtomicDemo.func1()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">40</span> +<span class="hljs-number">0x38</span><br><br>Goroutine <span class="hljs-number">7</span> (finished) created at:<br>  offer/note/goroutines.AtomicDemo()<br>      /Users/wangpeng/Projects/golang/src/offer/note/goroutines/atomic.<span class="hljs-keyword">go</span>:<span class="hljs-number">39</span> +<span class="hljs-number">0x90</span><br>  main.main()<br>      /Users/wangpeng/Projects/golang/src/offer/note/main.<span class="hljs-keyword">go</span>:<span class="hljs-number">75</span> +<span class="hljs-number">0x2f</span><br>==================<br><span class="hljs-number">2</span><br>Found <span class="hljs-number">1</span> data race(s)<br>exit status <span class="hljs-number">66</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Author: Wang P</span><br><span class="hljs-comment"> * Version: 1.0.0</span><br><span class="hljs-comment"> * Date: 2021/2/5 下午2:34</span><br><span class="hljs-comment"> * Description:</span><br><span class="hljs-comment"> **/</span><br><br><span class="hljs-keyword">package</span> goroutines<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> AtomicInt <span class="hljs-keyword">struct</span> &#123;<br>	value <span class="hljs-keyword">int</span><br>	lock sync.Mutex<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span></span>  &#123;<br>	fmt.Println(<span class="hljs-string">&quot;safe Increase&quot;</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>		a.lock.Lock()<br>		<span class="hljs-keyword">defer</span> a.lock.Unlock()<br>		a.value++<br>	&#125;()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *AtomicInt)</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>	a.lock.Lock()<br>	<span class="hljs-keyword">defer</span> a.lock.Unlock()<br>	<span class="hljs-keyword">return</span> a.value<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">AtomicDemo</span><span class="hljs-params">()</span></span>  &#123;<br>	 i := AtomicInt&#123;&#125;<br>	 i.increase()<br>	 <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>	 	i.increase()<br>	 &#125;()<br>	time.Sleep(time.Millisecond)<br>	 fmt.Println(i.get())<br>&#125;<br><br><br><span class="hljs-comment">// 输出</span><br>xxx@xxxdeMacBook-Pro  ~/Projects/golang/src/offer/note   master ±✚  <span class="hljs-keyword">go</span> run -race main.<span class="hljs-keyword">go</span><br>safe Increase<br>safe Increase<br><span class="hljs-number">2</span><br></code></pre></div></td></tr></table></figure>
 <ul>
 <li><code>Cond</code></li>
 </ul>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -1121,11 +382,15 @@ safe Increase
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2021/06/02/golang-test/">
@@ -1134,8 +399,8 @@ safe Increase
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2021/03/22/redis/">
@@ -1144,13 +409,13 @@ safe Increase
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -1158,7 +423,7 @@ safe Increase
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -1170,16 +435,15 @@ safe Increase
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -1200,248 +464,143 @@ safe Increase
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
-        <span>Trable</span></a>
-    </div>
     
 
     
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">杭ICP证123456号</a>
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
     
-      <a
-        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
-        rel="nofollow noopener"
-        class="beian-police"
-        target="_blank"
-      >
-        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
-        
-          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
-        
-        <span>杭公网安备12345678号</span>
-      </a>
-     
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
   </div>
 
 
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
     
-     <div>
-  	<span id="timeDate">载入天数...</span>
- 	<span id="times">载入时分秒...</span>
- 	<script>
-          var now = new Date();
-          function createtime(){
-           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
-           now.setTime(now.getTime()+250);
-           days = (now - grt ) / 1000 / 60 / 60 / 24;
-           dnum = Math.floor(days);
-           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
-           hnum = Math.floor(hours);
-           if(String(hnum).length ==1 ){
-                hnum = "0" + hnum;
-           }
-           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-           mnum = Math.floor(minutes);
-           if(String(mnum).length ==1 ){
-                mnum = "0" + mnum;
-           }
-           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-           snum = Math.round(seconds);
-           if(String(snum).length ==1 ){
-                snum = "0" + snum;
-           }
-           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
-           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
-          }
-          setInterval("createtime()",250);
-       </script>
-    </div>
- </div>
- </footer>
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "【Go】并发之道&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
   <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
@@ -1453,20 +612,9 @@ safe Increase
 
 
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>

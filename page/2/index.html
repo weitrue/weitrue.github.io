@@ -1,35 +1,70 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
-  <link rel="icon" type="image/png" href="/img/logo.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="我们相信，未来可期！">
-  <meta name="author" content="嗯，我们是对的">
+  <meta name="author" content="Pony W">
   <meta name="keywords" content="">
+  <meta name="description" content="我们相信，未来可期！">
+<meta property="og:type" content="website">
+<meta property="og:title" content="weitrable">
+<meta property="og:url" content="https://weitrue.github.io/page/2/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="我们相信，未来可期！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Pony W">
+<meta name="twitter:card" content="summary_large_image">
+  
   <title>weitrable</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -37,16 +72,23 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
 
 
 <body>
   <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>WeiTrable</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -111,6 +153,18 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                开源书栈
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -144,8 +198,15 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -153,13 +214,13 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/images/img/banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="We are always believe it is the Truth and Available!">
               
             </span>
 
@@ -178,7 +239,7 @@
 
   <main>
     
-      <div class="container nopadding-md">
+      <div class="container nopadding-x-md">
         <div class="py-5" id="board"
           style=margin-top:0>
           
@@ -192,27 +253,36 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/03/30/golang-concurrency/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【Go】并发之道">
+        <a href="/2021/06/02/golang-src/" target="_self">
+          <img src="/images/golang/gopher-learn.png" srcset="/images/img/loading.gif" lazyload alt="【Go】使用之道">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/30/golang-concurrency/">【Go】并发之道</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/02/golang-src/" target="_self">
+          【Go】使用之道
+        </a>
+      </h1>
 
-      <a href="/2021/03/30/golang-concurrency/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/06/02/golang-src/" target="_self">
           
-        
-        <div>
-“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程</div>
-      </a>
+          
+            
+          
+          
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-30
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-02 10:04" pubdate>
+              2021-06-02
+            </time>
           </div>
         
         
@@ -232,7 +302,176 @@
           </div>
         
       </div>
-    </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/02/golang-doc/" target="_self">
+          <img src="/images/golang/gopher-share.png" srcset="/images/img/loading.gif" lazyload alt="【Go】文档之道">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/02/golang-doc/" target="_self">
+          【Go】文档之道
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/02/golang-doc/" target="_self">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-02 10:04" pubdate>
+              2021-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/02/golang-test/" target="_self">
+          <img src="/images/golang/gopher-pirate.png" srcset="/images/img/loading.gif" lazyload alt="【Go】测试之道">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/02/golang-test/" target="_self">
+          【Go】测试之道
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/02/golang-test/" target="_self">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-02 10:04" pubdate>
+              2021-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/03/30/golang-concurrency/" target="_self">
+          <img src="/images/golang/gopher-inclusion.png" srcset="/images/img/loading.gif" lazyload alt="【Go】并发之道">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/30/golang-concurrency/" target="_self">
+          【Go】并发之道
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/30/golang-concurrency/" target="_self">
+          
+          
+            
+          
+          
+“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-30 09:52" pubdate>
+              2021-03-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -240,26 +479,36 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/22/redis/" target="_self">
-          <img src="/images/redis/top.png" srcset="/img/loading.gif" alt="【Redis】学习笔记">
+          <img src="/images/db/redis/top.png" srcset="/images/img/loading.gif" lazyload alt="【Redis】学习笔记">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/22/redis/">【Redis】学习笔记</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/redis/" target="_self">
+          【Redis】学习笔记
+        </a>
+      </h1>
 
-      <a href="/2021/03/22/redis/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/22/redis/" target="_self">
           
-        
-        <div>
-Remote DictIOnary Server（远程数据服务），是一个基于内存且支持持久化的高性能 key-value 数据库</div>
-      </a>
+          
+            
+          
+          
+Remote DictIOnary Server（远程数据服务），是一个基于内存且支持持久化的高性能 key-value 数据库
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-22
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 17:58" pubdate>
+              2021-03-22
+            </time>
           </div>
         
         
@@ -281,7 +530,7 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -289,26 +538,36 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/21/mysql/" target="_self">
-          <img src="/images/mysql/top.jpg" srcset="/img/loading.gif" alt="【MySQL】学习笔记">
+          <img src="/images/db/mysql/index.png" srcset="/images/img/loading.gif" lazyload alt="【MySQL】学习笔记">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/21/mysql/">【MySQL】学习笔记</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/21/mysql/" target="_self">
+          【MySQL】学习笔记
+        </a>
+      </h1>
 
-      <a href="/2021/03/21/mysql/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/21/mysql/" target="_self">
           
-        
-        <div>
-最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。</div>
-      </a>
+          
+            
+          
+          
+最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-21
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-21 12:21" pubdate>
+              2021-03-21
+            </time>
           </div>
         
         
@@ -330,7 +589,7 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -338,32 +597,42 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/12/lt-graph/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【LeetCode】图结构相关">
+          <img src="/images/algorithm/lt-graph/index.png" srcset="/images/img/loading.gif" lazyload alt="【LeetCode】图结构相关">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/12/lt-graph/">【LeetCode】图结构相关</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/12/lt-graph/" target="_self">
+          【LeetCode】图结构相关
+        </a>
+      </h1>
 
-      <a href="/2021/03/12/lt-graph/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/12/lt-graph/" target="_self">
           
-        
-        <div></div>
-      </a>
+          
+            
+          
+          
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-12
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-12 16:57" pubdate>
+              2021-03-12
+            </time>
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
@@ -384,7 +653,7 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -392,32 +661,42 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/10/lt-sort/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【LeetCode】排序算法">
+          <img src="/images/algorithm/lt-sort/index.png" srcset="/images/img/loading.gif" lazyload alt="【LeetCode】排序算法">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/10/lt-sort/">【LeetCode】排序算法</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/10/lt-sort/" target="_self">
+          【LeetCode】排序算法
+        </a>
+      </h1>
 
-      <a href="/2021/03/10/lt-sort/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/10/lt-sort/" target="_self">
           
-        
-        <div></div>
-      </a>
+          
+            
+          
+          
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-10
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-10 17:07" pubdate>
+              2021-03-10
+            </time>
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
@@ -438,7 +717,7 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -446,32 +725,42 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/08/lt-tree/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【LeetCode】树结构相关">
+          <img src="/images/algorithm/lt-tree/index.jpg" srcset="/images/img/loading.gif" lazyload alt="【LeetCode】树结构相关">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/08/lt-tree/">【LeetCode】树结构相关</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/08/lt-tree/" target="_self">
+          【LeetCode】树结构相关
+        </a>
+      </h1>
 
-      <a href="/2021/03/08/lt-tree/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/08/lt-tree/" target="_self">
           
-        
-        <div></div>
-      </a>
+          
+            
+          
+          
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-08
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-08 09:02" pubdate>
+              2021-03-08
+            </time>
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
@@ -492,7 +781,7 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
@@ -500,33 +789,43 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/03/05/lt-linkedList/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【LeetCode】线性表相关问题">
+          <img src="/images/algorithm/lt-linkedList/index.jpg" srcset="/images/img/loading.gif" lazyload alt="【LeetCode】线性表相关问题">
         </a>
       </div>
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/03/05/lt-linkedList/">【LeetCode】线性表相关问题</a>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/05/lt-linkedList/" target="_self">
+          【LeetCode】线性表相关问题
+        </a>
+      </h1>
 
-      <a href="/2021/03/05/lt-linkedList/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2021/03/05/lt-linkedList/" target="_self">
           
-        
-        <div>
-把所有数据用一根线儿串起来，再存储到物理空间中的数据结构</div>
-      </a>
+          
+            
+          
+          
+把所有数据用一根线儿串起来，再存储到物理空间中的数据结构
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-03-05
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-05 10:36" pubdate>
+              2021-03-05
+            </time>
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
@@ -547,165 +846,16 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
           </div>
         
       </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/02/07/golang/" target="_self">
-          <img src="/images/golang/index.jpg" srcset="/img/loading.gif" alt="【Go】学习笔记">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/02/07/golang/">【Go】学习笔记</a>
-
-      <a href="/2021/02/07/golang/" class="index-excerpt">
-        
-        
-          
-        
-        <div>
- “Go has indeed become the language of cloud infrastructure” - Rob Pike interview</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-02-07
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">Go</a>
-            
-              <a href="/tags/ADT/">ADT</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/01/11/ml/" target="_self">
-          <img src="/images/img/updating.jpg" srcset="/img/loading.gif" alt="【ML】机器学习概述与简单应用">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/01/11/ml/">【ML】机器学习概述与简单应用</a>
-
-      <a href="/2021/01/11/ml/" class="index-excerpt">
-        
-        
-          
-        
-        <div></div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-01-11
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/ML/">ML</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">Python</a>
-            
-              <a href="/tags/ML/">ML</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/01/10/vim/" target="_self">
-          <img src="/images/vim/vim-keymap.png" srcset="/img/loading.gif" alt="【Mac】vim环境设置">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2021/01/10/vim/">【Mac】vim环境设置</a>
-
-      <a href="/2021/01/10/vim/" class="index-excerpt">
-        
-        
-          
-        
-        <div></div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2021-01-10
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Develop/">Develop</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/vim/">vim</a>
-            
-          </div>
-        
-      </div>
-    </div>
+    </article>
   </div>
 
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
 
 
 
@@ -715,16 +865,15 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
         </div>
       </div>
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -745,135 +894,126 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Wei</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/weitrue" target="_blank" rel="nofollow noopener">
-        <span>Trable</span></a>
-    </div>
     
 
     
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">杭ICP证123456号</a>
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
     
-      <a
-        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
-        rel="nofollow noopener"
-        class="beian-police"
-        target="_blank"
-      >
-        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
-        
-          <img src="/images/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
-        
-        <span>杭公网安备12345678号</span>
-      </a>
-     
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
   </div>
 
 
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        杭ICP证123456号
+      </a>
+    </span>
     
-     <div>
-  	<span id="timeDate">载入天数...</span>
- 	<span id="times">载入时分秒...</span>
- 	<script>
-          var now = new Date();
-          function createtime(){
-           var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
-           now.setTime(now.getTime()+250);
-           days = (now - grt ) / 1000 / 60 / 60 / 24;
-           dnum = Math.floor(days);
-           hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
-           hnum = Math.floor(hours);
-           if(String(hnum).length ==1 ){
-                hnum = "0" + hnum;
-           }
-           minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-           mnum = Math.floor(minutes);
-           if(String(mnum).length ==1 ){
-                mnum = "0" + mnum;
-           }
-           seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-           snum = Math.round(seconds);
-           if(String(snum).length ==1 ){
-                snum = "0" + snum;
-           }
-           document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
-           document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
-          }
-          setInterval("createtime()",250);
-       </script>
-    </div>
- </div>
- </footer>
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>杭公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "We are always believe it is the Truth and Available!&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-
-
   <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
@@ -884,80 +1024,14 @@ Remote DictIOnary Server（远程数据服务），是一个基于内存且支�
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
 
 
 
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>

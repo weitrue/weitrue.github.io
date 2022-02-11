@@ -39,19 +39,22 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Pony W">
   <meta name="keywords" content="">
-  <meta property="og:type" content="article">
+  
+    <meta property="og:type" content="article">
 <meta property="og:title" content="【Go】面试之道">
 <meta property="og:url" content="https://weitrue.github.io/2021/06/02/golang-interview/index.html">
 <meta property="og:site_name" content="weitrable">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/golang/gopher-hugs.png">
 <meta property="article:published_time" content="2021-06-02T02:05:27.569Z">
 <meta property="article:modified_time" content="2021-06-02T02:05:27.569Z">
 <meta property="article:author" content="Pony W">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/golang/gopher-hugs.png">
+  
   
   <title>【Go】面试之道 - weitrable</title>
 
@@ -90,7 +93,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/images/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -271,7 +274,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40 分钟
+      42 分钟
     </span>
   
 
@@ -312,158 +315,209 @@
             
             <div class="markdown-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
- <span id="more"></span>
+<p><span id="more"></span></p>
 </blockquote>
-<h3 id="笔试题"><a href="#笔试题" class="headerlink" title="笔试题"></a>笔试题</h3><h4 id="选择题"><a href="#选择题" class="headerlink" title="选择题"></a>选择题</h4><p>1.[primary] 下面属于关键字的是（）<br>A. func<br>B. def<br>C. struct<br>D. class​</p>
+<h3 id="笔试题">笔试题</h3>
+<h4 id="选择题">选择题</h4>
+<p>1.[primary] 下面属于关键字的是（） A. func B. def C. struct D. class​</p>
 <p>AC</p>
-<p>2.[primary] 定义一个包内全局字符串变量，下面语法正确的是 （）<br>A. var str string<br>B. str := “”<br>C. str = “”<br>D. var str = “”</p>
+<p>2.[primary] 定义一个包内全局字符串变量，下面语法正确的是 （） A. var str string B. str := “” C. str = “” D. var str = “”</p>
 <p>AD</p>
-<p>3.[primary] 通过指针变量 p 访问其成员变量 name，下面语法正确的是（）<br>A. p.name<br>B. (*p).name<br>C. (&amp;p).name<br>D. p-&gt;name</p>
+<p>3.[primary] 通过指针变量 p 访问其成员变量 name，下面语法正确的是（） A. p.name B. (*p).name C. (&amp;p).name D. p-&gt;name</p>
 <p>AB</p>
-<p>4.[primary] 关于接口和类的说法，下面说法正确的是（）<br>A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口<br>B. 实现类的时候，只需要关心自己应该提供哪些方法，不用再纠结接口需要拆得多细才合理<br>C. 类实现接口时，需要导入接口所在的包<br>D. 接口由使用方按自身需求来定义，使用方无需关心是否有其他模块定义过类似的接口</p>
+<p>4.[primary] 关于接口和类的说法，下面说法正确的是（） A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口 B. 实现类的时候，只需要关心自己应该提供哪些方法，不用再纠结接口需要拆得多细才合理 C. 类实现接口时，需要导入接口所在的包 D. 接口由使用方按自身需求来定义，使用方无需关心是否有其他模块定义过类似的接口</p>
 <p>ABD</p>
-<p>5.[primary] 关于字符串连接，下面语法正确的是（）<br>A. str := ‘abc’ + ‘123’<br>B. str := “abc” + “123”<br>C. str ：= ‘123’ + “abc”<br>D. fmt.Sprintf(“abc%d”, 123)</p>
+<p>5.[primary] 关于字符串连接，下面语法正确的是（） A. str := ‘abc’ + ‘123’ B. str := “abc” + “123” C. str ：= ‘123’ + “abc” D. fmt.Sprintf(“abc%d”, 123)</p>
 <p>BD</p>
-<p>6.[primary] 关于协程，下面说法正确是（）<br>A. 协程和线程都可以实现程序的并发执行<br>B. 线程比协程更轻量级<br>C. 协程不存在死锁问题<br>D. 通过channel来进行协程间的通信</p>
+<p>6.[primary] 关于协程，下面说法正确是（） A. 协程和线程都可以实现程序的并发执行 B. 线程比协程更轻量级 C. 协程不存在死锁问题 D. 通过channel来进行协程间的通信</p>
 <p>AD</p>
-<p>7.[intermediate] 关于init函数，下面说法正确的是（）<br>A. 一个包中，可以包含多个init函数<br>B. 程序编译时，先执行导入包的init函数，再执行本包内的init函数<br>C. main包中，不能有init函数<br>D. init函数可以被其他函数调用</p>
+<p>7.[intermediate] 关于init函数，下面说法正确的是（） A. 一个包中，可以包含多个init函数 B. 程序编译时，先执行导入包的init函数，再执行本包内的init函数 C. main包中，不能有init函数 D. init函数可以被其他函数调用</p>
 <p>AB</p>
-<p>8.[primary] 关于循环语句，下面说法正确的有（）<br>A. 循环语句既支持for关键字，也支持while和do-while<br>B. 关键字for的基本使用方法与C/C++中没有任何差异<br>C. for循环支持continue和break来控制循环，但是它提供了一个更高级的break，可以选择中断哪一个循环<br>D. for循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量</p>
+<p>8.[primary] 关于循环语句，下面说法正确的有（） A. 循环语句既支持for关键字，也支持while和do-while B. 关键字for的基本使用方法与C/C++中没有任何差异 C. for循环支持continue和break来控制循环，但是它提供了一个更高级的break，可以选择中断哪一个循环 D. for循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量</p>
 <p>CD</p>
 <p>9.[intermediate] 对于函数定义：</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">add</span><span class="hljs-params">(args ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>        sum := <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> args &#123;<br>            sum += arg<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>下面对add函数调用正确的是（）</p>
-<p> A. add(1, 2)<br> B. add(1, 3, 7)<br> C. add([]int{1, 2})<br> D. add([]int{1, 3, 7}…)</p>
+<p>A. add(1, 2) B. add(1, 3, 7) C. add([]int{1, 2}) D. add([]int{1, 3, 7}...)</p>
 <p>ABD</p>
-<p>10.[primary] 关于类型转化，下面语法正确的是（）<br>A. </p>
+<p>10.[primary] 关于类型转化，下面语法正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyInt <span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">var</span> j MyInt = i<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs GO"><span class="hljs-keyword">type</span> MyInt <span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">var</span> j MyInt = (MyInt)i<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyInt <span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">var</span> j MyInt = MyInt(i)<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyInt <span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">var</span> j MyInt = i.(MyInt)   <span class="hljs-comment">// Invalid type assertion: i.(MyInt) (non-interface type int on left)</span><br></code></pre></div></td></tr></table></figure>
-<p>11.[primary] 关于局部变量的初始化，下面正确的使用方式是（）<br>A. var i int = 10<br>B. var i = 10<br>C. i := 10<br>D. i = 10</p>
-<p>12.[primary] 关于const常量定义，下面正确的使用方式是（）<br>A.</p>
+<p>11.[primary] 关于局部变量的初始化，下面正确的使用方式是（） A. var i int = 10 B. var i = 10 C. i := 10 D. i = 10</p>
+<p>12.[primary] 关于const常量定义，下面正确的使用方式是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">const</span> Pi <span class="hljs-keyword">float64</span> = <span class="hljs-number">3.14159265358979323846</span><br><span class="hljs-keyword">const</span> zero = <span class="hljs-number">0.0</span><br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>        size <span class="hljs-keyword">int64</span> = <span class="hljs-number">1024</span><br>        eof = <span class="hljs-number">-1</span><br>)<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>        ERR_ELEM_EXIST error = errors.New(<span class="hljs-string">&quot;element already exists&quot;</span>)<br>        ERR_ELEM_NT_EXIST error = errors.New(<span class="hljs-string">&quot;element not exists&quot;</span>)<br>) <span class="hljs-comment">// Const initializer &#x27;errors.New(&quot;element already exists&quot;)&#x27; is not a constant</span><br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">const</span> u, v <span class="hljs-keyword">float32</span> = <span class="hljs-number">0</span>, <span class="hljs-number">3</span><br><span class="hljs-keyword">const</span> a, b, c = <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-string">&quot;foo&quot;</span><br></code></pre></div></td></tr></table></figure>
 <p>ABD</p>
-<p>13.[primary] 关于布尔变量b的赋值，下面错误的用法是（）<br>A. <code>b = true</code><br>B. <code>b = 1     //  Cannot use &#39;1&#39; (type untyped int) as type bool in assignment</code><br>C. <code>b = bool(1)   //Cannot convert expression of type int to type bool</code><br>D. <code>b = (1 == 2)</code></p>
+<p>13.[primary] 关于布尔变量b的赋值，下面错误的用法是（） A. <code>b = true</code> B. <code>b = 1     //  Cannot use '1' (type untyped int) as type bool in assignment</code> C. <code>b = bool(1)   //Cannot convert expression of type int to type bool</code> D. <code>b = (1 == 2)</code></p>
 <p>BC</p>
 <p>14.[intermediate] 下面的程序的运行结果是（）</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">&quot;1&quot;</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">&quot;2&quot;</span>)<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">&quot;3&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>A. 321<br>B. 32<br>C. 31<br>D. 13</p>
+<p>A. 321 B. 32 C. 31 D. 13</p>
 <p>C</p>
-<p>15.[primary] 关于switch语句，下面说法正确的有（）<br>A. 条件表达式必须为常量或者整数<br>B. 单个case中，可以出现多个结果选项<br>C. 需要用break来明确退出一个case<br>D. 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case</p>
+<p>15.[primary] 关于switch语句，下面说法正确的有（） A. 条件表达式必须为常量或者整数 B. 单个case中，可以出现多个结果选项 C. 需要用break来明确退出一个case D. 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case</p>
 <p>BD</p>
-<p>16.[intermediate] golang中没有隐藏的this指针，这句话的含义是（）<br>A. 方法施加的对象显式传递，没有被隐藏起来<br>B. golang沿袭了传统面向对象编程中的诸多概念，比如继承、虚函数和构造函数<br>C. golang的面向对象表达更直观，对于面向过程只是换了一种语法形式来表达<br>D. 方法施加的对象不需要非得是指针，也不用非得叫this</p>
+<p>16.[intermediate] golang中没有隐藏的this指针，这句话的含义是（） A. 方法施加的对象显式传递，没有被隐藏起来 B. golang沿袭了传统面向对象编程中的诸多概念，比如继承、虚函数和构造函数 C. golang的面向对象表达更直观，对于面向过程只是换了一种语法形式来表达 D. 方法施加的对象不需要非得是指针，也不用非得叫this</p>
 <p>ACD</p>
-<p>17.[intermediate] golang中的引用类型包括（）<br>A. 数组切片<br>B. map<br>C. channel<br>D. interface</p>
+<p>17.[intermediate] golang中的引用类型包括（） A. 数组切片 B. map C. channel D. interface</p>
 <p>ABCD</p>
-<p>18.[intermediate] golang中的指针运算包括（）<br>A. 可以对指针进行自增或自减运算<br>B. 可以通过“&amp;”取指针的地址<br>C. 可以通过“*”取指针指向的数据<br>D. 可以对指针进行下标运算</p>
+<p>18.[intermediate] golang中的指针运算包括（） A. 可以对指针进行自增或自减运算 B. 可以通过“&amp;”取指针的地址 C. 可以通过“*”取指针指向的数据 D. 可以对指针进行下标运算</p>
 <p>BC</p>
-<p>19.[primary] 关于main函数（可执行程序的执行起点），下面说法正确的是（）<br>A. main函数不能带参数<br>B. main函数不能定义返回值<br>C. main函数所在的包必须为main包<br>D. main函数中可以使用flag包来获取和解析命令行参数</p>
+<p>19.[primary] 关于main函数（可执行程序的执行起点），下面说法正确的是（） A. main函数不能带参数 B. main函数不能定义返回值 C. main函数所在的包必须为main包 D. main函数中可以使用flag包来获取和解析命令行参数</p>
 <p>ABCD</p>
-<p>20.[intermediate] 下面赋值正确的是（）<br>A. var x = nil<br>B. var x interface{} = nil<br>C. var x string = nil<br>D. var x error = nil</p>
+<p>20.[intermediate] 下面赋值正确的是（） A. var x = nil B. var x interface{} = nil C. var x string = nil D. var x error = nil</p>
 <p>BD</p>
-<p>21.[intermediate] 关于整型切片的初始化，下面正确的是（）<br>A. s := make([]int)<br>B. s := make([]int, 0)<br>C. s := make([]int, 5, 10)<br>D. s := []int{1, 2, 3, 4, 5}</p>
+<p>21.[intermediate] 关于整型切片的初始化，下面正确的是（） A. s := make([]int) B. s := make([]int, 0) C. s := make([]int, 5, 10) D. s := []int{1, 2, 3, 4, 5}</p>
 <p>BCD</p>
-<p>22.[intermediate] 从切片中删除一个元素，下面的算法实现正确的是（）<br>A.</p>
+<p>22.[intermediate] 从切片中删除一个元素，下面的算法实现正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Slice)</span><span class="hljs-title">Remove</span><span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;<br>        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> *s &#123;<br>            <span class="hljs-keyword">if</span> isEqual(value, v) &#123;<br>                <span class="hljs-keyword">if</span> i== <span class="hljs-built_in">len</span>(*s) - <span class="hljs-number">1</span> &#123;<br>                    *s = (*s)[:i]<br>                &#125;<span class="hljs-keyword">else</span> &#123;<br>                    *s = <span class="hljs-built_in">append</span>((*s)[:i],(*s)[i + <span class="hljs-number">2</span>:]...)<br>                &#125;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ERR_ELEM_NT_EXIST<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Slice)</span><span class="hljs-title">Remove</span><span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;<br>        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> *s &#123;<br>            <span class="hljs-keyword">if</span> isEqual(value, v) &#123;<br>                *s = <span class="hljs-built_in">append</span>((*s)[:i],(*s)[i + <span class="hljs-number">1</span>:])<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ERR_ELEM_NT_EXIST<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Slice)</span><span class="hljs-title">Remove</span><span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;<br>        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> *s &#123;<br>            <span class="hljs-keyword">if</span> isEqual(value, v) &#123;<br>                <span class="hljs-built_in">delete</span>(*s, v)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ERR_ELEM_NT_EXIST<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Slice)</span><span class="hljs-title">Remove</span><span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;<br>        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> *s &#123;<br>            <span class="hljs-keyword">if</span> isEqual(value, v) &#123;<br>                *s = <span class="hljs-built_in">append</span>((*s)[:i],(*s)[i + <span class="hljs-number">1</span>:]...)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ERR_ELEM_NT_EXIST<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>D</p>
-<p>23.[primary] 关于变量的自增和自减操作，下面语句正确的是（）<br>A.</p>
+<p>23.[primary] 关于变量的自增和自减操作，下面语句正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">i := <span class="hljs-number">1</span><br>i++<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">i := <span class="hljs-number">1</span><br>j = i++      <span class="hljs-comment">// &#x27;,&#x27;, &#x27;;&#x27;, new line or &#x27;&#125;&#x27; expected, got &#x27;++&#x27;</span><br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">i := <span class="hljs-number">1</span><br>++i<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">i := <span class="hljs-number">1</span><br>i--<br></code></pre></div></td></tr></table></figure>
 <p>BD</p>
-<p>24.[intermediate] 关于函数声明，下面语法错误的是（）<br>A. func f(a, b int) (value int, err error)<br>B. func f(a int, b int) (value int, err error)<br>C. func f(a, b int) (value int, error)<br>D. func f(a int, b int) (int, int, error)</p>
+<p>24.[intermediate] 关于函数声明，下面语法错误的是（） A. func f(a, b int) (value int, err error) B. func f(a int, b int) (value int, err error) C. func f(a, b int) (value int, error) D. func f(a int, b int) (int, int, error)</p>
 <p>C</p>
 <p>25.[intermediate] 如果Add函数的调用代码为：</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">var</span> a Integer = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">var</span> b Integer = <span class="hljs-number">2</span><br>    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = &amp;a<br>    sum := i.(*Integer).Add(b)<br>    fmt.Println(sum)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>则Add函数定义正确的是（）<br>A.</p>
+<p>则Add函数定义正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b *Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + *b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> *a + b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b *Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> *a + *b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>AC<br>26.[intermediate] 如果Add函数的调用代码为：</p>
+<p>AC 26.[intermediate] 如果Add函数的调用代码为：</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">var</span> a Integer = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">var</span> b Integer = <span class="hljs-number">2</span><br>        <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = a<br>        sum := i.(Integer).Add(b)<br>        fmt.Println(sum)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>则Add函数定义正确的是（）<br>A.</p>
+<p>则Add函数定义正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b *Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + *b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> *a + b<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b *Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> *a + *b<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>AC</p>
 <p>27.[intermediate] 关于GetPodAction定义，下面赋值正确的是（）</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Fragment <span class="hljs-keyword">interface</span> &#123;<br>        Exec(transInfo *TransInfo) error<br>&#125;<br><span class="hljs-keyword">type</span> GetPodAction <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(g GetPodAction)</span> <span class="hljs-title">Exec</span><span class="hljs-params">(transInfo *TransInfo)</span> <span class="hljs-title">error</span></span> &#123;<br>        ...<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>A. var fragment Fragment = new(GetPodAction)<br>B. var fragment Fragment = GetPodAction<br>C. var fragment Fragment = &amp;GetPodAction{}<br>D. var fragment Fragment = GetPodAction{}</p>
+<p>A. var fragment Fragment = new(GetPodAction) B. var fragment Fragment = GetPodAction C. var fragment Fragment = &amp;GetPodAction{} D. var fragment Fragment = GetPodAction{}</p>
 <p>ACD</p>
-<p>28.[intermediate] 关于GoMock，下面说法正确的是（）<br>A. GoMock可以对interface打桩<br>B. GoMock可以对类的成员函数打桩<br>C. GoMock可以对函数打桩<br>D. GoMock打桩后的依赖注入可以通过GoStub完成</p>
+<p>28.[intermediate] 关于GoMock，下面说法正确的是（） A. GoMock可以对interface打桩 B. GoMock可以对类的成员函数打桩 C. GoMock可以对函数打桩 D. GoMock打桩后的依赖注入可以通过GoStub完成</p>
 <p>[AD]</p>
-<p>29.[intermediate] 关于接口，下面说法正确的是（）<br>A. 只要两个接口拥有相同的方法列表（次序不同不要紧），那么它们就是等价的，可以相互赋值<br>B. 如果接口A的方法列表是接口B的方法列表的子集，那么接口B可以赋值给接口A<br>C. 接口查询是否成功，要在运行期才能够确定<br>D. 接口赋值是否可行，要在运行期才能够确定</p>
+<p>29.[intermediate] 关于接口，下面说法正确的是（） A. 只要两个接口拥有相同的方法列表（次序不同不要紧），那么它们就是等价的，可以相互赋值 B. 如果接口A的方法列表是接口B的方法列表的子集，那么接口B可以赋值给接口A C. 接口查询是否成功，要在运行期才能够确定 D. 接口赋值是否可行，要在运行期才能够确定</p>
 <p>[ABC]</p>
-<p>30.[primary] 关于channel，下面语法正确的是（）<br>A. var ch chan int<br>B. ch := make(chan int)<br>C. &lt;- ch<br>D. ch &lt;-<br>ABC</p>
-<p>31.[primary] 关于同步锁，下面说法正确的是（）<br>A. 当一个goroutine获得了Mutex后，其他goroutine就只能乖乖的等待，除非该goroutine释放这个Mutex<br>B. RWMutex在读锁占用的情况下，会阻止写，但不阻止读<br>C. RWMutex在写锁占用情况下，会阻止任何其他goroutine（无论读和写）进来，整个锁相当于由该goroutine独占<br>D. Lock()操作需要保证有Unlock()或RUnlock()调用与之对应</p>
+<p>30.[primary] 关于channel，下面语法正确的是（） A. var ch chan int B. ch := make(chan int) C. &lt;- ch D. ch &lt;- ABC</p>
+<p>31.[primary] 关于同步锁，下面说法正确的是（） A. 当一个goroutine获得了Mutex后，其他goroutine就只能乖乖的等待，除非该goroutine释放这个Mutex B. RWMutex在读锁占用的情况下，会阻止写，但不阻止读 C. RWMutex在写锁占用情况下，会阻止任何其他goroutine（无论读和写）进来，整个锁相当于由该goroutine独占 D. Lock()操作需要保证有Unlock()或RUnlock()调用与之对应</p>
 <p>ABC</p>
-<p>32.[intermediate] golang中大多数数据类型都可以转化为有效的JSON文本，下面几种类型除外（）<br>A. 指针<br>B. channel<br>C. complex<br>D. 函数</p>
+<p>32.[intermediate] golang中大多数数据类型都可以转化为有效的JSON文本，下面几种类型除外（） A. 指针 B. channel C. complex D. 函数</p>
 <p>BCD</p>
-<p>33.[intermediate] 关于go vendor，下面说法正确的是（）<br>A. 基本思路是将引用的外部包的源代码放在当前工程的vendor目录下面<br>B. 编译go代码会优先从vendor目录先寻找依赖包<br>C. 可以指定引用某个特定版本的外部包<br>D. 有了vendor目录后，打包当前的工程代码到其他机器的$GOPATH/src下都可以通过编译</p>
+<p>33.[intermediate] 关于go vendor，下面说法正确的是（） A. 基本思路是将引用的外部包的源代码放在当前工程的vendor目录下面 B. 编译go代码会优先从vendor目录先寻找依赖包 C. 可以指定引用某个特定版本的外部包 D. 有了vendor目录后，打包当前的工程代码到其他机器的$GOPATH/src下都可以通过编译</p>
 <p>ABD</p>
-<p>34.[primary] flag是bool型变量，下面if表达式符合编码规范的是（）<br>A. if flag == 1<br>B. if flag<br>C. if flag == false<br>D. if !flag</p>
+<p>34.[primary] flag是bool型变量，下面if表达式符合编码规范的是（） A. if flag == 1 B. if flag C. if flag == false D. if !flag</p>
 <p>BD</p>
-<p>35.[primary] value是整型变量，下面if表达式符合编码规范的是（）<br>A. if value == 0<br>B. if value<br>C. if value != 0<br>D. if !value</p>
+<p>35.[primary] value是整型变量，下面if表达式符合编码规范的是（） A. if value == 0 B. if value C. if value != 0 D. if !value</p>
 <p>AC</p>
-<p>36.[intermediate] 关于函数返回值的错误设计，下面说法正确的是（）<br>A. 如果失败原因只有一个，则返回bool<br>B. 如果失败原因超过一个，则返回error<br>C. 如果没有失败原因，则不返回bool或error<br>D. 如果重试几次可以避免失败，则不要立即返回bool或error</p>
-<p>37.[intermediate] 关于异常设计，下面说法正确的是（）<br>A. 在程序开发阶段，坚持速错，让程序异常崩溃<br>B. 在程序部署后，应恢复异常避免程序终止<br>C. 一切皆错误，不用进行异常设计<br>D. 对于不应该出现的分支，使用异常处理</p>
-<p>[intermediate] 关于slice或map操作，下面正确的是（）<br>A.</p>
+<p>36.[intermediate] 关于函数返回值的错误设计，下面说法正确的是（） A. 如果失败原因只有一个，则返回bool B. 如果失败原因超过一个，则返回error C. 如果没有失败原因，则不返回bool或error D. 如果重试几次可以避免失败，则不要立即返回bool或error</p>
+<p>37.[intermediate] 关于异常设计，下面说法正确的是（） A. 在程序开发阶段，坚持速错，让程序异常崩溃 B. 在程序部署后，应恢复异常避免程序终止 C. 一切皆错误，不用进行异常设计 D. 对于不应该出现的分支，使用异常处理</p>
+<p>[intermediate] 关于slice或map操作，下面正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> s []<span class="hljs-keyword">int</span><br>s = <span class="hljs-built_in">append</span>(s,<span class="hljs-number">1</span>)<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br>m[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span><br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> s []<span class="hljs-keyword">int</span><br>s = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>s = <span class="hljs-built_in">append</span>(s,<span class="hljs-number">1</span>)<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br>m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)<br>m[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span><br></code></pre></div></td></tr></table></figure>
-<p>[intermediate] 关于channel的特性，下面说法正确的是（）<br>A. 给一个 nil channel 发送数据，造成永远阻塞<br>B. 从一个 nil channel 接收数据，造成永远阻塞<br>C. 给一个已经关闭的 channel 发送数据，引起 panic<br>D. 从一个已经关闭的 channel 接收数据，如果缓冲区中为空，则返回一个零值</p>
-<p>[intermediate] 关于无缓冲和有冲突的channel，下面说法正确的是（）<br>A. 无缓冲的channel是默认的缓冲为1的channel<br>B. 无缓冲的channel和有缓冲的channel都是同步的<br>C. 无缓冲的channel和有缓冲的channel都是非同步的<br>D. 无缓冲的channel是同步的，而有缓冲的channel是非同步的</p>
-<p>答案下载链接 ：<a target="_blank" rel="noopener" href="https://wws.lanzous.com/ifgqgmunf8d">https://wws.lanzous.com/ifgqgmunf8d</a></p>
-<p>[intermediate] 关于异常的触发，下面说法正确的是（）<br>A. 空指针解析<br>B. 下标越界<br>C. 除数为0<br>D. 调用panic函数</p>
-<p>[intermediate] 关于cap函数的适用类型，下面说法正确的是（）<br>A. array<br>B. slice<br>C. map<br>D. channel</p>
-<p>[intermediate] 关于beego框架，下面说法正确的是（）<br>A. beego是一个golang实现的轻量级HTTP框架<br>B. beego可以通过注释路由、正则路由等多种方式完成url路由注入<br>C. 可以使用bee new工具生成空工程，然后使用bee run命令自动热编译<br>D. beego框架只提供了对url路由的处理， 而对于MVC架构中的数据库部分未提供框架支持</p>
-<p>[intermediate] 关于goconvey，下面说法正确的是（）<br>A. goconvey是一个支持golang的单元测试框架<br>B. goconvey能够自动监控文件修改并启动测试，并可以将测试结果实时输出到web界面<br>C. goconvey提供了丰富的断言简化测试用例的编写<br>D. goconvey无法与go test集成</p>
-<p>[intermediate] 关于go vet，下面说法正确的是（）<br>A. go vet是golang自带工具go tool vet的封装<br>B. 当执行go vet database时，可以对database所在目录下的所有子文件夹进行递归检测<br>C. go vet可以使用绝对路径、相对路径或相对GOPATH的路径指定待检测的包<br>D. go vet可以检测出死代码</p>
-<p>[intermediate] 关于map，下面说法正确的是（）<br>A. map反序列化时json.unmarshal的入参必须为map的地址<br>B. 在函数调用中传递map，则子函数中对map元素的增加不会导致父函数中map的修改<br>C. 在函数调用中传递map，则子函数中对map元素的修改不会导致父函数中map的修改<br>D. 不能使用内置函数delete删除map的元素</p>
-<p>[intermediate] 关于GoStub，下面说法正确的是（）<br>A. GoStub可以对全局变量打桩<br>B. GoStub可以对函数打桩<br>C. GoStub可以对类的成员方法打桩<br>D. GoStub可以打动态桩，比如对一个函数打桩后，多次调用该函数会有不同的行为</p>
-<p>[primary] 关于select机制，下面说法正确的是（）<br>A. select机制用来处理异步IO问题<br>B. select机制最大的一条限制就是每个case语句里必须是一个IO操作<br>C. golang在语言级别支持select关键字<br>D. select关键字的用法与switch语句非常类似，后面要带判断条件</p>
-<p>[primary] 关于内存泄露，下面说法正确的是（）<br>A. golang有自动垃圾回收，不存在内存泄露<br>B. golang中检测内存泄露主要依靠的是pprof包<br>C. 内存泄露可以在编译阶段发现<br>D. 应定期使用浏览器来查看系统的实时内存信息，及时发现内存泄露问题</p>
-<p>[primary] 对于局部变量整型切片x的赋值，下面定义正确的是（）<br>A.</p>
+<p>[intermediate] 关于channel的特性，下面说法正确的是（） A. 给一个 nil channel 发送数据，造成永远阻塞 B. 从一个 nil channel 接收数据，造成永远阻塞 C. 给一个已经关闭的 channel 发送数据，引起 panic D. 从一个已经关闭的 channel 接收数据，如果缓冲区中为空，则返回一个零值</p>
+<p>[intermediate] 关于无缓冲和有冲突的channel，下面说法正确的是（） A. 无缓冲的channel是默认的缓冲为1的channel B. 无缓冲的channel和有缓冲的channel都是同步的 C. 无缓冲的channel和有缓冲的channel都是非同步的 D. 无缓冲的channel是同步的，而有缓冲的channel是非同步的</p>
+<p>答案下载链接 ：https://wws.lanzous.com/ifgqgmunf8d</p>
+<p>[intermediate] 关于异常的触发，下面说法正确的是（） A. 空指针解析 B. 下标越界 C. 除数为0 D. 调用panic函数</p>
+<p>[intermediate] 关于cap函数的适用类型，下面说法正确的是（） A. array B. slice C. map D. channel</p>
+<p>[intermediate] 关于beego框架，下面说法正确的是（） A. beego是一个golang实现的轻量级HTTP框架 B. beego可以通过注释路由、正则路由等多种方式完成url路由注入 C. 可以使用bee new工具生成空工程，然后使用bee run命令自动热编译 D. beego框架只提供了对url路由的处理， 而对于MVC架构中的数据库部分未提供框架支持</p>
+<p>[intermediate] 关于goconvey，下面说法正确的是（） A. goconvey是一个支持golang的单元测试框架 B. goconvey能够自动监控文件修改并启动测试，并可以将测试结果实时输出到web界面 C. goconvey提供了丰富的断言简化测试用例的编写 D. goconvey无法与go test集成</p>
+<p>[intermediate] 关于go vet，下面说法正确的是（） A. go vet是golang自带工具go tool vet的封装 B. 当执行go vet database时，可以对database所在目录下的所有子文件夹进行递归检测 C. go vet可以使用绝对路径、相对路径或相对GOPATH的路径指定待检测的包 D. go vet可以检测出死代码</p>
+<p>[intermediate] 关于map，下面说法正确的是（） A. map反序列化时json.unmarshal的入参必须为map的地址 B. 在函数调用中传递map，则子函数中对map元素的增加不会导致父函数中map的修改 C. 在函数调用中传递map，则子函数中对map元素的修改不会导致父函数中map的修改 D. 不能使用内置函数delete删除map的元素</p>
+<p>[intermediate] 关于GoStub，下面说法正确的是（） A. GoStub可以对全局变量打桩 B. GoStub可以对函数打桩 C. GoStub可以对类的成员方法打桩 D. GoStub可以打动态桩，比如对一个函数打桩后，多次调用该函数会有不同的行为</p>
+<p>[primary] 关于select机制，下面说法正确的是（） A. select机制用来处理异步IO问题 B. select机制最大的一条限制就是每个case语句里必须是一个IO操作 C. golang在语言级别支持select关键字 D. select关键字的用法与switch语句非常类似，后面要带判断条件</p>
+<p>[primary] 关于内存泄露，下面说法正确的是（） A. golang有自动垃圾回收，不存在内存泄露 B. golang中检测内存泄露主要依靠的是pprof包 C. 内存泄露可以在编译阶段发现 D. 应定期使用浏览器来查看系统的实时内存信息，及时发现内存泄露问题</p>
+<p>[primary] 对于局部变量整型切片x的赋值，下面定义正确的是（） A.</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">x := []<span class="hljs-keyword">int</span>&#123;<br>        <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>,<br>        <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>,<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>B.</p>
+<ol start="2" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">x := []<span class="hljs-keyword">int</span>&#123;<br>        <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>,<br>        <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>C.</p>
+<ol start="3" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">x := []<span class="hljs-keyword">int</span>&#123;<br>        <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>,<br>        <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>D.</p>
+<ol start="4" type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">x := []<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>,&#125;<br></code></pre></div></td></tr></table></figure>
-<h4 id="问答题"><a href="#问答题" class="headerlink" title="问答题"></a>问答题</h4><p>[primary] 声明一个整型变量i ?</p>
+<h4 id="问答题">问答题</h4>
+<p>[primary] 声明一个整型变量i ?</p>
 <p>[primary] 声明一个含有10个元素的整型数组a ?</p>
 <p>[primary] 声明一个整型数组切片s?</p>
 <p>[primary] 声明一个整型指针变量p?</p>
@@ -489,7 +543,18 @@
 <p>[primary] 启动一个goroutine的关键字是？</p>
 <p>[intermediate] 下面的程序的运行结果是？</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Slice []<span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewSlice</span><span class="hljs-params">()</span> <span class="hljs-title">Slice</span></span> &#123;<br>         <span class="hljs-keyword">return</span> <span class="hljs-built_in">make</span>(Slice, <span class="hljs-number">0</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s* Slice)</span> <span class="hljs-title">Add</span><span class="hljs-params">(elem <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">Slice</span></span> &#123;<br>         *s = <span class="hljs-built_in">append</span>(*s, elem)<br>         fmt.Print(elem)<br>         <span class="hljs-keyword">return</span> s<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>         s := NewSlice()<br>         <span class="hljs-keyword">defer</span> s.Add(<span class="hljs-number">1</span>).Add(<span class="hljs-number">2</span>)<br>         s.Add(<span class="hljs-number">3</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h4 id="判断题"><a href="#判断题" class="headerlink" title="判断题"></a>判断题</h4><p>[primary] 数组是一个值类型（）</p>
+<p>下面的程序的运行结果是？</p>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    v := [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>: <span class="hljs-number">2</span>, <span class="hljs-number">3</span>: <span class="hljs-number">4</span>&#125;<br>    fmt.Println(<span class="hljs-built_in">len</span>(v))<br>&#125;<br><br><span class="hljs-comment">// 4</span><br><span class="hljs-comment">// 除了 map，array(slice) 初始化时也是可以指定索引的。该题有一个索引 3，根据数组的特点，必然有小于 3 的所有也存在，上题中，v 的值是：[0, 2, 0, 4]</span><br></code></pre></div></td></tr></table></figure>
+<p>下面的程序的运行结果是？</p>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">float64</span> = <span class="hljs-number">3</span> / <span class="hljs-number">2</span><br>    fmt.Print(i)<br>&#125;<br><br><span class="hljs-comment">// 1</span><br><span class="hljs-comment">// 关键在于 3/2 计算的结果，3、2 这是整型字面值常量。根据 Go 的规则，3/2 结果也是整型，因此是 1，最后会隐式转换为 float64。</span><br></code></pre></div></td></tr></table></figure>
+<p>下面的程序的运行结果是？</p>
+<p>下面的程序的运行结果是？</p>
+<p>下面的程序的运行结果是？</p>
+<p>下面的程序的运行结果是？</p>
+<p>下面的程序的运行结果是？</p>
+<p>下面的程序的运行结果是？</p>
+<h4 id="判断题">判断题</h4>
+<p>[primary] 数组是一个值类型（）</p>
 <p>[primary] 使用map不需要引入任何库（）</p>
 <p>[intermediate] 内置函数delete可以删除数组切片内的元素（）</p>
 <p>[primary] 指针是基础类型（）</p>
@@ -499,7 +564,7 @@
 <p>[primary] Golang不支持自动垃圾回收（）</p>
 <p>[primary] Golang支持反射，反射最常见的使用场景是做对象的序列化（）</p>
 <p>[primary] Golang可以复用C/C++的模块，这个功能叫Cgo（）</p>
-<p>[primary] 下面代码中两个斜点之间的代码，比如json:”x”，作用是X字段在从结构体实例编码到JSON数据格式的时候，使用x作为名字，这可以看作是一种重命名的方式（）</p>
+<p>[primary] 下面代码中两个斜点之间的代码，比如json:"x"，作用是X字段在从结构体实例编码到JSON数据格式的时候，使用x作为名字，这可以看作是一种重命名的方式（）</p>
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Position <span class="hljs-keyword">struct</span> &#123;<br>        X <span class="hljs-keyword">int</span> <span class="hljs-string">`json:&quot;x&quot;`</span><br>        Y <span class="hljs-keyword">int</span> <span class="hljs-string">`json:&quot;y&quot;`</span><br>        Z <span class="hljs-keyword">int</span> <span class="hljs-string">`json:&quot;z&quot;`</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>[primary] 通过成员变量或函数首字母的大小写来决定其作用域（）</p>
 <p>[primary] 对于常量定义zero(const zero = 0.0)，zero是浮点型常量（）</p>
@@ -526,7 +591,7 @@
 <figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deferDemo</span><span class="hljs-params">()</span> <span class="hljs-title">error</span></span> &#123;<br>        err := createResource1()<br>        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-keyword">return</span> ERR_CREATE_RESOURCE1_FAILED<br>        &#125;<br>        <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>            <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>                destroyResource1()<br>            &#125;<br>        &#125;()<br>    err = createResource2()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> ERR_CREATE_RESOURCE2_FAILED<br>    &#125;<br>    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>            destroyResource2()<br>        &#125;<br>    &#125;()<br><br>    err = createResource3()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> ERR_CREATE_RESOURCE3_FAILED<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>[intermediate] channel本身必然是同时支持读写的，所以不存在单向channel（）</p>
 <p>[primary] import后面的最后一个元素是包名（）</p>
-
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
             </div>
             <hr>
             <div>
@@ -638,7 +703,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
   </div>
   
   <div class="statistics">
@@ -685,7 +750,7 @@
           >
             
               <span style="visibility: hidden; width: 0">|</span>
-              <img src="/images/img/police_beian.png" srcset="/images/img/loading.gif" lazyload alt="police-icon"/>
+              <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
             
             <span>杭公网安备12345678号</span>
           </a>
@@ -761,7 +826,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>

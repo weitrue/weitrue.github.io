@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">!(function() {
+!(function() {
   /** 计时起始时间，自行修改 **/
   var start = new Date("2020/02/04 00:00:00");
 

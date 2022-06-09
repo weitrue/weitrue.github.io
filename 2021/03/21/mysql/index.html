@@ -44,7 +44,7 @@
   
     <meta name="description" content="最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【MySQL】学习笔记">
+<meta property="og:title" content="【数据库】MySQL与TiDB学习笔记">
 <meta property="og:url" content="https://weitrue.github.io/2021/03/21/mysql/index.html">
 <meta property="og:site_name" content="weitrable">
 <meta property="og:description" content="最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。">
@@ -59,7 +59,7 @@
 <meta name="twitter:image" content="https://weitrue.github.io/images/db/mysql/index.png">
   
   
-  <title>【MySQL】学习笔记 - weitrable</title>
+  <title>【数据库】MySQL与TiDB学习笔记 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/book/">
                 <i class="iconfont icon-books"></i>
-                电子书
+                混沌书栈
               </a>
             </li>
           
@@ -177,7 +177,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/bookstack/">
                 <i class="iconfont icon-plan"></i>
-                开源书栈
+                混沌日记
               </a>
             </li>
           
@@ -242,7 +242,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【MySQL】学习笔记">
+            <span class="h2" id="subtitle" title="【数据库】MySQL与TiDB学习笔记">
               
             </span>
 
@@ -268,7 +268,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      82k 字
+      83k 字
     </span>
   
 
@@ -277,7 +277,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      258 分钟
+      261 分钟
     </span>
   
 
@@ -314,13 +314,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【MySQL】学习笔记</h1>
+            <h1 style="display: none">【数据库】MySQL与TiDB学习笔记</h1>
             
             <div class="markdown-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
 <p>最流行的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/关系型数据库管理系统/696511">关系型数据库管理系统</a>之一。在 WEB 应用方面，是最好的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/RDBMS/1048260">RDBMS</a>。<span id="more"></span></p>
 </blockquote>
-<h3 id="磁盘文件"><strong>磁盘文件</strong></h3>
+<h3 id="文件存储"><strong>文件存储</strong></h3>
 <p><img src="/images/db/mysql/logfile.png" srcset="/img/loading.gif" lazyload></p>
 <p>MySQL的文件主要分为两大类，MySQl服务的文件和存储引擎的文件，主要分为三类：</p>
 <ul>
@@ -434,7 +434,7 @@
 <li>（第三件事）将 bin log 文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记。</li>
 </ol>
 <p><img src="/images/db/mysql/sqllog.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="mysql索引原理及优化"><strong>MySQL索引原理及优化</strong></h3>
+<h3 id="索引原理及优化"><strong>索引原理及优化</strong></h3>
 <h4 id="索引介绍">索引介绍</h4>
 <h5 id="什么是索引">什么是索引</h5>
 <p>索引是一种能帮助 MySQL 提高查询效率的数据结构。</p>
@@ -911,7 +911,7 @@
 <li><p>使用身份证倒序存储，这样设置前六位的意义就很大了；</p></li>
 <li><p>使用 hash 值，新创建一个字段用于存储身份证的 hash 值。</p></li>
 </ul>
-<h3 id="mysql锁原理及案"><strong>MySQL锁原理及案</strong></h3>
+<h3 id="锁原理及案例"><strong>锁原理及案例</strong></h3>
 <h4 id="锁基础">锁基础</h4>
 <p>按照所里的粒度分类，MySQL主要包含三种类型（级别）的锁定机制：</p>
 <ul>
@@ -1134,7 +1134,7 @@
 <p>InnoDB 默认是使用设置死锁时间来让死锁超时的策略，默认 innodblockwait_timeout 设置的时长是 50s。</p>
 <h5 id="如何开启死锁检测">如何开启死锁检测？</h5>
 <p>设置 <code>innodbdeadlockdetect</code>设置为 on 可以主动检测死锁，在 Innodb 中这个值默认就是 on 开启的状态。</p>
-<h3 id="mysql分库分表原理及实践">MySQL分库分表原理及实践</h3>
+<h3 id="分库分表原理及实践">分库分表原理及实践</h3>
 <h4 id="mycat">MyCat</h4>
 <p><img src="/images/db/mysql/mycat.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="核心概念">核心概念</h5>
@@ -2083,7 +2083,23 @@
 <p>④ 合理分库分表</p>
 <p>⑤ 使用数据库中间件实现数据库读写分离</p>
 <p>⑥ 设置数据库主从读写分离</p>
-<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h3 id="qa">Q&amp;A</h3>
+<div class="note note-success">
+            <p><span class="label label-danger"><strong>时间字段创建索引和不创建索引查询性能分析</strong></span></p><p>对于MyISAM引擎，不建立索引的情况下（推荐），效率从高到低：int &gt; UNIX_TIMESTAMP(timestamp) &gt; datetime（直接和时间比较）&gt;timestamp（直接和时间比较）&gt;UNIX_TIMESTAMP(datetime) 。</p><p>对于MyISAM引擎，建立索引的情况下，效率从高到低： UNIX_TIMESTAMP(timestamp) &gt; int &gt; datetime（直接和时间比较）&gt;timestamp（直接和时间比较）&gt;UNIX_TIMESTAMP(datetime) 。</p><p>对于InnoDB引擎，没有索引的情况下(不建议)，效率从高到低：int &gt; UNIX_TIMESTAMP(timestamp) &gt; datetime（直接和时间比较） &gt; timestamp（直接和时间比较）&gt; UNIX_TIMESTAMP(datetime)。</p><p>对于InnoDB引擎，建立索引的情况下，效率从高到低：int &gt; datetime（直接和时间比较） &gt; timestamp（直接和时间比较）&gt; UNIX_TIMESTAMP(timestamp) &gt; UNIX_TIMESTAMP(datetime)。</p><p>总之，对于MyISAM引擎，采用 UNIX_TIMESTAMP(timestamp) 比较；对于InnoDB引擎，建立索引，采用 int 或 datetime直接时间比较。</p><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3dc98515977">来源</a></p>
+          </div>
+<div class="note note-primary">
+            <p><span class="label label-danger">insert on duplicate key update does not return Last Insert ID in the case of an update</span></p><p>​ TiDB insert on duplicate key update 无法返回Last Insert ID</p><p>​ <a target="_blank" rel="noopener" href="https://github.com/pingcap/tidb/issues/23914">问题</a></p>
+          </div>
+<div class="note note-warning">
+            <p><span class="label label-danger">packets.go:36: unexpected EOF</span></p><p>Go Mysql Driver的unexpected EOF错误。</p><p><a target="_blank" rel="noopener" href="https://xiaopengli89.github.io/posts/go-mysql-driver-eof/">解决1</a></p><p><a target="_blank" rel="noopener" href="https://www.alexedwards.net/blog/configuring-sqldb">解决2</a></p>
+          </div>
+<div class="note note-warning">
+            <p><span class="label label-danger">MySql Lock wait timeout exceeded</span></p><p>通过设置<a target="_blank" rel="noopener" href="https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns"><code>SetMaxOpenConns()</code></a>, <a target="_blank" rel="noopener" href="https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns"><code>SetMaxIdleConns()</code></a> and <a target="_blank" rel="noopener" href="https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime"><code>SetConnMaxLifetime()</code></a>值解决。</p><p><a target="_blank" rel="noopener" href="https://ningyu1.github.io/site/post/75-mysql-lock-wait-timeout-exceeded/">解决</a></p>
+          </div>
+<div class="note note-warning">
+            <p><span class="label label-danger">Error 1040: Too Many Connection</span></p><p>增加mysql中的max_connections值。</p><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14331032/mysql-error-1040-too-many-connection">解决</a></p>
+          </div>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css">
             </div>
             <hr>
             <div>
@@ -2121,7 +2137,7 @@
                     
                       <a href="/2021/03/22/redis/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【Redis】学习笔记</span>
+                        <span class="hidden-mobile">【数据库】Redis学习笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -2329,9 +2345,58 @@
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

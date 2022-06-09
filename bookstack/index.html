@@ -42,20 +42,22 @@
   <meta name="author" content="Pony W">
   <meta name="keywords" content="">
   
-    <meta name="description" content="go-zerogo-zero一款企业框架，我们可以从中学习到值得借鉴的的设计；它集成了web和rpc框架，是在20年由好未来开源的一款微服务框架，由于go-zero项目还是比较大的，最好带着目的性去学习，比如我想了解微服务注册与发现的原理实现、自适应负载均衡算法原理与实现。项目地址：https:&#x2F;&#x2F;github.com&#x2F;zeromicro&#x2F;go-zero&#x2F;blob&#x2F;mas">
+    <meta name="description" content="Golang 数据类型 slice              Reslice            map                          struct                          channel              底层原理            interface                          内存分配">
 <meta property="og:type" content="website">
-<meta property="og:title" content="bookstack">
+<meta property="og:title" content="整理golang基础知识及linux、后端开发相关资料">
 <meta property="og:url" content="https://weitrue.github.io/bookstack/index.html">
 <meta property="og:site_name" content="weitrable">
-<meta property="og:description" content="go-zerogo-zero一款企业框架，我们可以从中学习到值得借鉴的的设计；它集成了web和rpc框架，是在20年由好未来开源的一款微服务框架，由于go-zero项目还是比较大的，最好带着目的性去学习，比如我想了解微服务注册与发现的原理实现、自适应负载均衡算法原理与实现。项目地址：https:&#x2F;&#x2F;github.com&#x2F;zeromicro&#x2F;go-zero&#x2F;blob&#x2F;mas">
+<meta property="og:description" content="Golang 数据类型 slice              Reslice            map                          struct                          channel              底层原理            interface                          内存分配">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-02-08T09:15:40.650Z">
-<meta property="article:modified_time" content="2022-02-08T09:15:40.650Z">
+<meta property="og:image" content="https://weitrue.github.io/bookstack/img/gpm.png">
+<meta property="article:published_time" content="2022-02-13T02:55:11.307Z">
+<meta property="article:modified_time" content="2022-02-13T02:55:11.307Z">
 <meta property="article:author" content="Pony W">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/bookstack/img/gpm.png">
   
   
-  <title>bookstack - weitrable</title>
+  <title>整理golang基础知识及linux、后端开发相关资料 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -161,7 +163,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/book/">
                 <i class="iconfont icon-books"></i>
-                电子书
+                混沌书栈
               </a>
             </li>
           
@@ -173,7 +175,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/bookstack/">
                 <i class="iconfont icon-plan"></i>
-                开源书栈
+                混沌日记
               </a>
             </li>
           
@@ -238,7 +240,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="bookstack">
+            <span class="h2" id="subtitle" title="整理golang基础知识及linux、后端开发相关资料">
               
             </span>
 
@@ -263,27 +265,90 @@
                 
 
 <article class="page-content">
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><div class="note note-success">
-            <h3 id="go-zero">go-zero</h3><p><code>go-zero</code>一款企业框架，我们可以从中学习到值得借鉴的的设计；它集成了<code>web</code>和<code>rpc</code>框架，是在<code>20</code>年由好未来开源的一款微服务框架，由于<code>go-zero</code>项目还是比较大的，最好带着目的性去学习，比如我想了解微服务注册与发现的原理实现、自适应负载均衡算法原理与实现。</p><p>项目地址：https://github.com/zeromicro/go-zero/blob/master/readme-cn.md</p>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h3 id="golang">Golang</h3>
+<h4 id="数据类型">数据类型</h4>
+<h5 id="slice">slice</h5>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/H3UzcKX2-Q4ywD_RJvMmEA">Reslice</a></p>
+          </div>
+<h5 id="map">map</h5>
+<div class="note note-success">
+            
+          </div>
+<h5 id="struct">struct</h5>
+<div class="note note-success">
+            
+          </div>
+<h5 id="channel">channel</h5>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/tj02XI9L1dSKrUsy5E2OWg">底层原理</a></p>
+          </div>
+<h5 id="interface">interface</h5>
+<div class="note note-success">
+            
+          </div>
+<h4 id="内存分配">内存分配</h4>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/TO_lmlFbVDgFmns9s_mMzw">分配器</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/rydO2JK-r8JjG9v_Uy7gXg">内存管理分析</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bZ06N2Cvl5HFxhDMMX1ReA">变量分配到哪里</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/MepbrrSlGVhNrEkTQhfhhQ">内存逃逸</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/lAE7im2NSZm-I_7BdVlFng">本地内存</a></p>
+          </div>
+<h4 id="调度器">调度器</h4>
+<h5 id="goroutine">goroutine</h5>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/5q5eIMDHz35ycTBTkB33JQ">goroutine 泄露</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/zEtK5uAd40vD-hcWrQDsmw">性能分析</a></p>
+          </div>
+<h5 id="g-p-m-模型">G-P-M 模型</h5>
+<div class="note note-success">
+            
+          </div>
+<p><img src="/bookstack/img/gpm.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="垃圾回收">垃圾回收</h5>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/srY28v3U-hDr_brV4_BWww">Go垃圾回收、三色标记原理</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/s8_RWA_D-I03AnBZNF9utg">白话Go的垃圾回收原理</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/FQ25hro703sSNYTp-vfAwg">码农翻身|漫画</a></p>
+          </div>
+<h4 id="并发模型">并发模型</h4>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/IuGaKbQvW7z1KsoMhB8mgg">流水线模型</a></p><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7010590496204521485?utm_source=gold_browser_extension">golang 5种原子操作</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/6EuVw5rw7WdolZx_WWnr-Q">sync.pool</a></p>
+          </div>
+<h4 id="单元测试">单元测试</h4>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/eAptnygPQcQ5Ex8-6l0byA">腾讯技术工程|详解</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/N5wby-aWWEPc7mHN_lN3lQ">腾讯技术工程|手把手教你如何进行 Golang 单元测试</a></p><p><a target="_blank" rel="noopener" href="https://www.instana.com/blog/practical-golang-benchmarks/">阿里技术|压测</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8WNWpCIVl4xTmP3TQ_gxQ">误区与实践</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/DbKXka598YVDJHSFCcQOSQ">最佳实践</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/y3UKaLD40A7C89GkGq7GKQ">Go Test小技巧</a></p>
+          </div>
+<h4 id="调试进阶">调试进阶</h4>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/j0ZWlctxzx_yNhJb__hciA">golang 调试分析的高阶技巧</a></p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RktnMydDtOZFwEFLLYzlCA">如何保留 Go 程序崩溃现场</a></p>
+          </div>
+<h4 id="设计规范">设计规范</h4>
+<div class="note note-success">
+            <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mzI8-KoRBhH-fGdfcyqI-w">option设计</a></p>
+          </div>
+<h4 id="开源库">开源库</h4>
+<div class="note note-success">
+            <h5 id="go-zero"><a target="_blank" rel="noopener" href="https://github.com/zeromicro/go-zero/blob/master/readme-cn.md">go-zero</a></h5><p><code>go-zero</code>一款企业框架，我们可以从中学习到值得借鉴的的设计；它集成了<code>web</code>和<code>rpc</code>框架，是在<code>20</code>年由好未来开源的一款微服务框架，由于<code>go-zero</code>项目还是比较大的，最好带着目的性去学习，比如我想了解微服务注册与发现的原理实现、自适应负载均衡算法原理与实现。</p><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/MlJRr3UZqRADyi15sHwPVA">Go-Zero 是如何追踪请求链路</a></p>
           </div>
 <div class="note note-primary">
-            <h3 id="zinx">zinx</h3><p><code>zinx</code>是一个基于<code>Go</code>语言开发的<code>TCP</code>长连接服务器框架，其可以应用在游戏领域或其他长连接领域；我们可以学习<code>zinx</code>框架的设计思路，他有完整的视频教程和文档，通过这个我们可以完全理解如何设计一个轻量级并发服务器。</p><p>项目地址：https://github.com/aceld/zinx</p><p>文档地址：https://www.kancloud.cn/aceld/zinx</p><p>视频地址：https://www.bilibili.com/video/av71067087</p>
+            <h5 id="jupiter"><a target="_blank" rel="noopener" href="http://jupiter.douyu.com/jupiter/">jupiter</a></h5><p><code>Jupiter</code> 是斗鱼开源的一套微服务治理框架，提供丰富的后台功能，管理应用的资源、配置，应用的性能、配置等可视化。</p>
           </div>
 <div class="note note-primary">
-            <h3 id="go-nsq">go-nsq</h3><p><code>NSQ</code>是一个基于Go语言的分布式实时消息平台，可用于大规模系统中的实时消息服务，并且每天能够处理数亿级别的消息，其设计目标是为在分布式环境下运行的去中心化服务提供一个强大的基础架构。</p><p>项目地址：https://github.com/nsqio/go-nsq</p><p>学习地址：https://cloud.tencent.com/developer/article/1735996</p>
+            <h5 id="zinx"><a target="_blank" rel="noopener" href="https://github.com/aceld/zinx">zinx</a></h5><p><code>zinx</code>是一个基于<code>Go</code>语言开发的<code>TCP</code>长连接服务器框架，其可以应用在游戏领域或其他长连接领域；我们可以学习<code>zinx</code>框架的设计思路，他有完整的视频教程和文档，通过这个我们可以完全理解如何设计一个轻量级并发服务器。</p><p>文档地址：https://www.kancloud.cn/aceld/zinx</p><p>视频地址：https://www.bilibili.com/video/av71067087</p>
           </div>
 <div class="note note-primary">
-            <h3 id="tidb">Tidb</h3><p><code>Tidb</code>是<code>NewSQL</code>行业中的代表性产品，由<code>PingCAP</code>公司自主设计、研发的开源分布式关系型数据库，兼容MySQL 5.7 协议和 MySQL 生态等重要特性。目前很多公司都在使用<code>Tidb</code>，解决了关系型数据库、弹性扩展以及全球分布的问题。<code>Tidb</code>采用<code>Go</code>语言开发<code>SQL</code>层，下边的分布式存储引擎使用<code>rust</code>语言，使用<code>Tidb</code>具有以下优势：</p><ul><li>支持弹性的扩缩容；</li><li>支持 SQL，兼容大多数 MySQL 的语法，在大多数场景下可以直接替换 MySQL；</li><li>默认支持高可用，自动进行数据修复和故障转移；</li><li>支持 ACID 事务；</li></ul><p>项目地址：https://github.com/pingcap/tidb</p><p>文档地址：https://docs.pingcap.com/zh/tidb/stable</p>
+            <h5 id="go-nsq"><a target="_blank" rel="noopener" href="https://github.com/nsqio/go-nsq">go-nsq</a></h5><p><code>NSQ</code>是一个基于Go语言的分布式实时消息平台，可用于大规模系统中的实时消息服务，并且每天能够处理数亿级别的消息，其设计目标是为在分布式环境下运行的去中心化服务提供一个强大的基础架构。</p><p>学习地址：https://cloud.tencent.com/developer/article/1735996</p>
           </div>
 <div class="note note-primary">
-            <h3 id="kubernetes">kubernetes</h3><p><code>Kubernetes</code> 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。<code>Kubernetes</code> 拥有一个庞大且快速增长的生态系统；<code>Kubernetes</code>由于是<code>Go</code>语言编写，可以从源码开始学习，配合着官方文档，仔细专研一番。</p><p>项目地址：https://github.com/kubernetes/kubernetes</p><p>官网文档：https://kubernetes.io/docs/home/</p><p>中文文档：https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/</p>
+            <h5 id="tidb"><a target="_blank" rel="noopener" href="https://github.com/pingcap/tidb">Tidb</a></h5><p><code>Tidb</code>是<code>NewSQL</code>行业中的代表性产品，由<code>PingCAP</code>公司自主设计、研发的开源分布式关系型数据库，兼容MySQL 5.7 协议和 MySQL 生态等重要特性。目前很多公司都在使用<code>Tidb</code>，解决了关系型数据库、弹性扩展以及全球分布的问题。<code>Tidb</code>采用<code>Go</code>语言开发<code>SQL</code>层，下边的分布式存储引擎使用<code>rust</code>语言，使用<code>Tidb</code>具有以下优势：</p><ul><li>支持弹性的扩缩容；</li><li>支持 SQL，兼容大多数 MySQL 的语法，在大多数场景下可以直接替换 MySQL；</li><li>默认支持高可用，自动进行数据修复和故障转移；</li><li>支持 ACID 事务；</li></ul><p>文档地址：https://docs.pingcap.com/zh/tidb/stable</p>
           </div>
 <div class="note note-primary">
-            <h3 id="prometheus">Prometheus</h3><p><code>Prometheus</code> 是<code>Cloud Native Computing Foundation</code> 的一个项目，是一个系统和服务监控系统。它以给定的时间间隔从配置的目标收集指标，评估规则表达式，显示结果，并可以在观察到指定条件时触发警报。</p><p>现在企业基本都使用<code>Prometheus</code>做监控上报。</p><p>项目地址：https://github.com/prometheus/prometheus</p><p>文档地址：https://prometheus.io/blog/</p>
+            <h5 id="kubernetes"><a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes">kubernetes</a></h5><p><code>Kubernetes</code> 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。<code>Kubernetes</code> 拥有一个庞大且快速增长的生态系统；<code>Kubernetes</code>由于是<code>Go</code>语言编写，可以从源码开始学习，配合着官方文档，仔细专研一番。</p><p>官网文档：https://kubernetes.io/docs/home/</p><p>中文文档：https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/</p>
           </div>
 <div class="note note-primary">
-            <h3 id="zinc">Zinc</h3><p><code>Zinc</code> 是一个全文索引的搜索引擎。它是<code>Elasticsearch</code> 的轻量级替代品，可以在不到 100 MB 的<code>RAM</code> 中运行。它使用 <code>bluge</code>作为底层索引库。</p><p>而且，<code>Zinc</code> 使用 Vue 打造了一个比 <code>Elasticsearch</code> 更简单、更易于操作的界面。</p><p>Zinc 主要有如下特性：</p><ul><li>提供全文索引功能</li><li>单个二进制文件即可安装、运行，支持多平台。这得益于 Go 语言</li><li>用 Vue 编写的用于查询数据的 Web UI</li><li>与 Elasticsearch 兼容的数据获取 API（单记录和批量 API）</li><li>开箱即用的身份验证</li><li>Schema less - 无需预先定义 schema，同一索引中的不同文档可以有不同的字段</li></ul><p>项目地址：https://github.com/prabhatsharma/zinc</p>
+            <h5 id="prometheus"><a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus">Prometheus</a></h5><p><code>Prometheus</code> 是<code>Cloud Native Computing Foundation</code> 的一个项目，是一个系统和服务监控系统。它以给定的时间间隔从配置的目标收集指标，评估规则表达式，显示结果，并可以在观察到指定条件时触发警报。</p><p>文档地址：https://prometheus.io/blog/</p><p>中文文档：https://yunlzheng.gitbook.io/prometheus-book/</p>
           </div>
+<div class="note note-primary">
+            <h5 id="zinc"><a target="_blank" rel="noopener" href="https://github.com/prabhatsharma/zinc">Zinc</a></h5><p><code>Zinc</code> 是一个全文索引的搜索引擎。它是<code>Elasticsearch</code> 的轻量级替代品，可以在不到 100 MB 的<code>RAM</code> 中运行。它使用 <code>bluge</code>作为底层索引库。</p><p>而且，<code>Zinc</code> 使用 Vue 打造了一个比 <code>Elasticsearch</code> 更简单、更易于操作的界面。</p><p>Zinc 主要有如下特性：</p><ul><li>提供全文索引功能</li><li>单个二进制文件即可安装、运行，支持多平台。这得益于 Go 语言</li><li>用 Vue 编写的用于查询数据的 Web UI</li><li>与 Elasticsearch 兼容的数据获取 API（单记录和批量 API）</li><li>开箱即用的身份验证</li><li>Schema less - 无需预先定义 schema，同一索引中的不同文档可以有不同的字段</li></ul>
+          </div>
+<h3 id="linux">linux</h3>
+<h3 id="网络知识">网络知识</h3>
+<h3 id="数据库">数据库</h3>
 <script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 
   

@@ -165,7 +165,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/book/">
                 <i class="iconfont icon-books"></i>
-                电子书
+                混沌书栈
               </a>
             </li>
           
@@ -177,7 +177,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/bookstack/">
                 <i class="iconfont icon-plan"></i>
-                开源书栈
+                混沌日记
               </a>
             </li>
           
@@ -268,7 +268,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      19k 字
+      20k 字
     </span>
   
 
@@ -277,7 +277,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      61 分钟
+      62 分钟
     </span>
   
 
@@ -480,6 +480,7 @@
 <h4 id="闭包应用">闭包应用</h4>
 <h6 id="为函数实现接口">为函数实现接口</h6>
 <h6 id="实现函数遍历二叉树">实现函数遍历二叉树</h6>
+<h6 id="单例模式限制流量模式">单例模式,限制流量模式</h6>
 <h3 id="deferrecover在简单web服务应用">defer/recover在简单web服务应用</h3>
 <p>代码结构<img src="/images/golang/web.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>https://github.com/weitrue/note/tree/master/go/web/</p>
@@ -491,7 +492,14 @@
 <p>安装踩坑：</p>
 <figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">github.com/codegangsta/cli: github.com/codegangsta/cli@v1.22.5: parsing go.mod:<br>		module declares its path as: github.com/urfave/cli<br>	        but was required as: github.com/codegangsta/cli<br>	        <br></code></pre></div></td></tr></table></figure>
 <p>关闭go mod即可成功安装</p>
-<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h3 id="qa">Q&amp;A</h3>
+<div class="note note-warning">
+            <p><span class="label label-danger">go http client protocol error: received DATA after END_STREAM</span></p><p>received DATA after END_STREAM只会存在于http2协议中,因此需要设置http client中的ForceAttempHTTP2=false。</p><p><a target="_blank" rel="noopener" href="https://www.google.com.hk/search?q=go+http+client+protocol+error%3A+received+DATA+after+END_STREAM&amp;ei=gwt2YoaqHKyWseMPkdiP6Aw&amp;ved=0ahUKEwjG97rJ28z3AhUsS2wGHRHsA80Q4dUDCA4&amp;uact=5&amp;oq=go+http+client+protocol+error%3A+received+DATA+after+END_STREAM&amp;gs_lcp=Cgdnd3Mtd2l6EANKBAhBGABKBAhGGABQAFjuOGCcPWgAcAF4AYABlgaIAZkjkgENMC43LjQuMS4wLjIuMZgBAKABAcABAQ&amp;sclient=gws-wiz">解决</a></p>
+          </div>
+<div class="note note-warning">
+            <p><span class="label label-danger">context canceled</span></p><p>增加客户端请求超时时间。</p><p><a target="_blank" rel="noopener" href="https://learnku.com/articles/63884">解决</a></p>
+          </div>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css">
             </div>
             <hr>
             <div>
@@ -737,9 +745,58 @@
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

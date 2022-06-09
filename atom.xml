@@ -6,7 +6,7 @@
   <link href="https://weitrue.github.io/atom.xml" rel="self"/>
   
   <link href="https://weitrue.github.io/"/>
-  <updated>2022-02-10T14:07:18.460Z</updated>
+  <updated>2022-06-07T13:42:09.899Z</updated>
   <id>https://weitrue.github.io/</id>
   
   <author>
@@ -15,6 +15,121 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【APi】api调研</title>
+    <link href="https://weitrue.github.io/2022/06/07/api/"/>
+    <id>https://weitrue.github.io/2022/06/07/api/</id>
+    <published>2022-06-07T13:42:09.899Z</published>
+    <updated>2022-06-07T13:42:09.899Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="api" scheme="https://weitrue.github.io/tags/api/"/>
+    
+    <category term="twitter" scheme="https://weitrue.github.io/tags/twitter/"/>
+    
+    <category term="discord" scheme="https://weitrue.github.io/tags/discord/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【定时任务】cron</title>
+    <link href="https://weitrue.github.io/2022/06/07/cron/"/>
+    <id>https://weitrue.github.io/2022/06/07/cron/</id>
+    <published>2022-06-07T12:59:07.865Z</published>
+    <updated>2022-06-07T12:59:07.865Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div</summary>
+        
+      
+    
+    
+    
+    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    
+    
+    <category term="cron" scheme="https://weitrue.github.io/tags/cron/"/>
+    
+    <category term="linux" scheme="https://weitrue.github.io/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【ELK】elastic search</title>
+    <link href="https://weitrue.github.io/2022/06/07/elk/"/>
+    <id>https://weitrue.github.io/2022/06/07/elk/</id>
+    <published>2022-06-07T12:46:13.004Z</published>
+    <updated>2022-06-07T12:46:13.004Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div</summary>
+        
+      
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="elk" scheme="https://weitrue.github.io/tags/elk/"/>
+    
+    <category term="es" scheme="https://weitrue.github.io/tags/es/"/>
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Go】golang分享</title>
+    <link href="https://weitrue.github.io/2022/02/11/golang-memo/"/>
+    <id>https://weitrue.github.io/2022/02/11/golang-memo/</id>
+    <published>2022-02-11T13:46:27.037Z</published>
+    <updated>2022-02-11T13:46:27.037Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
+&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+  </entry>
   
   <entry>
     <title>【转载】Go资源大全中文版扩展</title>
@@ -61,7 +176,7 @@
   </entry>
   
   <entry>
-    <title>【ALL】锁</title>
+    <title>【CAP】锁</title>
     <link href="https://weitrue.github.io/2022/01/09/cap-lock/"/>
     <id>https://weitrue.github.io/2022/01/09/cap-lock/</id>
     <published>2022-01-09T02:50:27.728Z</published>
@@ -271,8 +386,8 @@
   
   <entry>
     <title>【Go】设计模式</title>
-    <link href="https://weitrue.github.io/2021/10/09/go-design/"/>
-    <id>https://weitrue.github.io/2021/10/09/go-design/</id>
+    <link href="https://weitrue.github.io/2021/10/09/golang-design/"/>
+    <id>https://weitrue.github.io/2021/10/09/golang-design/</id>
     <published>2021-10-09T09:13:58.004Z</published>
     <updated>2021-10-09T09:13:58.004Z</updated>
     
@@ -397,89 +512,6 @@
     
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Go】测试之道</title>
-    <link href="https://weitrue.github.io/2021/06/02/golang-test/"/>
-    <id>https://weitrue.github.io/2021/06/02/golang-test/</id>
-    <published>2021-06-02T02:04:26.152Z</published>
-    <updated>2021-06-02T02:04:26.152Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Go】并发之道</title>
-    <link href="https://weitrue.github.io/2021/03/30/golang-concurrency/"/>
-    <id>https://weitrue.github.io/2021/03/30/golang-concurrency/</id>
-    <published>2021-03-30T01:52:20.005Z</published>
-    <updated>2021-03-30T01:52:20.005Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;“使用通信来共享内存，而不是通过共享内存来通信” — 通信顺序进程&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Redis】学习笔记</title>
-    <link href="https://weitrue.github.io/2021/03/22/redis/"/>
-    <id>https://weitrue.github.io/2021/03/22/redis/</id>
-    <published>2021-03-22T09:58:10.598Z</published>
-    <updated>2021-03-22T09:58:10.598Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Remote DictIOnary Server（远程数据服务），是一个基于内存且支持持久化的高性能 key-value 数据库&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
-    
-    
-    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
-    
-    <category term="Redis" scheme="https://weitrue.github.io/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【MySQL】学习笔记</title>
-    <link href="https://weitrue.github.io/2021/03/21/mysql/"/>
-    <id>https://weitrue.github.io/2021/03/21/mysql/</id>
-    <published>2021-03-21T04:21:39.197Z</published>
-    <updated>2021-03-21T04:21:39.197Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;最流行的&lt;a href=&quot;https://baike.baidu.com/item/关系型数据库管理系统/696511&quot;&gt;关系型数据库管理系统&lt;/a&gt;之一。在 WEB 应用方面，是最好的 &lt;a href=&quot;https://baike.baidu.com/item/RDBMS/1048260&quot;&gt;RDBMS&lt;/a&gt;。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
-    
-    
-    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
-    
-    <category term="MySQL" scheme="https://weitrue.github.io/tags/MySQL/"/>
     
   </entry>
   

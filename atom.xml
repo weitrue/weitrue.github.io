@@ -6,7 +6,7 @@
   <link href="https://weitrue.github.io/atom.xml" rel="self"/>
   
   <link href="https://weitrue.github.io/"/>
-  <updated>2022-06-07T13:42:09.899Z</updated>
+  <updated>2022-12-22T11:38:43.204Z</updated>
   <id>https://weitrue.github.io/</id>
   
   <author>
@@ -17,9 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【APi】api调研</title>
-    <link href="https://weitrue.github.io/2022/06/07/api/"/>
-    <id>https://weitrue.github.io/2022/06/07/api/</id>
+    <title>【Go】日志</title>
+    <link href="https://weitrue.github.io/2022/12/22/middleware-log/"/>
+    <id>https://weitrue.github.io/2022/12/22/middleware-log/</id>
+    <published>2022-12-22T11:38:43.204Z</published>
+    <updated>2022-12-22T11:38:43.204Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;​&lt;/p&gt;
+&lt;script</summary>
+        
+      
+    
+    
+    
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
+    
+    <category term="log" scheme="https://weitrue.github.io/tags/log/"/>
+    
+    <category term="zap" scheme="https://weitrue.github.io/tags/zap/"/>
+    
+    <category term="pkg" scheme="https://weitrue.github.io/tags/pkg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Middleware】api调研</title>
+    <link href="https://weitrue.github.io/2022/06/07/middleware-api/"/>
+    <id>https://weitrue.github.io/2022/06/07/middleware-api/</id>
     <published>2022-06-07T13:42:09.899Z</published>
     <updated>2022-06-07T13:42:09.899Z</updated>
     
@@ -34,7 +68,7 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
     
     <category term="api" scheme="https://weitrue.github.io/tags/api/"/>
@@ -46,9 +80,9 @@
   </entry>
   
   <entry>
-    <title>【定时任务】cron</title>
-    <link href="https://weitrue.github.io/2022/06/07/cron/"/>
-    <id>https://weitrue.github.io/2022/06/07/cron/</id>
+    <title>【Go】定时任务</title>
+    <link href="https://weitrue.github.io/2022/06/07/middleware-cron/"/>
+    <id>https://weitrue.github.io/2022/06/07/middleware-cron/</id>
     <published>2022-06-07T12:59:07.865Z</published>
     <updated>2022-06-07T12:59:07.865Z</updated>
     
@@ -65,8 +99,10 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
+    
+    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
     
     <category term="cron" scheme="https://weitrue.github.io/tags/cron/"/>
     
@@ -215,9 +251,9 @@
     <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/Golang/"/>
     
     
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
     <category term="Docker" scheme="https://weitrue.github.io/tags/Docker/"/>
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
     
   </entry>
   
@@ -285,7 +321,7 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
@@ -315,7 +351,7 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
@@ -345,7 +381,7 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
@@ -375,7 +411,7 @@
     
     
     
-    <category term="Develop" scheme="https://weitrue.github.io/categories/Develop/"/>
+    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
@@ -447,9 +483,9 @@
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
     
-    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
-    
     <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
+    
+    <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
     
     <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
     
@@ -483,25 +519,6 @@
     <id>https://weitrue.github.io/2021/06/02/golang-src/</id>
     <published>2021-06-02T02:04:44.129Z</published>
     <updated>2021-06-02T02:04:44.129Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Go】文档之道</title>
-    <link href="https://weitrue.github.io/2021/06/02/golang-doc/"/>
-    <id>https://weitrue.github.io/2021/06/02/golang-doc/</id>
-    <published>2021-06-02T02:04:36.324Z</published>
-    <updated>2021-06-02T02:04:36.324Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>

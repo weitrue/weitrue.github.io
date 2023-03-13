@@ -56,30 +56,27 @@
 <meta name="twitter:image" content="https://weitrue.github.io/images/vim/index.png">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>【Mac】vim环境设置 - weitrable</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
+
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
-    
-  
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -88,22 +85,43 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
 </head>
 
 
 <body>
-  <header style="height: 60vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>WeiTrable</strong>
@@ -126,7 +144,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -138,7 +156,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -150,7 +168,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -162,7 +180,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/book/">
                 <i class="iconfont icon-books"></i>
-                混沌书栈
+                <span>混沌书栈</span>
               </a>
             </li>
           
@@ -174,7 +192,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/bookstack/">
                 <i class="iconfont icon-plan"></i>
-                混沌日记
+                <span>混沌日记</span>
               </a>
             </li>
           
@@ -186,7 +204,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -198,7 +216,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -210,7 +228,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/links/">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -218,14 +236,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -233,70 +253,84 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/images/img/banner.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【Mac】vim环境设置">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      Pony W
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-10 09:58" pubdate>
-        2021年1月10日 上午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      13k 字
-    </span>
   
 
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      40 分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/img/banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Mac】vim环境设置"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Pony W
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-10 09:58" pubdate>
+          2021年1月10日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
@@ -305,21 +339,27 @@
 
 <div class="container-fluid nopadding-x">
   <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
     <div class="col-lg-8 nopadding-x-md">
       <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
+        <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">【Mac】vim环境设置</h1>
             
-            <div class="markdown-body">
-              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="开发神器vim工具"><span id="more"></span>开发神器vim工具</h2>
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="开发神器vim工具"><span id="more"></span>开发神器vim工具</h2>
 <p><img src="/images/vim/index.gif" srcset="/img/loading.gif" lazyload></p>
 <h3 id="安装macvim来替代系统自带vim">安装MacVim来替代系统自带vim</h3>
 <p>一般情况下，Mac 自带的Vim不能满足大多的需求，所以选择安装MacVim</p>
 <p>通过一下命令可以查看预装vim的信息</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-comment"># 查看预装vim版本</span><br>vim --version<br><br><span class="hljs-comment"># 查看预装vim路径</span><br><span class="hljs-built_in">where</span> vim<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 查看预装vim版本</span><br>vim --version<br><br><span class="hljs-comment"># 查看预装vim路径</span><br><span class="hljs-built_in">where</span> vim<br></code></pre></td></tr></table></figure>
 <h4 id="macvim安装">MacVim安装</h4>
 <p>有两种方式来安装macvim:</p>
 <ol type="1">
@@ -327,24 +367,24 @@
 <li>使用<a target="_blank" rel="noopener" href="https://brew.sh/">Homebrew</a>安装【推荐】</li>
 </ol>
 <p>brew安装macvim</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">brew install macvim<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">brew install macvim<br></code></pre></td></tr></table></figure>
 <p>为macvim中的vim创建别名，覆盖掉系统自带的vim，在~/.bash_profile中添加以下命令</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-built_in">alias</span> vi=vim<br><span class="hljs-built_in">alias</span> vim=mvim<br><span class="hljs-built_in">alias</span> mvim=<span class="hljs-string">&#x27;/usr/local/bin/mvim -v&#x27;</span><br><span class="hljs-comment"># 刷新配置文件</span><br><span class="hljs-built_in">source</span> ~/.bash_profile<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">alias</span> vi=vim<br><span class="hljs-built_in">alias</span> vim=mvim<br><span class="hljs-built_in">alias</span> mvim=<span class="hljs-string">&#x27;/usr/local/bin/mvim -v&#x27;</span><br><span class="hljs-comment"># 刷新配置文件</span><br><span class="hljs-built_in">source</span> ~/.bash_profile<br></code></pre></td></tr></table></figure>
 <h4 id="macvim配置">MacVim配置</h4>
 <p>在vim启动过程中，首先将查找配置文件并执行其中的命令，而这些初始化文件一般有vimrc、gvimrc和exrc三种。通过<code>:version</code>命令可以查看vim的配置文件信息。</p>
 <p>vim的配置文件有全局和用户两种版本，分别存放于<code>$VIM</code>和<code>$HOME</code>目录中，用户配置文件默认是没有的，必要时由用户自己在<code>$HOME</code>目录下创建。可以使用<code>:echo</code>命令查看他们的路径，使用<code>:e</code>命令进入目录。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">:<span class="hljs-built_in">echo</span> <span class="hljs-variable">$VIM</span><br>/usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim<br><br>:<span class="hljs-built_in">echo</span> <span class="hljs-variable">$HOME</span><br>/Users/wangpeng<br><br><span class="hljs-comment"># 可以通过:scriptname查看各脚本的加载顺序</span><br>:scriptname<br>/usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/vimrc<br>  2: ~/.vimrc<br>  3: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/syntax.vim<br>  4: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/synload.vim<br>  5: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/syncolor.vim<br>  6: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/filetype.vim<br>  7: ~/.vim/colors/solarized.vim<br>  8: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/ftoff.vim<br>  9: ~/.vim/bundle/Vundle.vim/<span class="hljs-built_in">autoload</span>/vundle.vim<br> 10: ~/.vim/bundle/Vundle.vim/<span class="hljs-built_in">autoload</span>/vundle/config.vim<br> 11: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/ftplugin.vim<br> 12: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/indent.vim<br> 13: ~/.vim/bundle/nerdtree/plugin/NERD_tree.vim<br> 14: ~/.vim/bundle/nerdtree/<span class="hljs-built_in">autoload</span>/nerdtree.vim<br> 15: ~/.vim/bundle/nerdtree/lib/nerdtree/path.vim<br> 16: ~/.vim/bundle/nerdtree/lib/nerdtree/menu_controller.vim<br> 17: ~/.vim/bundle/nerdtree/lib/nerdtree/menu_item.vim<br> 18: ~/.vim/bundle/nerdtree/lib/nerdtree/key_map.vim<br> 19: ~/.vim/bundle/nerdtree/lib/nerdtree/bookmark.vim<br> 20: ~/.vim/bundle/nerdtree/lib/nerdtree/tree_file_node.vim<br> 21: ~/.vim/bundle/nerdtree/lib/nerdtree/tree_dir_node.vim<br> 22: ~/.vim/bundle/nerdtree/lib/nerdtree/opener.vim<br> 23: ~/.vim/bundle/nerdtree/lib/nerdtree/creator.vim<br> 24: ~/.vim/bundle/nerdtree/lib/nerdtree/flag_set.vim<br> 25: ~/.vim/bundle/nerdtree/lib/nerdtree/nerdtree.vim<br> 26: ~/.vim/bundle/nerdtree/lib/nerdtree/ui.vim<br> 27: ~/.vim/bundle/nerdtree/lib/nerdtree/event.vim<br> 28: ~/.vim/bundle/nerdtree/lib/nerdtree/notifier.vim<br> 29: ~/.vim/bundle/nerdtree/<span class="hljs-built_in">autoload</span>/nerdtree/ui_glue.vim<br> 30: ~/.vim/bundle/nerdtree/nerdtree_plugin/exec_menuitem.vim<br> 31: ~/.vim/bundle/nerdtree/nerdtree_plugin/fs_menu.vim<br> 32: ~/.vim/bundle/nerdtree/nerdtree_plugin/vcs.vim<br> 33: ~/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim<br> 34: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus.vim<br> 35: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/log.vim<br> 36: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/listener.vim<br> 37: ~/.vim/bundle/vim-autopep8/plugin/python_autopep8.vim<br> 38: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/getscriptPlugin.vim<br> 39: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/gzip.vim<br> 40: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/logiPat.vim<br> 41: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/manpager.vim<br> 42: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/matchparen.vim<br> 43: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/netrwPlugin.vim<br> 44: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/rrhelper.vim<br> 45: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/spellfile.vim<br> 46: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/tarPlugin.vim<br> 47: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/tohtml.vim<br> 48: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/vimballPlugin.vim<br> 49: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/zipPlugin.vim<br> 50: ~/.vim/bundle/indentLine/after/plugin/indentLine.vim<br> 51: ~/.vim/bundle/nerdtree/syntax/nerdtree.vim<br> 52: ~/.vim/bundle/nerdtree-git-plugin/after/syntax/nerdtree.vim<br> 53: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/util.vim<br> 54: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/job.vim<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs zsh">:<span class="hljs-built_in">echo</span> <span class="hljs-variable">$VIM</span><br>/usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim<br><br>:<span class="hljs-built_in">echo</span> <span class="hljs-variable">$HOME</span><br>/Users/wangpeng<br><br><span class="hljs-comment"># 可以通过:scriptname查看各脚本的加载顺序</span><br>:scriptname<br>/usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/vimrc<br>  2: ~/.vimrc<br>  3: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/syntax.vim<br>  4: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/synload.vim<br>  5: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/syntax/syncolor.vim<br>  6: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/filetype.vim<br>  7: ~/.vim/colors/solarized.vim<br>  8: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/ftoff.vim<br>  9: ~/.vim/bundle/Vundle.vim/<span class="hljs-built_in">autoload</span>/vundle.vim<br> 10: ~/.vim/bundle/Vundle.vim/<span class="hljs-built_in">autoload</span>/vundle/config.vim<br> 11: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/ftplugin.vim<br> 12: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/indent.vim<br> 13: ~/.vim/bundle/nerdtree/plugin/NERD_tree.vim<br> 14: ~/.vim/bundle/nerdtree/<span class="hljs-built_in">autoload</span>/nerdtree.vim<br> 15: ~/.vim/bundle/nerdtree/lib/nerdtree/path.vim<br> 16: ~/.vim/bundle/nerdtree/lib/nerdtree/menu_controller.vim<br> 17: ~/.vim/bundle/nerdtree/lib/nerdtree/menu_item.vim<br> 18: ~/.vim/bundle/nerdtree/lib/nerdtree/key_map.vim<br> 19: ~/.vim/bundle/nerdtree/lib/nerdtree/bookmark.vim<br> 20: ~/.vim/bundle/nerdtree/lib/nerdtree/tree_file_node.vim<br> 21: ~/.vim/bundle/nerdtree/lib/nerdtree/tree_dir_node.vim<br> 22: ~/.vim/bundle/nerdtree/lib/nerdtree/opener.vim<br> 23: ~/.vim/bundle/nerdtree/lib/nerdtree/creator.vim<br> 24: ~/.vim/bundle/nerdtree/lib/nerdtree/flag_set.vim<br> 25: ~/.vim/bundle/nerdtree/lib/nerdtree/nerdtree.vim<br> 26: ~/.vim/bundle/nerdtree/lib/nerdtree/ui.vim<br> 27: ~/.vim/bundle/nerdtree/lib/nerdtree/event.vim<br> 28: ~/.vim/bundle/nerdtree/lib/nerdtree/notifier.vim<br> 29: ~/.vim/bundle/nerdtree/<span class="hljs-built_in">autoload</span>/nerdtree/ui_glue.vim<br> 30: ~/.vim/bundle/nerdtree/nerdtree_plugin/exec_menuitem.vim<br> 31: ~/.vim/bundle/nerdtree/nerdtree_plugin/fs_menu.vim<br> 32: ~/.vim/bundle/nerdtree/nerdtree_plugin/vcs.vim<br> 33: ~/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim<br> 34: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus.vim<br> 35: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/log.vim<br> 36: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/listener.vim<br> 37: ~/.vim/bundle/vim-autopep8/plugin/python_autopep8.vim<br> 38: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/getscriptPlugin.vim<br> 39: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/gzip.vim<br> 40: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/logiPat.vim<br> 41: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/manpager.vim<br> 42: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/matchparen.vim<br> 43: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/netrwPlugin.vim<br> 44: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/rrhelper.vim<br> 45: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/spellfile.vim<br> 46: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/tarPlugin.vim<br> 47: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/tohtml.vim<br> 48: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/vimballPlugin.vim<br> 49: /usr/<span class="hljs-built_in">local</span>/Cellar/macvim/8.2-166_1/MacVim.app/Contents/Resources/vim/runtime/plugin/zipPlugin.vim<br> 50: ~/.vim/bundle/indentLine/after/plugin/indentLine.vim<br> 51: ~/.vim/bundle/nerdtree/syntax/nerdtree.vim<br> 52: ~/.vim/bundle/nerdtree-git-plugin/after/syntax/nerdtree.vim<br> 53: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/util.vim<br> 54: ~/.vim/bundle/nerdtree-git-plugin/<span class="hljs-built_in">autoload</span>/gitstatus/job.vim<br></code></pre></td></tr></table></figure>
 <h5 id="用户配置文件">用户配置文件</h5>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-comment"># 切换至用户目录</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-comment"># 使用vim创建并打开.vimrc</span><br>vim .vimrc<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 切换至用户目录</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-comment"># 使用vim创建并打开.vimrc</span><br>vim .vimrc<br></code></pre></td></tr></table></figure>
 <h5 id="设置主题">设置主题</h5>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">colorscheme solarized<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">colorscheme solarized<br></code></pre></td></tr></table></figure>
 <h5 id="显示帮助为中文">显示帮助为中文</h5>
 <p>下载<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/vimcdoc/?source=typ_redirect">vimdoc</a></p>
 <p><img src="/images/vim/doc.png" srcset="/img/loading.gif" lazyload></p>
 <p>将文件解压到~/.vim/doc，若路径不存在则创建</p>
 <p>打开vim执行:helptags ~/.vim/doc</p>
 <p>在~/.vimrc中进行配置：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-built_in">set</span> helplang=cn <br><span class="hljs-keyword">if</span> version &gt;= 603<br>    <span class="hljs-built_in">set</span> helplang=cn<br>    <span class="hljs-built_in">set</span> encoding=utf-8<br>endif<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">set</span> helplang=cn <br><span class="hljs-keyword">if</span> version &gt;= 603<br>    <span class="hljs-built_in">set</span> helplang=cn<br>    <span class="hljs-built_in">set</span> encoding=utf-8<br>endif<br></code></pre></td></tr></table></figure>
 <p>常见的vim快捷键可以看<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5400806/what-are-the-most-used-vim-commands-keypresses/5400978#5400978">这里</a></p>
 <h5 id="字符编码">字符编码</h5>
 <p>enc,fenc,fencs,tenc,一般乱码多是因这些参数设置不正确引起：</p>
@@ -354,7 +394,7 @@
 <li>fencs，一个字符编码列表，编码的自动识别就是通过它实现的</li>
 <li>tenc，终端使用的编码，或者说vim用于屏幕显示时的编码，显示时vim会把内部编码转换为屏幕编码进行输出，默认为enc</li>
 </ol>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 将enc设置为utf-8</span><br><span class="hljs-string">set enc=utf-8</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 将enc设置为utf-8</span><br><span class="hljs-string">set enc=utf-8</span><br></code></pre></td></tr></table></figure>
 <h4 id="vim插件管理器vundle">vim插件管理器—Vundle</h4>
 <p><a target="_blank" rel="noopener" href="http://github.com/VundleVim/Vundle.vim">Vundle</a> is short for <em>Vim bundle</em> and is a <a target="_blank" rel="noopener" href="http://www.vim.org/">Vim</a> plugin manager.</p>
 <p><a target="_blank" rel="noopener" href="http://github.com/VundleVim/Vundle.vim">Vundle</a> allows you to...</p>
@@ -373,14 +413,14 @@
 </ul>
 <p><a target="_blank" rel="noopener" href="http://github.com/VundleVim/Vundle.vim">Vundle</a> is undergoing an <a target="_blank" rel="noopener" href="https://github.com/VundleVim/Vundle.vim/blob/v0.10.2/doc/vundle.txt#L372-L396">interface change</a>, please stay up to date to get latest changes.</p>
 <h5 id="安装vundle">安装Vundle</h5>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">git <span class="hljs-built_in">clone</span> https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">git <span class="hljs-built_in">clone</span> https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim<br></code></pre></td></tr></table></figure>
 <p>下载Vundle插件管理器，将其放置在Vim编辑器bundles文件夹中。现在，可以通过.vimrc配置文件来管理所有扩展了。</p>
 <h5 id="配置vundle">配置Vundle</h5>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-built_in">set</span> nocompatible              <span class="hljs-string">&quot; required</span><br><span class="hljs-string">filetype off                  &quot;</span> required<br><br><span class="hljs-string">&quot; set the runtime path to include Vundle and initialize</span><br><span class="hljs-string">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="hljs-string">call vundle#begin()</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> alternatively, pass a path <span class="hljs-built_in">where</span> Vundle should install plugins<br><span class="hljs-string">&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> <span class="hljs-built_in">let</span> Vundle manage Vundle, required<br>Plugin <span class="hljs-string">&#x27;gmarik/Vundle.vim&#x27;</span><br><br><span class="hljs-string">&quot; Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> All of your Plugins must be added before the following line<br>call vundle<span class="hljs-comment">#end()            &quot; required</span><br>filetype plugin indent on    <span class="hljs-string">&quot; required</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">set</span> nocompatible              <span class="hljs-string">&quot; required</span><br><span class="hljs-string">filetype off                  &quot;</span> required<br><br><span class="hljs-string">&quot; set the runtime path to include Vundle and initialize</span><br><span class="hljs-string">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="hljs-string">call vundle#begin()</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> alternatively, pass a path <span class="hljs-built_in">where</span> Vundle should install plugins<br><span class="hljs-string">&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> <span class="hljs-built_in">let</span> Vundle manage Vundle, required<br>Plugin <span class="hljs-string">&#x27;gmarik/Vundle.vim&#x27;</span><br><br><span class="hljs-string">&quot; Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> All of your Plugins must be added before the following line<br>call vundle<span class="hljs-comment">#end()            &quot; required</span><br>filetype plugin indent on    <span class="hljs-string">&quot; required</span><br></code></pre></td></tr></table></figure>
 <h5 id="使用vundle">使用Vundle</h5>
 <p>将想要安装的插件，按照地址填写方法，将地址填写在<strong>vundle#begin</strong>和<strong>vundle#end</strong>之间就可以</p>
 <p>运行 :PluginInstall</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">:PluginInstall<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">:PluginInstall<br></code></pre></td></tr></table></figure>
 <p>执行<code>:PluginInstall</code>后的截图</p>
 <p><img src="/images/vim/vundle.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="移除不需要的插件">移除不需要的插件</h5>
@@ -389,20 +429,20 @@
 <li>输入命令<code>:BundleClean</code></li>
 </ol>
 <h5 id="其他常用命令">其他常用命令</h5>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">:BundleList              -列举列表(也就是.vimrc)中配置的所有插件<br>:BundleInstall          -安装列表中的全部插件<br>:BundleInstall!         -更新列表中的全部插件<br>:BundleSearch foo   -查找foo插件<br>:BundleSearch! foo  -刷新foo插件缓存<br>:BundleClean           -清除列表中没有的插件<br>:BundleClean!          -清除列表中没有的插件<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs zsh">:BundleList              -列举列表(也就是.vimrc)中配置的所有插件<br>:BundleInstall          -安装列表中的全部插件<br>:BundleInstall!         -更新列表中的全部插件<br>:BundleSearch foo   -查找foo插件<br>:BundleSearch! foo  -刷新foo插件缓存<br>:BundleClean           -清除列表中没有的插件<br>:BundleClean!          -清除列表中没有的插件<br></code></pre></td></tr></table></figure>
 <h4 id="安装插件打造ide">安装插件—打造IDE</h4>
 <h5 id="添加目录树nerdtree">添加目录树—NERDTree</h5>
 <p>NERDTree的作用就是列出当前路径的目录树，一般IDE都是有的。可以方便的浏览项目的总体的目录结构和创建删除重命名文件或文件名</p>
 <h6 id="安装nerdtree">安装NERDTree</h6>
 <p>添加目录树：<a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">nerdtree</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;scrooloose/nerdtree&#x27;</span>  <br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;scrooloose/nerdtree&#x27;</span>  <br></code></pre></td></tr></table></figure>
 <p>添加git状态图标：<a target="_blank" rel="noopener" href="https://github.com/Xuyuanp/nerdtree-git-plugin">nerdtree-git</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;Xuyuanp/nerdtree-git-plugin&#x27;</span>  <br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;Xuyuanp/nerdtree-git-plugin&#x27;</span>  <br></code></pre></td></tr></table></figure>
 <h6 id="配置nerdtree">配置NERDTree</h6>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-string">&quot;使用F3键快速调出和隐藏它</span><br><span class="hljs-string">map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">let NERDTreeChDirMode=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>显示书签<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeShowBookmarks=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>设置忽略文件类型<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeIgnore=[&#x27;\~$&#x27;, &#x27;\.pyc$&#x27;, &#x27;\.swp$&#x27;]</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>窗口大小<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeWinSize=25</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 修改默认箭头<br><span class="hljs-built_in">let</span> g:NERDTreeDirArrowExpandable = <span class="hljs-string">&#x27;▸&#x27;</span><br><span class="hljs-built_in">let</span> g:NERDTreeDirArrowCollapsible = <span class="hljs-string">&#x27;▾&#x27;</span><br><br><span class="hljs-string">&quot;How can I open a NERDTree automatically when vim starts up if no files were specified?</span><br><span class="hljs-string">autocmd StdinReadPre * let s:std_in=1</span><br><span class="hljs-string">autocmd VimEnter * if argc() == 0 &amp;&amp; !exists(&quot;</span>s:std_in<span class="hljs-string">&quot;) | NERDTree | endif</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 打开vim时自动打开NERDTree<br>autocmd vimenter * NERDTree           <br><br><span class="hljs-string">&quot;How can I open NERDTree automatically when vim starts up on opening a directory?</span><br><span class="hljs-string">autocmd StdinReadPre * let s:std_in=1</span><br><span class="hljs-string">autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !exists(&quot;</span>s:std_in<span class="hljs-string">&quot;) | exe &#x27;NERDTree&#x27; argv()[0] | wincmd p | ene | endif</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 关闭vim时，如果打开的文件除了NERDTree没有其他文件时，它自动关闭，减少多次按:q!<br>autocmd bufenter * <span class="hljs-keyword">if</span> (winnr(<span class="hljs-string">&quot;$&quot;</span>) == 1 &amp;&amp; exists(<span class="hljs-string">&quot;b:NERDTree&quot;</span>) &amp;&amp; b:NERDTree.isTabTree()) | q | endif<br><br><span class="hljs-string">&quot; 开发的过程中，我们希望git信息直接在NERDTree中显示出来， 和Eclipse一样，修改的文件和增加的文件都给出相应的标注， 这时需要安装的插件就是 nerdtree-git-plugin,配置信息如下</span><br><span class="hljs-string">let g:NERDTreeIndicatorMapCustom = &#123;</span><br><span class="hljs-string">    \ &quot;</span>Modified<span class="hljs-string">&quot;  : &quot;</span>✹<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Staged<span class="hljs-string">&quot;    : &quot;</span>✚<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Untracked<span class="hljs-string">&quot; : &quot;</span>✭<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Renamed<span class="hljs-string">&quot;   : &quot;</span>➜<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Unmerged<span class="hljs-string">&quot;  : &quot;</span>═<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Deleted<span class="hljs-string">&quot;   : &quot;</span>✖<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Dirty<span class="hljs-string">&quot;     : &quot;</span>✗<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Clean<span class="hljs-string">&quot;     : &quot;</span>✔︎<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Unknown<span class="hljs-string">&quot;   : &quot;</span>?<span class="hljs-string">&quot;</span><br><span class="hljs-string">    \ &#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 显示行号<br><span class="hljs-built_in">let</span> NERDTreeShowLineNumbers=1<br><span class="hljs-built_in">let</span> NERDTreeAutoCenter=1<br><br><span class="hljs-string">&quot; 在终端启动vim时，共享NERDTree</span><br><span class="hljs-string">let g:nerdtree_tabs_open_on_console_startup=1</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-string">&quot;使用F3键快速调出和隐藏它</span><br><span class="hljs-string">map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">let NERDTreeChDirMode=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>显示书签<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeShowBookmarks=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>设置忽略文件类型<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeIgnore=[&#x27;\~$&#x27;, &#x27;\.pyc$&#x27;, &#x27;\.swp$&#x27;]</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span>窗口大小<span class="hljs-string">&quot;</span><br><span class="hljs-string">let NERDTreeWinSize=25</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 修改默认箭头<br><span class="hljs-built_in">let</span> g:NERDTreeDirArrowExpandable = <span class="hljs-string">&#x27;▸&#x27;</span><br><span class="hljs-built_in">let</span> g:NERDTreeDirArrowCollapsible = <span class="hljs-string">&#x27;▾&#x27;</span><br><br><span class="hljs-string">&quot;How can I open a NERDTree automatically when vim starts up if no files were specified?</span><br><span class="hljs-string">autocmd StdinReadPre * let s:std_in=1</span><br><span class="hljs-string">autocmd VimEnter * if argc() == 0 &amp;&amp; !exists(&quot;</span>s:std_in<span class="hljs-string">&quot;) | NERDTree | endif</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 打开vim时自动打开NERDTree<br>autocmd vimenter * NERDTree           <br><br><span class="hljs-string">&quot;How can I open NERDTree automatically when vim starts up on opening a directory?</span><br><span class="hljs-string">autocmd StdinReadPre * let s:std_in=1</span><br><span class="hljs-string">autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !exists(&quot;</span>s:std_in<span class="hljs-string">&quot;) | exe &#x27;NERDTree&#x27; argv()[0] | wincmd p | ene | endif</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 关闭vim时，如果打开的文件除了NERDTree没有其他文件时，它自动关闭，减少多次按:q!<br>autocmd bufenter * <span class="hljs-keyword">if</span> (winnr(<span class="hljs-string">&quot;$&quot;</span>) == 1 &amp;&amp; exists(<span class="hljs-string">&quot;b:NERDTree&quot;</span>) &amp;&amp; b:NERDTree.isTabTree()) | q | endif<br><br><span class="hljs-string">&quot; 开发的过程中，我们希望git信息直接在NERDTree中显示出来， 和Eclipse一样，修改的文件和增加的文件都给出相应的标注， 这时需要安装的插件就是 nerdtree-git-plugin,配置信息如下</span><br><span class="hljs-string">let g:NERDTreeIndicatorMapCustom = &#123;</span><br><span class="hljs-string">    \ &quot;</span>Modified<span class="hljs-string">&quot;  : &quot;</span>✹<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Staged<span class="hljs-string">&quot;    : &quot;</span>✚<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Untracked<span class="hljs-string">&quot; : &quot;</span>✭<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Renamed<span class="hljs-string">&quot;   : &quot;</span>➜<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Unmerged<span class="hljs-string">&quot;  : &quot;</span>═<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Deleted<span class="hljs-string">&quot;   : &quot;</span>✖<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Dirty<span class="hljs-string">&quot;     : &quot;</span>✗<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Clean<span class="hljs-string">&quot;     : &quot;</span>✔︎<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    \ &quot;</span>Unknown<span class="hljs-string">&quot;   : &quot;</span>?<span class="hljs-string">&quot;</span><br><span class="hljs-string">    \ &#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 显示行号<br><span class="hljs-built_in">let</span> NERDTreeShowLineNumbers=1<br><span class="hljs-built_in">let</span> NERDTreeAutoCenter=1<br><br><span class="hljs-string">&quot; 在终端启动vim时，共享NERDTree</span><br><span class="hljs-string">let g:nerdtree_tabs_open_on_console_startup=1</span><br></code></pre></td></tr></table></figure>
 <h5 id="分割布局">分割布局</h5>
 <p>不用安装额外插件，只需要在.vimrc设置即可</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 指定屏幕上可以进行分割布局的区域</span><br><span class="hljs-string">set splitbelow               &quot;</span> 允许在下部分割布局<br><span class="hljs-built_in">set</span> splitright               <span class="hljs-string">&quot; 允许在右侧分隔布局</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 组合快捷键：<br>nnoremap &lt;C-J&gt; &lt;C-W&gt;&lt;C-J&gt;    <span class="hljs-string">&quot; 组合快捷键：- Ctrl-j 切换到下方的分割窗口</span><br><span class="hljs-string">nnoremap &lt;C-K&gt; &lt;C-W&gt;&lt;C-K&gt;    &quot;</span> 组合快捷键：- Ctrl-k 切换到上方的分割窗口<br>nnoremap &lt;C-L&gt; &lt;C-W&gt;&lt;C-L&gt;    <span class="hljs-string">&quot; 组合快捷键：- Ctrl-l 切换到右侧的分割窗口</span><br><span class="hljs-string">nnoremap &lt;C-H&gt; &lt;C-W&gt;&lt;C-H&gt;    &quot;</span> 组合快捷键：- Ctrl-h 切换到左侧的分割窗口<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 指定屏幕上可以进行分割布局的区域</span><br><span class="hljs-string">set splitbelow               &quot;</span> 允许在下部分割布局<br><span class="hljs-built_in">set</span> splitright               <span class="hljs-string">&quot; 允许在右侧分隔布局</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 组合快捷键：<br>nnoremap &lt;C-J&gt; &lt;C-W&gt;&lt;C-J&gt;    <span class="hljs-string">&quot; 组合快捷键：- Ctrl-j 切换到下方的分割窗口</span><br><span class="hljs-string">nnoremap &lt;C-K&gt; &lt;C-W&gt;&lt;C-K&gt;    &quot;</span> 组合快捷键：- Ctrl-k 切换到上方的分割窗口<br>nnoremap &lt;C-L&gt; &lt;C-W&gt;&lt;C-L&gt;    <span class="hljs-string">&quot; 组合快捷键：- Ctrl-l 切换到右侧的分割窗口</span><br><span class="hljs-string">nnoremap &lt;C-H&gt; &lt;C-W&gt;&lt;C-H&gt;    &quot;</span> 组合快捷键：- Ctrl-h 切换到左侧的分割窗口<br></code></pre></td></tr></table></figure>
 <p>nnoremap将一个组合快捷键映射为另一个快捷键。no部分，指的是在Vim的正常模式（Normal Mode）下， 而不是可视模式下重新映射，更多信息请看<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping">这里</a></p>
 <h5 id="go开发插件vim-go">Go开发插件—vim-go</h5>
 <p><a target="_blank" rel="noopener" href="https://github.com/fatih/vim-go">vim-go</a> 包含了运行、调试、重命名、增加移除 tag、运行单元测试、静态检查、格式化等非常多的功能。</p>
@@ -438,18 +478,18 @@
 </ol>
 <h6 id="安装插件"><strong>安装插件</strong></h6>
 <p>自动缩进有用，但是在某些情况下（比如函数定义有多行的时候），并不总是会达到你想要的效果，尤其是在符合PEP8标准方面。我们可以利用<a target="_blank" rel="noopener" href="https://github.com/vim-scripts/indentpython.vim"><code>indentpython.vim</code></a>插件，来解决这个问题：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">Plugin <span class="hljs-string">&#x27;vim-scripts/indentpython.vim&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">Plugin <span class="hljs-string">&#x27;vim-scripts/indentpython.vim&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>将python代码自动格式化为符合pep8标准的代码用到<a target="_blank" rel="noopener" href="https://github.com/tell-k/vim-autopep8"><code>tell-k/vim-autopep8</code></a>插件：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">Plugin <span class="hljs-string">&#x27;tell-k/vim-autopep8&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">Plugin <span class="hljs-string">&#x27;tell-k/vim-autopep8&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>要使用<code>tell-k/vim-autopep8</code>插件必须先在电脑上安装python的第三方包<a target="_blank" rel="noopener" href="https://pypi.org/project/autopep8/"><code>autopep8</code></a>。但奇怪的是用pip安装时找不到这个包，我们使用<code>easy-install</code>来安装，只需要在m某个python环境下安装一次即可，实测在其他环境下也可用：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">easy_install autopep8<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">easy_install autopep8<br></code></pre></td></tr></table></figure>
 <h6 id="配置插件">配置插件</h6>
 <p>.vimrc文件中添加下面的配置。这些设置将让Vim中的Tab键就相当于4个标准的空格符，确保每行代码长度不超过80个字符，并且会以unix格式储存文件，避免在推送到Github或分享给其他用户时出现文件转换问题。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 按照PEP8标准来配置vim</span><br><span class="hljs-string">au BufNewFile,BufRead *.py set tabstop=4 |set softtabstop=4|set shiftwidth=4|set textwidth=79|set expandtab|set autoindent|set fileformat=unix</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-string">&quot; 按照PEP8标准来配置vim</span><br><span class="hljs-string">au BufNewFile,BufRead *.py set tabstop=4 |set softtabstop=4|set shiftwidth=4|set textwidth=79|set expandtab|set autoindent|set fileformat=unix</span><br></code></pre></td></tr></table></figure>
 <p>对于全栈开发，你可以设置针对每种文件类型设置au命令：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh">au BufNewFile,BufRead *.js, *.html, *.css <span class="hljs-built_in">set</span> tabstop=2|<span class="hljs-built_in">set</span> softtabstop=2|<span class="hljs-built_in">set</span> shiftwidth=2<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">au BufNewFile,BufRead *.js, *.html, *.css <span class="hljs-built_in">set</span> tabstop=2|<span class="hljs-built_in">set</span> softtabstop=2|<span class="hljs-built_in">set</span> shiftwidth=2<br></code></pre></td></tr></table></figure>
 <p>下面来配置vim-autopep8</p>
-<figure class="highlight zsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs zsh"><span class="hljs-string">&quot; Disable show diff window</span><br><span class="hljs-string">let g:autopep8_disable_show_diff=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> vim-autopep8自1.11版本之后取消了F8快捷键，需要用户自己为:Autopep8设置快捷键：<br>autocmd FileType python noremap &lt;buffer&gt; &lt;F8&gt; :call Autopep8()&lt;CR&gt;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-string">&quot; Disable show diff window</span><br><span class="hljs-string">let g:autopep8_disable_show_diff=1</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> vim-autopep8自1.11版本之后取消了F8快捷键，需要用户自己为:Autopep8设置快捷键：<br>autocmd FileType python noremap &lt;buffer&gt; &lt;F8&gt; :call Autopep8()&lt;CR&gt;<br></code></pre></td></tr></table></figure>
 <h6 id="使用插件">使用插件</h6>
 <p>在使用macvim编辑<code>*.py</code>文件时：</p>
 <ul>
@@ -461,70 +501,126 @@
 <h5 id="添加代码缩进指示线">添加代码缩进指示线</h5>
 <h6 id="安装indentline">安装indentline</h6>
 <p>indentLine是一款缩进指示线，由纯字符实现，效果比较完美</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;Yggdroot/indentLine&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;Yggdroot/indentLine&#x27;</span><br></code></pre></td></tr></table></figure>
 <h6 id="配置indentline">配置indentline</h6>
 <p><a target="_blank" rel="noopener" href="https://github.com/Yggdroot/indentLine"><code>indentLine</code></a>默认是关闭的，因此需要在.vimrc中配置才能看到效果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-string">&quot; 支持任意ASCII码，也可以使用特殊字符：¦, ┆, or │ ，但只在utf-8编码下有效</span><br><span class="hljs-string">let g:indentLine_char=&#x27;¦&#x27;   </span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 使indentline生效<br><span class="hljs-built_in">let</span> g:indentLine_enabled = 1    <br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot; 支持任意ASCII码，也可以使用特殊字符：¦, ┆, or │ ，但只在utf-8编码下有效</span><br><span class="hljs-string">let g:indentLine_char=&#x27;¦&#x27;   </span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 使indentline生效<br><span class="hljs-built_in">let</span> g:indentLine_enabled = 1    <br></code></pre></td></tr></table></figure>
 <h6 id="使用indentline">使用indentline</h6>
 <p>在代码缩进处，自动生成缩进指示线</p>
 <h5 id="代码折叠">代码折叠</h5>
 <p>大多数“现代”集成开发环境（IDE）都提供对方法（methods）或类（classes）进行折叠的手段，只显示类或方法的定义部分，而不是全部的代码。</p>
 <h6 id="安装插件-1">安装插件</h6>
 <p>本身不用安装额外插件，但为避免出现超过你所希望的折叠数目，我们推荐<a target="_blank" rel="noopener" href="https://github.com/tmhedberg/SimpylFold"><code>SimplyFold</code></a>来解决这个问题：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;tmhedberg/SimpylFold&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;tmhedberg/SimpylFold&#x27;</span><br></code></pre></td></tr></table></figure>
 <h6 id="配置插件-1">配置插件</h6>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-string">&quot; 必须手动输入za来折叠（和取消折叠）</span><br><span class="hljs-string">set foldmethod=indent                &quot;</span> 根据每行的缩进开启折叠<br><span class="hljs-built_in">set</span> foldlevel=99<br><br><span class="hljs-string">&quot; 使用空格键会是更好的选择,所以在你的配置文件中加上这一行命令吧：</span><br><span class="hljs-string">nnoremap &lt;space&gt; za</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 希望看到折叠代码的文档字符串？<br><span class="hljs-built_in">let</span> g:SimpylFold_docstring_preview=1<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot; 必须手动输入za来折叠（和取消折叠）</span><br><span class="hljs-string">set foldmethod=indent                &quot;</span> 根据每行的缩进开启折叠<br><span class="hljs-built_in">set</span> foldlevel=99<br><br><span class="hljs-string">&quot; 使用空格键会是更好的选择,所以在你的配置文件中加上这一行命令吧：</span><br><span class="hljs-string">nnoremap &lt;space&gt; za</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;</span> 希望看到折叠代码的文档字符串？<br><span class="hljs-built_in">let</span> g:SimpylFold_docstring_preview=1<br></code></pre></td></tr></table></figure>
 <h6 id="使用插件-1">使用插件</h6>
 <p>在程序块处会显示折叠线，当光标放于折叠线时，按空格键可以切换在该折叠线处是否折叠。</p>
 <h5 id="括号自动补全">括号自动补全</h5>
 <p><a target="_blank" rel="noopener" href="https://github.com/jiangmiao/auto-pairs">auto-pairs</a>主要功能是括号和引号自动补全，输入左引号和左括号自动补全另外一半,安装好就可以无需额外配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;jiangmiao/auto-pairs&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;jiangmiao/auto-pairs&#x27;</span><br></code></pre></td></tr></table></figure>
 <h5 id="多行注释">多行注释</h5>
 <h6 id="安装插件-2">安装插件</h6>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;scrooloose/nerdcommenter&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugin <span class="hljs-string">&#x27;scrooloose/nerdcommenter&#x27;</span><br></code></pre></td></tr></table></figure>
 <h6 id="配置插件-2">配置插件</h6>
-<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">&quot; nerdcommenter默认热键<span class="hljs-tag">&lt;<span class="hljs-name">leader</span>&gt;</span>为&#x27;\&#x27;，这里将热键设置为&#x27;,&#x27;<br>let mapleader=&#x27;,&#x27;<br><br>&quot; 设置注释快捷键<br>map <span class="hljs-tag">&lt;<span class="hljs-name">F4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">leader</span>&gt;</span>ci<span class="hljs-tag">&lt;<span class="hljs-name">CR</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">&quot; nerdcommenter默认热键<span class="hljs-tag">&lt;<span class="hljs-name">leader</span>&gt;</span>为&#x27;\&#x27;，这里将热键设置为&#x27;,&#x27;<br>let mapleader=&#x27;,&#x27;<br><br>&quot; 设置注释快捷键<br>map <span class="hljs-tag">&lt;<span class="hljs-name">F4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">leader</span>&gt;</span>ci<span class="hljs-tag">&lt;<span class="hljs-name">CR</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h6 id="使用插件-2">使用插件</h6>
 <p>在normal模式下按v并移动光标选择需要注释的行，再按F4就可以为所有选中的行添加注释</p>
 <h3 id="vim日常">Vim日常</h3>
 <h5 id="中文乱码">中文乱码</h5>
 <p>简单粗暴的方法</p>
-<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">vim ~/.vimrc<br><br>set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936<br>set termencoding=utf-8<br>set encoding=utf-8<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim ~/.vimrc<br><br>set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936<br>set termencoding=utf-8<br>set encoding=utf-8<br></code></pre></td></tr></table></figure>
 <script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/vim/">vim</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/" class="category-chain-item">备忘录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vim/">#vim</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Mac】vim环境设置</div>
+      <div>https://weitrue.github.io/2021/01/10/vim/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Pony W</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年1月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
               
               
-                <div class="post-prevnext">
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/11/ml/">
+                      <a href="/2021/01/11/ml/" title="【ML】机器学习概述与简单应用">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">【ML】机器学习概述与简单应用</span>
                         <span class="visible-mobile">上一篇</span>
@@ -534,7 +630,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/11/25/cap/">
+                      <a href="/2020/11/25/cap/" title="【CAP】分布式一致性">
                         <span class="hidden-mobile">【CAP】分布式一致性</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -550,19 +646,53 @@
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
@@ -587,83 +717,86 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
 
   
-  <!-- 备案信息 -->
-  <div class="beian">
-    <span>
-      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
-        杭ICP证123456号
-      </a>
-    </span>
     
-      
-        <span>
-          <a
-            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
-            rel="nofollow noopener"
-            class="beian-police"
-            target="_blank"
-          >
-            
-              <span style="visibility: hidden; width: 0">|</span>
-              <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
-            
-            <span>杭公网安备12345678号</span>
-          </a>
-        </span>
-      
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
     
-  </div>
-
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
 
   
-</footer>
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      杭ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>杭公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
 
+  
+  
+</div>
 
-  <!-- SCRIPTS -->
+  </footer>
+
+  <!-- Scripts -->
   
   <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
@@ -682,10 +815,22 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
-  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -695,58 +840,117 @@
 
 
 
-  
-
-
 
   
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
-  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
 
 
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

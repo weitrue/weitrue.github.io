@@ -37,6 +37,8 @@
     
     <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Middleware/Golang/"/>
+    
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
     
@@ -101,12 +103,14 @@
     
     <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
     
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Middleware/Golang/"/>
     
-    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
     
     <category term="cron" scheme="https://weitrue.github.io/tags/cron/"/>
     
     <category term="linux" scheme="https://weitrue.github.io/tags/linux/"/>
+    
+    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
     
   </entry>
   
@@ -142,9 +146,9 @@
   </entry>
   
   <entry>
-    <title>【Go】golang分享</title>
-    <link href="https://weitrue.github.io/2022/02/11/golang-memo/"/>
-    <id>https://weitrue.github.io/2022/02/11/golang-memo/</id>
+    <title>【Go】数据库编程与ORM</title>
+    <link href="https://weitrue.github.io/2022/02/11/golang-db/"/>
+    <id>https://weitrue.github.io/2022/02/11/golang-db/</id>
     <published>2022-02-11T13:46:27.037Z</published>
     <updated>2022-02-11T13:46:27.037Z</updated>
     
@@ -153,8 +157,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
-&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+&lt;h4</summary>
         
       
     
@@ -483,9 +487,9 @@
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
     
-    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
-    
     <category term="Java" scheme="https://weitrue.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://weitrue.github.io/tags/LeetCode/"/>
     
     <category term="Python" scheme="https://weitrue.github.io/tags/Python/"/>
     
@@ -494,9 +498,9 @@
   </entry>
   
   <entry>
-    <title>【Go】面试之道</title>
-    <link href="https://weitrue.github.io/2021/06/02/golang-interview/"/>
-    <id>https://weitrue.github.io/2021/06/02/golang-interview/</id>
+    <title>【Go】RPC</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-rpc/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-rpc/</id>
     <published>2021-06-02T02:05:27.569Z</published>
     <updated>2021-06-02T02:05:27.569Z</updated>
     
@@ -510,6 +514,8 @@
     
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="GRPC" scheme="https://weitrue.github.io/tags/GRPC/"/>
     
   </entry>
   

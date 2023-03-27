@@ -53,7 +53,7 @@
   </entry>
   
   <entry>
-    <title>【Middleware】api调研</title>
+    <title>【Middleware】Twitter与Discord api</title>
     <link href="https://weitrue.github.io/2022/06/07/middleware-api/"/>
     <id>https://weitrue.github.io/2022/06/07/middleware-api/</id>
     <published>2022-06-07T13:42:09.899Z</published>
@@ -520,9 +520,9 @@
   </entry>
   
   <entry>
-    <title>【Go】使用之道</title>
-    <link href="https://weitrue.github.io/2021/06/02/golang-src/"/>
-    <id>https://weitrue.github.io/2021/06/02/golang-src/</id>
+    <title>【Go】缓存与分布式锁</title>
+    <link href="https://weitrue.github.io/2021/06/02/golang-cache/"/>
+    <id>https://weitrue.github.io/2021/06/02/golang-cache/</id>
     <published>2021-06-02T02:04:44.129Z</published>
     <updated>2021-06-02T02:04:44.129Z</updated>
     
@@ -534,7 +534,11 @@
     <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
     
     
+    <category term="Lock" scheme="https://weitrue.github.io/tags/Lock/"/>
+    
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Cache" scheme="https://weitrue.github.io/tags/Cache/"/>
     
   </entry>
   

@@ -106,11 +106,11 @@
     <category term="Golang" scheme="https://weitrue.github.io/categories/Middleware/Golang/"/>
     
     
-    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
-    
     <category term="cron" scheme="https://weitrue.github.io/tags/cron/"/>
     
     <category term="linux" scheme="https://weitrue.github.io/tags/linux/"/>
+    
+    <category term="middleware" scheme="https://weitrue.github.io/tags/middleware/"/>
     
   </entry>
   

@@ -86,11 +86,11 @@
     
     <tags>
       
+      <tag>middleware</tag>
+      
       <tag>cron</tag>
       
       <tag>linux</tag>
-      
-      <tag>middleware</tag>
       
     </tags>
     
@@ -1021,9 +1021,9 @@
     
     <tags>
       
-      <tag>Python</tag>
-      
       <tag>ADT</tag>
+      
+      <tag>Python</tag>
       
     </tags>
     

@@ -294,7 +294,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          85k 字
+          86k 字
         
       </span>
     
@@ -306,7 +306,7 @@
         
         
           <!-- compatible with older versions-->
-          267 分钟
+          268 分钟
         
       </span>
     
@@ -1244,6 +1244,17 @@
 
     </div>
 </div>
+<p>下面的程序的运行结果是?</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    strs := []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>&#125;<br>		<span class="hljs-keyword">for</span> _, s := <span class="hljs-keyword">range</span> strs &#123;<br>        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(ss <span class="hljs-keyword">string</span>)</span></span> &#123;<br>			      time.Sleep(<span class="hljs-number">1</span> * time.Second)<br>			      fmt.Printf(<span class="hljs-string">&quot;%s &quot;</span>, ss)<br>		    &#125;(s)<br>    &#125;<br>    time.Sleep(<span class="hljs-number">3</span> * time.Second)<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        答案
+    </div>
+    <div class="spoiler-content">
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">three one two / one two three /...<br></code></pre></td></tr></table></figure>
+
+    </div>
+</div>
 <p>下面的程序的运行结果是？</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    v := [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>: <span class="hljs-number">2</span>, <span class="hljs-number">3</span>: <span class="hljs-number">4</span>&#125;<br>    fmt.Println(<span class="hljs-built_in">len</span>(v))<br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="spoiler collapsed">
@@ -1267,7 +1278,11 @@
     </div>
 </div>
 <h4 id="选择题">选择题</h4>
-<p>1.下面属于关键字的是（） A. func B. def C. struct D. class​</p>
+<p>1.下面属于关键字的是（）</p>
+<p>A. func</p>
+<p>B. def</p>
+<p>C. struct</p>
+<p>D. class​</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1277,7 +1292,11 @@
 
     </div>
 </div>
-<p>2.定义一个包内全局字符串变量，下面语法正确的是 （） A. var str string B. str := “” C. str = “” D. var str = “”</p>
+<p>2.定义一个包内全局字符串变量，下面语法正确的是 （）</p>
+<p>A. var str string</p>
+<p>B. str := “”</p>
+<p>C. str = “”</p>
+<p>D. var str = “”</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1287,7 +1306,11 @@
 
     </div>
 </div>
-<p>3.通过指针变量 p 访问其成员变量 name，下面语法正确的是（） A. p.name B. (*p).name C. (&amp;p).name D. p-&gt;name</p>
+<p>3.通过指针变量 p 访问其成员变量 name，下面语法正确的是（）</p>
+<p>A. p.name</p>
+<p>B. (*p).name</p>
+<p>C. (&amp;p).name</p>
+<p>D. p-&gt;name</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1297,7 +1320,11 @@
 
     </div>
 </div>
-<p>4.关于接口和类的说法，下面说法正确的是（） A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口 B. 实现类的时候，只需要关心自己应该提供哪些方法，不用再纠结接口需要拆得多细才合理 C. 类实现接口时，需要导入接口所在的包 D. 接口由使用方按自身需求来定义，使用方无需关心是否有其他模块定义过类似的接口</p>
+<p>4.关于接口和类的说法，下面说法正确的是（）</p>
+<p>A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口</p>
+<p>B. 实现类的时候，只需要关心自己应该提供哪些方法，不用再纠结接口需要拆得多细才合理</p>
+<p>C. 类实现接口时，需要导入接口所在的包</p>
+<p>D. 接口由使用方按自身需求来定义，使用方无需关心是否有其他模块定义过类似的接口</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1307,7 +1334,11 @@
 
     </div>
 </div>
-<p>5.关于字符串连接，下面语法正确的是（） A. str := ‘abc’ + ‘123’ B. str := “abc” + “123” C. str ：= ‘123’ + “abc” D. fmt.Sprintf(“abc%d”, 123)</p>
+<p>5.关于字符串连接，下面语法正确的是（）</p>
+<p>A. str := ‘abc’ + ‘123’</p>
+<p>B. str := “abc” + “123”</p>
+<p>C. str ：= ‘123’ + “abc”</p>
+<p>D. fmt.Sprintf(“abc%d”, 123)</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1317,7 +1348,11 @@
 
     </div>
 </div>
-<p>6.关于协程，下面说法正确是（） A. 协程和线程都可以实现程序的并发执行 B. 线程比协程更轻量级 C. 协程不存在死锁问题 D. 通过channel来进行协程间的通信</p>
+<p>6.关于协程，下面说法正确是（）</p>
+<p>A. 协程和线程都可以实现程序的并发执行</p>
+<p>B. 线程比协程更轻量级</p>
+<p>C. 协程不存在死锁问题</p>
+<p>D. 通过channel来进行协程间的通信</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1327,7 +1362,11 @@
 
     </div>
 </div>
-<p>7.关于init函数，下面说法正确的是（） A. 一个包中，可以包含多个init函数 B. 程序编译时，先执行导入包的init函数，再执行本包内的init函数 C. main包中，不能有init函数 D. init函数可以被其他函数调用</p>
+<p>7.关于init函数，下面说法正确的是（）</p>
+<p>A. 一个包中，可以包含多个init函数</p>
+<p>B. 程序编译时，先执行导入包的init函数，再执行本包内的init函数</p>
+<p>C. main包中，不能有init函数</p>
+<p>D. init函数可以被其他函数调用</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1337,7 +1376,11 @@
 
     </div>
 </div>
-<p>8.关于循环语句，下面说法正确的有（） A. 循环语句既支持for关键字，也支持while和do-while B. 关键字for的基本使用方法与C/C++中没有任何差异 C. for循环支持continue和break来控制循环，但是它提供了一个更高级的break，可以选择中断哪一个循环 D. for循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量</p>
+<p>8.关于循环语句，下面说法正确的有（）</p>
+<p>A. 循环语句既支持for关键字，也支持while和do-while</p>
+<p>B. 关键字for的基本使用方法与C/C++中没有任何差异</p>
+<p>C. for循环支持continue和break来控制循环，但是它提供了一个更高级的break，可以选择中断哪一个循环</p>
+<p>D. for循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1350,7 +1393,10 @@
 <p>9.对于函数定义：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">add</span><span class="hljs-params">(args ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>        sum := <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> args &#123;<br>            sum += arg<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>下面对add函数调用正确的是（）</p>
-<p>A. add(1, 2) B. add(1, 3, 7) C. add([]int{1, 2}) D. add([]int{1, 3, 7}...)</p>
+<p>A. add(1, 2)</p>
+<p>B. add(1, 3, 7)</p>
+<p>C. add([]int{1, 2})</p>
+<p>D. add([]int{1, 3, 7}...)</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1360,7 +1406,10 @@
 
     </div>
 </div>
-<p>10.关于类型转化，下面语法正确的是（） A.</p>
+<p>10.关于类型转化，下面语法正确的是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyInt <span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">var</span> j MyInt = i<br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1383,7 +1432,11 @@
 
     </div>
 </div>
-<p>11.关于局部变量的初始化，下面正确的使用方式是（） A. var i int = 10 B. var i = 10 C. i := 10 D. i = 10</p>
+<p>11.关于局部变量的初始化，下面正确的使用方式是（）</p>
+<p>A. var i int = 10</p>
+<p>B. var i = 10</p>
+<p>C. i := 10</p>
+<p>D. i = 10</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1393,7 +1446,10 @@
 
     </div>
 </div>
-<p>12.关于const常量定义，下面正确的使用方式是（） A.</p>
+<p>12.关于const常量定义，下面正确的使用方式是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> Pi <span class="hljs-keyword">float64</span> = <span class="hljs-number">3.14159265358979323846</span><br><span class="hljs-keyword">const</span> zero = <span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1416,7 +1472,11 @@
 
     </div>
 </div>
-<p>13.关于布尔变量b的赋值，下面错误的用法是（） A. <code>b = true</code> B. <code>b = 1     //  Cannot use '1' (type untyped int) as type bool in assignment</code> C. <code>b = bool(1)   //Cannot convert expression of type int to type bool</code> D. <code>b = (1 == 2)</code></p>
+<p>13.关于布尔变量b的赋值，下面错误的用法是（）</p>
+<p>A. <code>b = true</code></p>
+<p>B. <code>b = 1     //  Cannot use '1' (type untyped int) as type bool in assignment</code></p>
+<p>C. <code>b = bool(1)   //Cannot convert expression of type int to type bool</code></p>
+<p>D. <code>b = (1 == 2)</code></p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1428,7 +1488,10 @@
 </div>
 <p>14.下面的程序的运行结果是（）</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">&quot;1&quot;</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">defer</span> fmt.Printf(<span class="hljs-string">&quot;2&quot;</span>)<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">&quot;3&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>A. 321 B. 32 C. 31 D. 13</p>
+<p>A. 321</p>
+<p>B. 32</p>
+<p>C. 31</p>
+<p>D. 13</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1438,7 +1501,11 @@
 
     </div>
 </div>
-<p>15.关于switch语句，下面说法正确的有（） A. 条件表达式必须为常量或者整数 B. 单个case中，可以出现多个结果选项 C. 需要用break来明确退出一个case D. 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case</p>
+<p>15.关于switch语句，下面说法正确的有（）</p>
+<p>A. 条件表达式必须为常量或者整数</p>
+<p>B. 单个case中，可以出现多个结果选项</p>
+<p>C. 需要用break来明确退出一个case</p>
+<p>D. 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1448,7 +1515,11 @@
 
     </div>
 </div>
-<p>16.golang中没有隐藏的this指针，这句话的含义是（） A. 方法施加的对象显式传递，没有被隐藏起来 B. golang沿袭了传统面向对象编程中的诸多概念，比如继承、虚函数和构造函数 C. golang的面向对象表达更直观，对于面向过程只是换了一种语法形式来表达 D. 方法施加的对象不需要非得是指针，也不用非得叫this</p>
+<p>16.golang中没有隐藏的this指针，这句话的含义是（）</p>
+<p>A. 方法施加的对象显式传递，没有被隐藏起来</p>
+<p>B. golang沿袭了传统面向对象编程中的诸多概念，比如继承、虚函数和构造函数</p>
+<p>C. golang的面向对象表达更直观，对于面向过程只是换了一种语法形式来表达</p>
+<p>D. 方法施加的对象不需要非得是指针，也不用非得叫this</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1458,7 +1529,11 @@
 
     </div>
 </div>
-<p>17.golang中的引用类型包括（） A. 数组切片 B. map C. channel D. interface</p>
+<p>17.golang中的引用类型包括（）</p>
+<p>A. 数组切片</p>
+<p>B. map</p>
+<p>C. channel</p>
+<p>D. interface</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1468,7 +1543,11 @@
 
     </div>
 </div>
-<p>18.golang中的指针运算包括（） A. 可以对指针进行自增或自减运算 B. 可以通过“&amp;”取指针的地址 C. 可以通过“*”取指针指向的数据 D. 可以对指针进行下标运算</p>
+<p>18.golang中的指针运算包括（）</p>
+<p>A. 可以对指针进行自增或自减运算</p>
+<p>B. 可以通过“&amp;”取指针的地址</p>
+<p>C. 可以通过“*”取指针指向的数据</p>
+<p>D. 可以对指针进行下标运算</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1478,7 +1557,11 @@
 
     </div>
 </div>
-<p>19.关于main函数（可执行程序的执行起点），下面说法正确的是（） A. main函数不能带参数 B. main函数不能定义返回值 C. main函数所在的包必须为main包 D. main函数中可以使用flag包来获取和解析命令行参数</p>
+<p>19.关于main函数（可执行程序的执行起点），下面说法正确的是（）</p>
+<p>A. main函数不能带参数</p>
+<p>B. main函数不能定义返回值</p>
+<p>C. main函数所在的包必须为main包</p>
+<p>D. main函数中可以使用flag包来获取和解析命令行参数</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1488,7 +1571,11 @@
 
     </div>
 </div>
-<p>20.下面赋值正确的是（） A. var x = nil B. var x interface{} = nil C. var x string = nil D. var x error = nil</p>
+<p>20.下面赋值正确的是（）</p>
+<p>A. var x = nil</p>
+<p>B. var x interface{} = nil</p>
+<p>C. var x string = nil</p>
+<p>D. var x error = nil</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1498,7 +1585,11 @@
 
     </div>
 </div>
-<p>21.关于整型切片的初始化，下面正确的是（） A. s := make([]int) B. s := make([]int, 0) C. s := make([]int, 5, 10) D. s := []int{1, 2, 3, 4, 5}</p>
+<p>21.关于整型切片的初始化，下面正确的是（）</p>
+<p>A. s := make([]int)</p>
+<p>B. s := make([]int, 0)</p>
+<p>C. s := make([]int, 5, 10)</p>
+<p>D. s := []int{1, 2, 3, 4, 5}</p>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         答案
@@ -1508,7 +1599,10 @@
 
     </div>
 </div>
-<p>22.从切片中删除一个元素，下面的算法实现正确的是（） A.</p>
+<p>22.从切片中删除一个元素，下面的算法实现正确的是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Slice)</span><span class="hljs-title">Remove</span><span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">error</span></span> &#123;<br>        <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> *s &#123;<br>            <span class="hljs-keyword">if</span> isEqual(value, v) &#123;<br>                <span class="hljs-keyword">if</span> i== <span class="hljs-built_in">len</span>(*s) - <span class="hljs-number">1</span> &#123;<br>                    *s = (*s)[:i]<br>                &#125;<span class="hljs-keyword">else</span> &#123;<br>                    *s = <span class="hljs-built_in">append</span>((*s)[:i],(*s)[i + <span class="hljs-number">2</span>:]...)<br>                &#125;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ERR_ELEM_NT_EXIST<br>&#125;<br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1531,7 +1625,10 @@
 
     </div>
 </div>
-<p>23.关于变量的自增和自减操作，下面语句正确的是（） A.</p>
+<p>23.关于变量的自增和自减操作，下面语句正确的是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">i := <span class="hljs-number">1</span><br>i++<br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1570,7 +1667,10 @@
 </div>
 <p>25.如果Add函数的调用代码为：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">var</span> a Integer = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">var</span> b Integer = <span class="hljs-number">2</span><br>    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = &amp;a<br>    sum := i.(*Integer).Add(b)<br>    fmt.Println(sum)<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>则Add函数定义正确的是（） A.</p>
+<p>则Add函数定义正确的是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1595,7 +1695,10 @@
 </div>
 <p>26.如果Add函数的调用代码为：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">var</span> a Integer = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">var</span> b Integer = <span class="hljs-number">2</span><br>        <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = a<br>        sum := i.(Integer).Add(b)<br>        fmt.Println(sum)<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>则Add函数定义正确的是（） A.</p>
+<p>则Add函数定义正确的是（）</p>
+<ol type="A">
+<li></li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Integer <span class="hljs-keyword">int</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a Integer)</span> <span class="hljs-title">Add</span><span class="hljs-params">(b Integer)</span> <span class="hljs-title">Integer</span></span> &#123;<br>        <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></td></tr></table></figure>
 <ol start="2" type="A">
 <li></li>
@@ -1767,7 +1870,7 @@ op1->op2->cond3
 cond3(no,right)->op1
 cond3(yes,left)->op3
 op3->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css">
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             

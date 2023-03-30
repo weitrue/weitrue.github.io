@@ -358,9 +358,9 @@
       
       <tag>Prometheus</tag>
       
-      <tag>监控</tag>
-      
       <tag>网络探测</tag>
+      
+      <tag>监控</tag>
       
     </tags>
     
@@ -416,9 +416,9 @@
       
       <tag>Prometheus</tag>
       
-      <tag>Alertmanage</tag>
-      
       <tag>监控</tag>
+      
+      <tag>Alertmanage</tag>
       
     </tags>
     

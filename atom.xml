@@ -353,9 +353,9 @@
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
     
-    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
-    
     <category term="网络探测" scheme="https://weitrue.github.io/tags/%E7%BD%91%E7%BB%9C%E6%8E%A2%E6%B5%8B/"/>
+    
+    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
     
   </entry>
   
@@ -413,9 +413,9 @@
     
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
     
-    <category term="Alertmanage" scheme="https://weitrue.github.io/tags/Alertmanage/"/>
-    
     <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+    <category term="Alertmanage" scheme="https://weitrue.github.io/tags/Alertmanage/"/>
     
   </entry>
   

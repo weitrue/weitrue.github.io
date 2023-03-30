@@ -293,7 +293,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          12k 字
+          17k 字
         
       </span>
     
@@ -305,7 +305,7 @@
         
         
           <!-- compatible with older versions-->
-          39 分钟
+          53 分钟
         
       </span>
     
@@ -371,10 +371,102 @@
 <h5 id="限制内存">限制内存</h5>
 <h5 id="缓存淘汰">缓存淘汰</h5>
 <h4 id="缓存模式">缓存模式</h4>
+<h5 id="cache-aside">cache-aside</h5>
+<ul>
+<li><p>把cache当作普通数据源</p></li>
+<li><p>更新cache和DB都依赖开发者自己写代码</p>
+<ul>
+<li>业务代码决策是否从DB取数据</li>
+<li><strong>同步</strong>或者<strong>异步</strong>读取并写入数据</li>
+<li>采用singleflight</li>
+</ul></li>
+</ul>
+<p><img src="/images/golang/cache/cache-aside.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+同步读取数据到缓存
+</center>
+<p><img src="/images/golang/cache/cache-aside-1.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步存数据到缓存
+</center>
+<p><img src="/images/golang/cache/cache-aside-2.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步读取数据到缓存
+</center>
+<p>如果并发情况下，可能会引起数据不一致问题</p>
+<p><img src="/images/golang/cache/cache-aside-q.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="read-through">read-through</h5>
+<ul>
+<li>业务代码从缓存中读取数据，cache不命中是读取数据
+<ul>
+<li>cache决策是否从DB读取数据</li>
+<li><strong>同步</strong>或者<strong>异步</strong>读取并写入数据</li>
+<li>采用singleflight</li>
+</ul></li>
+<li>写数据时，业务代码需要自己写DB和cache</li>
+</ul>
+<p><img src="/images/golang/cache/read-through.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+同步读取数据到缓存
+</center>
+<p><img src="/images/golang/cache/read-through-1.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步存数据到缓存
+</center>
+<p><img src="/images/golang/cache/read-through-2.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步读取数据到缓存（一般不会用）
+</center>
+<h5 id="write-through">write-through</h5>
+<ul>
+<li>业务代码数据只写cache，cache自己更新DB
+<ul>
+<li>cache决定<strong>同步</strong>或者<strong>异步</strong>写到DB或者cache</li>
+<li>cache决定先写DB还是cache,一般先写DB</li>
+</ul></li>
+<li>业务代码读取未命中，需要手动从DB获取并写入缓存</li>
+</ul>
+<p><img src="/images/golang/cache/write-through.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+同步写数据
+</center>
+<p><img src="/images/golang/cache/write-through-1.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步写数据到缓存
+</center>
+<p><img src="/images/golang/cache/write-through-2.png" srcset="/img/loading.gif" lazyload></p>
+<center>
+异步写数据
+</center>
+<h5 id="write-back">write-back</h5>
+<ul>
+<li>写操作时直接写缓存，读操作时也是直接读缓存</li>
+<li>缓存过期时，将缓存数据写入DB（onEvicted回调，刷新数据到DB）</li>
+<li>数据可能会丢失（缓存过期刷数据到DB之前,缓存宕机）</li>
+</ul>
+<p><img src="/images/golang/cache/write-back.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="refresh-ahead">refresh-ahead</h5>
+<ul>
+<li>依赖cdc</li>
+<li>cache或者cannel这一类的工具监听数据变更后，更新数据到缓存</li>
+<li>读数据cache未命中时，还是需要刷新缓存，也存在并发问题</li>
+</ul>
+<p><img src="/images/golang/cache/refresh-ahead.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="redis缓存">Redis缓存</h4>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> cache<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br><br>	_ <span class="hljs-string">&quot;github.com/golang/mock/mockgen/model&quot;</span><br>	<span class="hljs-string">&quot;github.com/pkg/errors&quot;</span><br>	<span class="hljs-string">&quot;github.com/redis/go-redis/v9&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> RedisCache <span class="hljs-keyword">struct</span> &#123;<br>	client redis.Cmdable<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewRedisClient</span><span class="hljs-params">(addr <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(client redis.Cmdable)</span></span> &#123;<br>	<span class="hljs-keyword">return</span> redis.NewClient(&amp;redis.Options&#123;<br>		Addr:     addr,<br>		Password: <span class="hljs-string">&quot;&quot;</span>,<br>		DB:       <span class="hljs-number">0</span>,<br>	&#125;)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewRedisCache</span><span class="hljs-params">(client redis.Cmdable)</span> *<span class="hljs-title">RedisCache</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;RedisCache&#123;<br>		client: client,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *RedisCache)</span> <span class="hljs-title">Get</span><span class="hljs-params">(ctx context.Context, key <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(any, error)</span></span> &#123;<br><br>	<span class="hljs-keyword">return</span> c.client.Get(ctx, key).Result()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *RedisCache)</span> <span class="hljs-title">Set</span><span class="hljs-params">(ctx context.Context, key <span class="hljs-keyword">string</span>, val any, expiration time.Duration)</span> <span class="hljs-title">error</span></span> &#123;<br>	msg, err := c.client.Set(ctx, key, val, expiration).Result()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> strings.ToLower(msg) != <span class="hljs-string">&quot;ok&quot;</span> &#123;<br>		<span class="hljs-keyword">return</span> errors.Wrapf(err, <span class="hljs-string">&quot;返回信息 %s&quot;</span>, msg)<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *RedisCache)</span> <span class="hljs-title">Delete</span><span class="hljs-params">(ctx context.Context, key <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">error</span></span> &#123;<br>	_, err := c.client.Del(ctx, key).Result()<br>	<span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *RedisCache)</span> <span class="hljs-title">LoadAndDelete</span><span class="hljs-params">(ctx context.Context, key <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(any, error)</span></span> &#123;<br>	<span class="hljs-keyword">return</span> c.client.GetDel(ctx, key).Result()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *RedisCache)</span> <span class="hljs-title">Close</span><span class="hljs-params">(ctx context.Context)</span> <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>生成redis_mock.go文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">go install github.com/golang/mock/mockgen@v1.6.0<br>mockgen -package=mocks -destination=mocks/redis_cmdable.mock.go github.com/redis/go-redis/v9 Cmdable<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> cache<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;reflect&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/golang/mock/gomock&quot;</span><br>	<span class="hljs-string">&quot;github.com/redis/go-redis/v9&quot;</span><br>	<span class="hljs-string">&quot;github.com/stretchr/testify/assert&quot;</span><br><br>	<span class="hljs-string">&quot;offer/pkg/cache/mocks&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestRedisCache_Set</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	controller := gomock.NewController(t)<br>	<span class="hljs-keyword">defer</span> controller.Finish()<br>	testCases := []<span class="hljs-keyword">struct</span> &#123;<br>		name       <span class="hljs-keyword">string</span><br>		mock       <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">redis</span>.<span class="hljs-title">Cmdable</span></span><br>		key        <span class="hljs-keyword">string</span><br>		val        <span class="hljs-keyword">string</span><br>		expiration time.Duration<br>		wantErr    error<br>	&#125;&#123;<br>		&#123;<br>			name: <span class="hljs-string">&quot;OK&quot;</span>,<br>			mock: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">redis</span>.<span class="hljs-title">Cmdable</span></span> &#123;<br>				cmdable := mocks.NewMockCmdable(controller)<br>				cmd := redis.NewStatusCmd(context.Background())<br>				cmd.SetVal(<span class="hljs-string">&quot;OK&quot;</span>)<br>				cmdable.EXPECT().Set(gomock.Any(), <span class="hljs-string">&quot;key1&quot;</span>, <span class="hljs-string">&quot;val1&quot;</span>, <span class="hljs-number">30</span>*time.Second).Return(cmd)<br>				<span class="hljs-keyword">return</span> cmdable<br>			&#125;,<br>			key:        <span class="hljs-string">&quot;key1&quot;</span>,<br>			val:        <span class="hljs-string">&quot;val1&quot;</span>,<br>			expiration: <span class="hljs-number">30</span> * time.Second,<br>			wantErr:    <span class="hljs-literal">nil</span>,<br>		&#125;,<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> testCases &#123;<br>		t.Run(c.name, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>			rc := NewRedisCache(c.mock())<br>			err := rc.Set(context.Background(), c.key, c.val, c.expiration)<br>			assert.Equal(t, c.wantErr, err)<br>		&#125;)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestRedisCache_Get</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	controller := gomock.NewController(t)<br>	<span class="hljs-keyword">defer</span> controller.Finish()<br>	testCases := []<span class="hljs-keyword">struct</span> &#123;<br>		name    <span class="hljs-keyword">string</span><br>		mock    <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">redis</span>.<span class="hljs-title">Cmdable</span></span><br>		key     <span class="hljs-keyword">string</span><br>		want    any<br>		wantErr error<br>	&#125;&#123;<br>		&#123;<br>			name: <span class="hljs-string">&quot;OK&quot;</span>,<br>			mock: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">redis</span>.<span class="hljs-title">Cmdable</span></span> &#123;<br>				cmdable := mocks.NewMockCmdable(controller)<br>				cmd := redis.NewStringCmd(context.Background())<br>				cmd.SetVal(<span class="hljs-string">&quot;val1&quot;</span>)<br>				cmdable.EXPECT().Get(gomock.Any(), <span class="hljs-string">&quot;key1&quot;</span>).Return(cmd)<br>				<span class="hljs-keyword">return</span> cmdable<br>			&#125;,<br>			key:     <span class="hljs-string">&quot;key1&quot;</span>,<br>			want:    <span class="hljs-string">&quot;val1&quot;</span>,<br>			wantErr: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>	&#125;<br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> testCases &#123;<br>		t.Run(c.name, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>			ctx := context.Background()<br>			rc := NewRedisCache(c.mock())<br>			got, err := rc.Get(ctx, c.key)<br>			<span class="hljs-keyword">if</span> c.wantErr != err &#123;<br>				t.Errorf(<span class="hljs-string">&quot;Get() error = %v, wantErr %v&quot;</span>, err, c.wantErr)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>			<span class="hljs-keyword">if</span> !reflect.DeepEqual(got, c.want) &#123;<br>				t.Errorf(<span class="hljs-string">&quot;Get() got = %v, want %v&quot;</span>, got, c.want)<br>			&#125;<br>		&#125;)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="缓存异常">缓存异常</h4>
+<h5 id="穿透">穿透</h5>
+<p>cache没有，DB也没有</p>
+<h5 id="击穿">击穿</h5>
+<p>并发请求同一个缓存数据，cache没有，DB压力大</p>
+<h5 id="雪崩">雪崩</h5>
+<p>cache出现了错误，不能正常工作了，所有的请求都会达到DB</p>
 <h3 id="分布式锁">分布式锁</h3>
 <h4 id="redis分布式锁">Redis分布式锁</h4>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css">
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -478,8 +570,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/02/golang-shutdown/" title="【Go】优雅关闭服务">
-                        <span class="hidden-mobile">【Go】优雅关闭服务</span>
+                      <a href="/2021/06/02/golang-web/" title="【Go】Web开发">
+                        <span class="hidden-mobile">【Go】Web开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

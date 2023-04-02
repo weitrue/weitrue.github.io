@@ -1,0 +1,1018 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="article">
+<meta property="og:title" content="【Go】源码">
+<meta property="og:url" content="https://weitrue.github.io/2023/03/31/golang-src/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/img/updating.jpg">
+<meta property="article:published_time" content="2023-03-31T10:52:05.461Z">
+<meta property="article:modified_time" content="2023-03-31T10:52:05.461Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/img/updating.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Go】源码 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                <span>混沌书栈</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                <span>混沌日记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/img/banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Go】源码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Pony W
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-31 18:52" pubdate>
+          2023年3月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          66 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Go】源码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<span id="more"></span>
+</blockquote>
+<h3 id="基础类型">基础类型</h3>
+<h4 id="slice">slice</h4>
+<h4 id="map">Map</h4>
+<h4 id="channel">Channel</h4>
+<h5 id="chansend源码">chansend源码</h5>
+<div id="flowchart-0" class="flow-chart">
+
+</div>
+<ul>
+<li>是否nil channel，是的话直接阻塞</li>
+<li>是否有被阻塞的接收者，有的话直接交付数据，返回</li>
+<li>没有的话，看缓冲区是否满了，没满放入缓冲，返回</li>
+<li>满了，阻塞，等待接收者唤醒</li>
+<li>被唤醒，做些清操作</li>
+</ul>
+<p><img src="/images/golang/chan.send1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/golang/chan.send2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/golang/chan.send3.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="chanrecv源码">chanrecv源码</h5>
+<p><img src="/images/golang/chan.recv1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/golang/chan.recv2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/golang/chan.recv3.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="goroutine泄露与内存逃逸">Goroutine泄露与内存逃逸</h5>
+<p>如果channel使用不当，goroutine被阻塞后没有唤醒会导致goroutine泄露：</p>
+<ul>
+<li>只发送不接收，发送者阻塞，会导致发送者goroutine泄露</li>
+<li>只接收不发送，接受者阻塞，会导致接收者goroutine泄露</li>
+<li>读写nil都会导致goroutine泄露</li>
+<li>唯一例外的是业务层面上的goroutine长时间运行</li>
+<li>如果用channel发送指针，那么必然发生内存逃逸</li>
+</ul>
+<h3 id="原生库">原生库</h3>
+<h4 id="context">context</h4>
+<h4 id="sync">sync</h4>
+<h5 id="sync.map">sync.Map</h5>
+<div class="note note-success">
+            <ul><li><code>read</code> 只读数据 <code>readOnly</code></li><li><code>dirty</code> 读写数据，操作 <code>dirty</code> 需要用 <code>mu</code> 进行加锁来保证并发安全</li><li><code>misses</code> 用于统计有多少次读取 <code>read</code> 没有命中</li><li><code>amended</code> 用于标记 <code>read</code> 和 <code>dirty</code> 的数据是否一致</li></ul>
+          </div>
+<p><img src="/images/golang/src/sync.map.png" srcset="/img/loading.gif" lazyload></p>
+<div class="note note-success">
+            <p>Load</p><ul><li>先从 <code>read</code> 读</li><li>没有命中，到 <code>dirty</code> 读取数据，同时调用 <code>missLocked()</code> 增加 <code>misses</code></li><li>当 <code>misses</code> 大于 <code>len(dirty)</code> 时（ <code>read</code> 和 <code>dirty</code> 的数据相差太大)，会将 <code>dirty</code> 的数据赋值给 <code>read</code>， <code>dirty</code> 会被置空</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">Load</span><span class="hljs-params">(key <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;, ok <span class="hljs-keyword">bool</span>)</span></span> &#123;<br>    read, _ := m.read.Load().(readOnly)<br>    e, ok := read.m[key]<br>    <span class="hljs-keyword">if</span> !ok &amp;&amp; read.amended &#123;<br>        m.mu.Lock()<br>        read, _ = m.read.Load().(readOnly)<br>        e, ok = read.m[key]<br>        <span class="hljs-keyword">if</span> !ok &amp;&amp; read.amended &#123;<br>            e, ok = m.dirty[key]<br>            m.missLocked()<br>        &#125;<br>        m.mu.Unlock()<br>    &#125;<br>    <span class="hljs-keyword">if</span> !ok &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">false</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> e.load()<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">missLocked</span><span class="hljs-params">()</span></span> &#123;<br>    m.misses++<br>    <span class="hljs-keyword">if</span> m.misses &lt; <span class="hljs-built_in">len</span>(m.dirty) &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    m.read.Store(readOnly&#123;m: m.dirty&#125;)<br>    m.dirty = <span class="hljs-literal">nil</span><br>    m.misses = <span class="hljs-number">0</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>Store</p><ul><li>直接到 <code>read</code> 修改数据，修改成功则直接返回</li><li>如果 <code>key</code> 不存在，到 <code>dirty</code> 找数据， <code>dirty</code> 存在 <code>key</code> 则修改，</li><li>不存在则新增，同时还要将 <code>read</code> 中的 <code>amended</code> 标记为 true（ <code>read</code> 和 <code>dirty</code> 的数据已经不一致）</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">Store</span><span class="hljs-params">(key, value <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    read, _ := m.read.Load().(readOnly)<br>    <span class="hljs-keyword">if</span> e, ok := read.m[key]; ok &amp;&amp; e.tryStore(&amp;value) &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br><br>    m.mu.Lock()<br>    read, _ = m.read.Load().(readOnly)<br>    <span class="hljs-keyword">if</span> e, ok := read.m[key]; ok &#123;<br>        <span class="hljs-keyword">if</span> e.unexpungeLocked() &#123;<br>            m.dirty[key] = e<br>        &#125;<br>        e.storeLocked(&amp;value)<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> e, ok := m.dirty[key]; ok &#123;<br>        e.storeLocked(&amp;value)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">if</span> !read.amended &#123;<br>            m.dirtyLocked()<br>            m.read.Store(readOnly&#123;m: read.m, amended: <span class="hljs-literal">true</span>&#125;)<br>        &#125;<br>        m.dirty[key] = newEntry(value)<br>    &#125;<br>    m.mu.Unlock()<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>Range</p><ul><li><code>Range</code> 会保证 <code>read</code> 和 <code>dirty</code> 是数据同步的</li><li>回调函数返回 false 会导致迭代中断</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">Range</span><span class="hljs-params">(f <span class="hljs-keyword">func</span>(key, value <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">bool</span>)</span> &#123;<br>    read, _ := m.read.Load().(readOnly)<br>    <span class="hljs-keyword">if</span> read.amended &#123;<br>        m.mu.Lock()<br>        read, _ = m.read.Load().(readOnly)<br>        <span class="hljs-keyword">if</span> read.amended &#123;<br>            read = readOnly&#123;m: m.dirty&#125;<br>            m.read.Store(read)<br>            m.dirty = <span class="hljs-literal">nil</span><br>            m.misses = <span class="hljs-number">0</span><br>        &#125;<br>        m.mu.Unlock()<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> k, e := <span class="hljs-keyword">range</span> read.m &#123;<br>        v, ok := e.load()<br>        <span class="hljs-keyword">if</span> !ok &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> !f(k, v) &#123;<br>            <span class="hljs-keyword">break</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>Delete</p><ul><li><code>延迟删除</code>的机制，</li><li>首先到 查找<code>read</code> 是否存在 <code>key</code>，如果存在则执行 <code>entry.delete</code> 进行软删除，通过 CAS 将指针 <code>entry.p (存放数据的指针)</code> 置为 nil，减少锁开销提高并发性能。</li><li><code>read</code> 找不到 <code>key</code> 且 <code>amended</code> 为 true 才会通过 <code>delete</code> 进行硬删除，这个阶段是会加锁的。</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">Delete</span><span class="hljs-params">(key <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    m.LoadAndDelete(key)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Map)</span> <span class="hljs-title">LoadAndDelete</span><span class="hljs-params">(key <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;, loaded <span class="hljs-keyword">bool</span>)</span></span> &#123;<br>    read, _ := m.read.Load().(readOnly)<br>    e, ok := read.m[key]<br>    <span class="hljs-keyword">if</span> !ok &amp;&amp; read.amended &#123;<br>        m.mu.Lock()<br>        read, _ = m.read.Load().(readOnly)<br>        e, ok = read.m[key]<br>        <span class="hljs-keyword">if</span> !ok &amp;&amp; read.amended &#123;<br>            e, ok = m.dirty[key]<br>            <span class="hljs-built_in">delete</span>(m.dirty, key)<br>            m.missLocked()<br>        &#125;<br>        m.mu.Unlock()<br>    &#125;<br>    <span class="hljs-keyword">if</span> ok &#123;<br>        <span class="hljs-keyword">return</span> e.<span class="hljs-built_in">delete</span>()<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *entry)</span> <span class="hljs-title">delete</span><span class="hljs-params">()</span> <span class="hljs-params">(value <span class="hljs-keyword">interface</span>&#123;&#125;, ok <span class="hljs-keyword">bool</span>)</span></span> &#123;<br>    <span class="hljs-keyword">for</span> &#123;<br>        p := atomic.LoadPointer(&amp;e.p)<br>        <span class="hljs-keyword">if</span> p == <span class="hljs-literal">nil</span> || p == expunged &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> atomic.CompareAndSwapPointer(&amp;e.p, p, <span class="hljs-literal">nil</span>) &#123;<br>            <span class="hljs-keyword">return</span> *(*<span class="hljs-keyword">interface</span>&#123;&#125;)(p), <span class="hljs-literal">true</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="sync.mutex-sync.rwmutex">sync.Mutex &amp;&amp; sync.RWMutex</h5>
+<div class="note note-success">
+            <ul><li>state用来控制锁状态的核心。</li><li>sema处理沉睡/唤醒的信号量<ul><li>runtime_SemacquireMutex：sema加1并且挂起goroutine</li><li>runtime_Semrelease：sema减1并唤起sema上等待的一个goroutine</li></ul></li><li>总体流程<ol type="1"><li>先进性一个人<em>CAS操作</em>。如果锁空闲，并且没有其他协程竞争，便直接成功。</li><li>否则自旋几次，如果成功，不用加入队列。</li><li>否则加入队列</li><li>从队列中被唤醒<ul><li>正常模式：和新来的协程一起竞争锁，但是大概率失败（等待队列中的协程等待时间<strong><em>超过1ms</em></strong>,锁会变成饥饿模式）</li><li>饥饿模式：肯定拿到锁</li></ul></li></ol></li><li>可以基于RWMutex实现double-check<ul><li>加读锁先检查一遍</li><li>释放读锁</li><li>加写锁</li><li>在检查一遍</li></ul></li></ul>
+          </div>
+<div id="flowchart-1" class="flow-chart">
+
+</div>
+<p><img src="/images/golang/sync.Mutex.interview.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="sync.once">sync.Once</h5>
+<div class="note note-success">
+            <ul><li>利原子操作实现读写锁的double-check</li></ul>
+          </div>
+<p><img src="/images/golang/once.double-check.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="sync.pool">sync.Pool</h5>
+<div class="note note-success">
+            <p>PMG调度模型实现的Pool。</p><ul><li>每个P带有一个poolLocal对象</li><li>每个poolLocal又一个private和shared</li><li>shared指向的是一个poolChain，poolChain的数据会被别的P偷走</li><li>poolChain是一个链表+ring buffer的双重结构<ul><li>从总体上看，是一个双链表</li><li>从单个节点来说，它指向的是一个ring buffer（后面节点的ring buffer长度是前面节点ring buffer长度的二倍）</li></ul></li></ul>
+          </div>
+<p><img src="/images/golang/sync.pool.detail.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/golang/src/sync.pool.png" srcset="/img/loading.gif" lazyload></p>
+<div class="note note-success">
+            <p>sync.Pool.Get</p><ul><li><em>private是否可用</em>，可用直接返回</li><li>不可用从自己的poolChain里尝试获取<ul><li>从<code>head</code>开始找（当前头指向的是最近创建的ringbuffer）</li><li>在ringbuffer队列中从队头往队尾找</li></ul></li><li>找不到尝试从别的P里面偷（偷的过程是全局并发的）<ul><li>偷是从<code>tail</code>队尾开始找</li></ul></li><li>偷不到，会从victim中找</li><li>victim找不到，会创建新的</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Pool)</span> <span class="hljs-title">Get</span><span class="hljs-params">()</span> <span class="hljs-title">interface</span></span>&#123;&#125; &#123;<br>    l, pid := p.pin()<br>    x := l.private<br>    l.private = <span class="hljs-literal">nil</span><br>    <span class="hljs-keyword">if</span> x == <span class="hljs-literal">nil</span> &#123;<br>        x, _ = l.shared.popHead()<br>        <span class="hljs-keyword">if</span> x == <span class="hljs-literal">nil</span> &#123;<br>            x = p.getSlow(pid)<br>        &#125;<br>    &#125;<br>    runtime_procUnpin()<br>    <span class="hljs-keyword">if</span> x == <span class="hljs-literal">nil</span> &amp;&amp; p.New != <span class="hljs-literal">nil</span> &#123;<br>        x = p.New()<br>    &#125;<br>    <span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>sync.Pool.Put</p><ul><li>private没被占用，直接放private</li><li>否则放入shared(poolChain)<ul><li>poolChain的HEAD没有创建,就创建一个HEAD,然后穿件一个容量为<em>8</em>的ring buffer,把数据丢过去</li><li>poolChain的HEAD指向的ring buffer没满，数据丢到ring buffer</li><li>poolChain的HEAD指向的ring buffer满了，创建新节点（2倍容量的ring buffer）,把数据丢过去</li></ul></li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *Pool)</span> <span class="hljs-title">Put</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> x == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    l, _ := p.pin()<br>    <span class="hljs-keyword">if</span> l.private == <span class="hljs-literal">nil</span> &#123;<br>        l.private = x<br>        x = <span class="hljs-literal">nil</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> x != <span class="hljs-literal">nil</span> &#123;<br>        l.shared.pushHead(x)<br>    &#125;<br>    runtime_procUnpin()<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/golang/src/sync.pool.poolchain.png" srcset="/img/loading.gif" lazyload></p>
+<div class="note note-success">
+            <p>sync.Pool存粹依赖GC 进行淘汰。核心在于locals和victim</p><ul><li>locals会被挪过去变成victim</li><li>victim会被GC时直接回收掉，如果victim里的对象被再次使用，则会被丢到locals</li></ul>
+          </div>
+<p><img src="/images/golang/sync.pool.interview.png" srcset="/img/loading.gif" lazyload></p>
+<p>sync.WaitGroup</p>
+<div class="note note-success">
+            <ul><li>Add:state1的高32位自增1</li><li>Done:state1的高32位减1,就是Add(-1)</li><li>Wait:state1低32位自增1,同时利用state2和runtime_Semacquire将当前goroutine挂起</li></ul>
+          </div>
+<p><img src="/images/golang/sync.waitgroup.add.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="atomic">atomic</h4>
+<h5 id="atomic.value">atomic.Value</h5>
+<p>原子读写只提供了 <code>int32</code>，<code>int64</code>，<code>uint32</code>，<code>uint64</code>，<code>uintptr</code> 和 <code>unsafe.Pointer</code> 数据类型。</p>
+<p><code>atomic.Value</code> 的零值为 nil，且使用后不允许被拷贝。写入值后 <code>ifaceWords</code> 中 <code>typ</code> 保存数据类型，<code>data</code> 保存值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// A Value provides an atomic load and store of a consistently typed value.</span><br><span class="hljs-comment">// The zero value for a Value returns nil from Load.</span><br><span class="hljs-comment">// Once Store has been called, a Value must not be copied.</span><br><span class="hljs-comment">//</span><br><span class="hljs-comment">// A Value must not be copied after first use.</span><br><span class="hljs-keyword">type</span> Value <span class="hljs-keyword">struct</span> &#123;<br>    v <span class="hljs-keyword">interface</span>&#123;&#125; <span class="hljs-comment">// ifaceWords</span><br>&#125;<br><br><span class="hljs-keyword">type</span> ifaceWords <span class="hljs-keyword">struct</span> &#123;<br>    typ  unsafe.Pointer<br>    data unsafe.Pointer<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>Store</p><ul><li>不能保存 nil</li><li><code>Store</code>固定类型，后续操作必须使用相同的数据类型，否则会 panic</li><li>首次 <code>Store</code> 会调用 <code>runtime_procPin()</code> 禁止当前 P 被抢占，然后 CAS 抢占乐观锁 ，将 <code>typ</code> 修改为中间值 <code>unsafe.Pointer(^uintptr(0))</code></li><li><code>if uintptr(typ) == ^uintptr(0)</code> == <code>true</code>则表示还在抢占锁中，抢到锁就会修改 <code>typ</code> 和 <code>data</code></li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Store sets the value of the Value to x.</span><br><span class="hljs-comment">// All calls to Store for a given Value must use values of the same concrete type.</span><br><span class="hljs-comment">// Store of an inconsistent type panics, as does Store(nil).</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v *Value)</span> <span class="hljs-title">Store</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> x == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;sync/atomic: store of nil value into Value&quot;</span>)<br>    &#125;<br>    vp := (*ifaceWords)(unsafe.Pointer(v))<br>    xp := (*ifaceWords)(unsafe.Pointer(&amp;x))<br>    <span class="hljs-keyword">for</span> &#123;<br>        typ := LoadPointer(&amp;vp.typ)<br>        <span class="hljs-keyword">if</span> typ == <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-comment">// Attempt to start first store.</span><br>            <span class="hljs-comment">// Disable preemption so that other goroutines can use</span><br>            <span class="hljs-comment">// active spin wait to wait for completion; and so that</span><br>            <span class="hljs-comment">// GC does not see the fake type accidentally.</span><br>            runtime_procPin()<br>            <span class="hljs-keyword">if</span> !CompareAndSwapPointer(&amp;vp.typ, <span class="hljs-literal">nil</span>, unsafe.Pointer(^<span class="hljs-keyword">uintptr</span>(<span class="hljs-number">0</span>))) &#123;<br>                runtime_procUnpin()<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>            <span class="hljs-comment">// Complete first store.</span><br>            StorePointer(&amp;vp.data, xp.data)<br>            StorePointer(&amp;vp.typ, xp.typ)<br>            runtime_procUnpin()<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">uintptr</span>(typ) == ^<span class="hljs-keyword">uintptr</span>(<span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">// First store in progress. Wait.</span><br>            <span class="hljs-comment">// Since we disable preemption around the first store,</span><br>            <span class="hljs-comment">// we can wait with active spinning.</span><br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> typ != xp.typ &#123;<br>            <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;sync/atomic: store of inconsistently typed value into Value&quot;</span>)<br>        &#125;<br>        StorePointer(&amp;vp.data, xp.data)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-success">
+            <p>Load</p><ul><li>ifaceWords未写入,返回nil</li></ul>
+          </div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v *Value)</span> <span class="hljs-title">Load</span><span class="hljs-params">()</span> <span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    vp := (*ifaceWords)(unsafe.Pointer(v))<br>    typ := LoadPointer(&amp;vp.typ)<br>    <span class="hljs-keyword">if</span> typ == <span class="hljs-literal">nil</span> || <span class="hljs-keyword">uintptr</span>(typ) == ^<span class="hljs-keyword">uintptr</span>(<span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// First store not yet completed.</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>    &#125;<br>    data := LoadPointer(&amp;vp.data)<br>    xp := (*ifaceWords)(unsafe.Pointer(&amp;x))<br>    xp.typ = typ<br>    xp.data = data<br>    <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="reflect">reflect</h4>
+<p>reflect.ValueOf: 用于操作值，部分值可以被反射修改</p>
+<p>reflect.TypeOf: 用于操作类信息，只能读取（可以通过reflect.Value得到）</p>
+<p>reflect.Kind: 用于判断类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;reflect&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/stretchr/testify/assert&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IteratorFields</span><span class="hljs-params">(val any)</span> <span class="hljs-params">(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any, error)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> val == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.New(<span class="hljs-string">&quot;val is nil&quot;</span>)<br>	&#125;<br><br>	typeOf := reflect.TypeOf(val)<br>	valueOf := reflect.ValueOf(val)<br>	res := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any)<br>	<span class="hljs-keyword">for</span> typeOf.Kind() == reflect.Pointer &#123;<br>		typeOf = typeOf.Elem()<br>		valueOf = valueOf.Elem()<br>	&#125;<br>	<span class="hljs-keyword">switch</span> typeOf.Kind() &#123;<br>	<span class="hljs-keyword">case</span> reflect.Struct:<br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.New(<span class="hljs-string">&quot;unsupported type&quot;</span>)<br>	&#125;<br>	numField := typeOf.NumField()<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; numField; i++ &#123;<br>		field := typeOf.Field(i)<br>		res[field.Name] = valueOf.Field(i).Interface()<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> res, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestIteratorFields</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	cases := []<span class="hljs-keyword">struct</span> &#123;<br>		name   <span class="hljs-keyword">string</span><br>		val    any<br>		expect <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any<br>		e      error<br>	&#125;&#123;<br>		&#123;<br>			name: <span class="hljs-string">&quot;user&quot;</span>,<br>			val:  <span class="hljs-keyword">struct</span>&#123; Name <span class="hljs-keyword">string</span> &#125;&#123;Name: <span class="hljs-string">&quot;tom&quot;</span>&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any&#123;<br>				<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;tom&quot;</span>,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>		&#123;<br>			name:   <span class="hljs-string">&quot;nil&quot;</span>,<br>			val:    <span class="hljs-literal">nil</span>,<br>			expect: <span class="hljs-literal">nil</span>,<br>			e:      errors.New(<span class="hljs-string">&quot;val is nil&quot;</span>),<br>		&#125;,<br>		&#123;<br>			name: <span class="hljs-string">&quot;pointer&quot;</span>,<br>			val:  &amp;<span class="hljs-keyword">struct</span>&#123; Name <span class="hljs-keyword">string</span> &#125;&#123;Name: <span class="hljs-string">&quot;pony&quot;</span>&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]any&#123;<br>				<span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;pony&quot;</span>,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>		&#123;<br>			name:   <span class="hljs-string">&quot;unsupported&quot;</span>,<br>			val:    <span class="hljs-number">1</span>,<br>			expect: <span class="hljs-literal">nil</span>,<br>			e:      errors.New(<span class="hljs-string">&quot;unsupported type&quot;</span>),<br>		&#125;,<br>		&#123;<br>			name:   <span class="hljs-string">&quot;unsupported&quot;</span>,<br>			val:    <span class="hljs-string">&quot;&quot;</span>,<br>			expect: <span class="hljs-literal">nil</span>,<br>			e:      errors.New(<span class="hljs-string">&quot;unsupported type&quot;</span>),<br>		&#125;,<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> cases &#123;<br>		t.Run(c.name, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>			res, err := IteratorFields(c.val)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				assert.Equal(t, c.e, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br><br>			assert.Equal(t, c.expect, res)<br>		&#125;)<br><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>reflect.FuncInfo</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> FuncInfo <span class="hljs-keyword">struct</span> &#123;<br>	Name   <span class="hljs-keyword">string</span><br>	In     []reflect.Type<br>	Out    []reflect.Type<br>	Result []any<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IteratorFuncInfo</span><span class="hljs-params">(val any)</span> <span class="hljs-params">(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo, error)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> val == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.New(<span class="hljs-string">&quot;val is nil&quot;</span>)<br>	&#125;<br><br>	typeOf := reflect.TypeOf(val)<br>	<span class="hljs-keyword">if</span> typeOf.Kind() != reflect.Struct &amp;&amp; typeOf.Kind() != reflect.Ptr &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.New(<span class="hljs-string">&quot;unsupported type&quot;</span>)<br>	&#125;<br><br>	num := typeOf.NumMethod()<br>	result := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo, num)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; num; i++ &#123;<br>		f := typeOf.Method(i)<br>		numIn := f.Type.NumIn()<br><br>		in := <span class="hljs-built_in">make</span>([]reflect.Type, <span class="hljs-number">0</span>, f.Type.NumIn())<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; numIn; j++ &#123;<br>			in = <span class="hljs-built_in">append</span>(in, f.Type.In(j))<br>		&#125;<br><br>		out := <span class="hljs-built_in">make</span>([]reflect.Type, <span class="hljs-number">0</span>, f.Type.NumOut())<br>		numOut := f.Type.NumOut()<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; numOut; j++ &#123;<br>			out = <span class="hljs-built_in">append</span>(out, f.Type.Out(j))<br>		&#125;<br><br>		callVals := f.Func.Call([]reflect.Value&#123;reflect.ValueOf(val)&#125;)<br>		calRes := <span class="hljs-built_in">make</span>([]any, <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(callVals))<br>		<span class="hljs-keyword">for</span> _, value := <span class="hljs-keyword">range</span> callVals &#123;<br>			calRes = <span class="hljs-built_in">append</span>(calRes, value.Interface())<br>		&#125;<br><br>		result[f.Name] = &amp;FuncInfo&#123;<br>			Name:   f.Name,<br>			In:     in,<br>			Out:    out,<br>			Result: calRes,<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> result, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Order <span class="hljs-keyword">struct</span> &#123;<br>	buyer  <span class="hljs-keyword">int64</span><br>	seller <span class="hljs-keyword">int64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(o Order)</span> <span class="hljs-title">GetBuyer</span><span class="hljs-params">()</span> <span class="hljs-title">int64</span></span> &#123;<br>	<span class="hljs-keyword">return</span> o.buyer<br>&#125;<br><br><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>	age <span class="hljs-keyword">int64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(o *User)</span> <span class="hljs-title">GetAge</span><span class="hljs-params">()</span> <span class="hljs-title">int64</span></span> &#123;<br>	<span class="hljs-keyword">return</span> o.age<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestIteratorFuncInfo</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	cases := []<span class="hljs-keyword">struct</span> &#123;<br>		name   <span class="hljs-keyword">string</span><br>		val    any<br>		expect <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo<br>		e      error<br>	&#125;&#123;<br>		&#123;<br>			name:   <span class="hljs-string">&quot;nil&quot;</span>,<br>			val:    <span class="hljs-literal">nil</span>,<br>			expect: <span class="hljs-literal">nil</span>,<br>			e:      errors.New(<span class="hljs-string">&quot;val is nil&quot;</span>),<br>		&#125;,<br>		&#123;<br>			name: <span class="hljs-string">&quot;struct&quot;</span>,<br>			val: Order&#123;<br>				buyer: <span class="hljs-number">10</span>,<br>			&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo&#123;<br>				<span class="hljs-string">&quot;GetBuyer&quot;</span>: &#123;<br>					Name:   <span class="hljs-string">&quot;GetBuyer&quot;</span>,<br>					In:     []reflect.Type&#123;reflect.TypeOf(Order&#123;&#125;)&#125;,<br>					Out:    []reflect.Type&#123;reflect.TypeOf(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>))&#125;,<br>					Result: []any&#123;<span class="hljs-keyword">int64</span>(<span class="hljs-number">10</span>)&#125;,<br>				&#125;,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>		&#123;<br>			name: <span class="hljs-string">&quot;struct type but input pointer&quot;</span>,<br>			val: &amp;Order&#123;<br>				buyer: <span class="hljs-number">10</span>,<br>			&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo&#123;<br>				<span class="hljs-string">&quot;GetBuyer&quot;</span>: &#123;<br>					Name:   <span class="hljs-string">&quot;GetBuyer&quot;</span>,<br>					In:     []reflect.Type&#123;reflect.TypeOf(&amp;Order&#123;&#125;)&#125;,<br>					Out:    []reflect.Type&#123;reflect.TypeOf(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>))&#125;,<br>					Result: []any&#123;<span class="hljs-keyword">int64</span>(<span class="hljs-number">10</span>)&#125;,<br>				&#125;,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>		&#123;<br>			name: <span class="hljs-string">&quot;pointer&quot;</span>,<br>			val: &amp;User&#123;<br>				age: <span class="hljs-number">1</span>,<br>			&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo&#123;<br>				<span class="hljs-string">&quot;GetAge&quot;</span>: &#123;<br>					Name:   <span class="hljs-string">&quot;GetAge&quot;</span>,<br>					In:     []reflect.Type&#123;reflect.TypeOf(&amp;User&#123;&#125;)&#125;,<br>					Out:    []reflect.Type&#123;reflect.TypeOf(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>))&#125;,<br>					Result: []any&#123;<span class="hljs-keyword">int64</span>(<span class="hljs-number">1</span>)&#125;,<br>				&#125;,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>		&#123;<br>			name: <span class="hljs-string">&quot;pointer but input struct&quot;</span>,<br>			val: User&#123;<br>				age: <span class="hljs-number">1</span>,<br>			&#125;,<br>			expect: <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*FuncInfo&#123;<br>				<span class="hljs-string">&quot;GetAge&quot;</span>: &#123;<br>					Name:   <span class="hljs-string">&quot;GetAge&quot;</span>,<br>					In:     []reflect.Type&#123;reflect.TypeOf(User&#123;&#125;)&#125;,<br>					Out:    []reflect.Type&#123;reflect.TypeOf(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>))&#125;,<br>					Result: []any&#123;<span class="hljs-keyword">int64</span>(<span class="hljs-number">1</span>)&#125;,<br>          <span class="hljs-comment">// expected: map[string]*reflectx.FuncInfo&#123;&quot;GetAge&quot;:(*reflectx.FuncInfo)(0xc000094480)&#125;</span><br>        	<span class="hljs-comment">// actual  : map[string]*reflectx.FuncInfo&#123;&#125;</span><br>				&#125;,<br>			&#125;,<br>			e: <span class="hljs-literal">nil</span>,<br>		&#125;,<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> _, c := <span class="hljs-keyword">range</span> cases &#123;<br>		t.Run(c.name, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>			res, err := IteratorFuncInfo(c.val)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				assert.Equal(t, c.e, err)<br>				<span class="hljs-keyword">return</span><br>			&#125;<br><br>			assert.Equal(t, c.expect, res)<br>		&#125;)<br><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="unsafe">unsafe</h4>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Test</span><span class="hljs-params">(t *testing.T)</span></span>  &#123;<br><br>	<span class="hljs-comment">// 任何类型的指针值都可以转换为Pointer // unsafe.Pointer(&amp;a1)</span><br>	<span class="hljs-comment">// Pointer可以转换为任何类型的指针值 // (*float32)(unsafe.Pointer(numPointer))</span><br>	<span class="hljs-comment">// uintptr可以转换为 Pointer // unsafe.Pointer(uintptr(nPointer) + + unsafe.Sizeof(&amp;a) * 3)</span><br>	<span class="hljs-comment">// Pointer可以转换为 uintptr // uintptr(unsafe.Pointer(numPointer))</span><br>	<span class="hljs-comment">// uintptr 是一个整数类型，它足够大，可以存储. 只有将Pointer转换成uintptr才能进行指针的相关操作</span><br><br>	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">int32</span> = <span class="hljs-number">10</span><br>	tt := unsafe.Sizeof(a)<br>	fmt.Println(tt)  <span class="hljs-comment">// 4</span><br><br>	<span class="hljs-keyword">var</span> ab <span class="hljs-keyword">int64</span> = <span class="hljs-number">10</span><br>	fmt.Println(unsafe.Sizeof(ab))  <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-keyword">var</span> abc <span class="hljs-keyword">int</span> = <span class="hljs-number">10</span><br>	fmt.Println(unsafe.Sizeof(abc))  <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test&quot;</span><br>	fmt.Println(unsafe.Sizeof(b))   <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; *str uint8; len int;&#125;</span><br><br>	<span class="hljs-keyword">var</span> bc <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;test-test-test-test-test-test-test-test-test-test-test-test-test-test&quot;</span><br>	fmt.Println(unsafe.Sizeof(bc))  <span class="hljs-comment">// 16 Sizeof(string)占计算string header的大小, struct string &#123; *str uint8; len int;&#125;</span><br><br>	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;<br>		B <span class="hljs-keyword">bool</span><br>		C <span class="hljs-keyword">uint64</span><br>	&#125;<br>	c := aa&#123;&#125;<br>	fmt.Println(unsafe.Sizeof(c))  <span class="hljs-comment">// 16 涉及到内存对齐的问题</span><br>	<span class="hljs-comment">// 返回结构体中某个字段的偏移量, 这个字段必须是structValue.field形式. 也就是返回结构体变量的开始位置到那个字段的开始位置之间字节数.</span><br>	fmt.Println(unsafe.Offsetof(c.B), unsafe.Offsetof(c.C)) <span class="hljs-comment">// 0 8</span><br><br>	fmt.Println(unsafe.Sizeof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span><br><br>	<span class="hljs-keyword">type</span> bb <span class="hljs-keyword">struct</span> &#123;<br>		B *<span class="hljs-keyword">bool</span><br>	&#125;<br>	c1 := bb&#123;&#125;<br>	fmt.Println(unsafe.Sizeof(c1)) <span class="hljs-comment">// 指针占8个字节(64位机器)</span><br><br>	<span class="hljs-comment">// 内存对齐</span><br>	<span class="hljs-comment">// 就是为了加快内存的存取速度, 用空间换时间的做法</span><br>	fmt.Printf(<span class="hljs-string">&quot;bool: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">bool</span>(<span class="hljs-literal">true</span>)))           <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;int32: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int32</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 4</span><br>	fmt.Printf(<span class="hljs-string">&quot;int8: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int8</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;int64: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>)))            <span class="hljs-comment">// 8</span><br>	fmt.Printf(<span class="hljs-string">&quot;byte: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">byte</span>(<span class="hljs-number">0</span>)))              <span class="hljs-comment">// 1</span><br>	fmt.Printf(<span class="hljs-string">&quot;string: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">string</span>(<span class="hljs-string">&quot;true&quot;</span>)))     <span class="hljs-comment">// 8</span><br>	fmt.Printf(<span class="hljs-string">&quot;map: %d\n&quot;</span>, unsafe.Alignof(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;&#125;))   <span class="hljs-comment">// 8</span><br><br>	<span class="hljs-comment">// 对齐规则</span><br>	<span class="hljs-comment">// 1.结构体的成员变量，第一个成员变量的偏移量为 0。往后的每个成员变量的对齐值必须为编译器默认对齐长度（#pragma pack(n)）或当前成员变量类型的长度（unsafe.Sizeof），取最小值作为当前类型的对齐值。其偏移量必须为对齐值的整数倍</span><br>	<span class="hljs-comment">// 2.结构体本身，对齐值必须为编译器默认对齐长度（#pragma pack(n)）或结构体的所有成员变量类型中的最大长度，取最大数的最小整数倍作为对齐值</span><br>	<span class="hljs-comment">// 3.结合以上两点，可得知若编译器默认对齐长度（#pragma pack(n)）超过结构体内成员变量的类型最大长度时，默认对齐长度是没有任何意义的</span><br>	<span class="hljs-keyword">type</span> Part1 <span class="hljs-keyword">struct</span> &#123;<br>		a <span class="hljs-keyword">bool</span><br>		b <span class="hljs-keyword">int32</span><br>		c <span class="hljs-keyword">int8</span><br>		d <span class="hljs-keyword">int64</span><br>		e <span class="hljs-keyword">byte</span><br>	&#125;<br>	part := Part1&#123;&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(part), unsafe.Alignof(part))   <span class="hljs-comment">// 32 8</span><br><br>	<span class="hljs-keyword">type</span> Part2 <span class="hljs-keyword">struct</span> &#123;<br>		a <span class="hljs-keyword">bool</span><br>		e <span class="hljs-keyword">byte</span><br>		c <span class="hljs-keyword">int8</span><br>		b <span class="hljs-keyword">int32</span><br>		d <span class="hljs-keyword">int64</span><br>	&#125;<br>	par2 := Part2&#123;&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;Part1 Size: %d, align: %d\n&quot;</span>, unsafe.Sizeof(par2), unsafe.Alignof(par2))   <span class="hljs-comment">// 16 8</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestApply</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	<span class="hljs-comment">// Float64的bits</span><br>	<span class="hljs-keyword">var</span> f <span class="hljs-keyword">float64</span> = <span class="hljs-number">0.1</span><br>	fmt.Println(*(*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(&amp;f)))  <span class="hljs-comment">// 4591870180066957722</span><br><br>	<span class="hljs-comment">// 计算偏移量</span><br>	<span class="hljs-keyword">type</span> aa <span class="hljs-keyword">struct</span> &#123;<br>		B <span class="hljs-keyword">bool</span><br>		C <span class="hljs-keyword">uint64</span><br>	&#125;<br>	c := aa&#123;&#125;<br>	fmt.Println(c)  <span class="hljs-comment">// &#123;false 0&#125;</span><br>	aac := (*<span class="hljs-keyword">uint64</span>)(unsafe.Pointer(<span class="hljs-keyword">uintptr</span>(unsafe.Pointer(&amp;c)) + unsafe.Offsetof(c.C)))<br>	*aac = <span class="hljs-number">10</span><br>	fmt.Println(c)  <span class="hljs-comment">// &#123;false 10&#125;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="ossignal">os/signal</h4>
+<p>每个平台的信号定义或许有些不同。下面列出了POSIX中定义的信号。 Linux 使用34-64信号用作实时系统中。</p>
+<h5 id="在posix.1-1990标准中定义的信号列表"><strong>在POSIX.1-1990标准中定义的信号列表</strong></h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// Signals</span><br><span class="hljs-keyword">const</span> (<br>	SIGABRT   = Signal(<span class="hljs-number">0x6</span>)<br>	SIGALRM   = Signal(<span class="hljs-number">0xe</span>)<br>	SIGBUS    = Signal(<span class="hljs-number">0xa</span>)<br>	SIGCHLD   = Signal(<span class="hljs-number">0x14</span>)<br>	SIGCONT   = Signal(<span class="hljs-number">0x13</span>)<br>	SIGEMT    = Signal(<span class="hljs-number">0x7</span>)<br>	SIGFPE    = Signal(<span class="hljs-number">0x8</span>)<br>	SIGHUP    = Signal(<span class="hljs-number">0x1</span>)<br>	SIGILL    = Signal(<span class="hljs-number">0x4</span>)<br>	SIGINFO   = Signal(<span class="hljs-number">0x1d</span>)<br>	SIGINT    = Signal(<span class="hljs-number">0x2</span>)<br>	SIGIO     = Signal(<span class="hljs-number">0x17</span>)<br>	SIGIOT    = Signal(<span class="hljs-number">0x6</span>)<br>	SIGKILL   = Signal(<span class="hljs-number">0x9</span>)<br>	SIGPIPE   = Signal(<span class="hljs-number">0xd</span>)<br>	SIGPROF   = Signal(<span class="hljs-number">0x1b</span>)<br>	SIGQUIT   = Signal(<span class="hljs-number">0x3</span>)<br>	SIGSEGV   = Signal(<span class="hljs-number">0xb</span>)<br>	SIGSTOP   = Signal(<span class="hljs-number">0x11</span>)<br>	SIGSYS    = Signal(<span class="hljs-number">0xc</span>)<br>	SIGTERM   = Signal(<span class="hljs-number">0xf</span>)<br>	SIGTRAP   = Signal(<span class="hljs-number">0x5</span>)<br>	SIGTSTP   = Signal(<span class="hljs-number">0x12</span>)<br>	SIGTTIN   = Signal(<span class="hljs-number">0x15</span>)<br>	SIGTTOU   = Signal(<span class="hljs-number">0x16</span>)<br>	SIGURG    = Signal(<span class="hljs-number">0x10</span>)<br>	SIGUSR1   = Signal(<span class="hljs-number">0x1e</span>)<br>	SIGUSR2   = Signal(<span class="hljs-number">0x1f</span>)<br>	SIGVTALRM = Signal(<span class="hljs-number">0x1a</span>)<br>	SIGWINCH  = Signal(<span class="hljs-number">0x1c</span>)<br>	SIGXCPU   = Signal(<span class="hljs-number">0x18</span>)<br>	SIGXFSZ   = Signal(<span class="hljs-number">0x19</span>)<br>)<br><span class="hljs-comment">// Signal table</span><br><span class="hljs-keyword">var</span> signals = [...]<span class="hljs-keyword">string</span>&#123;<br>	<span class="hljs-number">1</span>:  <span class="hljs-string">&quot;hangup&quot;</span>,                     <span class="hljs-comment">// 终端控制进程结束(终端连接断开)</span><br>	<span class="hljs-number">2</span>:  <span class="hljs-string">&quot;interrupt&quot;</span>,                  <span class="hljs-comment">// 用户发送INTR字符(Ctrl+C)触发</span><br>	<span class="hljs-number">3</span>:  <span class="hljs-string">&quot;quit&quot;</span>,                       <span class="hljs-comment">// 用户发送QUIT字符(Ctrl+/)触发</span><br>	<span class="hljs-number">4</span>:  <span class="hljs-string">&quot;illegal instruction&quot;</span>,        <span class="hljs-comment">// 非法指令(程序错误、试图执行数据段、栈溢出等)</span><br>	<span class="hljs-number">5</span>:  <span class="hljs-string">&quot;trace/BPT trap&quot;</span>,             <span class="hljs-comment">// Trap指令触发(如断点，在调试器中使用)</span><br>	<span class="hljs-number">6</span>:  <span class="hljs-string">&quot;abort trap&quot;</span>,                 <span class="hljs-comment">// 调用abort函数触发</span><br>	<span class="hljs-number">7</span>:  <span class="hljs-string">&quot;EMT trap&quot;</span>,<br>	<span class="hljs-number">8</span>:  <span class="hljs-string">&quot;floating point exception&quot;</span>,   <span class="hljs-comment">// 算术运行错误(浮点运算错误、除数为零等)</span><br>	<span class="hljs-number">9</span>:  <span class="hljs-string">&quot;killed&quot;</span>,                     <span class="hljs-comment">// 无条件结束程序(不能被捕获、阻塞或忽略)</span><br>	<span class="hljs-number">10</span>: <span class="hljs-string">&quot;bus error&quot;</span>,                  <span class="hljs-comment">// 非法地址(内存地址对齐错误)</span><br>	<span class="hljs-number">11</span>: <span class="hljs-string">&quot;segmentation fault&quot;</span>,         <span class="hljs-comment">// 无效内存引用(试图访问不属于自己的内存空间、对只读内存空间进行写操作)</span><br>	<span class="hljs-number">12</span>: <span class="hljs-string">&quot;bad system call&quot;</span>,<br>	<span class="hljs-number">13</span>: <span class="hljs-string">&quot;broken pipe&quot;</span>,                <span class="hljs-comment">// 消息管道损坏(FIFO/Socket通信时，管道未打开而进行写操作)</span><br>	<span class="hljs-number">14</span>: <span class="hljs-string">&quot;alarm clock&quot;</span>,                <span class="hljs-comment">// 时钟定时信号</span><br>	<span class="hljs-number">15</span>: <span class="hljs-string">&quot;terminated&quot;</span>,                 <span class="hljs-comment">// 结束程序(可以被捕获、阻塞或忽略)</span><br>	<span class="hljs-number">16</span>: <span class="hljs-string">&quot;urgent I/O condition&quot;</span>,       <span class="hljs-comment">// </span><br>	<span class="hljs-number">17</span>: <span class="hljs-string">&quot;suspended (signal)&quot;</span>,<br>	<span class="hljs-number">18</span>: <span class="hljs-string">&quot;suspended&quot;</span>,<br>	<span class="hljs-number">19</span>: <span class="hljs-string">&quot;continued&quot;</span>,<br>	<span class="hljs-number">20</span>: <span class="hljs-string">&quot;child exited&quot;</span>,<br>	<span class="hljs-number">21</span>: <span class="hljs-string">&quot;stopped (tty input)&quot;</span>,<br>	<span class="hljs-number">22</span>: <span class="hljs-string">&quot;stopped (tty output)&quot;</span>,<br>	<span class="hljs-number">23</span>: <span class="hljs-string">&quot;I/O possible&quot;</span>,<br>	<span class="hljs-number">24</span>: <span class="hljs-string">&quot;cputime limit exceeded&quot;</span>,<br>	<span class="hljs-number">25</span>: <span class="hljs-string">&quot;filesize limit exceeded&quot;</span>,<br>	<span class="hljs-number">26</span>: <span class="hljs-string">&quot;virtual timer expired&quot;</span>,<br>	<span class="hljs-number">27</span>: <span class="hljs-string">&quot;profiling timer expired&quot;</span>,<br>	<span class="hljs-number">28</span>: <span class="hljs-string">&quot;window size changes&quot;</span>,<br>	<span class="hljs-number">29</span>: <span class="hljs-string">&quot;information request&quot;</span>,<br>	<span class="hljs-number">30</span>: <span class="hljs-string">&quot;user defined signal 1&quot;</span>,<br>	<span class="hljs-number">31</span>: <span class="hljs-string">&quot;user defined signal 2&quot;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="kill-pid-与-kill--9-pid的区别"><strong>kill pid 与 kill -9 pid的区别</strong></h5>
+<p>kill pid的作用是向进程号为pid的进程发送SIGTERM（这是kill默认发送的信号），该信号是一个结束进程的信号且可以被应用程序捕获。若应用程序没有捕获并响应该信号的逻辑代码，则该信号的默认动作是kill掉进程。这是终止指定进程的推荐做法。</p>
+<p><code>kill -9 pid</code> 则是向进程号为pid的进程发送 SIGKILL（该信号的编号为9），从本文上面的说明可知，SIGKILL既不能被应用程序捕获，也不能被阻塞或忽略，其动作是立即结束指定进程。通俗地说，应用程序根本无法“感知”SIGKILL信号，它在完全无准备的情况下，就被收到SIGKILL信号的操作系统给干掉了，显然，在这种“暴力”情况下，应用程序完全没有释放当前占用资源的机会。事实上，SIGKILL信号是直接发给init进程的，它收到该信号后，负责终止pid指定的进程。在某些情况下（如进程已经hang死，无法响应正常信号），就可以使用 <code>kill -9</code> 来结束进程。</p>
+<h5 id="应用程序如何优雅退出"><strong>应用程序如何优雅退出?</strong></h5>
+<p>Linux Server端的应用程序经常会长时间运行，在运行过程中，可能申请了很多系统资源，也可能保存了很多状态，在这些场景下，我们希望进程在退出前，可以释放资源或将当前状态dump到磁盘上或打印一些重要的日志，也就是希望进程优雅退出（exit gracefully）。</p>
+<h5 id="go中的signal发送和处理">Go中的Signal发送和处理</h5>
+<ul>
+<li>golang中对信号的处理主要使用os/signal包中的两个方法：</li>
+<li>notify方法用来监听收到的信号</li>
+<li>stop方法用来取消监听</li>
+</ul>
+<p>监听全部信号</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>)<br><br><span class="hljs-comment">// 监听全部信号</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 监听所有信号</span><br>	signal.Notify(c)<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	s := &lt;-c<br>	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>监听指定信号</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>)<br><span class="hljs-comment">// 监听指定信号</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 监听指定信号</span><br>	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGUSR1, syscall.SIGUSR2)<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	s := &lt;-c<br>	fmt.Println(<span class="hljs-string">&quot;收到信号:&quot;</span>, s)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>优雅退出go守护进程</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;syscall&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-comment">// 优雅退出go守护进程</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 信号通知chan</span><br>	onSignal := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal)<br>	<span class="hljs-comment">// 优雅退出</span><br>	<span class="hljs-comment">// 监听指定信号 ctrl+c 结束程序(可以被捕获、阻塞或忽略)</span><br>	signal.Notify(onSignal, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGUSR1, syscall.SIGUSR2)<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> sig := &lt;-onSignal:<br>			<span class="hljs-keyword">switch</span> sig &#123;<br>			<span class="hljs-keyword">case</span> syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM:<br>				fmt.Println(<span class="hljs-string">&quot;退出:&quot;</span>, sig)<br>				ExitFunc()<br>			<span class="hljs-keyword">case</span> syscall.SIGUSR1:<br>				fmt.Println(<span class="hljs-string">&quot;usr1&quot;</span>, sig)<br>			<span class="hljs-keyword">case</span> syscall.SIGUSR2:<br>				fmt.Println(<span class="hljs-string">&quot;usr2&quot;</span>, sig)<br>			<span class="hljs-keyword">default</span>:<br>				fmt.Println(<span class="hljs-string">&quot;其他信号:&quot;</span>, sig)<br>			&#125;<br>		&#125;<br>	&#125;()<br>	fmt.Println(<span class="hljs-string">&quot;启动了程序&quot;</span>)<br>	sum := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		sum++<br>		fmt.Println(<span class="hljs-string">&quot;休眠了:&quot;</span>, sum, <span class="hljs-string">&quot;秒&quot;</span>)<br>		time.Sleep(<span class="hljs-number">1</span> * time.Second)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExitFunc</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;开始退出...&quot;</span>)<br>	fmt.Println(<span class="hljs-string">&quot;执行清理...&quot;</span>)<br>	fmt.Println(<span class="hljs-string">&quot;结束退出...&quot;</span>)<br>	os.Exit(<span class="hljs-number">0</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+<textarea id="flowchart-0-code" style="display: none">s=>start: 开始
+op1=>operation: 阻塞 等待被唤醒
+op2=>operation: 被唤醒,清理
+op3=>operation: 阻 塞
+op4=>operation: 发给接收者
+op5=>operation: 放入缓冲区
+op6=>operation: 唤醒接收者
+op7=>operation: 返回
+e=>end
+
+cond1=>condition: chan=nil?
+cond2=>condition: 有阻塞的接收者?
+cond3=>condition: 缓冲没满?
+
+s->cond1
+cond1(yes,right)->op3(right)->op7
+cond1(no)->cond2
+cond2(yes,right)->op4(right)->op6->op7
+cond2(no)->cond3
+cond3(yes,right)->op5->op7
+cond3(no)->op1->op2(right)->op7
+op7(right)->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>
+<textarea id="flowchart-1-code" style="display: none">s=>start: Start
+op1=>operation: 加入等待队列|past
+op2=>operation: 被唤醒
+op3=>operation: 拿到锁
+e=>end
+
+cond1=>condition: 自旋?
+cond2=>condition: 能否继续自旋?
+cond3=>condition: 竞争锁?
+
+s->cond1
+cond1(no)->cond2
+cond1(yes)->op3
+cond2(yes,right)->cond1
+cond2(no)->op1
+op1->op2->cond3
+cond3(no,right)->op1
+cond3(yes,left)->op3
+op3->e</textarea><textarea id="flowchart-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script>
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Go/">#Go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Go】源码</div>
+      <div>https://weitrue.github.io/2023/03/31/golang-src/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Pony W</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/29/chain-nft/" title="【区块链与元宇宙】NFT">
+                        <span class="hidden-mobile">【区块链与元宇宙】NFT</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      杭ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>杭公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

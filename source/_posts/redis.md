@@ -775,7 +775,7 @@ stop-writes-on-bgsave-error yes
 #意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存
 ~~~
 
-![](/images/db/redis/save&bgsave.png)
+![](/images/db/redis/save-bgsave.png)
 
 ###### save自动保存配置
 
@@ -993,7 +993,7 @@ Redis在fork子进程时需要将内存分页表拷贝至子进程，以占用�
 
 #### RDB与AOF
 
-![](/images/db/redis/rdb&aof.png)
+![](/images/db/redis/rdb-aof.png)
 
 #### fork
 

@@ -1,0 +1,864 @@
+
+  <script type="text/javascript">
+    (function () {
+      var dayStr = '12/13';
+      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        dayStr = new Date().getFullYear() + '/' + dayStr;
+      }
+      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
+        return ;
+      }
+      var day = new Date(dayStr);
+      var now = new Date();
+      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
+      if (isMemorialDay) {
+        if (document.all) {
+          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.createStyleSheet('javascript:style');
+        } else {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
+          document.getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+      }
+    })();
+  </script>
+  
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="背景 爬取etherscan交易详情页面的数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Go】Etherscan交易详情页面">
+<meta property="og:url" content="https://weitrue.github.io/2023/04/15/crawler/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="背景 爬取etherscan交易详情页面的数据。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/crawler/index.png">
+<meta property="article:published_time" content="2023-04-15T04:38:14.107Z">
+<meta property="article:modified_time" content="2023-04-15T04:38:14.107Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="crawler">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="chromedp">
+<meta property="article:tag" content="goquery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/crawler/index.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Go】Etherscan交易详情页面 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                <span>混沌书栈</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                <span>混沌日记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/img/banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Go】Etherscan交易详情页面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Pony W
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-15 12:38" pubdate>
+          2023年4月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Go】Etherscan交易详情页面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h3 id="背景">背景</h3>
+<p>爬取etherscan交易详情页面的数据。<span id="more"></span></p>
+<h3 id="工具选择">工具选择</h3>
+<h4 id="页面数据抓取">页面数据抓取</h4>
+<h5 id="直接获取">直接获取</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Client <span class="hljs-keyword">struct</span> &#123;<br>	*http.Client<br>&#125;<br><br><span class="hljs-keyword">type</span> TxTransaction <span class="hljs-keyword">struct</span> &#123;<br>	*network.Client<br>	proxy  []<span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *TxTransaction)</span> <span class="hljs-title">newClient</span><span class="hljs-params">()</span> *<span class="hljs-title">network</span>.<span class="hljs-title">Client</span></span> &#123;<br>	client := c.Client<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(c.proxy) &gt; <span class="hljs-number">0</span> &#123;<br>		rand.Seed(time.Now().UnixNano())<br>		<span class="hljs-comment">// 随机获取切片中的元素</span><br>		randIndex := rand.Intn(<span class="hljs-built_in">len</span>(c.proxy))<br>		u, _ := url.Parse(c.proxy[randIndex])<br>		transport := &amp;http.Transport&#123;<br>			Proxy: http.ProxyURL(u),<br>		&#125;<br><br>		client = &amp;network.Client&#123;<br>			Client: &amp;http.Client&#123;<br>				Transport: transport,<br>			&#125;&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> client<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *TxTransaction)</span> <span class="hljs-title">crawlDirect</span><span class="hljs-params">(ctx context.Context, txHash <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span> &#123;<br>	client := c.newClient()<br>	head := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36&quot;</span>&#125;<br>	req, err := client.GetRequest(http.MethodGet, fmt.Sprintf(<span class="hljs-string">&quot;https://etherscan.io/tx/%s&quot;</span>, txHash), head, <span class="hljs-literal">nil</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	resp, body, err := client.GetResponse(req)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">if</span> resp.StatusCode != <span class="hljs-number">200</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Errorf(<span class="hljs-string">&quot;TxTransaction status code: %d, error: %s&quot;</span>, resp.StatusCode, resp.Status)<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> body, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="chromedp">chromedp</h5>
+<p>后面发现，有些数据是<code>js</code>动态生成的，于是换成<a target="_blank" rel="noopener" href="https://github.com/chromedp/chromedp">chromedp</a>动态抓取数据。<code>chromedp</code>是一种以更快、更简单的方式来驱动浏览器支持 Go 中的<a target="_blank" rel="noopener" href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools 协议</a>，而无需外部依赖。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *TxTransaction)</span> <span class="hljs-title">crawlByChromeDp</span><span class="hljs-params">(ctx context.Context, txHash <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span> &#123;<br>	rand.Seed(time.Now().UnixNano())<br>	randIndex := rand.Intn(<span class="hljs-built_in">len</span>(c.proxy))<br>	opts := []chromedp.ExecAllocatorOption&#123;<br>		chromedp.Flag(<span class="hljs-string">&quot;headless&quot;</span>, <span class="hljs-literal">true</span>), <span class="hljs-comment">// 本地调试阶段,可以设置为false 服务器上一定要设置为true</span><br>		chromedp.WindowSize(<span class="hljs-number">1600</span>, <span class="hljs-number">1024</span>),<br>		chromedp.UserAgent(<span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36&quot;</span>),<br>		chromedp.ProxyServer(c.proxy[randIndex]),<br>	&#125;<br>	opts = <span class="hljs-built_in">append</span>(chromedp.DefaultExecAllocatorOptions[:], opts...)<br><br>	allocCtx, cancel := chromedp.NewExecAllocator(ctx, opts...)<br>	<span class="hljs-keyword">defer</span> cancel()<br>	<span class="hljs-comment">// 创建一个新的 Chrome 实例</span><br>	chromeCtx, cancel := chromedp.NewContext(allocCtx,<br>		chromedp.WithLogf(log.Printf),<br>	)<br>	<span class="hljs-keyword">defer</span> cancel()<br><br>	<span class="hljs-comment">// chromeCtx, cancel = context.WithTimeout(chromeCtx, 10*time.Second)</span><br>	<span class="hljs-comment">// defer cancel()</span><br><br>	<span class="hljs-comment">// 访问目标网页</span><br>	err := chromedp.Run(chromeCtx,<br>		chromedp.Navigate(fmt.Sprintf(<span class="hljs-string">&quot;https://etherscan.io/tx/%s&quot;</span>, txHash)),<br>		chromedp.WaitVisible(<span class="hljs-string">&quot;#content&quot;</span>, chromedp.ByID),<br>	)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;chromedp.WaitVisible(#content, chromedp.ByID)&quot;</span>)<br>	&#125;<br><br>	err = chromedp.Run(chromeCtx,<br>		chromedp.Click(<span class="hljs-string">&quot;#ContentPlaceHolder1_collapsedLink&quot;</span>, chromedp.ByID),<br>	)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;Click(#ContentPlaceHolder1_collapsedLink, chromedp.ByID)&quot;</span>)<br>	&#125;<br><br>	nodes := <span class="hljs-built_in">make</span>([]*cdp.Node, <span class="hljs-number">0</span>)<br>	err = chromedp.Run(chromeCtx, chromedp.Nodes(<span class="hljs-string">&quot;#ContentPlaceHolder1_btnDecodetab&quot;</span>, &amp;nodes, chromedp.ByID))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;chromedp.Nodes(#ContentPlaceHolder1_btnDecodetab, &amp;nodes, chromedp.ByID)&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(nodes) &gt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-comment">// 向上滚动页面 200 像素的距离</span><br>		err = chromedp.Run(chromeCtx,<br>			chromedp.EvaluateAsDevTools(<span class="hljs-string">`window.scrollBy(0, 200);`</span>, <span class="hljs-literal">nil</span>))<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;chromedp.EvaluateAsDevTools(`window.scrollBy(0, 200);`, nil)&quot;</span>)<br>		&#125;<br><br>		<span class="hljs-comment">// 模拟点击事件</span><br>		err = chromedp.Run(chromeCtx,<br>			chromedp.Sleep(<span class="hljs-number">1</span>*time.Second),<br>			chromedp.Click(<span class="hljs-string">&quot;#ContentPlaceHolder1_btnDecodetab&quot;</span>, chromedp.ByID),<br>		)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;chromedp.Click(#ContentPlaceHolder1_btnDecodetab, chromedp.ByID)&quot;</span>)<br>		&#125;<br><br>		err = chromedp.Run(chromeCtx,<br>			chromedp.WaitVisible(<span class="hljs-string">&quot;#inputDecode&quot;</span>, chromedp.ByID),<br>		)<br><br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;chromedp.WaitVisible(#inputDecode, chromedp.ByID)&quot;</span>)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// 解析页面并查找目标数据</span><br>	<span class="hljs-keyword">var</span> html <span class="hljs-keyword">string</span><br>	err = chromedp.Run(chromeCtx,<br>		chromedp.OuterHTML(<span class="hljs-string">&quot;html&quot;</span>, &amp;html, chromedp.ByQuery),<br>		chromedp.Sleep(<span class="hljs-number">1</span>*time.Second),<br>	)<br><br>	<span class="hljs-keyword">return</span> []<span class="hljs-keyword">byte</span>(html), err<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="镜像">镜像</h5>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/chromedp/headless-shell/">chromedp/headless-shell</a></p>
+<h4 id="页面解析">页面解析</h4>
+<h5 id="goquery">goquery</h5>
+<p><a target="_blank" rel="noopener" href="https://github.com/PuerkitoBio/goquery">goquery</a>为Go 语言带来了类似jQuery 语法的工具包。它基于 Go 的<a target="_blank" rel="noopener" href="https://pkg.go.dev/golang.org/x/net/html">net/html 包</a>和 CSS 选择器包<a target="_blank" rel="noopener" href="https://github.com/andybalholm/cascadia">cascadia</a>。在语法方面，它尽可能接近 jQuery，尽可能使用相同的函数名称。</p>
+<p>因为 net/html 解析器需要 UTF-8 编码，所以 goquery 也是如此。处理非 UTF8 html 页面，可参阅<a target="_blank" rel="noopener" href="https://github.com/PuerkitoBio/goquery/wiki/Tips-and-tricks">wiki</a>。</p>
+<p>页面数据解析</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> TxDetail <span class="hljs-keyword">struct</span> &#123;<br>	TransactionNote   <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;TransactionNote,omitempty&quot;`</span><br>	TxnType           <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;TxnType&quot;`</span><br>	From              <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;From&quot;`</span><br>	To                <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;To,omitempty&quot;`</span><br>	InteractedWith    <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;InteractedWith,omitempty&quot;`</span><br>	Value             <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Value&quot;`</span><br>	Status            <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Status&quot;`</span><br>	TransactionAction <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Transaction Action,omitempty&quot;`</span><br>	ERC20Transfer     <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;ERC20Transfer,omitempty&quot;`</span><br>	ERC721Transfer    <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;ERC721Transfer,omitempty&quot;`</span><br>	ERC1155Transfer   <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;ERC1155Transfer,omitempty&quot;`</span><br>	TransactionFee    <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;TransactionFee&quot;`</span><br>	Gas               <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Gas&quot;`</span><br>	InputData         <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;InputData&quot;`</span><br>	Nonce             <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Nonce&quot;`</span><br>	PositionInBlock   <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;PositionInBlock&quot;`</span><br>	TimeStamp         <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;TimeStamp,omitempty&quot;`</span><br>	ContractName      <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;Contract name,omitempty&quot;`</span><br>	ETHTransfer       <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;ETHTransfer,omitempty&quot;`</span><br>	Labels            <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span> <span class="hljs-string">`json:&quot;Labels&quot;`</span><br>	FunctionPrototype <span class="hljs-keyword">string</span>            <span class="hljs-string">`json:&quot;FunctionPrototype,omitempty&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *TxTransaction)</span> <span class="hljs-title">wash</span><span class="hljs-params">(ctx context.Context, data io.Reader)</span> <span class="hljs-params">(TxDetail, <span class="hljs-keyword">int64</span>, error)</span></span> &#123;<br>	doc, err := goquery.NewDocumentFromReader(data)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> TxDetail&#123;&#125;, <span class="hljs-number">0</span>, err<br>	&#125;<br><br>	txType := TxTransfer<br>	doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-3&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>		key := s.Text()<br>		key = strings.ReplaceAll(key, <span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>		key = strings.TrimLeft(key, <span class="hljs-string">&quot; &quot;</span>)<br>		key = strings.TrimRight(key, <span class="hljs-string">&quot; &quot;</span>)<br>		<span class="hljs-keyword">if</span> strings.EqualFold(key, tot) &#123;<br>			doc.Find(<span class="hljs-string">&quot;i.far&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>, ss *goquery.Selection)</span></span> &#123;<br>				<span class="hljs-keyword">if</span> val, ok := ss.Attr(<span class="hljs-string">&quot;aria-label&quot;</span>); ok &amp;&amp; strings.Contains(val, <span class="hljs-string">&quot;Contract&quot;</span>) &#123;<br>					txType = TxContract<br>				&#125;<br>			&#125;)<br><br>			<span class="hljs-keyword">if</span> txType == TxContract &#123;<br>				doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-9&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>, ss *goquery.Selection)</span></span> &#123;<br>					<span class="hljs-keyword">if</span> strings.Contains(ss.Text(), <span class="hljs-string">&quot;Created&quot;</span>) &#123;<br>						txType = TxContractCreated<br>					&#125;<br>				&#125;)<br>			&#125;<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> strings.EqualFold(key, to) &#123;<br>			txType = TxContract<br>		&#125;<br>	&#125;)<br><br>	keyTmp := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">string</span>)<br>	doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-3&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>		key := s.Text()<br>		key = strings.ReplaceAll(key, <span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>		key = strings.TrimLeft(key, <span class="hljs-string">&quot; &quot;</span>)<br>		key = strings.TrimRight(key, <span class="hljs-string">&quot; &quot;</span>)<br>		<span class="hljs-keyword">if</span> index, ok := KeyMap[key]; ok &amp;&amp; index &gt; <span class="hljs-number">0</span> &#123;<br>			keyTmp[i] = key<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> strings.Contains(key, erc20) || strings.Contains(key, erc721) || strings.Contains(key, erc1155) &#123;<br>			v := strings.Split(key, <span class="hljs-string">&quot;:&quot;</span>)<br>			<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(v) == <span class="hljs-number">2</span> &#123;<br>				key = strings.TrimRight(v[<span class="hljs-number">0</span>], <span class="hljs-string">&quot; &quot;</span>) + <span class="hljs-string">&quot;:&quot;</span><br><br>			&#125;<br>			keyTmp[i] = key<br>		&#125;<br>	&#125;)<br><br>	result := TxDetail&#123;&#125;<br>	labelMap := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	<span class="hljs-keyword">switch</span> txType &#123;<br>	<span class="hljs-keyword">case</span> TxTransfer:<br>		doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-9&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>			val := s.Text()<br>			<span class="hljs-keyword">if</span> key, ok := keyTmp[i]; ok &#123;<br>				<span class="hljs-comment">// 1.status</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, status) &#123;<br>					result.Status = val<br>				&#125;<br><br>				<span class="hljs-comment">// 3.Timestamp</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, timestamp) &#123;<br>					result.TimeStamp = c.getTimestamp(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 6.From</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, from) &#123;<br>					result.From = c.getFrom(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 7.To</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, tot) &#123;<br>					toVal, _ := c.getInteractedWithTo(val)<br>					result.To = toVal<br>				&#125;<br><br>				<span class="hljs-comment">// 9.Value</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, value) &#123;<br>					result.Value = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 10.TxTransaction Fee</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, transactionFee) &#123;<br>					result.TransactionFee = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 11.Gas Limit &amp; Usage by Txn</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, gas) &#123;<br>					result.Gas = c.getGas(val)<br>				&#125;<br><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, otherAttributes) &#123;<br>					v := strings.Split(val, <span class="hljs-string">&quot;\n&quot;</span>)<br>					<span class="hljs-keyword">for</span> _, kv := <span class="hljs-keyword">range</span> v &#123;<br>						<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kv) &gt; <span class="hljs-number">0</span> &#123;<br>							kAndV := strings.Split(kv, <span class="hljs-string">&quot;:&quot;</span>)<br>							<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kAndV) == <span class="hljs-number">2</span> &#123;<br>								vv := kAndV[<span class="hljs-number">1</span>]<br>								index := strings.Index(vv, <span class="hljs-string">&quot;(&quot;</span>)<br>								<span class="hljs-keyword">if</span> index &gt; <span class="hljs-number">0</span> &#123;<br>									vv = vv[:index]<br>								&#125;<br><br>								vv = strings.TrimSpace(vv)<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Txn Type&quot;</span>) &#123;<br>									result.TxnType = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Nonce&quot;</span>) &#123;<br>									result.Nonce = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Position In Block&quot;</span>) &#123;<br>									result.PositionInBlock = vv<br>								&#125;<br>							&#125;<br>						&#125;<br>					&#125;<br>				&#125;<br><br>			&#125;<br>		&#125;)<br><br>		<span class="hljs-comment">// 15.Input</span><br>		inputData := doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;#inputdata&quot;</span>).Text()<br>		<span class="hljs-keyword">if</span> strings.HasPrefix(inputData, <span class="hljs-string">&quot;0x&quot;</span>) &amp;&amp; <span class="hljs-built_in">len</span>(inputData) &gt; <span class="hljs-number">2</span> &#123;<br>			inputBytes, err := hex.DecodeString(inputData[<span class="hljs-number">2</span>:])<br>			<span class="hljs-keyword">if</span> err == <span class="hljs-literal">nil</span> &#123;<br>				inputString := <span class="hljs-keyword">string</span>(inputBytes)<br>				<span class="hljs-keyword">if</span> utf8.ValidString(inputString) &#123;<br>					inputData = inputString<br>					result.InputData = inputData<br>				&#125;<br>			&#125;<br>		&#125;<br>	<span class="hljs-keyword">case</span> TxContract:<br>		doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-9&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>			val := s.Text()<br>			<span class="hljs-keyword">if</span> key, ok := keyTmp[i]; ok &#123;<br>				<span class="hljs-comment">// 1.status</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, status) &#123;<br>					result.Status = val<br>				&#125;<br><br>				<span class="hljs-comment">// 3.Timestamp</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, timestamp) &#123;<br>					result.TimeStamp = c.getTimestamp(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 4.TxTransaction Action</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, transactionAction) &#123;<br>					result.TransactionAction = c.getTransactionAction(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 6.From</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, from) &#123;<br>					result.From = c.getFrom(val)<br>					label := c.getLabels(val)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br><br>				<span class="hljs-comment">// 7.To</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, to) &#123;<br>					toVal, ethTransfer := c.getInteractedWithTo(val)<br>					result.InteractedWith = toVal<br><br>					label := c.getLabels(toVal)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br><br>					<span class="hljs-keyword">if</span> ethTransfer != <span class="hljs-string">&quot;&quot;</span> &#123;<br>						result.ETHTransfer = ethTransfer<br>					&#125;<br><br>					label = c.getLabels(ethTransfer)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, tot) &#123;<br>					toVal, _ := c.getInteractedWithTo(val)<br>					result.To = toVal<br><br>					label := c.getLabels(toVal)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br><br>				<span class="hljs-comment">// 8.ERC-20/721/1155</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, erc20) &#123;<br>					result.ERC20Transfer = c.getERC20(val)<br><br>					label := c.getLabels(val)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br>				<span class="hljs-keyword">if</span> strings.Contains(key, erc721) &#123;<br>					result.ERC721Transfer = c.getERC721(val)<br><br>					label := c.getLabels(val)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br>				<span class="hljs-keyword">if</span> strings.Contains(key, erc1155) &#123;<br>					result.ERC1155Transfer = c.getERC1155(val)<br><br>					label := c.getLabels(val)<br>					<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>						labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>					&#125;<br>				&#125;<br><br>				<span class="hljs-comment">// 9.Value</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, value) &#123;<br>					result.Value = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 10.TxTransaction Fee</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, transactionFee) &#123;<br>					result.TransactionFee = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 11.Gas Limit &amp; Usage by Txn</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, gas) &#123;<br>					result.Gas = c.getGas(val)<br>				&#125;<br><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, otherAttributes) &#123;<br>					v := strings.Split(val, <span class="hljs-string">&quot;\n&quot;</span>)<br>					<span class="hljs-keyword">for</span> _, kv := <span class="hljs-keyword">range</span> v &#123;<br>						<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kv) &gt; <span class="hljs-number">0</span> &#123;<br>							kAndV := strings.Split(kv, <span class="hljs-string">&quot;:&quot;</span>)<br>							<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kAndV) == <span class="hljs-number">2</span> &#123;<br>								vv := kAndV[<span class="hljs-number">1</span>]<br>								index := strings.Index(vv, <span class="hljs-string">&quot;(&quot;</span>)<br>								<span class="hljs-keyword">if</span> index &gt; <span class="hljs-number">0</span> &#123;<br>									vv = vv[:index]<br>								&#125;<br><br>								vv = strings.TrimSpace(vv)<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Txn Type&quot;</span>) &#123;<br>									result.TxnType = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Nonce&quot;</span>) &#123;<br>									result.Nonce = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Position In Block&quot;</span>) &#123;<br>									result.PositionInBlock = vv<br>								&#125;<br>							&#125;<br>						&#125;<br>					&#125;<br>				&#125;<br><br>			&#125;<br>		&#125;)<br>		<span class="hljs-comment">// 15.Input</span><br>		inputOrigin := doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;#inputdata&quot;</span>).Text()<br>		split := strings.Split(inputOrigin, <span class="hljs-string">&quot;\n&quot;</span>)<br>		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(split) &gt; <span class="hljs-number">0</span> &amp;&amp; (strings.Contains(inputOrigin, <span class="hljs-string">&quot;Function&quot;</span>) || strings.Contains(inputOrigin, <span class="hljs-string">&quot;MethodID&quot;</span>)) &#123;<br>			inputDecode := <span class="hljs-string">&quot;&quot;</span><br>			<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> split &#123;<br>				<span class="hljs-keyword">if</span> strings.Contains(v, <span class="hljs-string">&quot;Function&quot;</span>) || strings.Contains(v, <span class="hljs-string">&quot;MethodID&quot;</span>) &#123;<br>					inputDecode += v + <span class="hljs-string">&quot;\n&quot;</span><br>				&#125;<br>			&#125;<br><br>			doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;#inputDecode&quot;</span>).Find(<span class="hljs-string">&quot;table&quot;</span>).Find(<span class="hljs-string">&quot;tr&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>				<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s.Text()) &gt; <span class="hljs-number">0</span> &#123;<br>					s.Find(<span class="hljs-string">&quot;th,td&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>, td *goquery.Selection)</span></span> &#123;<br>						<span class="hljs-keyword">if</span> j &gt; <span class="hljs-number">0</span> &#123;<br>							inputDecode += td.Text() + <span class="hljs-string">&quot; &quot;</span><br>						&#125;<br>					&#125;)<br>					inputDecode += <span class="hljs-string">&quot;\n&quot;</span><br>				&#125;<br>			&#125;)<br><br>			<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(inputDecode) &gt; <span class="hljs-number">0</span> &#123;<br>				inputDecode = strings.TrimRight(inputDecode, <span class="hljs-string">&quot;\n&quot;</span>)<br>				result.InputData = inputDecode<br>			&#125;<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			inputOrigin = strings.TrimLeft(inputOrigin, <span class="hljs-string">&quot;\n&quot;</span>)<br>			inputOrigin = strings.TrimRight(inputOrigin, <span class="hljs-string">&quot;\n&quot;</span>)<br>			<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(inputOrigin) &gt; <span class="hljs-number">0</span> &#123;<br>				result.InputData = inputOrigin<br>			&#125;<br>		&#125;<br><br>		label := c.getLabels(result.InputData)<br>		<span class="hljs-keyword">for</span> _, addr := <span class="hljs-keyword">range</span> label &#123;<br>			labelMap[addr] = <span class="hljs-string">&quot;&quot;</span><br>		&#125;<br><br>		<span class="hljs-comment">// TxnType</span><br>		doc.Find(<span class="hljs-string">&quot;.container-xxl&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>			text := s.Text()<br>			<span class="hljs-keyword">if</span> strings.Contains(text, <span class="hljs-string">&quot;Transaction Details&quot;</span>) &#123;<br>				s.Find(<span class="hljs-string">&quot;.mt-2&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(j <span class="hljs-keyword">int</span>, sm *goquery.Selection)</span></span> &#123;<br>					<span class="hljs-keyword">if</span> j == <span class="hljs-number">0</span> &#123;<br>						sm.Find(<span class="hljs-string">&quot;.text-truncate&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>, ss *goquery.Selection)</span></span> &#123;<br>							result.TransactionNote = result.TransactionNote + fmt.Sprintf(<span class="hljs-string">&quot;%s;&quot;</span>, ss.Text())<br>						&#125;)<br>					&#125;<br>				&#125;)<br>			&#125;<br>		&#125;)<br><br>		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(labelMap) &gt; <span class="hljs-number">0</span> &#123;<br>			result.Labels = labelMap<br>		&#125;<br>	<span class="hljs-keyword">case</span> TxContractCreated:<br>		doc.Find(<span class="hljs-string">&quot;#ContentPlaceHolder1_maintable&quot;</span>).Find(<span class="hljs-string">&quot;.col-md-9&quot;</span>).Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-keyword">int</span>, s *goquery.Selection)</span></span> &#123;<br>			val := s.Text()<br>			<span class="hljs-keyword">if</span> key, ok := keyTmp[i]; ok &#123;<br>				<span class="hljs-comment">// 1.status</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, status) &#123;<br>					result.Status = val<br>				&#125;<br><br>				<span class="hljs-comment">// 3.Timestamp</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, timestamp) &#123;<br>					result.TimeStamp = c.getTimestamp(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 6.From</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, from) &#123;<br>					result.From = c.getFrom(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 7.To</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, tot) &#123;<br>					result.To = c.getToCreatedContract(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 9.Value</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, value) &#123;<br>					result.Value = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 10.TxTransaction Fee</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, transactionFee) &#123;<br>					result.TransactionFee = c.getValueOrTransactionFee(val)<br>				&#125;<br><br>				<span class="hljs-comment">// 11.Gas Limit &amp; Usage by Txn</span><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, gas) &#123;<br>					result.Gas = c.getGas(val)<br>				&#125;<br><br>				<span class="hljs-keyword">if</span> strings.EqualFold(key, otherAttributes) &#123;<br>					v := strings.Split(val, <span class="hljs-string">&quot;\n&quot;</span>)<br>					<span class="hljs-keyword">for</span> _, kv := <span class="hljs-keyword">range</span> v &#123;<br>						<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kv) &gt; <span class="hljs-number">0</span> &#123;<br>							kAndV := strings.Split(kv, <span class="hljs-string">&quot;:&quot;</span>)<br>							<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(kAndV) == <span class="hljs-number">2</span> &#123;<br>								vv := kAndV[<span class="hljs-number">1</span>]<br>								index := strings.Index(vv, <span class="hljs-string">&quot;(&quot;</span>)<br>								<span class="hljs-keyword">if</span> index &gt; <span class="hljs-number">0</span> &#123;<br>									vv = vv[:index]<br>								&#125;<br><br>								vv = strings.TrimSpace(vv)<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Txn Type&quot;</span>) &#123;<br>									result.TxnType = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Nonce&quot;</span>) &#123;<br>									result.Nonce = vv<br>								&#125;<br>								<span class="hljs-keyword">if</span> strings.Contains(kAndV[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;Position In Block&quot;</span>) &#123;<br>									result.PositionInBlock = vv<br>								&#125;<br>							&#125;<br>						&#125;<br>					&#125;<br>				&#125;<br>			&#125;<br>		&#125;)<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> result, <span class="hljs-keyword">int64</span>(txType), <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%88%AC%E8%99%AB/" class="category-chain-item">爬虫</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/crawler/">#crawler</a>
+      
+        <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>
+      
+        <a href="/tags/chromedp/">#chromedp</a>
+      
+        <a href="/tags/goquery/">#goquery</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Go】Etherscan交易详情页面</div>
+      <div>https://weitrue.github.io/2023/04/15/crawler/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Pony W</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/02/microservice/" title="【微服务】服务降级">
+                        <span class="hidden-mobile">【微服务】服务降级</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      杭ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>杭公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

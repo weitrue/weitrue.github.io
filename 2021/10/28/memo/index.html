@@ -293,7 +293,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          9.1k 字
+          9.2k 字
         
       </span>
     
@@ -417,6 +417,23 @@ Class08 &lt;--&gt; C2: Cool label
     </div>
     <div class="spoiler-content">
         <p>内容</p>
+
+    </div>
+</div>
+<div class="note note-primary">
+            <p><span class="label label-danger">hexo-git-backup</span></p><p>Hexo 博客备份</p>
+          </div>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        内容
+    </div>
+    <div class="spoiler-content">
+        <p>安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> npm install hexo-git-backup --save</span><br></code></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">backup:<br>    type: git<br>    repository:<br>       github: git@github.com:xxx/xxx.git,branchName<br></code></pre></td></tr></table></figure>
+<p>命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> hexo b<br>hexo backup<br></code></pre></td></tr></table></figure>
 
     </div>
 </div>

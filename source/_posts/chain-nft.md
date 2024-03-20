@@ -1,10 +1,10 @@
 ---
 title: 【区块链与元宇宙】NFT
 categories: 区块链与元宇宙
-tags: [区块链, NFT]
+tags: [区块链,NFT]
 comments: false
 toc: true
-sticky: false
+sticky: 0
 math: true
 mermaid: true
 hide: false

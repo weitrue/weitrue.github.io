@@ -458,7 +458,18 @@ v12.22.7
 npm install hexo-renderer-stylus --save
 ```
 
+##### Fluid主题LaTeX 数学公式需要更换渲染器
 
+ MathJax 的老用户，需要将原 kramed 渲染器更换为 pandoc ，否则`hexo g`会报错
+
+![](/images/memo/mathjax-err.jpg)
+
+安装命令
+
+```shell
+npm uninstall hexo-renderer-kramed --save 
+npm install hexo-renderer-pandoc --save
+```
 
 [^1]:  [测试](https://en.wikipedia.org/wiki/Markdown)
 [^2]:[Hexo Fluid 代码折叠](https://wty-yy.github.io/posts/44830/)

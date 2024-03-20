@@ -1,4 +1,5 @@
 ---
+
 title: 【备忘录】工作与学习
 comments: false
 toc: true
@@ -470,6 +471,20 @@ npm install hexo-renderer-stylus --save
 npm uninstall hexo-renderer-kramed --save 
 npm install hexo-renderer-pandoc --save
 ```
+
+##### Hexo生成页面缺失问题
+
+网上有三种情况：
+
+1.缺失相应包文件
+
+这里备份一下所需的基本文件
+
+![](/images/memo/hexo-miss.jpg)
+
+2.缺失相应配置文件
+
+3._post目录下没有`.md`文件
 
 [^1]:  [测试](https://en.wikipedia.org/wiki/Markdown)
 [^2]:[Hexo Fluid 代码折叠](https://wty-yy.github.io/posts/44830/)

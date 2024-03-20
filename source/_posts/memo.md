@@ -486,6 +486,21 @@ npm install hexo-renderer-pandoc --save
 
 3._post目录下没有`.md`文件
 
+
+##### Hexo使用mmedia插件冲突
+
+`MonoLogueChi` 自用的一个媒体插入插件`mmedia`会与`hexo-tag-aplayer`插件冲突，需要卸载
+
+![](/images/memo/hexo-mmedia.jpg)
+
+```shell
+npm uninstall hexo-tag-aplayer --save 
+npm install hexo-tag-mmedia --save
+```
+
+
+
+
 [^1]:  [测试](https://en.wikipedia.org/wiki/Markdown)
 [^2]:[Hexo Fluid 代码折叠](https://wty-yy.github.io/posts/44830/)
 [^3]:[解决 Hexo 在使用 Node.js 14 时的 Accessing non-existent property 'xxx' of module exports inside circular dependency 问题](https://www.haoyizebo.com/posts/710984d0/)

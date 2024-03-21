@@ -113,7 +113,11 @@
 
 
   
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
 </head>
 
 
@@ -494,7 +498,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">bgsave<br><span class="hljs-meta">#</span><span class="bash">手动启动后台保存操作，但不是立即执行</span><br>dbfilename dump-端口号.rdb<br>dir<br>rdbcompression yes<br>rdbchecksum yes<br>stop-writes-on-bgsave-error yes<br>说明：后台存储过程中如果出现错误现象，是否停止保存操作<br>经验：通常默认为开启状态<br></code></pre></td></tr></table></figure>
 <p><img src="/images/db/redis/image-20200528232539204.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">可以在配置文件中配置Redis进行快照保存的时机：<br><span class="hljs-meta">#</span><span class="bash">save [seconds] [changes]</span><br><span class="hljs-meta">#</span><span class="bash">second：监控时间范围</span><br><span class="hljs-meta">#</span><span class="bash">changes：监控key的变化量</span><br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存</span><br></code></pre></td></tr></table></figure>
-<p><img src="/images/db/redis/save&amp;bgsave.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/redis/save-bgsave.png" srcset="/img/loading.gif" lazyload></p>
 <h6 id="save自动保存配置">save自动保存配置</h6>
 <p>修改redis的配置文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /weitrue/install/redis-6.0.1/<br>cat clusters/redis.conf<br>save 900 1<br>save 300 10<br>save 60 10000<br><span class="hljs-meta">#</span><span class="bash">save 5 1</span><br>dbfilename &quot;dump.rdb&quot; <br>dir &quot;/weitrue/install/redis-6.0.1/rdbstro&quot; <br></code></pre></td></tr></table></figure>
@@ -543,7 +547,7 @@
 <h5 id="aof的缺点">AOF的缺点：</h5>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-number">1</span>、 AOF文件通常比RDB文件更大<br><br><span class="hljs-number">2</span>、 性能消耗比RDB高<br><br><span class="hljs-number">3</span>、 数据恢复速度比RDB慢<br><br>Redis的数据持久化工作本身就会带来延迟，需要根据数据的安全级别和性能要求制定合理的持久化策略：<br><br>AOF + fsync <span class="hljs-keyword">always</span>的设置虽然能够绝对确保数据安全，但每个操作都会触发一次fsync，会对Redis的性能有比较明显的影响<br><br>AOF + fsync every second是比较好的折中方案，每秒fsync一次<br><br>AOF + fsync never会提供AOF持久化方案下的最优性能使用RDB持久化通常会提供比使用AOF更高的性能，但需要注意RDB的策略配置<br><br><br>每一次RDB快照和AOF Rewrite都需要Redis主进程进行<span class="hljs-keyword">fork</span>操作。<span class="hljs-keyword">fork</span>操作本身可能会产生较高的耗时，与CPU和Redis占用的内存大小有关。根据具体的情况合理配置RDB快照和AOF Rewrite时机，避免过于频繁的<span class="hljs-keyword">fork</span>带来的延迟<br><br>Redis在<span class="hljs-keyword">fork</span>子进程时需要将内存分页表拷贝至子进程，以占用了<span class="hljs-number">24</span>GB内存的Redis实例为例，共需要拷贝<span class="hljs-number">24</span>GB / <span class="hljs-number">4</span>kB * <span class="hljs-number">8</span> = <span class="hljs-number">48</span>MB的数据。在使用单Xeon <span class="hljs-number">2</span><span class="hljs-variable">.27Ghz</span>的物理机上，这一<span class="hljs-keyword">fork</span>操作耗时<span class="hljs-number">216</span>ms。<br></code></pre></td></tr></table></figure>
 <h4 id="rdb与aof">RDB与AOF</h4>
-<p><img src="/images/db/redis/rdb&amp;aof.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/redis/rdb-aof.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="fork">fork</h4>
 <ul>
 <li><p>同步操作</p></li>

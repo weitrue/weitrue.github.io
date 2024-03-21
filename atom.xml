@@ -6,7 +6,7 @@
   <link href="https://weitrue.github.io/atom.xml" rel="self"/>
   
   <link href="https://weitrue.github.io/"/>
-  <updated>2023-04-15T04:38:14.107Z</updated>
+  <updated>2024-03-21T00:29:19.772Z</updated>
   <id>https://weitrue.github.io/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【备忘录】工作与学习</title>
+    <link href="https://weitrue.github.io/2024/03/21/memo/"/>
+    <id>https://weitrue.github.io/2024/03/21/memo/</id>
+    <published>2024-03-21T00:29:19.772Z</published>
+    <updated>2024-03-21T00:29:19.772Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;生活工作备忘录与待办事项。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链与元宇宙】NFT</title>
+    <link href="https://weitrue.github.io/2024/03/21/chain-nft/"/>
+    <id>https://weitrue.github.io/2024/03/21/chain-nft/</id>
+    <published>2024-03-21T00:29:19.771Z</published>
+    <updated>2024-03-21T00:29:19.771Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链与元宇宙" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E5%85%83%E5%AE%87%E5%AE%99/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="NFT" scheme="https://weitrue.github.io/tags/NFT/"/>
+    
+  </entry>
   
   <entry>
     <title>【Go】Etherscan交易详情页面</title>
@@ -88,27 +129,6 @@
     
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【区块链与元宇宙】NFT</title>
-    <link href="https://weitrue.github.io/2023/03/29/chain-nft/"/>
-    <id>https://weitrue.github.io/2023/03/29/chain-nft/</id>
-    <published>2023-03-29T04:46:26.447Z</published>
-    <updated>2023-03-29T04:46:26.447Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="区块链与元宇宙" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E5%85%83%E5%AE%87%E5%AE%99/"/>
-    
-    
-    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
-    
-    <category term="NFT" scheme="https://weitrue.github.io/tags/NFT/"/>
     
   </entry>
   
@@ -334,26 +354,6 @@
     
     
     <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【备忘录】工作与学习</title>
-    <link href="https://weitrue.github.io/2021/10/28/memo/"/>
-    <id>https://weitrue.github.io/2021/10/28/memo/</id>
-    <published>2021-10-28T02:53:39.733Z</published>
-    <updated>2021-10-28T02:53:39.733Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;生活工作备忘录与待办事项。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="备忘录" scheme="https://weitrue.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    
-    
-    <category term="备忘录" scheme="https://weitrue.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
     
   </entry>
   

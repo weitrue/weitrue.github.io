@@ -1,6 +1,6 @@
 ---
 title: 【API】Twitter与Discord
-categories: Middleware
+categories: API
 tags: [api, twitter, discord]
 comments: false
 toc: true

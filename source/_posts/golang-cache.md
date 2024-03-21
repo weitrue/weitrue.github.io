@@ -942,4 +942,106 @@ cache出现了错误，不能正常工作了，所有的请求都会达到DB
 
 ### 分布式锁
 
+#### 几个Redis分布式锁库
+
+##### [`redsync`](https://github.com/go-redsync/redsync)
+
+`redsync`获取锁时使用命令`SETNX`，释放锁通过lua脚本实现
+
+##### [`go-zero`](https://github.com/zeromicro/go-zero/blob/master/core/stores/redis/redislock.go)
+
+`Go-zero`实现的只是简单的加锁和释放锁，并且这两个操作均是基于lua脚本实现。
+
+```go
+var (
+	lockScript = NewScript(`if redis.call("GET", KEYS[1]) == ARGV[1] then
+    redis.call("SET", KEYS[1], ARGV[1], "PX", ARGV[2])
+    return "OK"
+else
+    return redis.call("SET", KEYS[1], ARGV[1], "NX", "PX", ARGV[2])
+end`)
+	delScript = NewScript(`if redis.call("GET", KEYS[1]) == ARGV[1] then
+    return redis.call("DEL", KEYS[1])
+else
+    return 0
+end`)
+)
+
+// A RedisLock is a redis lock.
+type RedisLock struct {
+	store   *Redis
+	seconds uint32
+	key     string
+	id      string
+}
+
+// NewRedisLock returns a RedisLock.
+func NewRedisLock(store *Redis, key string) *RedisLock {
+	return &RedisLock{
+		store: store,
+		key:   key,
+		id:    stringx.Randn(randomLen),
+	}
+}
+
+// AcquireCtx acquires the lock with the given ctx.
+func (rl *RedisLock) AcquireCtx(ctx context.Context) (bool, error) {
+	seconds := atomic.LoadUint32(&rl.seconds)
+	resp, err := rl.store.ScriptRunCtx(ctx, lockScript, []string{rl.key}, []string{
+		rl.id, strconv.Itoa(int(seconds)*millisPerSecond + tolerance),
+	})
+	if err == red.Nil {
+		return false, nil
+	} else if err != nil {
+		logx.Errorf("Error on acquiring lock for %s, %s", rl.key, err.Error())
+		return false, err
+	} else if resp == nil {
+		return false, nil
+	}
+
+	reply, ok := resp.(string)
+	if ok && reply == "OK" {
+		return true, nil
+	}
+
+	logx.Errorf("Unknown reply when acquiring lock for %s: %v", rl.key, resp)
+	return false, nil
+}
+
+// ReleaseCtx releases the lock with the given ctx.
+func (rl *RedisLock) ReleaseCtx(ctx context.Context) (bool, error) {
+	resp, err := rl.store.ScriptRunCtx(ctx, delScript, []string{rl.key}, []string{rl.id})
+	if err != nil {
+		return false, err
+	}
+
+	reply, ok := resp.(int64)
+	if !ok {
+		return false, nil
+	}
+
+	return reply == 1, nil
+}
+
+// ScriptRunCtx is the implementation of *redis.Script run command.
+func (s *Redis) ScriptRunCtx(ctx context.Context, script *Script, keys []string, args ...any) (val any, err error) {
+	err = s.brk.DoWithAcceptable(func() error {
+		conn, err := getRedis(s)
+		if err != nil {
+			return err
+		}
+
+		val, err = script.Run(ctx, conn, keys, args...).Result()
+		return err
+	}, acceptable)
+	return
+}
+```
+
+
+
 #### Redis分布式锁
+
+
+
+#### Redis分布式自旋锁

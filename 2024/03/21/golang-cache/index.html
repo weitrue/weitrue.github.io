@@ -1,30 +1,4 @@
 
-  <script type="text/javascript">
-    (function () {
-      var dayStr = '12/13';
-      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        dayStr = new Date().getFullYear() + '/' + dayStr;
-      }
-      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        return ;
-      }
-      var day = new Date(dayStr);
-      var now = new Date();
-      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
-      if (isMemorialDay) {
-        if (document.all) {
-          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.createStyleSheet('javascript:style');
-        } else {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.getElementsByTagName('HEAD').item(0).appendChild(style);
-        }
-      }
-    })();
-  </script>
-  
 
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
@@ -44,12 +18,12 @@
   
     <meta property="og:type" content="article">
 <meta property="og:title" content="【Go】缓存与分布式锁">
-<meta property="og:url" content="https://weitrue.github.io/2021/06/02/golang-cache/index.html">
+<meta property="og:url" content="https://weitrue.github.io/2024/03/21/golang-cache/index.html">
 <meta property="og:site_name" content="weitrable">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://weitrue.github.io/images/golang/gopher-learn.png">
-<meta property="article:published_time" content="2021-06-02T02:04:44.129Z">
-<meta property="article:modified_time" content="2021-06-02T02:04:44.129Z">
+<meta property="article:published_time" content="2024-03-21T15:05:06.688Z">
+<meta property="article:modified_time" content="2024-03-21T15:05:06.688Z">
 <meta property="article:author" content="Pony W">
 <meta property="article:tag" content="Go">
 <meta property="article:tag" content="Cache">
@@ -284,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-06-02 10:04" pubdate>
-          2021年6月2日 上午
+        <time datetime="2024-03-21 23:05" pubdate>
+          2024年3月21日 晚上
         </time>
       </span>
     
@@ -297,7 +271,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          17k 字
+          19k 字
         
       </span>
     
@@ -309,7 +283,7 @@
         
         
           <!-- compatible with older versions-->
-          53 分钟
+          60 分钟
         
       </span>
     
@@ -469,7 +443,14 @@
 <h5 id="雪崩">雪崩</h5>
 <p>cache出现了错误，不能正常工作了，所有的请求都会达到DB</p>
 <h3 id="分布式锁">分布式锁</h3>
+<h4 id="几个redis分布式锁库">几个Redis分布式锁库</h4>
+<h5 id="redsync"><a target="_blank" rel="noopener" href="https://github.com/go-redsync/redsync"><code>redsync</code></a></h5>
+<p><code>redsync</code>获取锁时使用命令<code>SETNX</code>，释放锁通过lua脚本实现</p>
+<h5 id="go-zero"><a target="_blank" rel="noopener" href="https://github.com/zeromicro/go-zero/blob/master/core/stores/redis/redislock.go"><code>go-zero</code></a></h5>
+<p><code>Go-zero</code>实现的只是简单的加锁和释放锁，并且这两个操作均是基于lua脚本实现。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>	lockScript = NewScript(<span class="hljs-string">`if redis.call(&quot;GET&quot;, KEYS[1]) == ARGV[1] then</span><br><span class="hljs-string">    redis.call(&quot;SET&quot;, KEYS[1], ARGV[1], &quot;PX&quot;, ARGV[2])</span><br><span class="hljs-string">    return &quot;OK&quot;</span><br><span class="hljs-string">else</span><br><span class="hljs-string">    return redis.call(&quot;SET&quot;, KEYS[1], ARGV[1], &quot;NX&quot;, &quot;PX&quot;, ARGV[2])</span><br><span class="hljs-string">end`</span>)<br>	delScript = NewScript(<span class="hljs-string">`if redis.call(&quot;GET&quot;, KEYS[1]) == ARGV[1] then</span><br><span class="hljs-string">    return redis.call(&quot;DEL&quot;, KEYS[1])</span><br><span class="hljs-string">else</span><br><span class="hljs-string">    return 0</span><br><span class="hljs-string">end`</span>)<br>)<br><br><span class="hljs-comment">// A RedisLock is a redis lock.</span><br><span class="hljs-keyword">type</span> RedisLock <span class="hljs-keyword">struct</span> &#123;<br>	store   *Redis<br>	seconds <span class="hljs-keyword">uint32</span><br>	key     <span class="hljs-keyword">string</span><br>	id      <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">// NewRedisLock returns a RedisLock.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewRedisLock</span><span class="hljs-params">(store *Redis, key <span class="hljs-keyword">string</span>)</span> *<span class="hljs-title">RedisLock</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;RedisLock&#123;<br>		store: store,<br>		key:   key,<br>		id:    stringx.Randn(randomLen),<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// AcquireCtx acquires the lock with the given ctx.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(rl *RedisLock)</span> <span class="hljs-title">AcquireCtx</span><span class="hljs-params">(ctx context.Context)</span> <span class="hljs-params">(<span class="hljs-keyword">bool</span>, error)</span></span> &#123;<br>	seconds := atomic.LoadUint32(&amp;rl.seconds)<br>	resp, err := rl.store.ScriptRunCtx(ctx, lockScript, []<span class="hljs-keyword">string</span>&#123;rl.key&#125;, []<span class="hljs-keyword">string</span>&#123;<br>		rl.id, strconv.Itoa(<span class="hljs-keyword">int</span>(seconds)*millisPerSecond + tolerance),<br>	&#125;)<br>	<span class="hljs-keyword">if</span> err == red.Nil &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span><br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		logx.Errorf(<span class="hljs-string">&quot;Error on acquiring lock for %s, %s&quot;</span>, rl.key, err.Error())<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, err<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> resp == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	reply, ok := resp.(<span class="hljs-keyword">string</span>)<br>	<span class="hljs-keyword">if</span> ok &amp;&amp; reply == <span class="hljs-string">&quot;OK&quot;</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	logx.Errorf(<span class="hljs-string">&quot;Unknown reply when acquiring lock for %s: %v&quot;</span>, rl.key, resp)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// ReleaseCtx releases the lock with the given ctx.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(rl *RedisLock)</span> <span class="hljs-title">ReleaseCtx</span><span class="hljs-params">(ctx context.Context)</span> <span class="hljs-params">(<span class="hljs-keyword">bool</span>, error)</span></span> &#123;<br>	resp, err := rl.store.ScriptRunCtx(ctx, delScript, []<span class="hljs-keyword">string</span>&#123;rl.key&#125;, []<span class="hljs-keyword">string</span>&#123;rl.id&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, err<br>	&#125;<br><br>	reply, ok := resp.(<span class="hljs-keyword">int64</span>)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	<span class="hljs-keyword">return</span> reply == <span class="hljs-number">1</span>, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// ScriptRunCtx is the implementation of *redis.Script run command.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Redis)</span> <span class="hljs-title">ScriptRunCtx</span><span class="hljs-params">(ctx context.Context, script *Script, keys []<span class="hljs-keyword">string</span>, args ...any)</span> <span class="hljs-params">(val any, err error)</span></span> &#123;<br>	err = s.brk.DoWithAcceptable(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">error</span></span> &#123;<br>		conn, err := getRedis(s)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br><br>		val, err = script.Run(ctx, conn, keys, args...).Result()<br>		<span class="hljs-keyword">return</span> err<br>	&#125;, acceptable)<br>	<span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="redis分布式锁">Redis分布式锁</h4>
+<h4 id="redis分布式自旋锁">Redis分布式自旋锁</h4>
 <script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
@@ -520,7 +501,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【Go】缓存与分布式锁</div>
-      <div>https://weitrue.github.io/2021/06/02/golang-cache/</div>
+      <div>https://weitrue.github.io/2024/03/21/golang-cache/</div>
     </div>
     <div class="license-meta">
       
@@ -532,7 +513,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年6月2日</div>
+          <div>2024年3月21日</div>
         </div>
       
       
@@ -564,18 +545,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/02/golang-rpc/" title="【Go】RPC">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【Go】RPC</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/02/golang-web/" title="【Go】Web开发">
-                        <span class="hidden-mobile">【Go】Web开发</span>
+                      <a href="/2024/03/21/api-twitter-discord/" title="【API】Twitter与Discord">
+                        <span class="hidden-mobile">【API】Twitter与Discord</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -1,36 +1,4 @@
-<html lang="zh-CN" data-default-color-scheme="auto"><head><script type="text/javascript">
-    (function () {
-      var dayStr = '12/13';
-      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        dayStr = new Date().getFullYear() + '/' + dayStr;
-      }
-      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        return ;
-      }
-      var day = new Date(dayStr);
-      var now = new Date();
-      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
-      if (isMemorialDay) {
-        if (document.all) {
-          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.createStyleSheet('javascript:style');
-        } else {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.getElementsByTagName('HEAD').item(0).appendChild(style);
-        }
-      }
-    })();
-  </script>
-  
-
-
-
-
-
-
-
+<!DOCTYPE html><html lang="zh-CN" data-default-color-scheme="auto"><head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
   <link rel="icon" href="/images/img/logo.png">
@@ -311,6 +279,14 @@
     
       
       
+        <a href="/2024/03/21/golang-cache/" title="【Go】缓存与分布式锁" class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">【Go】缓存与分布式锁</span>
+        </a>
+      
+    
+      
+      
         <a href="/2023/03/31/golang-src/" title="【Go】源码" class="list-group-item list-group-item-action
            ">
           <span class="category-post">【Go】源码</span>
@@ -330,14 +306,6 @@
         <a href="/2021/06/02/golang-rpc/" title="【Go】RPC" class="list-group-item list-group-item-action
            ">
           <span class="category-post">【Go】RPC</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/06/02/golang-cache/" title="【Go】缓存与分布式锁" class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">【Go】缓存与分布式锁</span>
         </a>
       
     
@@ -392,7 +360,7 @@
       
         <a href="/categories/Middleware/" class="category-count col-2 col-md-1 col-xm-1">
           <i class="iconfont icon-articles"></i>
-          <span>8</span>
+          <span>7</span>
         </a>
       
       <div class="category-collapse collapse " id="collapse-a112bfee20b0d63490e93e7c687338df" role="tabpanel" aria-labelledby="heading-a112bfee20b0d63490e93e7c687338df">
@@ -407,14 +375,6 @@
         <a href="/2022/12/22/middleware-log/" title="【Go】日志" class="list-group-item list-group-item-action
            ">
           <span class="category-post">【Go】日志</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2022/06/07/middleware-api/" title="【API】Twitter与Discord" class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">【API】Twitter与Discord</span>
         </a>
       
     
@@ -1071,6 +1031,43 @@
     
     <div class="category row nomargin-x">
       <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="API" id="heading-db974238714ca8de634a7ce1d083a14f" role="tab" data-toggle="collapse" href="#collapse-db974238714ca8de634a7ce1d083a14f" aria-expanded="false">
+        API
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/API/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-db974238714ca8de634a7ce1d083a14f" role="tabpanel" aria-labelledby="heading-db974238714ca8de634a7ce1d083a14f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/03/21/api-twitter-discord/" title="【API】Twitter与Discord" class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">【API】Twitter与Discord</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="爬虫" id="heading-fdd054bd223cceafd35557bacefeb7ae" role="tab" data-toggle="collapse" href="#collapse-fdd054bd223cceafd35557bacefeb7ae" aria-expanded="false">
         爬虫
         <span class="list-group-count"></span>
@@ -1171,7 +1168,7 @@
                     color: color
                 }
             },
-            indicator: [{"name":"区块链与元宇宙","max":9},{"name":"大数据","max":9},{"name":"爬虫","max":9},{"name":"备忘录","max":9},{"name":"Datebase","max":9},{"name":"转载","max":9},{"name":"Golang","max":9},{"name":"设计模式","max":9},{"name":"Golang","max":9},{"name":"算法","max":9},{"name":"微服务","max":9},{"name":"Middleware","max":9},{"name":"Golang","max":9},{"name":"Machine Learning","max":9},{"name":"Python","max":9},{"name":"Python","max":9}],
+            indicator: [{"name":"大数据","max":9},{"name":"API","max":9},{"name":"区块链与元宇宙","max":9},{"name":"爬虫","max":9},{"name":"备忘录","max":9},{"name":"Datebase","max":9},{"name":"转载","max":9},{"name":"Golang","max":9},{"name":"设计模式","max":9},{"name":"Golang","max":9},{"name":"算法","max":9},{"name":"微服务","max":9},{"name":"Golang","max":9},{"name":"Middleware","max":9},{"name":"Machine Learning","max":9},{"name":"Python","max":9},{"name":"Python","max":9}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '75%',
@@ -1183,7 +1180,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [2,4,1,5,4,3,8,2,3,6,2,8,1,1,1,2],
+                    value : [4,1,2,1,5,4,3,8,2,3,6,2,1,7,1,1,2],
                     // name : 'Categories:'
                     name: '✒️文章篇数'
                 }

@@ -1,30 +1,4 @@
 
-  <script type="text/javascript">
-    (function () {
-      var dayStr = '12/13';
-      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        dayStr = new Date().getFullYear() + '/' + dayStr;
-      }
-      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        return ;
-      }
-      var day = new Date(dayStr);
-      var now = new Date();
-      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
-      if (isMemorialDay) {
-        if (document.all) {
-          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.createStyleSheet('javascript:style');
-        } else {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.getElementsByTagName('HEAD').item(0).appendChild(style);
-        }
-      }
-    })();
-  </script>
-  
 
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
@@ -293,6 +267,12 @@
       
       <p class="h5">2022</p>
     
+    <a href="/2022/02/11/golang-db/" class="list-group-item list-group-item-action">
+      <time>02-11</time>
+      <div class="list-group-item-title">【Go】数据库编程与ORM</div>
+    </a>
+  
+    
     <a href="/2022/02/10/golang-awesome-extends/" class="list-group-item list-group-item-action">
       <time>02-10</time>
       <div class="list-group-item-title">【转载】Go资源大全中文版扩展</div>
@@ -347,12 +327,6 @@
     <a href="/2021/10/25/prometheus/" class="list-group-item list-group-item-action">
       <time>10-25</time>
       <div class="list-group-item-title">【Prometheus】基础理论与安装</div>
-    </a>
-  
-    
-    <a href="/2021/10/09/golang-design/" class="list-group-item list-group-item-action">
-      <time>10-09</time>
-      <div class="list-group-item-title">【Go】设计模式</div>
     </a>
   
 </div>

@@ -6,7 +6,7 @@
   <link href="https://weitrue.github.io/atom.xml" rel="self"/>
   
   <link href="https://weitrue.github.io/"/>
-  <updated>2024-03-21T00:29:19.772Z</updated>
+  <updated>2024-03-21T15:05:06.688Z</updated>
   <id>https://weitrue.github.io/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【Go】缓存与分布式锁</title>
+    <link href="https://weitrue.github.io/2024/03/21/golang-cache/"/>
+    <id>https://weitrue.github.io/2024/03/21/golang-cache/</id>
+    <published>2024-03-21T15:05:06.688Z</published>
+    <updated>2024-03-21T15:05:06.688Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://weitrue.github.io/categories/Golang/"/>
+    
+    
+    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
+    
+    <category term="Cache" scheme="https://weitrue.github.io/tags/Cache/"/>
+    
+    <category term="Lock" scheme="https://weitrue.github.io/tags/Lock/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【API】Twitter与Discord</title>
+    <link href="https://weitrue.github.io/2024/03/21/api-twitter-discord/"/>
+    <id>https://weitrue.github.io/2024/03/21/api-twitter-discord/</id>
+    <published>2024-03-21T15:05:06.685Z</published>
+    <updated>2024-03-21T15:05:06.685Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="API" scheme="https://weitrue.github.io/categories/API/"/>
+    
+    
+    <category term="api" scheme="https://weitrue.github.io/tags/api/"/>
+    
+    <category term="twitter" scheme="https://weitrue.github.io/tags/twitter/"/>
+    
+    <category term="discord" scheme="https://weitrue.github.io/tags/discord/"/>
+    
+  </entry>
   
   <entry>
     <title>【备忘录】工作与学习</title>
@@ -156,29 +202,6 @@
     <category term="zap" scheme="https://weitrue.github.io/tags/zap/"/>
     
     <category term="pkg" scheme="https://weitrue.github.io/tags/pkg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【API】Twitter与Discord</title>
-    <link href="https://weitrue.github.io/2022/06/07/middleware-api/"/>
-    <id>https://weitrue.github.io/2022/06/07/middleware-api/</id>
-    <published>2022-06-07T13:42:09.899Z</published>
-    <updated>2022-06-07T13:42:09.899Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="api" scheme="https://weitrue.github.io/tags/api/"/>
-    
-    <category term="twitter" scheme="https://weitrue.github.io/tags/twitter/"/>
-    
-    <category term="discord" scheme="https://weitrue.github.io/tags/discord/"/>
     
   </entry>
   
@@ -472,30 +495,6 @@
     <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
     
     <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Go】设计模式</title>
-    <link href="https://weitrue.github.io/2021/10/09/golang-design/"/>
-    <id>https://weitrue.github.io/2021/10/09/golang-design/</id>
-    <published>2021-10-09T09:13:58.004Z</published>
-    <updated>2021-10-09T09:13:58.004Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Design patterns&lt;/strong&gt; are typical solutions to common problemsin software design. Each pattern is like a blueprintthat you can customize to solve a particulardesign problem in your code.&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://weitrue.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-    <category term="设计模式" scheme="https://weitrue.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   

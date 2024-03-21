@@ -1,30 +1,4 @@
 
-  <script type="text/javascript">
-    (function () {
-      var dayStr = '12/13';
-      if (/^\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        dayStr = new Date().getFullYear() + '/' + dayStr;
-      }
-      if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(dayStr)) {
-        return ;
-      }
-      var day = new Date(dayStr);
-      var now = new Date();
-      var isMemorialDay = now.getFullYear() === day.getFullYear() && now.getMonth() === day.getMonth() && now.getDate() === day.getDate();
-      if (isMemorialDay) {
-        if (document.all) {
-          window.style = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.createStyleSheet('javascript:style');
-        } else {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.innerHTML = 'html {     -webkit-filter: grayscale(100%); /* webkit */     -moz-filter: grayscale(100%); /* firefox */     -ms-filter: grayscale(100%); /* ie9 */     -o-filter: grayscale(100%); /* opera */     filter: grayscale(100%);     filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); filter:gray; /* ie9- */   }';
-          document.getElementsByTagName('HEAD').item(0).appendChild(style);
-        }
-      }
-    })();
-  </script>
-  
 
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
@@ -293,6 +267,12 @@
       
       <p class="h5">2021</p>
     
+    <a href="/2021/10/09/golang-design/" class="list-group-item list-group-item-action">
+      <time>10-09</time>
+      <div class="list-group-item-title">【Go】设计模式</div>
+    </a>
+  
+    
     <a href="/2021/07/01/etcd/" class="list-group-item list-group-item-action">
       <time>07-01</time>
       <div class="list-group-item-title">【ETCD】分布式键值存储系统</div>
@@ -308,12 +288,6 @@
     <a href="/2021/06/02/golang-rpc/" class="list-group-item list-group-item-action">
       <time>06-02</time>
       <div class="list-group-item-title">【Go】RPC</div>
-    </a>
-  
-    
-    <a href="/2021/06/02/golang-cache/" class="list-group-item list-group-item-action">
-      <time>06-02</time>
-      <div class="list-group-item-title">【Go】缓存与分布式锁</div>
     </a>
   
     

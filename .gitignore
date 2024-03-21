@@ -8,3 +8,4 @@ public/
 _config.*
 package-lock.json
 .posts.json
+.npmrc

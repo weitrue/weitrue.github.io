@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="区块链是一种分布式账本—通过去中心化、去信任方式集体维护一个可靠的分布式账本，是一种在网络成员之间共享、复制和同步的数据库，记录了网络参与者之间的交易。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【区块链】学习笔记">
+<meta property="og:url" content="https://weitrue.github.io/2024/06/06/chain/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="区块链是一种分布式账本—通过去中心化、去信任方式集体维护一个可靠的分布式账本，是一种在网络成员之间共享、复制和同步的数据库，记录了网络参与者之间的交易。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/chain/index.jpg">
+<meta property="article:published_time" content="2024-06-06T13:45:02.531Z">
+<meta property="article:modified_time" content="2024-06-06T13:45:02.531Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/chain/index.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【区块链】学习笔记 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                <span>混沌书栈</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                <span>混沌日记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/img/banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【区块链】学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Pony W
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-06 21:45" pubdate>
+          2024年6月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【区块链】学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>区块链是一种分布式账本—通过去中心化、去信任方式集体维护一个可靠的分布式账本，是一种在网络成员之间共享、复制和同步的数据库，记录了网络参与者之间的交易。<span id="more"></span></p>
+</blockquote>
+<h3 id="什么是区块链">什么是区块链？</h3>
+<p>在开发者眼中，区块链可以拆分为几个概念：</p>
+<p><strong>交易</strong>：所有的交互行为（购买、投票、转账）统称为一个交易（Transaction，Tx）</p>
+<p><strong>区块</strong>：在一个特定的时间段内会产生N笔交易，把这些交易打包到一起之后，称之为区块（Block）</p>
+<p><strong>区块链</strong>：区块（Block）以特定的规则链接到一起之后，就称之为区块链（Blockchain）</p>
+<p><img src="/images/chain/blockchain.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="交易上链流程">交易上链流程</h4>
+<ul>
+<li>第一步：由用户自己创建交易（转账等）</li>
+<li>第二步：由矿工校验交易，并广播交易</li>
+<li>第三步：竞争挖矿</li>
+<li>第四步：矿工A挖矿成功，全网广播</li>
+<li>第五步：多个矿工对挖矿交易进行确认无误</li>
+<li>第六步：矿工A获得挖矿奖励，全网同步账本，重复第一步</li>
+</ul>
+<h3 id="比特币">比特币</h3>
+<p>诞生于2009年，最初是C++实现的，它的功能非常纯粹：就是用来转账的。</p>
+<p>这里有老外录制的<strong><a target="_blank" rel="noopener" href="https://youtu.be/_160oMzblY8">视频</a></strong>和<strong><a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain">网站</a></strong></p>
+<h4 id="共识算法">共识算法</h4>
+<h5 id="pow工作量证明">POW（工作量证明）</h5>
+<p><img src="/images/chain/pow.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> block<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;crypto/sha256&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Block <span class="hljs-keyword">struct</span> &#123;<br>	Timestamp <span class="hljs-keyword">int64</span><br>	Data      []<span class="hljs-keyword">byte</span><br>	PreHash   []<span class="hljs-keyword">byte</span><br>	Hash      []<span class="hljs-keyword">byte</span><br>	Nonce     <span class="hljs-keyword">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(b *Block)</span> <span class="hljs-title">SetHash</span><span class="hljs-params">()</span></span>  &#123;<br>	timestamp := []<span class="hljs-keyword">byte</span>(strconv.FormatInt(b.Timestamp, <span class="hljs-number">10</span>))<br>	header := bytes.Join([][]<span class="hljs-keyword">byte</span>&#123;b.PreHash, b.Data, timestamp&#125;, []<span class="hljs-keyword">byte</span>&#123;&#125;)<br>	hash := sha256.Sum256(header)<br>	b.Hash = hash[:]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewBlock</span><span class="hljs-params">(data <span class="hljs-keyword">string</span>, preHash []<span class="hljs-keyword">byte</span>)</span> *<span class="hljs-title">Block</span></span> &#123;<br>	block := &amp;Block&#123;<br>		Timestamp: time.Now().Unix(),<br>		Data:      []<span class="hljs-keyword">byte</span>(data),<br>		PreHash:   preHash,<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> block<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> pow<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;bytes&quot;</span><br>	<span class="hljs-string">&quot;crypto/sha256&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>	<span class="hljs-string">&quot;math/big&quot;</span><br><br>	<span class="hljs-string">&quot;blockchain/block&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> (<br>	<span class="hljs-comment">// targetBit 区块挖矿难度 24位0</span><br>	targetBit = <span class="hljs-number">24</span><br>	maxNonce  = math.MaxInt64<br>)<br><br><span class="hljs-comment">// ProofOfWork POW</span><br><span class="hljs-keyword">type</span> ProofOfWork <span class="hljs-keyword">struct</span> &#123;<br>	block  *block.Block<br>	target *big.Int<br>&#125;<br><br><span class="hljs-comment">// NewProofOfWork POW对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewProofOfWork</span><span class="hljs-params">(b *block.Block)</span> *<span class="hljs-title">ProofOfWork</span></span> &#123;<br>	target := big.NewInt(<span class="hljs-number">1</span>)<br>	target.Lsh(target, <span class="hljs-keyword">uint</span>(<span class="hljs-number">256</span>-targetBit)) <span class="hljs-comment">// 将1往左偏移256-targetBit位</span><br>	pow := &amp;ProofOfWork&#123;b, target&#125;<br><br>	<span class="hljs-keyword">return</span> pow<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewPOWBlock</span><span class="hljs-params">(data <span class="hljs-keyword">string</span>, preHash []<span class="hljs-keyword">byte</span>)</span> *<span class="hljs-title">block</span>.<span class="hljs-title">Block</span></span> &#123;<br>	b := block.NewBlock(data, preHash)<br>	pow := NewProofOfWork(b)<br>	nonce, hash := pow.Run()<br>	b.Hash = hash[:]<br>	b.Nonce = nonce<br><br>	<span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-comment">// prepareData 封装块数据</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pow *ProofOfWork)</span> <span class="hljs-title">prepareData</span><span class="hljs-params">(nonce <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">byte</span></span> &#123;<br>	data := bytes.Join([][]<span class="hljs-keyword">byte</span>&#123;<br>		pow.block.PreHash,<br>		pow.block.Data,<br>		IntToHex(pow.block.Timestamp),<br>		IntToHex(<span class="hljs-keyword">int64</span>(targetBit)),<br>		IntToHex(<span class="hljs-keyword">int64</span>(nonce)),<br>	&#125;, []<span class="hljs-keyword">byte</span>&#123;&#125;)<br><br>	<span class="hljs-keyword">return</span> data<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pow *ProofOfWork)</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, []<span class="hljs-keyword">byte</span>)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> hashInt big.Int<br>	<span class="hljs-keyword">var</span> hash [<span class="hljs-number">32</span>]<span class="hljs-keyword">byte</span><br>	nonce := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> nonce &lt; maxNonce &#123;<br>		data := pow.prepareData(nonce)<br>		hash = sha256.Sum256(data)<br>		hashInt.SetBytes(hash[:])<br>		<span class="hljs-keyword">if</span> hashInt.Cmp(pow.target) == <span class="hljs-number">-1</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br><br>		nonce++<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> nonce, hash[:]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pow *ProofOfWork)</span> <span class="hljs-title">Validate</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;<br>	<span class="hljs-keyword">var</span> hashInt big.Int<br>	data := pow.prepareData(pow.block.Nonce)<br>	hash := sha256.Sum256(data)<br>	hashInt.SetBytes(hash[:])<br><br>	<span class="hljs-keyword">return</span> hashInt.Cmp(pow.target) == <span class="hljs-number">-1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">IntToHex</span><span class="hljs-params">(val <span class="hljs-keyword">int64</span>)</span> []<span class="hljs-title">byte</span></span> &#123;<br>	<span class="hljs-keyword">return</span> []<span class="hljs-keyword">byte</span>(fmt.Sprintf(<span class="hljs-string">&quot;%X&quot;</span>, val))<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> blockchain<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;blockchain/block&quot;</span><br>	<span class="hljs-string">&quot;blockchain/pow&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Blockchain <span class="hljs-keyword">struct</span> &#123;<br>	blocks    []*block.Block<br>	consensus <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(bc *Blockchain)</span> <span class="hljs-title">AddBlock</span><span class="hljs-params">(data <span class="hljs-keyword">string</span>)</span></span> &#123;<br>	preBlock := bc.blocks[<span class="hljs-built_in">len</span>(bc.blocks)<span class="hljs-number">-1</span>]<br>	newBlock := pow.NewPOWBlock(data, preBlock.Hash)<br>	bc.blocks = <span class="hljs-built_in">append</span>(bc.blocks, newBlock)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewGenesisBlock</span><span class="hljs-params">()</span> *<span class="hljs-title">block</span>.<span class="hljs-title">Block</span></span> &#123;<br>	<span class="hljs-keyword">return</span> pow.NewPOWBlock(<span class="hljs-string">&quot;Genesis Block&quot;</span>, []<span class="hljs-keyword">byte</span>&#123;&#125;)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewBlockchain</span><span class="hljs-params">()</span> *<span class="hljs-title">Blockchain</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;Blockchain&#123;blocks: []*block.Block&#123;NewGenesisBlock()&#125;&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> blockchain<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>	<span class="hljs-string">&quot;testing&quot;</span><br><br>	<span class="hljs-string">&quot;blockchain/pow&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestNewBlockchain</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>	bc := NewBlockchain()<br>	bc.AddBlock(<span class="hljs-string">&quot;second b&quot;</span>)<br>	<span class="hljs-keyword">for</span> _, b := <span class="hljs-keyword">range</span> bc.blocks &#123;<br>		p := pow.NewProofOfWork(b)<br>		fmt.Printf(<span class="hljs-string">&quot;Pre hash: %x\n&quot;</span>, b.PreHash)<br>		fmt.Printf(<span class="hljs-string">&quot;Data: %s\n&quot;</span>, b.Data)<br>		fmt.Printf(<span class="hljs-string">&quot;Hash: %x\n&quot;</span>, b.Hash)<br>		fmt.Printf(<span class="hljs-string">&quot;Pow: %s\n&quot;</span>, strconv.FormatBool(p.Validate()))<br>		fmt.Println()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="以太坊">以太坊</h3>
+<p>弥补了比特币无法二次开发的问题，极大的推动了区块链的进程，让区块链逐步走进了大众视野，时至今日，以太坊已经成为继比特币之后，全球市值第二大的区块链项目，也拥有最大的开发者社区。</p>
+<p>以太坊网络可以理解为一个世界型计算机，它永远不会宕机，因为有成千上万台独立计算机在运行着。只要运行它的客户端（全节点版本），就是其中一员（称之为矿工）。任何链上程序（称为智能合约）最终都会被矿工打包执行，全网同步。</p>
+<h4 id="智能合约">智能合约</h4>
+<p>专门为以太坊设计的新语言：<strong>solidity</strong>，使用solidity开发的程序，在区块链上就叫做：<strong>智能合约</strong>（Smart Contract）。</p>
+<p>这些程序：</p>
+<ul>
+<li>一旦部署就不会消失，因为区块链的账本数据永远存在（这类似于合约）</li>
+<li>一旦被触发就会按照既定逻辑执行，无人能够作恶（这类似于智能）</li>
+</ul>
+<p>围绕以太坊的开发，诞生了新的开发架构<strong>Dapp</strong>，这种架构<strong>没有专门的后台</strong>，它的<strong>区块链网络就是底层系统</strong>：如以太坊网络、BSC网络等。</p>
+<h4 id="dapp架构">Dapp架构</h4>
+<p>一个最简单的Dapp应用可以直接描述如下，称为：<strong>V1版本架构</strong></p>
+<p><img src="/images/chain/dapp-v1.png" srcset="/img/loading.gif" lazyload></p>
+<p>V1：我们可以看到，此时浏览器多了一个<code>钱包模块</code>，钱包是打开区块链的身份钥匙🔑，整个区块链上世界都是建立在密码学之上的（非对称加密，不懂也罢），而图中蓝色部分就是区块链网络，我们的程序就运行在其中，它既是后端服务，也是数据库。我们的前端直接与区块链网络进行交互，包括：</p>
+<ul>
+<li>读数据（读取区块链账本数据），免费的</li>
+<li>写数据（向区块链网络提交数据，永久保存，此时需要矿工打包执行），付费的（这点记住即可，后续语言学习中，陆续会讲解）</li>
+</ul>
+<p>V2：随着区块链网络生态的发展，人们渐渐发现了优化空间，即我们可以将读操作预先存储到一个服务器中，然后前端直接从中获取数据，这既可以保证系统安全，又可以提高效率，因此<strong>subgraph</strong>（捕捉链上事件，链下存储，支持逻辑处理）这个基建得到飞速发展，图中橘黄色部分。称之为：<strong>V2版本架构</strong></p>
+<p><img src="/images/chain/dapp-v2.png" srcset="/img/loading.gif" lazyload></p>
+<p>V3：当然，如果业务过于复杂，与链上合约交互的部分，我们可以独立封装出来，让前端专注于展示，合约专注于逻辑，所以引入了SDK，这部分专门处理和链上合约打交道的所有逻辑，并做相应的业务处理，时刻准备喂给前端，此时我们称为：<strong>V3版本架构</strong></p>
+<p><img src="/images/chain/dapp-v3.png" srcset="/img/loading.gif" lazyload></p>
+<p>V4：再后来，区块链存储项目也陆续诞生，其中最为人知的便是：ipfs，它是一个致力于大文件存储的项目，最近很火的nft项目中，所有的图片都是要上传到ipfs上，从而节约以太坊网络费用，所以此时的设计更改如下，我们称之为：<strong>V4版本架构</strong></p>
+<p><img src="/images/chain/dapp-v4.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="学习资源">学习资源</h3>
+<ol type="1">
+<li>数字僵尸游戏（新手村语法）：https://cryptozombies.io/ ，适合新手从0到1体验编程乐趣，https://cryptozombies.io/en/course/</li>
+<li>语法学习（资深语法）：https://solidity-by-example.org/ ，本教程部分代码来源于此，增加了详细补充等。</li>
+<li>web3全栈课程（大拿视频）：https://www.bilibili.com/video/BV1Ca411n7ta?vd_source=42fe91bf6d16ec8841b22ea520184d76 ，这个最近很出名</li>
+<li>找solidity漏洞练习（高手级）：https://ethernaut.openzeppelin.com/</li>
+<li>找defi漏洞练习（专业级）：https://www.damnvulnerabledefi.xyz/</li>
+<li>defi专业知识（defi Mooc）：https://www.youtube.com/channel/UCB67PxhB5LAWEbI4etQS7aw/playlists?view=50&amp;sort=dd&amp;shelf_id=4</li>
+<li>区块链科普：https://www.youtube.com/c/Finematics ，非常优质的UP主</li>
+</ol>
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" class="category-chain-item">区块链</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【区块链】学习笔记</div>
+      <div>https://weitrue.github.io/2024/06/06/chain/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Pony W</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/06/chain-transaction/" title="【区块链】Transaction">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【区块链】Transaction</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/06/chain-nft/" title="【区块链】NFT">
+                        <span class="hidden-mobile">【区块链】NFT</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      杭ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>杭公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

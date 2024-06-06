@@ -6,7 +6,7 @@
   <link href="https://weitrue.github.io/atom.xml" rel="self"/>
   
   <link href="https://weitrue.github.io/"/>
-  <updated>2024-03-21T15:05:06.688Z</updated>
+  <updated>2024-06-06T13:45:02.536Z</updated>
   <id>https://weitrue.github.io/</id>
   
   <author>
@@ -15,6 +15,266 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【数据库】MySQL与TiDB学习笔记</title>
+    <link href="https://weitrue.github.io/2024/06/06/mysql/"/>
+    <id>https://weitrue.github.io/2024/06/06/mysql/</id>
+    <published>2024-06-06T13:45:02.536Z</published>
+    <updated>2024-06-06T13:45:02.536Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最流行的&lt;a href=&quot;https://baike.baidu.com/item/关系型数据库管理系统/696511&quot;&gt;关系型数据库管理系统&lt;/a&gt;之一。在 WEB 应用方面，是最好的 &lt;a href=&quot;https://baike.baidu.com/item/RDBMS/1048260&quot;&gt;RDBMS&lt;/a&gt;。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/tags/Datebase/"/>
+    
+    <category term="MySQL" scheme="https://weitrue.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【数据库】MySQL面试题</title>
+    <link href="https://weitrue.github.io/2024/06/06/mysql-interview/"/>
+    <id>https://weitrue.github.io/2024/06/06/mysql-interview/</id>
+    <published>2024-06-06T13:45:02.533Z</published>
+    <updated>2024-06-06T13:45:02.533Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最流行的&lt;a href=&quot;https://baike.baidu.com/item/关系型数据库管理系统/696511&quot;&gt;关系型数据库管理系统&lt;/a&gt;之一。在 WEB 应用方面，是最好的 &lt;a href=&quot;https://baike.baidu.com/item/RDBMS/1048260&quot;&gt;RDBMS&lt;/a&gt;。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Datebase" scheme="https://weitrue.github.io/categories/Datebase/"/>
+    
+    
+    <category term="interview" scheme="https://weitrue.github.io/tags/interview/"/>
+    
+    <category term="面试" scheme="https://weitrue.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="MySQL" scheme="https://weitrue.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【备忘录】工作与学习</title>
+    <link href="https://weitrue.github.io/2024/06/06/memo/"/>
+    <id>https://weitrue.github.io/2024/06/06/memo/</id>
+    <published>2024-06-06T13:45:02.532Z</published>
+    <updated>2024-06-06T13:45:02.532Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;生活工作备忘录与待办事项。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+    
+    <category term="备忘录" scheme="https://weitrue.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】Transaction</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-transaction/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-transaction/</id>
+    <published>2024-06-06T13:45:02.531Z</published>
+    <updated>2024-06-06T13:45:02.531Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
+&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="交易" scheme="https://weitrue.github.io/tags/%E4%BA%A4%E6%98%93/"/>
+    
+    <category term="Tx" scheme="https://weitrue.github.io/tags/Tx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】学习笔记</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain/</id>
+    <published>2024-06-06T13:45:02.531Z</published>
+    <updated>2024-06-06T13:45:02.531Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;区块链是一种分布式账本—通过去中心化、去信任方式集体维护一个可靠的分布式账本，是一种在网络成员之间共享、复制和同步的数据库，记录了网络参与者之间的交易。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】NFT</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-nft/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-nft/</id>
+    <published>2024-06-06T13:45:02.530Z</published>
+    <updated>2024-06-06T13:45:02.530Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="NFT" scheme="https://weitrue.github.io/tags/NFT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】Solidity</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-solidity/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-solidity/</id>
+    <published>2024-06-06T13:45:02.530Z</published>
+    <updated>2024-06-06T13:45:02.530Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
+&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="solidity" scheme="https://weitrue.github.io/tags/solidity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】以太坊生态</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-ethereum/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-ethereum/</id>
+    <published>2024-06-06T13:45:02.528Z</published>
+    <updated>2024-06-06T13:45:02.528Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;一个&lt;a href=&quot;https://zh.wikipedia.org/wiki/去中心化&quot;&gt;去中心化&lt;/a&gt;、&lt;a href=&quot;https://zh.wikipedia.org/wiki/开源&quot;&gt;开源&lt;/a&gt;并且具备&lt;a href=&quot;https://zh.wikipedia.org/wiki/智能合约&quot;&gt;智能合约&lt;/a&gt;功能的公共&lt;a href=&quot;https://zh.wikipedia.org/wiki/区块链&quot;&gt;区块链&lt;/a&gt;平台，是目前用户使用最多的区块链之一。&lt;/p&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="ETH" scheme="https://weitrue.github.io/tags/ETH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】Merkle</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-merkle/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-merkle/</id>
+    <published>2024-06-06T13:45:02.528Z</published>
+    <updated>2024-06-06T13:45:02.528Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="合约" scheme="https://weitrue.github.io/tags/%E5%90%88%E7%BA%A6/"/>
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="merkle" scheme="https://weitrue.github.io/tags/merkle/"/>
+    
+    <category term="默克尔树" scheme="https://weitrue.github.io/tags/%E9%BB%98%E5%85%8B%E5%B0%94%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】Address</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-address/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-address/</id>
+    <published>2024-06-06T13:45:02.527Z</published>
+    <updated>2024-06-06T13:45:02.527Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="地址" scheme="https://weitrue.github.io/tags/%E5%9C%B0%E5%9D%80/"/>
+    
+    <category term="EoA" scheme="https://weitrue.github.io/tags/EoA/"/>
+    
+    <category term="CA" scheme="https://weitrue.github.io/tags/CA/"/>
+    
+    <category term="合约" scheme="https://weitrue.github.io/tags/%E5%90%88%E7%BA%A6/"/>
+    
+    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【区块链】合约</title>
+    <link href="https://weitrue.github.io/2024/06/06/chain-ca/"/>
+    <id>https://weitrue.github.io/2024/06/06/chain-ca/</id>
+    <published>2024-06-06T13:45:02.527Z</published>
+    <updated>2024-06-06T13:45:02.527Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="区块链" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+    <category term="ABI" scheme="https://weitrue.github.io/tags/ABI/"/>
+    
+    <category term="StorageLayout" scheme="https://weitrue.github.io/tags/StorageLayout/"/>
+    
+  </entry>
   
   <entry>
     <title>【Go】缓存与分布式锁</title>
@@ -59,47 +319,6 @@
     <category term="twitter" scheme="https://weitrue.github.io/tags/twitter/"/>
     
     <category term="discord" scheme="https://weitrue.github.io/tags/discord/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【备忘录】工作与学习</title>
-    <link href="https://weitrue.github.io/2024/03/21/memo/"/>
-    <id>https://weitrue.github.io/2024/03/21/memo/</id>
-    <published>2024-03-21T00:29:19.772Z</published>
-    <updated>2024-03-21T00:29:19.772Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;生活工作备忘录与待办事项。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="备忘录" scheme="https://weitrue.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    
-    
-    <category term="备忘录" scheme="https://weitrue.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【区块链与元宇宙】NFT</title>
-    <link href="https://weitrue.github.io/2024/03/21/chain-nft/"/>
-    <id>https://weitrue.github.io/2024/03/21/chain-nft/</id>
-    <published>2024-03-21T00:29:19.771Z</published>
-    <updated>2024-03-21T00:29:19.771Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="区块链与元宇宙" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E5%85%83%E5%AE%87%E5%AE%99/"/>
-    
-    
-    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
-    
-    <category term="NFT" scheme="https://weitrue.github.io/tags/NFT/"/>
     
   </entry>
   
@@ -267,234 +486,6 @@
     
     
     <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【转载】Go资源大全中文版扩展</title>
-    <link href="https://weitrue.github.io/2022/02/10/golang-awesome-extends/"/>
-    <id>https://weitrue.github.io/2022/02/10/golang-awesome-extends/</id>
-    <published>2022-02-10T14:07:18.460Z</published>
-    <updated>2022-02-10T14:07:18.460Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本项目作为awesome-go的一个扩展，根据go语言中文社区提供的资料，还有互联网企业架构设计中的常见组件分类， 共精心挑选了154个开源项目。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="转载" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【转载】Go资源大全中文版</title>
-    <link href="https://weitrue.github.io/2022/02/10/golang-awesome/"/>
-    <id>https://weitrue.github.io/2022/02/10/golang-awesome/</id>
-    <published>2022-02-10T13:09:40.716Z</published>
-    <updated>2022-02-10T13:09:40.716Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/avelino/awesome-Go&quot;&gt;awesome-go&lt;/a&gt; 就是 &lt;code&gt;avelino&lt;/code&gt; 发起维护的 Go 资源列表，内容包括：音频和音乐库、命令行工具、服务端应用、流处理、持续集成、数据库、机器学习、NLP、物联网、中间件、文本处理、安全、机器人技术等。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="转载" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/Golang/"/>
-    
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Middleware】Lock</title>
-    <link href="https://weitrue.github.io/2022/01/09/middleware-lock/"/>
-    <id>https://weitrue.github.io/2022/01/09/middleware-lock/</id>
-    <published>2022-01-09T02:50:27.728Z</published>
-    <updated>2022-01-09T02:50:27.728Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;在学习或工作的过程中遇到各种各样的锁的，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="Lock" scheme="https://weitrue.github.io/tags/Lock/"/>
-    
-    <category term="分布式" scheme="https://weitrue.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【转载】七步为Go应用构建精简镜像</title>
-    <link href="https://weitrue.github.io/2021/12/20/golang-images/"/>
-    <id>https://weitrue.github.io/2021/12/20/golang-images/</id>
-    <published>2021-12-20T12:10:49.260Z</published>
-    <updated>2021-12-20T12:10:49.260Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;文章来自黄庆兵老师的网易蜂巢&lt;a href=&quot;https://github.com/bingohuang/play-docker-images&quot;&gt;《玩转 Docker 镜像》系列&lt;/a&gt;，原本分为上下两篇，现已整合成一篇。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="转载" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    <category term="Golang" scheme="https://weitrue.github.io/categories/%E8%BD%AC%E8%BD%BD/Golang/"/>
-    
-    
-    <category term="Docker" scheme="https://weitrue.github.io/tags/Docker/"/>
-    
-    <category term="Go" scheme="https://weitrue.github.io/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【区块链与元宇宙】学习笔记</title>
-    <link href="https://weitrue.github.io/2021/11/29/chain/"/>
-    <id>https://weitrue.github.io/2021/11/29/chain/</id>
-    <published>2021-11-29T09:50:58.069Z</published>
-    <updated>2021-11-29T09:50:58.069Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;区块链是一种分布式账本—通过去中心化、去信任方式集体维护一个可靠的分布式账本，是一种在网络成员之间共享、复制和同步的数据库，记录了网络参与者之间的交易。&lt;/p&gt;&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="区块链与元宇宙" scheme="https://weitrue.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E5%85%83%E5%AE%87%E5%AE%99/"/>
-    
-    
-    <category term="区块链" scheme="https://weitrue.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Prometheus】Blackbox黑盒测试</title>
-    <link href="https://weitrue.github.io/2021/10/27/prometheus-blackbox/"/>
-    <id>https://weitrue.github.io/2021/10/27/prometheus-blackbox/</id>
-    <published>2021-10-27T02:11:25.657Z</published>
-    <updated>2021-10-27T02:11:25.657Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
-&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
-    
-    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-    <category term="网络探测" scheme="https://weitrue.github.io/tags/%E7%BD%91%E7%BB%9C%E6%8E%A2%E6%B5%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Prometheus】Exporter</title>
-    <link href="https://weitrue.github.io/2021/10/25/prometheus-exporter/"/>
-    <id>https://weitrue.github.io/2021/10/25/prometheus-exporter/</id>
-    <published>2021-10-25T02:57:27.198Z</published>
-    <updated>2021-10-25T02:57:27.198Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
-&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
-    
-    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-    <category term="Exporter" scheme="https://weitrue.github.io/tags/Exporter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Prometheus】Alertmanage告警</title>
-    <link href="https://weitrue.github.io/2021/10/25/prometheus-alert/"/>
-    <id>https://weitrue.github.io/2021/10/25/prometheus-alert/</id>
-    <published>2021-10-25T02:55:34.188Z</published>
-    <updated>2021-10-25T02:55:34.188Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
-&lt;script type=&quot;text&amp;#x2F;javascript&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
-    
-    <category term="Alertmanage" scheme="https://weitrue.github.io/tags/Alertmanage/"/>
-    
-    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Prometheus】基础理论与安装</title>
-    <link href="https://weitrue.github.io/2021/10/25/prometheus/"/>
-    <id>https://weitrue.github.io/2021/10/25/prometheus/</id>
-    <published>2021-10-25T02:54:16.127Z</published>
-    <updated>2021-10-25T02:54:16.127Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
-&lt;h3</summary>
-        
-      
-    
-    
-    
-    <category term="Middleware" scheme="https://weitrue.github.io/categories/Middleware/"/>
-    
-    
-    <category term="Prometheus" scheme="https://weitrue.github.io/tags/Prometheus/"/>
-    
-    <category term="监控" scheme="https://weitrue.github.io/tags/%E7%9B%91%E6%8E%A7/"/>
     
   </entry>
   

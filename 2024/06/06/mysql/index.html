@@ -1,0 +1,1747 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/img/logo.png">
+  <link rel="icon" href="/images/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Pony W">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库】MySQL与TiDB学习笔记">
+<meta property="og:url" content="https://weitrue.github.io/2024/06/06/mysql/index.html">
+<meta property="og:site_name" content="weitrable">
+<meta property="og:description" content="最流行的关系型数据库管理系统之一。在 WEB 应用方面，是最好的 RDBMS。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weitrue.github.io/images/db/mysql/index.png">
+<meta property="article:published_time" content="2024-06-06T13:45:02.536Z">
+<meta property="article:modified_time" content="2024-06-06T13:45:02.536Z">
+<meta property="article:author" content="Pony W">
+<meta property="article:tag" content="Datebase">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weitrue.github.io/images/db/mysql/index.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【数据库】MySQL与TiDB学习笔记 - weitrable</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"weitrue.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="weitrable" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WeiTrable</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/book/">
+                <i class="iconfont icon-books"></i>
+                <span>混沌书栈</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bookstack/">
+                <i class="iconfont icon-plan"></i>
+                <span>混沌日记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/img/banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【数据库】MySQL与TiDB学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Pony W
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-06 21:45" pubdate>
+          2024年6月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          52k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          165 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【数据库】MySQL与TiDB学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>最流行的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/关系型数据库管理系统/696511">关系型数据库管理系统</a>之一。在 WEB 应用方面，是最好的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/RDBMS/1048260">RDBMS</a>。<span id="more"></span></p>
+</blockquote>
+<h3 id="文件存储"><strong>文件存储</strong></h3>
+<p><img src="/images/db/mysql/logfile.png" srcset="/img/loading.gif" lazyload></p>
+<p>MySQL的文件主要分为两大类，MySQl服务的文件和存储引擎的文件，主要分为三类：</p>
+<ul>
+<li>日志文件：MySQL实例写入的各种日志文件。</li>
+<li>表结构文件：存放表结构定义的文件，.frm后缀文件，与存储引擎无关。</li>
+<li>存储引擎数据文件：存储引擎负责对表中的数据进行读取和写入，每个存储引擎以自己的方式来保存表中的数据，在不同的存储引擎中数据存放的方式一般不同。</li>
+</ul>
+<h4 id="日志文件">日志文件</h4>
+<p>记录数据库操作信息和错误信息，主要包括<em>错误日志</em>，<em>二进制日志</em>， <em>查询日志</em>， <em>慢查询日志</em>， <em>中继日志</em>等。</p>
+<p>InnoBD相关的日志有：事务重做日志（redo log）和回滚日志（undo log）</p>
+<p>查看命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show variables like &#x27;log_%&#x27;;<br></code></pre></td></tr></table></figure>
+<h4 id="错误日志errorlog">错误日志（errorlog）</h4>
+<p>​ 用来记录 MySQL 服务器运行过程中遇到的所有严重错误信息以及MySQL每次启动和关闭的详细信息。比如，无法加载 MySQL 数据库的数据文件，或权限不正确等都会被记录在此，还有复制环境下，从服务器进程的信息也会被记录进错误日志。默认情况下，错误日志是开启的，从5.5.7开始无法关闭错误日志。</p>
+<p>​ 错误日志是存储在数据库的数据文件目录中，名称为 hostname.err，其中 hostname 为服务器主机名。在 MySQL 5.5.7 之前，数据库管理员可以删除很长时间之前的错误日志，以节省服务器上的硬盘空间， MySQL 5.5.7 之后，服务器将关闭此项功能，只能使用重命名原来的错误日志文件，手动冲洗日志创建一个新的，命令为：</p>
+<p><code>mv hostname.err  hostname.err.old mysqladmin flush-logs</code></p>
+<p>默认的错误日志名称为 hostname.err，其中 hostname 为服务器主机名。</p>
+<p>错误日志所记录的信息是可以通过log-error和log-warnings来定义的，其中log-error是定义是否启用错误日志功能和错误日志的存储位置，log-warnings是定义是否将警告信息也定义至错误日志中。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 可以直接定义为文件路径也可以为ON|OFF</span><br>log_error=/var/<span class="hljs-built_in">log</span>/mysqld.log<br><span class="hljs-comment"># 定义警告信息，默认为开启状态，默认2， 关闭设置为0</span><br>log_warnings=2<br></code></pre></td></tr></table></figure>
+<p><code>log_warnings=0</code>,不记录警告信息，只记录错误信息</p>
+<p><code>log_warnings=1</code>,记录警告信息，错误日志包含错误信息和警告信息</p>
+<p><code>log_warnings&gt;1</code>,记录警告信息，访问时报错和访问拒接的连接错误信息也会被记录到错误日志中</p>
+<p>MySQL 5.7.2之前默认为1， 5.7.2起默认值为2。</p>
+<h4 id="查询日志">查询日志</h4>
+<p>查询日志在 MySQL 中被称为 general log(通用日志)，查询日志里面记录了<strong>数据库执行的所有命令</strong>。不管语句是否正确，都会被记录，具体原因如下:</p>
+<ul>
+<li><p>insert 查询为了避免数据冲突，如果此前插入过数据，当前插入的数据如果跟主键或唯一键的数据重复肯定会报错；</p></li>
+<li><p>update 时也会查询因为更新的时候很可能会更新某一块数据；</p></li>
+<li><p>delete 查询，只删除符合条件的数据；</p></li>
+</ul>
+<p>因此都会产生日志，在并发操作非常多的场景下，查询信息会非常多，那么如果都记录下来会导致 IO 非常大，影响 MySQL 性能。因此如果不是在调试环境下，是不建议开启查询日志功能的。</p>
+<p>查询日志的开启有助于帮助我们分析哪些语句执行密集，执行密集的 select 语句对应的数据是否能够被缓存，同时也可以帮助我们分析问题。所以，可以根据实际情况来决定是否开启查询日志。</p>
+<p>查询日志模式是关闭的，可以通过以下命令开启查询日志：</p>
+<p><code>set global generallog=1 set global logoutput='table';</code></p>
+<p><code>general_log=1</code> 为开启查询日志，0 为关闭查询日志，这个设置命令即时生效，不用重启 MySQL 服务器。</p>
+<h4 id="慢查询日志">慢查询日志</h4>
+<p>慢查询会导致 CPU、IOPS、内存消耗过高，当数据库遇到性能瓶颈时，大部分时间都是由于慢查询导致的。开启慢查询日志，可以让 MySQL 记录下查询超过指定时间的语句，之后运维人员通过定位分析，能够很好的优化数据库性能。默认情况下，慢查询日志是不开启的，只有手动开启了，慢查询才会被记录到慢查询日志中。使用如下命令记录当前数据库的慢查询语句：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 开启慢查询日志</span><br>slowquerylog=ON<br><span class="hljs-comment"># 慢查询阈值，单位秒</span><br>long_query_time=10<br><span class="hljs-comment"># 慢查询日志文件名</span><br><span class="hljs-comment"># 没有指定，默认名为 hostname-slow.log hostname为主机名</span><br><span class="hljs-comment"># 需要指定，不是绝对路径</span><br>slow_query_files=file_name<br></code></pre></td></tr></table></figure>
+<p>使用命令 <code>set global slowquerylog='ON'</code> 开启慢查询日志，只是对当前数据库有效，如果 MySQL 数据库重启后就会失效。所以如果要永久生效，就要修改配置文件<code>my.cnf</code>，设置<code>slowquerylog=ON</code> 并重启 MySQL 服务器。</p>
+<h4 id="二进制日志bin-log">二进制日志（bin log）</h4>
+<p>通过以下命令来查询 binlog 是否开启：</p>
+<p><code>show variables like 'log_%';</code></p>
+<p><img src="/images/db/mysql/binlog.png" srcset="/img/loading.gif" lazyload></p>
+<p>默认是关闭的。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">log-bin=OFF<br></code></pre></td></tr></table></figure>
+<p>需要通过配置进行开启</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">log-bin=mysql-bin<br></code></pre></td></tr></table></figure>
+<p>其中<code>mysql-bin</code>是<code>bin log</code>日志文件的文件名前缀，<code>bin log</code>日志文件的完整名称：<code>mysql-bin-000001.log</code></p>
+<p><code>bin log</code>是一个二进制文件，主要记录数据库所有的<code>DDL</code>语句和<code>DML</code>语句，但不包含<code>SELECT、SHOW</code>语句内容。<code>DDL</code>语句直接记录到<code>bin log</code>日志中，<code>DML</code>语句必须通过事务提交才能记录到<code>bin log</code>日志中。<code>bin log</code> 中记录了对 MySQL 数据库执行更改的所有操作，并且记录了语句发生时间、执行时长、操作数据等其它额外信息。</p>
+<p><code>bin log</code>主要用于实现mysql<strong>主从复制、数据备份、数据恢复</strong>。</p>
+<ul>
+<li><p>恢复（<code>recovery</code>）：某些数据的恢复需要二进制日志。比如，在一个数据库全备文件恢复后，用户可以通过二进制日志进行 <code>point-in-time</code> 的恢复；</p></li>
+<li><p>复制（<code>replication</code>）：其原理与恢复类似，通过复制和执行二进制日志使一台远程的MySQL数据库（一般称为 <code>slave</code> 或者 <code>standby</code>）与一台 MySQL 数据库（一般称为 <code>master</code> 或者 <code>primary</code>）进行实时同步；</p></li>
+<li><p>审计（<code>audit</code>）：用户可以通过二进制日志中的信息来进行审计，判断是否有对数据库进行注入攻击。</p></li>
+</ul>
+<p>除了上面介绍的几个作用外，<code>binlog</code> 对于事务存储引擎的崩溃恢复也有非常重要的作用，在开启 <code>binlog</code> 的情况下，为了保证 <code>binlog</code> 与 <code>redo</code> 的一致性，MySQL 将采用事务的两阶段提交协议。当 MySQL 系统发生崩溃时，事务在存储引擎内部的状态可能为 <code>prepared</code>（准备状态）和 <code>commit</code>（提交状态）两种，对于 <code>prepared</code> 状态的事务，是进行提交操作还是进行回滚操作，这时需要参考<code>binlog</code>，如果事务在 <code>binlog</code> 中存在，那么将其提交；如果不在 <code>binlog</code> 中存在，那么将其回滚，这样就保证了数据在主库和从库之间的一致性。</p>
+<p>binlog 格式分为: STATEMENT、ROW 和 MIXED 三种：</p>
+<ul>
+<li><p>STATEMENT 格式的 binlog 记录的是数据库上执行的原生 SQL 语句。这种格式的优点是简单，简单地记录和执行这些语句，能够让主备保持同步，在主服务器上执行的 SQL 语句，在从服务器上执行同样的语句。另一个好处是二进制日志里的时间更加紧凑，所以相对而言，基于语句的复制模式不会使用太多带宽，同时也节约磁盘空间。并且通过 mysqlbinlog 工具容易读懂其中的内容。缺点就是同一条 SQL 在主库和从库上执行的时间可能稍微或很大不相同，因此在传输的二进制日志中，除了查询语句，还包括了一些元数据信息，如当前的时间戳。即便如此，还存在着一些无法被正确复制的 SQL。比如，使用 <code>INSERT INTO TB1 VALUE(CUURENT_DATE())</code>这一条使用函数的语句插入的数据复制到当前从服务器上来就会发生变化，存储过程和触发器在使用基于语句的复制模式时也可能存在问题；另外一个问题就是基于语句的复制必须是串行化的，比如：InnoDB 的 next-key 锁等，并不是所有的存储引擎都支持基于语句的复制；</p></li>
+<li><p>ROW 格式是从 MySQL 5.1 开始支持基于行的复制，也就是基于数据的复制，基于行的更改。这种方式会将实际数据记录在二进制日志中，它有其自身的一些优点和缺点，最大的好处是可以正确地复制每一行数据，一些语句可以被更加有效地复制，另外就是几乎没有基于行的复制模式无法处理的场景，对于所有的 SQL 构造、触发器、存储过程等都能正确执行；它的缺点就是二进制日志可能会很大，而且不直观，所以，你不能使用 mysqlbinlog 来查看二进制日志，也无法通过看二进制日志判断当前执行到那一条 SQL 语句。现在对于 ROW 格式的二进制日志基本是标配了，主要是因为它的优势远远大于缺点，并且由于 ROW 格式记录行数据，所以可以基于这种模式做一些 DBA 工具，比如数据恢复，不同数据库之间数据同步等；</p></li>
+<li><p>MIXED 也是 MySQL 默认使用的二进制日志记录方式，但 MIXED 格式默认采用基于语句的复制，一旦发现基于语句的无法精确的复制时，就会采用基于行的复制。比如用到 UUID()、USER()、CURRENTUSER()、ROWCOUNT() 等无法确定的函数。</p></li>
+</ul>
+<h4 id="回滚日志undo-log"><strong>回滚日志(<code>undo log</code>)</strong></h4>
+<p>用于存储日志被修改前的值，从而保证如果修改出现异常，可以使用 <code>undo log</code>日志来实现回滚操作。<code>undo log</code>和<code>redo log</code> 记录物理日志不一样，它是逻辑日志，可以认为当 <code>delete</code> 一条记录时，<code>undo log</code> 中会记录一条对应的<code>insert</code> 记录，反之亦然，当 <code>update</code> 一条记录时，它记录一条对应相反的 <code>update</code> 记录，当执行 rollback 时，就可以从 <code>undo log</code> 中的逻辑记录读取到相应的内容并进行回滚。<code>undo log</code>默认存放在共享表空间中，在 <code>mySQL 5.6</code> 中，<code>undo log</code> 的存放位置还可以通过变量<code>innodbundodirectory</code>来自定义存放目录，默认值为“.”表示 <code>datadir</code>目录。</p>
+<p>作用：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">保存事务发生前数据的一个版本，可以用于回滚，同时可以提供多版本并发控制下的读（MVCC），即非锁定读<br></code></pre></td></tr></table></figure>
+<p>内容：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">逻辑格式的体制。在执行<span class="hljs-keyword">undo</span>的时候，仅仅是将数据从逻辑上恢复之事务之前的状态，而不是从物理页面上操作实现的，这一点是不同于<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span><br></code></pre></td></tr></table></figure>
+<p>什么时候产生</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">事务开始前，将当前的版本生成<span class="hljs-keyword">undo</span> <span class="hljs-keyword">log</span>. <span class="hljs-keyword">undo</span>也会产生<span class="hljs-keyword">redo</span>来保证<span class="hljs-keyword">undo</span> <span class="hljs-keyword">log</span>的可靠性<br></code></pre></td></tr></table></figure>
+<p>什么时候释放</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">当事务提交之后，<span class="hljs-keyword">undo</span> <span class="hljs-keyword">log</span>不能立马被删掉，而是放入待清理的链表，由purge线程判断是否有其他事务在使用<span class="hljs-keyword">undo</span>段中表的上一个事务之前的版本信息，决定是否可以清理<span class="hljs-keyword">undo</span> <span class="hljs-keyword">log</span>的日志空间<br></code></pre></td></tr></table></figure>
+<p>对应物理文件：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mel">mysql5<span class="hljs-number">.6</span>之前，<span class="hljs-keyword">undo</span>表空间位于共享表空间的回滚段中，共享表空间默认的名称为ibdata,位于数据文件目录中。<br>mysql5<span class="hljs-number">.6</span>之后，可以配置独立文件，完成数据库初始化后生效且不能改变<span class="hljs-keyword">undo</span> <span class="hljs-keyword">log</span>文件的个数，如果初始化数据库之前没有进行相关的配置，就无法配置独立的表空间。<br></code></pre></td></tr></table></figure>
+<h4 id="重做日志redo-log"><strong>重做日志(<code>redo log</code>)</strong></h4>
+<p>为了最大程度的避免数据写入时，因为 IO 瓶颈造成的性能问题，MySQL 采用了这样一种缓存机制，先将数据写入内存中，再批量把内存中的数据统一刷回磁盘。为了避免将数据刷回磁盘过程中，因为掉电或系统故障带来的数据丢失问题，InnoDB 采用 <code>redo log</code> 来解决此问题。</p>
+<p>作用：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mel">确保事务的持久性。<br>防止发生故障的时间，尚有脏页为写入磁盘。在重启mysql服务是，根据<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span>进行重做，从而达到事务的持久性。<br></code></pre></td></tr></table></figure>
+<p>内容：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">物理格式的日志，激励物理数据页面的修改信息，其<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span>是顺序写入<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span> <span class="hljs-keyword">file</span>的物理文件中去的。<br></code></pre></td></tr></table></figure>
+<p>什么时候产生</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">事务开始之后就产生<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span>. <span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span>的落盘并不是随着事务的提交才写入的，而是在事务的执行过程中便开始写入<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span>文件中的。<br></code></pre></td></tr></table></figure>
+<p>什么时候释放</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">当对应事务的脏页写入到磁盘之后，<span class="hljs-keyword">redo</span> <span class="hljs-keyword">log</span> 的使命也就完成了，重做日志占用的空间就可以冲用（被覆盖）。<br></code></pre></td></tr></table></figure>
+<h4 id="sql语句的交互流程">SQL语句的交互流程</h4>
+<blockquote>
+<p>说一下SQL语句的交互流程，包括客户端与服务端之间的交互以及服务内部的整体流程</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">-- id是主键<br>BEGIN<br>UPDATE user SET name=&#x27;aa&#x27; WHERE id = 1 FOR UPDATE;<br>COMMIT;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/db/mysql/sqlquery.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/mysql/querylogic.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="连接器">连接器</h5>
+<p>当客户端登陆MySQL的时候，对身份认证和权限判断。</p>
+<h5 id="查询缓存">查询缓存</h5>
+<p>执行查询语句的时候，会先查询缓存(MySQL 8.0 版本后移除)。</p>
+<h5 id="分析器">分析器</h5>
+<p>假设在没有命中查询缓存的情况下，SQL请求就会来到分析器。分析器负责明确SQL要完成的功能，以及检查SQL的语法是否正确。</p>
+<h5 id="查询优化器">查询优化器</h5>
+<p>优化器会计算「IO 成本 + CPU」成本最小的那个索引来执行。优化器执行选出最优索引生成执行计划后，调用存储引擎接口被优化过的SQL语句。</p>
+<h5 id="存储引擎">存储引擎</h5>
+<p>执行 SQL 的动作是在存储引擎中完成的，数据是被存放在内存或者是磁盘中的。</p>
+<h5 id="执行器">执行器</h5>
+<p>执行器从准备更新一条数据到事务的提交的流程</p>
+<ol type="1">
+<li>首先执行器根据 MySQL 的执行计划来查询数据，先是从缓存池中查询数据，如果没有就会去数据库中查询，如果查询到了就将其放到缓存池中。</li>
+<li>在数据被缓存到缓存池的同时，会写入 undo log 日志文件。</li>
+<li>更新的动作是在 BufferPool 中完成的，同时会将更新后的数据添加到 redo log buffer 中。</li>
+<li>完成以后就可以提交事务，在提交的同时会做以下三件事。</li>
+<li>（第一件事）将redo log buffer中的数据刷入到 redo log 文件中。</li>
+<li>（第二件事）将本次操作记录写入到 bin log文件中。</li>
+<li>（第三件事）将 bin log 文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记。</li>
+</ol>
+<p><img src="/images/db/mysql/sqllog.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="索引原理及优化"><strong>索引原理及优化</strong></h3>
+<h4 id="索引介绍">索引介绍</h4>
+<h5 id="什么是索引">什么是索引</h5>
+<p>索引是一种能帮助 MySQL 提高查询效率的数据结构。</p>
+<h5 id="索引优点和缺点">索引优点和缺点</h5>
+<p>索引的优点如下：</p>
+<ul>
+<li><p>快速访问数据表中的特定信息，提高检索速度。</p></li>
+<li><p>创建唯一性索引，保证数据表中每一行数据的唯一性。</p></li>
+<li><p>加速表与表之间的连接。</p></li>
+<li><p>使用分组和排序进行数据检索时，可以显著减少查询中分组和排序的时间。</p></li>
+</ul>
+<p>索引的缺点：</p>
+<ul>
+<li><p>虽然提高了的查询速度，但却降低了更新表的速度，比如 update、insert，因为更新数据时，MySQL 不仅要更新数据，还要更新索引文件；</p></li>
+<li><p>建立索引会占用磁盘文件的索引文件。</p></li>
+</ul>
+<p>使用索引注意事项：</p>
+<ul>
+<li><p>使用短索引，短索引不仅可以提高查询速度，更能节省磁盘空间和 I/O 操作；</p></li>
+<li><p>索引列排序，MySQL 查询只使用一个索引，因此如果 where 子句中已经使用了索引的话，那么 order by 中的列是不会使用索引的，因此数据库默认排序可以符合要求的情况下，不要进行排序操作；尽量不要包含多个列的排序，如果需要最好给这些列创建复合索引；</p></li>
+<li><p>like 语句操作，一般情况下不鼓励使用 like 操作，如果非使用不可， 注意 like "%aaa%" 不会使用索引，而like "aaa%"可以使用索引；</p></li>
+<li><p>不要在列上进行运算；</p></li>
+<li><p>不适用 NOT IN 和 &lt;&gt; 操作。</p></li>
+</ul>
+<h4 id="索引分类">索引分类</h4>
+<p>MySQL 的索引有两种分类方式：逻辑分类和物理分类。 按照逻辑分类，索引可分为：</p>
+<h6 id="单列索引">单列索引</h6>
+<ul>
+<li><p>主键索引：一张表只能有一个主键索引，不允许重复、不允许为 NULL；</p></li>
+<li><p>唯一索引：数据列不允许重复，允许为 NULL 值，一张表可有多个唯一索引，但是一个唯一索引只能包含一列，比如身份证号码、卡号等都可以作为唯一索引；</p></li>
+<li><p>普通索引：一张表可以创建多个普通索引，一个普通索引可以包含多个字段，允许数据重复，允许 NULL 值插入；</p></li>
+</ul>
+<h6 id="组合索引">组合索引</h6>
+<ul>
+<li>在表中多个字段组合上创建的索引</li>
+<li>组合索引的使用需要遵循<strong>最左前缀原则</strong></li>
+<li>一般情况建议组合索引代替单列索引</li>
+</ul>
+<h6 id="全文索引">全文索引</h6>
+<ul>
+<li>让搜索关键词更高效的一种索引，只有在MyISAM引擎、InnoDB（5.6以后）才能使用，而且只能在CHAR, VARCHAR, TEXT类型才能使用。</li>
+<li>优先级最高 先执行 不会执行其他索引</li>
+<li>存储引擎决定只执行一个索引</li>
+</ul>
+<h6 id="空间索引">空间索引</h6>
+<p>按照物理分类，索引可分为：</p>
+<ul>
+<li><p>聚集索引</p></li>
+<li><p>非聚集索引</p></li>
+</ul>
+<h4 id="索引使用">索引使用</h4>
+<h5 id="创建索引">创建索引</h5>
+<p>各种索引的创建脚本如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 创建主键索引 <br>alter table t add primary key add (`id`); <br>-- 创建唯一索引 <br>alter table t add unique (`username`); <br>-- 创建普通索引 <br>alter table t add index index_name (`username`); <br><br>-- 创建组合索引 <br>alter table t add index index_name (`username`, `age`); <br><br>-- 创建全文索引 <br>alter table t add fulltext (`username`);<br></code></pre></td></tr></table></figure>
+<h5 id="删除索引">删除索引</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DROP INDEX index_name ON table;<br></code></pre></td></tr></table></figure>
+<h5 id="查看索引">查看索引</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW INDEX FROM tablename <br></code></pre></td></tr></table></figure>
+<h4 id="索引存储结构">索引存储结构</h4>
+<h5 id="innodb存储引擎逻辑结构">InnoDB存储引擎逻辑结构</h5>
+<p><img src="/images/db/mysql/tablespace.png" srcset="/img/loading.gif" lazyload></p>
+<p>InnoDB存储引擎逻辑存储结构可分为五级：表空间、段、区、页、行。</p>
+<h5 id="索引存储结构-1">索引存储结构</h5>
+<p>索引在存储引擎中实现，不同的存储引擎使用不同的索引</p>
+<p><strong>MyISAM和InnoDB</strong>存储引擎只支持<strong>B+TREE</strong>索引，即默认使用B+TREE,不能更换</p>
+<p>MEMORY和HEAP存储引擎：执行HASH和BTREE</p>
+<h5 id="b树与b树">B树与B+树</h5>
+<h6 id="b树与b树的区别">B树与B+树的区别</h6>
+<p>非叶子结点是否存储数据</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">B</span>树叶子结点和非叶子结点都会存储数据<br><span class="hljs-selector-tag">B</span>+树只有叶子结点才会存储数据，而且存储的数据都在一行上，这些数据是由指针指向的，顺序的<br></code></pre></td></tr></table></figure>
+<h5 id="非聚集索引myisam">非聚集索引（MyISAM）</h5>
+<ul>
+<li><p>B+树叶子结点只存储数据行的指针。简单的说，<strong>数据跟索引不在一起</strong>。</p></li>
+<li><p><strong>非聚集索引包含的主键索引和辅助索引都会存储指针的值</strong></p></li>
+</ul>
+<h6 id="主键索引">主键索引</h6>
+<p><img src="/images/db/mysql/prindex.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="辅助索引次要索引">辅助索引（次要索引）</h6>
+<p>在MyISAM中主键索引与辅助索引在结构上没有区别，只是主键索引要求key是唯一的，辅助索引的key是可以重复的。</p>
+<p><img src="/images/db/mysql/secondkey.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="聚集索引innodb">聚集索引（InnoDB）</h5>
+<ul>
+<li>主键索引的叶子结点都会存储数据，即<strong>数据和索引在一起</strong></li>
+<li>辅助索引只存储主键值</li>
+<li>如果没有主键索引，则使用唯一索引建立聚集索引；如果没有唯一索引，MySQL会按照一定规则创建聚集索引。</li>
+</ul>
+<h6 id="主键索引-1">主键索引</h6>
+<p>InnoDB要求<strong>必须有主键</strong>（MyISAM可以没有）。如果没有，MySQL会自动选择一个可以唯一标识数据记录的列作为主键；如果没有，MySQL会自动为InnoDB生成一个隐含字段作为主键，类型为长整型。</p>
+<p><img src="/images/db/mysql/pkey.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="辅助索引">辅助索引</h6>
+<p>聚集索引这种实现方式按照主键搜索非常高效，但是辅助索引需要查询两遍：辅助索引获得主键，然后主键到索引中检索获取记录。这也就是<strong>回表查询</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from user where name=&#x27;Alice&#x27;;  回表查询，检索两次 辅助索引——&gt;主键索引——&gt;数据<br>select id, name from user where name=&#x27;Alice&#x27;; 不需要回表，辅助索引树上便可查到  覆盖索引（多用组合索引）<br></code></pre></td></tr></table></figure>
+<p><img src="/images/db/mysql/spk.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="组合索引-1">组合索引</h4>
+<h5 id="哪些情况要创建索引">哪些情况要创建索引</h5>
+<ol type="1">
+<li>主键自动创建索引</li>
+<li>频繁作为查询条件需要创建索引</li>
+<li>多表关联查询中，关联字段应该创建索引 on 两边都需要创建索引</li>
+<li>查询中排序字段，需要创建索引</li>
+<li>频繁查找字短 覆盖索引</li>
+<li>查询中统计或者分组字段 需要创建索引</li>
+</ol>
+<h5 id="哪些情况不需要创建索引">哪些情况不需要创建索引</h5>
+<ol type="1">
+<li>表记录太少</li>
+<li>经常进行增删改查的表</li>
+<li>频繁更新的字段</li>
+<li>where条件里使用频率不高的字段</li>
+</ol>
+<h5 id="为什么使用组合索引">为什么使用组合索引</h5>
+<p>组合索引根据<strong>最左原则</strong>进行排序，为了节省索引空间和提升搜索性能，可以使用组合索引。</p>
+<p>查询遵循最左前缀原则</p>
+<ol type="1">
+<li><p>前缀索引 where like a% 可以使用索引</p>
+<p>​ where like %a 不能使用索引</p></li>
+<li><p>从左向右匹配 直到遇到范围查询 &gt; &lt; between like</p></li>
+</ol>
+<p>建立索引（a, b, c, d）</p>
+<p>​ where a=1 and b=3 and c&gt;4 and d=2 到了c&gt;4时听了，d=2用不到索引</p>
+<p>​ 可以通过键索引构建为（a, b, d, c）进行优化</p>
+<h4 id="索引失效与分析">索引失效与分析</h4>
+<h5 id="执行计划">执行计划</h5>
+<p><code>EXPALIN</code>命令, 可以对select语句的执行计划进行分析</p>
+<h5 id="参数说明">参数说明</h5>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">id, select_type, <span class="hljs-keyword">table</span>, <span class="hljs-keyword">type</span>, possible_keys, key, key_len, <span class="hljs-keyword">ref</span>, <span class="hljs-keyword">rows</span>, Extra<br></code></pre></td></tr></table></figure>
+<h6 id="id">id</h6>
+<ul>
+<li>每个select语句都会自动分配一个唯一标识</li>
+<li>表示查询中操作表的顺序
+<ul>
+<li>id相同：执行顺序由上而下</li>
+<li>id不同：如果是子查询，id会自增；id越大，优先级越高</li>
+<li>id相同的不同的同时存在</li>
+</ul></li>
+<li>id列尾NULL表示这是个结果集，不需要用来进行查询</li>
+</ul>
+<h6 id="select_type重要">select_type（重要）</h6>
+<p>查询类型，主要用于区分普通查询、联合查询（union,union all）、子查询。</p>
+<ul>
+<li><p>simple:不需要使用union操作或者包含子查询的简单select查询。有连接查询时，外层的查询也是simple，有且只有一个。</p></li>
+<li><p>primary:需要union插座或者含有子查询，位于最外层的单位查询的select_type是primary</p></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select (select name from user where name=&#x27;xxxx&#x27;) from user;<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+-------+------+----------+-------------+<br>| id | select_type | table | partitions | type  | possible_keys | key       | key_len | ref   | rows | filtered | Extra       |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+-------+------+----------+-------------+<br>|  1 | PRIMARY     | user  | NULL       | index | NULL          | index_com | 198     | NULL  |    9 |   100.00 | Using index |<br>|  2 | SUBQUERY    | user  | NULL       | ref   | index_com     | index_com | 99      | const |    1 |   100.00 | Using index |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+-------+------+----------+-------------+<br>2 rows in set (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>subquery：除了from子句中包含的子查询外，其他地方出现的子查询都可能是subquery</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where id=(select max(id) from user);<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+------------------------------+<br>| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra                        |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+------------------------------+<br>|  1 | PRIMARY     | user  | NULL       | const | PRIMARY       | PRIMARY | 4       | const |    1 |   100.00 | NULL                         |<br>|  2 | SUBQUERY    | NULL  | NULL       | NULL  | NULL          | NULL    | NULL    | NULL  | NULL |     NULL | Select tables optimized away |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+------------------------------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>dependent subquery:与dependent union类似，表示这个subquery的查询受外部查询的影响</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select id, name,(select name from dep d where d.dep=u.id) from user u;<br>+----+--------------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-------------+<br>| id | select_type        | table | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra       |<br>+----+--------------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-------------+<br>|  1 | PRIMARY            | u     | NULL       | index | NULL          | index_com | 198     | NULL |    9 |   100.00 | Using index |<br>|  2 | DEPENDENT SUBQUERY | d     | NULL       | ALL   | NULL          | NULL      | NULL    | NULL |    2 |    50.00 | Using where |<br>+----+--------------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-------------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>union:union连接的两个查询，第一个是primary，除第一个外的，都是union</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where name=&#x27;xxxx&#x27; union select * from user where name=&#x27;zhangsan&#x27;;<br>+----+--------------+------------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------+<br>| id | select_type  | table      | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra           |<br>+----+--------------+------------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------+<br>|  1 | PRIMARY      | user       | NULL       | ref  | index_com     | index_com | 99      | const |    1 |   100.00 | Using index     |<br>|  2 | UNION        | user       | NULL       | ref  | index_com     | index_com | 99      | const |    1 |   100.00 | Using index     |<br>| NULL | UNION RESULT | &lt;union1,2&gt; | NULL       | ALL  | NULL          | NULL      | NULL    | NULL  | NULL |     NULL | Using temporary |<br>+----+--------------+------------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>dependent union:与union一样，出现union或者union all语句中，表示查询受外部表查询的影响</p></li>
+<li><p>union result:包含union的结果集，id为NULL</p></li>
+<li><p>Derived:from子句中出现的子查询，也叫做派生表</p></li>
+</ul>
+<h6 id="table">table</h6>
+<p>表名 ，查询中使用了别名，这里就显示别名</p>
+<h6 id="type重要">type（重要）</h6>
+<p>依次由好到差</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">system</span>, const, eq_ref, <span class="hljs-keyword">ref</span>, fulltext, ref_or_null, unique_subquery, index_subquery, range, index_merge, <span class="hljs-keyword">index</span>, <span class="hljs-keyword">ALL</span><br></code></pre></td></tr></table></figure>
+<p>除了ALL，其他类型都可以用到索引；</p>
+<p>除了index_merge，其他type值可以用到一个索引</p>
+<ul>
+<li>system：表中只有一行或者是空表</li>
+<li>const（重要）：使用唯一索引或者主键索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where id=1;<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br>| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br>|  1 | SIMPLE      | user  | NULL       | const | PRIMARY       | PRIMARY | 4       | const |    1 |   100.00 | NULL  |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br></code></pre></td></tr></table></figure>
+<ul>
+<li>eq_ref（重要）： 连接字段主键或者唯一索引</li>
+</ul>
+<p>通常出现在多表的join查询，表示对于前表的每一个结果，都<strong>只能匹配到后表的一行结果</strong>，并且查询到额比较操作通常是“=”，效率更高</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select a.id from user a left join dep b on a.dep=b.id;<br>+----+-------------+-------+------------+--------+---------------+---------+---------+------------+------+----------+-------------+<br>| id | select_type | table | partitions | type   | possible_keys | key     | key_len | ref        | rows | filtered | Extra       |<br>+----+-------------+-------+------------+--------+---------------+---------+---------+------------+------+----------+-------------+<br>|  1 | SIMPLE      | a     | NULL       | ALL    | NULL          | NULL    | NULL    | NULL       |    9 |   100.00 | NULL        |<br>|  1 | SIMPLE      | b     | NULL       | eq_ref | PRIMARY       | PRIMARY | 4       | test.a.dep |    1 |   100.00 | Using index |<br>+----+-------------+-------+------------+--------+---------------+---------+---------+------------+------+----------+-------------+<br></code></pre></td></tr></table></figure>
+<ul>
+<li>ref（重要）：针对非唯一索引，使用等值（=）查询非主键，或者使用了最左前缀原则索引的查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where name=&#x27;xxx&#x27;;<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------+<br>| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------+<br>|  1 | SIMPLE      | user  | NULL       | ref  | index_com     | index_com | 99      | const |    2 |   100.00 | NULL  |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------+<br>1 row in set (0.00 sec)<br><br>mysql&gt; explain select * from user where name=&#x27;xxx&#x27; and age=2;<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+<br>| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra                 |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+<br>|  1 | SIMPLE      | user  | NULL       | ref  | index_com     | index_com | 99      | const |    2 |    11.11 | Using index condition |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+<br>1 row in set (0.01 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>fulltext：全文索引检索</li>
+<li>ref_or_null：与ref类似，只是增加了null值的比较，实际上用的不多</li>
+<li>unique_subquery：用于where中的in形式子查询，子查询返回不重复唯一值</li>
+<li>index_subquery：用于in形式子查询使用到辅助索引或者in常数列表，子查询可能返回重复值，可以使用索引将子查询去重</li>
+<li>range（重要）：<strong>索引范围扫描</strong>，常见于&gt;, &lt;, is null, between, in, like等运算符的查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where name=&#x27;xxx&#x27; and age&gt;3;<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>| id | select_type | table | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                 |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>|  1 | SIMPLE      | user  | NULL       | range | index_com     | index_com | 104     | NULL |    1 |   100.00 | Using index condition |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>index_merge：表示使用两个以上的索引，最后去交集或者并集。常见and, or的条件使用不同的索引。官方排序这个在ref_or_null之后，但实际上由于要读取所有索引，性能大部分时间不如range</li>
+<li>index（重要）：<strong>关键字：条件是出现在索引树中的节点。可能没有完全匹配索引</strong></li>
+</ul>
+<p><strong>索引全表扫描</strong>，把索引从头到尾扫一遍，常见于使用索引列就可以处理，不需要读取文件查询，可以使用索引排序或者分组的查询。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user order by id;<br>+----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+-------+<br>| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref  | rows | filtered | Extra |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+-------+<br>|  1 | SIMPLE      | user  | NULL       | index | NULL          | PRIMARY | 4       | NULL |    9 |   100.00 | NULL  |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+-------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>ALL：全表扫描</li>
+</ul>
+<h6 id="possible_keys">possible_keys</h6>
+<p>此次查询中可能选用的索引，一个或多个</p>
+<h6 id="key">key</h6>
+<p>查询真正使用到的索引。select_type为index_merge时，这里可能会出现两个以上索引；其他情况，select_type只会出现一个</p>
+<h6 id="key_len">key_len</h6>
+<ul>
+<li>用于处理查询的索引长度。如果是单列索引，那就整个索引算进去；如果是多列索引，那么查询不一定是所有的列。</li>
+<li>另外，<em>key_len</em>指极端<em>where</em>条件中用到的索引长度，而排序和分组苦短用到了索引，也不会计算到<em>key_len</em>中。</li>
+<li>不是准确值</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where id=1;<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br>| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br>|  1 | SIMPLE      | user  | NULL       | const | PRIMARY       | PRIMARY | 4       | const |    1 |   100.00 | NULL  |<br>+----+-------------+-------+------------+-------+---------------+---------+---------+-------+------+----------+-------+<br>1 row in set (0.01 sec)<br><br>int为4<br></code></pre></td></tr></table></figure>
+<h6 id="ref">ref</h6>
+<ul>
+<li>如果使用的是常数等值，这里回现实const</li>
+<li>如果是链接查询，被驱动表的执行计划这里会显示驱动表的关联字段</li>
+<li>如果是条件使用表达式或者函数，或者条件列发生内部隐式转换，这里可能会显示func</li>
+</ul>
+<h6 id="rows">rows</h6>
+<p>这里是执行计划中估算的扫描行数，不是精确值（InnoDB不是精确值，MyISAM是精确值，主要原因是InnoDB里面使用了MVCC并发机制）</p>
+<h6 id="extra重要">Extra（重要）</h6>
+<p>这一列包含不适合其他列显示但非常重要的额外信息。</p>
+<p><strong>using temporary</strong></p>
+<ul>
+<li>表示使用了临时表</li>
+<li>MySQL在对比查询结果<em>order by</em> 和<em>group by</em></li>
+<li>临时表可以是内存临时表和磁盘临时表，执行计划中看不出来，需要查看status变量（used_tmp_table, used_tmp_disk_table）才能看出来</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select distinct a.id from user a,dep b where a.dep=b.id;<br>+----+-------------+-------+------------+-------+-------------------+---------+---------+------+------+----------+----------------------------------------------------+<br>| id | select_type | table | partitions | type  | possible_keys     | key     | key_len | ref  | rows | filtered | Extra                                              |<br>+----+-------------+-------+------------+-------+-------------------+---------+---------+------+------+----------+----------------------------------------------------+<br>|  1 | SIMPLE      | b     | NULL       | index | PRIMARY           | PRIMARY | 4       | NULL |    2 |   100.00 | Using index; Using temporary                       |<br>|  1 | SIMPLE      | a     | NULL       | ALL   | PRIMARY,index_com | NULL    | NULL    | NULL |    9 |    11.11 | Using where; Using join buffer (Block Nested Loop) |<br>+----+-------------+-------+------------+-------+-------------------+---------+---------+------+------+----------+----------------------------------------------------+<br>2 rows in set (0.03 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>no tables used</strong></p>
+<p>不带from子句的查询或者From dual查询（oracle操作）</p>
+<p><em>使用not in()形式子查询或者not exists运算符的连接查询（反连接）</em></p>
+<p>即，一般链接查询是先查询哪表，再查询外表；反连接是先查询外表，再查询内表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select now();<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra          |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>|  1 | SIMPLE      | NULL  | NULL       | NULL | NULL          | NULL | NULL    | NULL | NULL |     NULL | No tables used |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>using filesort(重要)</strong></p>
+<ul>
+<li>排序时无法使用到索引会出现这个，常见于order by 和group by语句中</li>
+<li>说明MySQL会使用一个外部的索引排序，而不是按照索引顺序进行读取</li>
+<li>MySQL中无法利用索引完成的排序操作称为“文件排序”</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user order by dep;<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra          |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>|  1 | SIMPLE      | user  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    9 |   100.00 | Using filesort |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>using index(重要)</strong></p>
+<p>查询时<em>不需要回表查询</em>,直接通过索引就可以获取查询的数据</p>
+<ul>
+<li>表示想醒的select查询中使用到了覆盖索引，避免访问表的数据行，效率不错</li>
+<li>如果同时使用Using where，说明索引被用来查找索引键值</li>
+<li>如果没有同时出现Using where，表明索引用来读取数据而非执行查找动作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select name, age from user where name=&#x27;xxx&#x27;;<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------------+<br>| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra       |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------------+<br>|  1 | SIMPLE      | user  | NULL       | ref  | index_com     | index_com | 99      | const |    2 |   100.00 | Using index |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-------------+<br>1 row in set, (0.01 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>using where(重要)</strong></p>
+<p>表示存储引擎返回的记录并不是所有都满足查询条件，需要server层进行过滤。效率比较低</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where age=23;<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+<br>| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+<br>|  1 | SIMPLE      | user  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    9 |    11.11 | Using where |<br>+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+<br>1 row in set (0.00 sec)<br><br>mysql&gt; explain select name, age from user where name=&#x27;xxx&#x27; order by id;<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+------------------------------------------+<br>| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra                                    |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+------------------------------------------+<br>|  1 | SIMPLE      | user  | NULL       | ref  | index_com     | index_com | 99      | const |    2 |   100.00 | Using where; Using index; Using filesort |<br>+----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+------------------------------------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p>查询条件中氛围限制条件和检查条件。5.6之前，存储引擎只能使用限定条件扫描数据并返回，然后server层根据检查条件进行过滤返回真正符合查询的数据。5.6.x之后支持<em>ICP</em>特性，可以把检查条件页下推倒存储引擎层，不符合检查条件和限制条件的数据，直接不读取，这样就大大减少了存储引擎层扫描的记录数量。Extra列显示using index condition。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from user where name=&#x27;xxx&#x27; and age&gt;3;<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>| id | select_type | table | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                 |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>|  1 | SIMPLE      | user  | NULL       | range | index_com     | index_com | 104     | NULL |    1 |   100.00 | Using index condition |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>1 row in set (0.00 sec)<br><br>mysql&gt; explain select * from user where name like &#x27;xx%&#x27;;<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>| id | select_type | table | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                 |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>|  1 | SIMPLE      | user  | NULL       | range | index_com     | index_com | 99      | NULL |    3 |   100.00 | Using index condition |<br>+----+-------------+-------+------------+-------+---------------+-----------+---------+------+------+----------+-----------------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>firstmatch(tb_name)</strong></p>
+<p>5.6.x开始引入的优化子查询的新特性之一，常见于where子句含有in()类型的子查询。如果内表的数据量比较大，就可能出现这个。</p>
+<p><strong>loosescan(m..n)</strong></p>
+<p>5.6.x之后引入的优化子查询的新特性之一，在in()类型的子查询中，子查询返回的可能有重复记录时，就可能出现这个.</p>
+<p>除此之外，还有很多查询数据字典库，执行计划过程中发现不可能存在结果的一些提示信息</p>
+<h6 id="filtered">filtered</h6>
+<p>使用explain extended时会出现这个。5.7之后的版本默认会有这个字段（不需要使用explain extended）。这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录比例（100%不是具体记录数）。</p>
+<h4 id="相关面试题">相关面试题</h4>
+<h5 id="什么是索引-1">什么是索引？</h5>
+<p>索引是一种能帮助 MySQL 提高查询效率的数据结构。</p>
+<h5 id="索引分别有哪些优点和缺点">索引分别有哪些优点和缺点？</h5>
+<p>索引的优点如下：</p>
+<ul>
+<li><p>快速访问数据表中的特定信息，提高检索速度。</p></li>
+<li><p>创建唯一性索引，保证数据表中每一行数据的唯一性。</p></li>
+<li><p>加速表与表之间的连接。</p></li>
+<li><p>使用分组和排序进行数据检索时，可以显著减少查询中分组和排序的时间。</p></li>
+</ul>
+<p>索引的缺点：</p>
+<ul>
+<li><p>虽然提高了的查询速度，但却降低了更新表的速度，比如 update、insert，因为更新数据时，MySQL 不仅要更新数据，还要更新索引文件；</p></li>
+<li><p>建立索引会占用磁盘文件的索引文件。</p></li>
+</ul>
+<p>使用索引注意事项：</p>
+<ul>
+<li><p>使用短索引，短索引不仅可以提高查询速度，更能节省磁盘空间和 I/O 操作；</p></li>
+<li><p>索引列排序，MySQL 查询只使用一个索引，因此如果 where 子句中已经使用了索引的话，那么 order by 中的列是不会使用索引的，因此数据库默认排序可以符合要求的情况下，不要进行排序操作；尽量不要包含多个列的排序，如果需要最好给这些列创建复合索引；</p></li>
+<li><p>like 语句操作，一般情况下不鼓励使用 like 操作，如果非使用不可， 注意 like "%aaa%" 不会使用索引，而like "aaa%"可以使用索引；</p></li>
+<li><p>不要在列上进行运算；</p></li>
+<li><p>不适用 NOT IN 和 &lt;&gt; 操作。</p></li>
+</ul>
+<h5 id="索引有几种类型分别如何创建">索引有几种类型？分别如何创建？</h5>
+<p>MySQL 的索引有两种分类方式：逻辑分类和物理分类。 按照逻辑分类，索引可分为：</p>
+<ul>
+<li><p>主键索引：一张表只能有一个主键索引，不允许重复、不允许为 NULL；</p></li>
+<li><p>唯一索引：数据列不允许重复，允许为 NULL 值，一张表可有多个唯一索引，但是一个唯一索引只能包含一列，比如身份证号码、卡号等都可以作为唯一索引；</p></li>
+<li><p>普通索引：一张表可以创建多个普通索引，一个普通索引可以包含多个字段，允许数据重复，允许 NULL 值插入；</p></li>
+<li><p>全文索引：让搜索关键词更高效的一种索引。</p></li>
+</ul>
+<p>按照物理分类，索引可分为：</p>
+<ul>
+<li><p>聚集索引：一般是表中的主键索引，如果表中没有显示指定主键，则会选择表中的第一个不允许为 NULL 的唯一索引，如果还是没有的话，就采用 Innodb 存储引擎为每行数据内置的 6 字节 ROWID 作为聚集索引。每张表只有一个聚集索引，因为聚集索引的键值的逻辑顺序决定了表中相应行的物理顺序。聚集索引在精确查找和范围查找方面有良好的性能表现（相比于普通索引和全表扫描），聚集索引就显得弥足珍贵，聚集索引选择还是要慎重的（一般不会让没有语义的自增 id 充当聚集索引）；</p></li>
+<li><p>非聚集索引：该索引中索引的逻辑顺序与磁盘上行的物理存储顺序不同（非主键的那一列），一个表中可以拥有多个非聚集索引。</p></li>
+</ul>
+<p>各种索引的创建脚本如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 创建主键索引 <br>alter table t add primary key add (`id`); <br>-- 创建唯一索引 <br>alter table t add unique (`username`); <br>-- 创建普通索引 <br>alter table t add index index_name (`username`); <br>-- 创建全文索引 <br>alter table t add fulltext (`username`);<br></code></pre></td></tr></table></figure>
+<h5 id="能否给手机号的前-6-位创建索引如何创建">能否给手机号的前 6 位创建索引？如何创建？</h5>
+<p>可以，创建方式有两种：</p>
+<ul>
+<li><p><code>alter table t add index index_phone(phone(6));</code></p></li>
+<li><p><code>create index index_phone on t(phone(6));</code></p></li>
+</ul>
+<h5 id="如何查询一张表的所有索引">如何查询一张表的所有索引？</h5>
+<p><code>SHOW INDEX FROM T</code> 查询表 T 所有索引。</p>
+<h5 id="主索引和唯一索引有什么区别">主索引和唯一索引有什么区别？</h5>
+<ul>
+<li><p>主索引不能重复且不能为空，唯一索引不能重复，但可以为空；</p></li>
+<li><p>一张表只能有一个主索引，但可以有多个唯一索引；</p></li>
+<li><p>主索引的查询性能要高于唯一索引。</p></li>
+</ul>
+<h5 id="主索引和非主索引有什么区别">主索引和非主索引有什么区别？</h5>
+<p>存储结构上</p>
+<p>​ 主键索引：叶子节点存储整行数据</p>
+<p>​ 非主键索引：叶子节点存储主键值</p>
+<p>检索上</p>
+<p>​ 主键索引：直接通过索引获取数据</p>
+<p>​ 非主键索引：可能会有回表查询</p>
+<p>创建方式上</p>
+<p>​ 主键索引：表中主键自动创建；若无主键，唯一索引+NotNull主键；若没有，自动创建隐式列rowid做主键</p>
+<p>​ 非主键索引：主动创建</p>
+<h5 id="辅助索引为什么只存主键">辅助索引为什么只存主键？</h5>
+<p>空间上：成本高</p>
+<p>时间上：查询成本少了，插入成本不变，更新成本高</p>
+<h5 id="在-inndb-中主键索引为什么比普通索引的查询性能高">在 InnDB 中主键索引为什么比普通索引的查询性能高？</h5>
+<p>因为普通索引的查询会多执行一次检索操作。</p>
+<p>比如主键查询 select * from t where id=10 只需要搜索 id 的这棵 B+ 树。</p>
+<p>普通索引查询 select * from t where f=3 会先查询 f 索引树，得到 id 的值之后再去搜索 id 的 B+ 树，因为多执行了一次检索，所以执行效率就比主键索引要低。</p>
+<h5 id="唯一索引和普通索引哪个性能更好">唯一索引和普通索引哪个性能更好？</h5>
+<ul>
+<li><p>对于查询操作来说：普通索引和唯一索引的性能相近，都是从索引树中进行查询；</p></li>
+<li><p>对于更新操作来说：唯一索引要比普通索引执行的慢，因为唯一索引需要先将数据读取到内存中，再在内存中进行数据的唯一效验，所以执行起来要比普通索引更慢。</p></li>
+</ul>
+<h5 id="什么叫回表查询">什么叫回表查询？</h5>
+<p>普通索引查询到主键索引后，回到主键索引树搜索的过程，我们称为回表查询。</p>
+<p>参考SQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; create table T( id int primary key, k int not null, name varchar(16), index (k))engine=InnoDB;<br></code></pre></td></tr></table></figure>
+<p>如果语句是 select * from T where ID=500，即主键查询方式，则只需要检索主键 ID 字段。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from T where ID=500; <br>+-----+---+-------+ <br>| id | k | name | <br>+-----+---+-------+ <br>| 500 | 5 | name5 | <br>+-----+---+-------+<br></code></pre></td></tr></table></figure>
+<p>如果语句是 select * from T where k=5，即普通索引查询方式，则需要先搜索 k 索引树，得到 ID 的值为 500，再到 ID 索引树搜索一次，这个过程称为回表查询。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from T where k=5; <br>+-----+---+-------+ <br>| id | k | name | <br>+-----+---+-------+ <br>| 500 | 5 | name5 | <br>+-----+---+-------+<br></code></pre></td></tr></table></figure>
+<p>也就是说，基于非主键索引的查询需要多扫描一棵索引树。因此，我们在应用中应该尽量使用主键查询。</p>
+<h5 id="以下-sql-有什么问题该如何优化">以下 SQL 有什么问题？该如何优化？</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from t where f/2=100;<br></code></pre></td></tr></table></figure>
+<p>该 SQL 会导致引擎放弃索引而全表扫描，尽量避免在索引列上计算。可改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from t where f=100*2;<br></code></pre></td></tr></table></figure>
+<h5 id="为什么-mysql-官方建议使用自增主键作为表的主键">为什么 MySQL 官方建议使用自增主键作为表的主键？</h5>
+<p>因为自增主键是连续的，在插入过程中尽量减少页分裂，即使要进行页分裂，也只会分裂很少一部分；并且自增主键也能减少数据的移动，每次插入都是插入到最后，所以自增主键作为表的主键，对于表的操作来说性能是最高的。</p>
+<p>InnoDB存储引擎逻辑存储结构可分为五级：表空间、段（索引段+数据段）、区（1M=64个页）、页(默认16K)、行。</p>
+<p><img src="/images/db/mysql/tablespace.png" srcset="/img/loading.gif" lazyload></p>
+<p>假设一页有4条数据</p>
+<p>非自增情况</p>
+<p><img src="/images/db/mysql/page1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/mysql/page2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/mysql/page3.png" srcset="/img/loading.gif" lazyload></p>
+<p>自增情况</p>
+<p><img src="/images/db/mysql/page4.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="自增主键有哪些优缺点">自增主键有哪些优缺点?</h5>
+<p>优点：</p>
+<ul>
+<li><p>数据存储空间很小；</p></li>
+<li><p>性能最好；</p></li>
+<li><p>减少页分裂。</p></li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>数据量过大，可能会超出自增长取值范围；</p></li>
+<li><p>无法满足分布式存储，分库分表的情况下无法合并表；</p></li>
+<li><p>主键有自增规律，容易被破解；</p></li>
+</ul>
+<p>综上所述：是否需要使用自增主键，需要根据自己的业务场景来设计。如果是单表单库，则优先考虑自增主键，如果是分布式存储，分库分表，则需要考虑数据合并的业务场景来做数据库设计方案。</p>
+<h5 id="mysql-最多可以创建多少个索引列">MySQL 最多可以创建多少个索引列？</h5>
+<p>MySQL 中最多可以创建 16 个索引列。</p>
+<h5 id="以下-like-查询会使用索引的是哪一个选项为什么">以下 like 查询会使用索引的是哪一个选项？为什么？</h5>
+<p>A.like '%A%' B.like '%A' C.like 'A%' D.以上都不是</p>
+<p>答：C 题目解析：like 查询要走索引，查询字符不能以通配符（%）开始。</p>
+<h5 id="如何让-like-abc-走索引查询">如何让 like %abc 走索引查询？</h5>
+<p>我们知道如果要让 like 查询要走索引，查询字符不能以通配符（%）开始，如果要让 like %abc 也走索引，可以使用 REVERSE() 函数来创建一个函数索引，查询脚本如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from t where reverse(f) like reverse(&#x27;%abc&#x27;);<br></code></pre></td></tr></table></figure>
+<h5 id="列值为-null-时查询会使用到索引吗">列值为 NULL 时，查询会使用到索引吗？</h5>
+<p>在 MySQL 5.6 以上的 InnoDB 存储引擎会正常触发索引。但为了兼容低版本的 MySQL 和兼容其他数据库存储引擎，不建议使用 NULL 值来存储和查询数据，建议设置列为 NOT NULL，并设置一个默认值，比如 0 和空字符串等，如果是 datetime 类型，可以设置成 1970-01-01 00:00:00 这样的特殊值。</p>
+<h5 id="以下语句会走索引么">以下语句会走索引么？</h5>
+<p><code>select * from t where year(date)&gt;2018;</code></p>
+<p>不会，因为在索引列上涉及到了运算。</p>
+<h5 id="mysql-联合索引应该注意什么">MySQL 联合索引应该注意什么？</h5>
+<p>联合索引又叫复合索引，MySQL 中的联合索引，遵循最左匹配原则，比如，联合索引为 key(a,b,c)，则能触发索引的搜索组合是 a|ab|abc 这三种查询。</p>
+<h5 id="联合索引的作用是什么">联合索引的作用是什么？</h5>
+<p>联合索引的作用如下：</p>
+<ul>
+<li><p>用于多字段查询，比如，建了一个 key(a,b,c) 的联合索引，那么实际等于建了 key(a)、key(a,b)、key(a,b,c) 等三个索引，我们知道，每多一个索引，就会多一些写操作和占用磁盘空间的开销，尤其是对大数据量的表来说，这可以减少一部分不必要的开销；</p></li>
+<li><p>覆盖索引，比如，对于联合索引 key(a,b,c) 来说，如果使用 SQL：select a,b,c from table where a=1 and b = 1 ，就可以直接通过遍历索引取得数据，而无需回表查询，这就减少了随机的 IO 操作，减少随机的 IO 操作，可以有效的提升数据库查询的性能，是非常重要的数据库优化手段之一；</p></li>
+<li><p>索引列越多，通过索引筛选出的数据越少。</p></li>
+</ul>
+<h5 id="什么是最左匹配原则它的生效原则有哪些">什么是最左匹配原则？它的生效原则有哪些？</h5>
+<p>最左匹配原则也叫最左前缀原则，是 MySQL 中的一个重要原则，说的是索引以最左边的为起点任何连续的索引都能匹配上，当遇到范围查询（&gt;、&lt;、between、like）就会停止匹配。 生效原则来看以下示例，比如表中有一个联合索引字段 index(a,b,c)：</p>
+<ul>
+<li>where a=1 只使用了索引 a；</li>
+<li>where a=1 and b=2 只使用了索引 a,b；</li>
+<li>where a=1 and b=2 and c=3 使用a,b,c；</li>
+<li>where b=1 or where c=1 不使用索引；</li>
+<li>where a=1 and c=3 只使用了索引 a；</li>
+<li>where a=3 and b like 'xx%' and c=3 只使用了索引 a,b。</li>
+</ul>
+<h5 id="什么是前缀索引">什么是前缀索引？</h5>
+<p>前缀索引也叫局部索引，比如给身份证的前 10 位添加索引，类似这种给某列部分信息添加索引的方式叫做前缀索引。</p>
+<h5 id="为什么要用前缀索引">为什么要用前缀索引？</h5>
+<p>前缀索引能有效减小索引文件的大小，让每个索引页可以保存更多的索引值，从而提高了索引查询的速度。但前缀索引也有它的缺点，不能在 order by 或者 group by 中触发前缀索引，也不能把它们用于覆盖索引。</p>
+<h5 id="什么情况下适合使用前缀索引">什么情况下适合使用前缀索引？</h5>
+<p>当字符串本身可能比较长，而且前几个字符就开始不相同，适合使用前缀索引；相反情况下不适合使用前缀索引，比如，整个字段的长度为 20，索引选择性为 0.9，而我们对前 10 个字符建立前缀索引其选择性也只有 0.5，那么我们需要继续加大前缀字符的长度，但是这个时候前缀索引的优势已经不明显，就没有创建前缀索引的必要了。</p>
+<h5 id="什么是覆盖索引">什么是覆盖索引？</h5>
+<p>覆盖索引是指，索引上的信息足够满足查询请求，不需要再回到主键上去取数据。</p>
+<h5 id="什么是页">什么是页？</h5>
+<p>页是计算机管理存储器的逻辑块，硬件及操作系统往往将主存和磁盘存储区分割为连续的大小相等的块，每个存储块称为一页。主存和磁盘以页为单位交换数据。数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次磁盘 IO 就可以完全载入。</p>
+<h5 id="索引的常见存储算法有哪些">索引的常见存储算法有哪些？</h5>
+<ul>
+<li><p>哈希存储法：以 key、value 方式存储，把值存入数组中使用哈希值确认数据的位置，如果发生哈希冲突，使用链表存储数据；</p></li>
+<li><p>有序数组存储法：按顺序存储，优点是可以使用二分法快速找到数据，缺点是更新效率，适合静态数据存储；</p></li>
+<li><p>搜索树：以树的方式进行存储，查询性能好，更新速度快。</p></li>
+</ul>
+<h5 id="innodb-为什么要使用-b-树而不是-b-树hash红黑树或二叉树">InnoDB 为什么要使用 B+ 树，而不是 B 树、Hash、红黑树或二叉树？</h5>
+<p>因为 B 树、Hash、红黑树或二叉树存在以下问题：</p>
+<ul>
+<li><p>B 树：不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低；</p></li>
+<li><p>Hash：虽然可以快速定位，但是没有顺序，IO 复杂度高；</p></li>
+<li><p>二叉树：树的高度不均匀，不能自平衡，查找效率跟数据有关（树的高度），并且 IO 代价高；</p></li>
+<li><p>红黑树：树的高度随着数据量增加而增加，IO 代价高。</p></li>
+</ul>
+<h5 id="为什么-innodb-要使用-b-树来存储索引">为什么 InnoDB 要使用 B+ 树来存储索引？</h5>
+<p>B+Tree 中的 B 是 Balance，是平衡的意思，它在经典 B Tree 的基础上进行了优化，增加了顺序访问指针，在B+Tree 的每个叶子节点增加一个指向相邻叶子节点的指针，就形成了带有顺序访问指针的 B+Tree，这样就提高了区间访问性能：如果要查询 key 为从 18 到 49 的所有数据记录，当找到 18 后，只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率（无需返回上层父节点重复遍历查找减少 IO 操作）。</p>
+<p>索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上，这样的话，索引查找过程中就要产生磁盘 IO 消耗，相对于内存存取，IO 存取的消耗要高几个数量级，所以索引的结构组织要尽量减少查找过程中磁盘 IO 的存取次数，从而提升索引效率。 综合所述，InnDB 只有采取 B+ 树的数据结构存储索引，才能提供数据库整体的操作性能。</p>
+<h5 id="优化器选择查询索引的影响因素有哪些">优化器选择查询索引的影响因素有哪些？</h5>
+<p>优化器的目的是使用最小的代价选择最优的执行方案，影响优化器选择索引的因素如下：</p>
+<ul>
+<li><p>扫描行数，扫描的行数越少，执行代价就越少，执行效率就会越高；</p></li>
+<li><p>是否使用了临时表；</p></li>
+<li><p>是否排序。</p></li>
+</ul>
+<h5 id="mysql-是如何判断索引扫描行数的多少">MySQL 是如何判断索引扫描行数的多少？</h5>
+<p>MySQL 的扫描行数是通过索引统计列（cardinality）大致得到并且判断的，而索引统计列（cardinality）可以通过查询命令 show index 得到，索引扫描行数的多少就是通过这个值进行判断的。</p>
+<h5 id="mysql-是如何得到索引基数的它准确吗">MySQL 是如何得到索引基数的？它准确吗？</h5>
+<p>MySQL 的索引基数并不准确，因为 MySQL 的索引基数是通过采样统计得到的，比如 InnoDb 默认会有 N 个数据页，采样统计会统计这些页面上的不同值得到一个平均值，然后除以这个索引的页面数就得到了这个索引基数。</p>
+<h5 id="mysql-如何指定查询的索引">MySQL 如何指定查询的索引？</h5>
+<p>在 MySQL 中可以使用 force index 强行选择一个索引，具体查询语句如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from t force index(index_t);<br></code></pre></td></tr></table></figure>
+<h5 id="在-mysql-中指定了查询索引为什么没有生效">在 MySQL 中指定了查询索引，为什么没有生效？</h5>
+<p>我们知道在 MySQL 中使用 force index 可以指定查询的索引，但并不是一定会生效，原因是 MySQL 会根据优化器自己选择索引，如果 force index 指定的索引出现在候选索引上，这个时候 MySQL 不会在判断扫描的行数的多少直接使用指定的索引，如果没在候选索引中，即使 force index 指定了索引也是不会生效的。</p>
+<h5 id="以下-or-查询有什么问题吗该如何优化">以下 or 查询有什么问题吗？该如何优化？</h5>
+<p><code>select * from t where num=10 or num=20;</code></p>
+<p>答：如果使用 or 查询会使 MySQL 放弃索引而全表扫描，可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from t where num=10 union select * from t where num=20;<br></code></pre></td></tr></table></figure>
+<h5 id="以下查询要如何优化">以下查询要如何优化？</h5>
+<p>表中包含索引：</p>
+<ul>
+<li><p>KEY mid (mid)</p></li>
+<li><p>KEY begintime (begintime)</p></li>
+<li><p>KEY dg (day,group)</p></li>
+</ul>
+<p>使用以下 SQL 进行查询：</p>
+<p><code>select f from t where day='2010-12-31' and group=18 and begintime&lt;'2019-12-31 12:14:28' order by begintime limit 1;</code></p>
+<p>答：此查询理论上是使用 dg 索引效率更高，通过 explain 可以对比查询扫描次数。由于使用了 order by begintime 则使查询放弃了 dg 索引，而使用 begintime 索引，从侧面印证 order by 关键字会影响查询使用索引，这时可以使查询强制使用索引，改为以下SQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select f from t use index(dg) where day=&#x27;2010-12-31&#x27; and group=18 and begintime&lt; &#x27;2019-12-31 12:14:28&#x27; order by begintime limit 1;<br></code></pre></td></tr></table></figure>
+<h5 id="mysql-会错选索引吗">MySQL 会错选索引吗？</h5>
+<p>MySQL 会错选索引，比如 k 索引的速度更快，但是 MySQL 并没有使用而是采用了 v 索引，这种就叫错选索引，因为索引选择是 MySQL 的服务层的优化器来自动选择的，但它在复杂情况下也和人写程序一样出现缺陷。</p>
+<h5 id="如何解决-mysql-错选索引的问题">如何解决 MySQL 错选索引的问题？</h5>
+<ul>
+<li><p>删除错选的索引，只留下对的索引；</p></li>
+<li><p>使用 force index 指定索引；</p></li>
+<li><p>修改 SQL 查询语句引导 MySQL 使用我们期望的索引，比如把 order by b limit 1 改为 order by b,a limit 1 语义是相同的，但 MySQL 查询的时候会考虑使用 a 键上的索引。</p></li>
+</ul>
+<h5 id="如何优化身份证的索引">如何优化身份证的索引？</h5>
+<p>在中国因为前 6 位代表的是地区，所以很多人的前六位都是相同的，如果我们使用前缀索引为 6 位的话，性能提升也并不是很明显，但如果设置的位数过长，那么占用的磁盘空间也越大，数据页能放下的索引值就越少，搜索效率也越低。针对这种情况优化方案有以下两种：</p>
+<ul>
+<li><p>使用身份证倒序存储，这样设置前六位的意义就很大了；</p></li>
+<li><p>使用 hash 值，新创建一个字段用于存储身份证的 hash 值。</p></li>
+</ul>
+<h3 id="锁原理及案例"><strong>锁原理及案例</strong></h3>
+<h4 id="锁基础">锁基础</h4>
+<p>按照所里的粒度分类，MySQL主要包含三种类型（级别）的锁定机制：</p>
+<ul>
+<li>全局锁：锁的是整个datebase，由MySQL的SQL layer层实现</li>
+<li>表级锁：锁的是某个table，由MySQL的SQL layer层实现</li>
+<li>行级锁：锁的是某行数据，也可能是行之间的间隙，由某些存储引擎实现，比如InnoDB</li>
+</ul>
+<p>按照锁的功能可以分为：共享读锁和排它写锁</p>
+<p>按照锁的实现方式分为：悲观锁和乐观锁</p>
+<p>表级锁与行级锁区别</p>
+<ul>
+<li>表级锁：开销小，加锁块；不会出现死锁；锁粒度大，发生冲突的概率高，并发度低</li>
+<li>行级锁：开销大，加锁慢；会出现死锁；锁粒度小，发生锁冲突的概率低，并发度高</li>
+</ul>
+<p><img src="/images/db/mysql/lock.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="表级锁">表级锁</h4>
+<p>表级锁有两种：</p>
+<ul>
+<li>表锁</li>
+<li>与数据锁（meta data lock, MDL）</li>
+</ul>
+<p>查看锁状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt;  <br>+----------------------------+-------+<br>| Variable_name              | Value |<br>+----------------------------+-------+<br>| Table_locks_immediate      | 172   |<br>| Table_locks_waited         | 0     |<br>| Table_open_cache_hits      | 61    |<br>| Table_open_cache_misses    | 10    |<br>| Table_open_cache_overflows | 0     |<br>+----------------------------+-------+<br>5 rows in set (0.05 sec)<br></code></pre></td></tr></table></figure>
+<p>表现形式：</p>
+<ul>
+<li>表共享读锁（Table Read Lock）</li>
+<li>表独占写锁（Table Write Lock）</li>
+</ul>
+<p>手动加锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">lock table 表名称 read(write), 表名称2 read(write), 其他；<br></code></pre></td></tr></table></figure>
+<p>查看表锁情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show open tables;<br></code></pre></td></tr></table></figure>
+<p>删除表锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">unlock tables;<br></code></pre></td></tr></table></figure>
+<h5 id="操作演示">操作演示</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 新建表<br> <br>CREATE TABLE mylock (<br>	id INT(11) NOT NULL AUTO_INCREMENT,<br>	name VARCHAR(20) DEFAULT NULL,<br>	PRIMARY KEY (id)<br>);<br>INSERT INTO mylock VALUES(1, &#x27;a&#x27;);<br>INSERT INTO mylock VALUES(2, &#x27;b&#x27;);<br>INSERT INTO mylock VALUES(3, &#x27;c&#x27;);<br>INSERT INTO mylock VALUES(4, &#x27;d&#x27;);<br>INSERT INTO mylock VALUES(5, &#x27;e&#x27;);<br></code></pre></td></tr></table></figure>
+<p><img src="/images/db/mysql/tlock.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; lock table mylock read;<br>Query OK, 0 rows affected (0.00 sec)<br><br>mysql&gt; select * from mylock;<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br><br>mysql&gt; select * from dept;<br>ERROR 1100 (HY000): Table &#x27;dept&#x27; was not locked with LOCK TABLES<br>-- session2<br>mysql&gt; select * from mylock;<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br>mysql&gt; update mylock set name=&#x27;bb&#x27; where id=2;  -- 修改阻塞，自动加上行写锁<br>-- session1<br>mysql&gt; unlock tables;<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>Query OK, 1 row affected (1 min 35.08 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0        -- session1解锁后立刻执行<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;    <br>Query OK, 1 row affected (0.01 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>-- session1<br>mysql&gt; select * from dept;                      -- session1可以访问其他表<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><img src="/images/db/mysql/twlock.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; lock table mylock read;<br>Query OK, 0 rows affected (0.00 sec)<br><br>mysql&gt; select * from mylock;<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br><br>mysql&gt; select * from dept;<br>ERROR 1100 (HY000): Table &#x27;dept&#x27; was not locked with LOCK TABLES<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;   -- session可以修改<br>Query OK, 1 row affected (0.01 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>-- session2<br>mysql&gt; select * from mylock;                    -- 查询阻塞<br>-- session1<br>mysql&gt; unlock tables;<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h4 id="元数据锁mdl">元数据锁(MDL)</h4>
+<p><strong>MDL不需要显示使用，在访问一个表的时候会自动加上</strong>。**MDL的锁作用是保证写的正确性，可以想像一下：如果一个查询正在遍历表中的数据，而执行期间另一个线程对这个表结构做变更删除一行，那么查询县城拿到的结果便可能跟当前的表结构对应不上。</p>
+<p>因此，在MySQ L5.5版本中引入MDL，<strong>当对一个表中做增删改查操作时，加MDL读锁；当要对表结构变更操作时，加MDL写锁</strong>。</p>
+<ul>
+<li>读锁之间不互斥，因此可以有多个线程对一行表增删改查</li>
+<li>读写锁之间、写锁之间是互斥的，用来保证变更表结构操作的安全性。因此，如果有两个线程同时要给一个表加字段，其中一个要等另一个执行完才能执行。</li>
+</ul>
+<p><img src="/images/db/mysql/tmlock.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; begin;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt; select * from mylock;<br>+----+------+<br>| id | name |<br>+----+------+<br>|  1 | a    |<br>|  2 | b    |<br>|  3 | c    |<br>|  4 | d    |<br>|  5 | e    |<br>+----+------+<br>5 rows in set (0.00 sec)<br>-- session2<br>mysql&gt; alter table mylock add dep int;        -- 阻塞<br>-- session1<br>mysql&gt; commit;                                -- 释放锁<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>Query OK, 0 rows affected (12.80 sec)         -- 完成修改<br>Records: 0  Duplicates: 0  Warnings: 0<br><br>mysql&gt; desc mylock;<br>+-------+-------------+------+-----+---------+----------------+<br>| Field | Type        | Null | Key | Default | Extra          |<br>+-------+-------------+------+-----+---------+----------------+<br>| id    | int(11)     | NO   | PRI | NULL    | auto_increment |<br>| name  | varchar(20) | YES  |     | NULL    |                |<br>| dep   | int(11)     | YES  |     | NULL    |                |<br>+-------+-------------+------+-----+---------+----------------+<br>3 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h4 id="mysql行级锁">MySQL行级锁</h4>
+<h5 id="基础概念">基础概念</h5>
+<p>由存储引擎实现，利用存储引擎锁住索引项来实现。</p>
+<p>InnoDB的行级锁，按照锁定范围来说，分为三种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">- 记录锁（Record locks）:锁定索引中一条记录<br>- 间隙锁（Gap Locks）:要么锁索引中间的值，要么锁住第一个索引记录前面的值或者最后一个索引后面的值。<br>- Next-key Locks:是索引记录上的记录锁在索引记录之前的间隙锁的组合<br></code></pre></td></tr></table></figure>
+<p>InnoDB的行级锁，按照功能分为两种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">- 共享锁（S）:允许一个事务去读一行，阻止其他事务获得相同数据集的排它锁<br>- 排它锁（S）:允许获得排它锁的事务更新数据，阻止其他事务获得相同数据集的共享读锁(不是读)和排它锁<br></code></pre></td></tr></table></figure>
+<p>对于UPDATE、DELETE、INSERT语句，InnoDB会自动给设计数据集加排它锁（X）;</p>
+<p>对于普通SELECT语句，InnoDB不回家任何锁，事务可以通过以下语句显示给记录集加共享锁和排它锁。</p>
+<p><strong>手动添加共享锁(S)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from table_name where ... lock in share mode;<br></code></pre></td></tr></table></figure>
+<p><strong>手动添加排它锁(X)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from table_name where ... for update;<br></code></pre></td></tr></table></figure>
+<p>InnoDB也实现了表级锁，也就是意向锁。意向锁是mysql内部使用的，不需要用户干预。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">- 意向共享锁（IS）:事务打算给数据行加行共享锁，事务给一个数据行加行共享锁必须先去的该表的IS锁。<br>- 意向排它锁（IX）:事务打算给数据行加行排它锁，事务给一个数据行加行排它锁必须先去的该表的IX锁。<br></code></pre></td></tr></table></figure>
+<p>意向锁和行锁可以共存，意向锁的主要作用是为了【全表更新数据】是的性能提升。否则在全表更新数据时，需要先检索该表是否有某系记录上面有行锁。</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>共享锁(S)</th>
+<th>排它锁(X)</th>
+<th>意向共享锁（IS）</th>
+<th>意向排它锁（IX）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>共享锁(S)</td>
+<td>兼容</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>冲突</td>
+</tr>
+<tr class="even">
+<td>排它锁(X)</td>
+<td>冲突</td>
+<td>冲突</td>
+<td>冲突</td>
+<td>冲突</td>
+</tr>
+<tr class="odd">
+<td>意向共享锁（IS）</td>
+<td>兼容</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+<tr class="even">
+<td>意向排它锁（IX）</td>
+<td>冲突</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+</tbody>
+</table>
+<p><strong>InnoDB行锁</strong>是通过给索引上的<strong>索引项加锁来实现</strong>的，因此InnoDB这种行锁的实现特点意味着：只有通过<strong>索引条件检索的数据</strong>，InnoDB才使用<strong>行级锁</strong>；否则，InnoDB将使用<strong>表级锁</strong></p>
+<p>InnoDB锁使用<strong>行级锁</strong>争用状态查看命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; show status like &#x27;innodb_row_lock%&#x27;;<br>+-------------------------------+-------+<br>| Variable_name                 | Value |<br>+-------------------------------+-------+<br>| Innodb_row_lock_current_waits | 0     |  -- 当前正在等待锁定的数量<br>| Innodb_row_lock_time          | 0     |  -- +从系统启动到现在锁定总时间长度<br>| Innodb_row_lock_time_avg      | 0     |  -- +每次等待锁话平均时间<br>| Innodb_row_lock_time_max      | 0     |  -- 从系统启动到现在等待最长那次时间<br>| Innodb_row_lock_waits         | 0     |  -- +从系统启动到现在总共等待的次数<br>+-------------------------------+-------+<br>5 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h5 id="两阶段锁">两阶段锁</h5>
+<p>传统的RDMS加锁原则就是2PL（Two-Phase Locking,两阶段锁）。相对而言，2PL比较容易理解：加锁阶段与解锁阶段，并且保证加锁阶段与解锁阶段不相交。</p>
+<p><img src="/images/db/mysql/2pll.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">加锁阶段：只加锁，不放锁<br>解锁阶段：只放锁，不加锁<br></code></pre></td></tr></table></figure>
+<h5 id="行读锁">行读锁</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; begin;<br>Query OK, 0 rows affected (0.00 sec)<br><br>mysql&gt; select * from mylock where id=1 lock in share mode; -- 手动id=1加行读锁<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>+----+------+------+<br>1 row in set (0.00 sec)<br>-- session2<br><br>mysql&gt; update mylock set name=&#x27;bb&#x27; where id=2;  -- 未锁定可以修改<br>mysql&gt; update mylock set name=&#x27;aa&#x27; where id=1;  -- 锁定不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction   -- 锁定超时<br>Query OK, 1 row affected (0.01 sec) <br>Rows matched: 1  Changed: 1  Warnings: 0<br>-- session1<br>mysql&gt; commit;  -- 提交事务/rollback释放锁<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>Query OK, 1 row affected (12.06 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br></code></pre></td></tr></table></figure>
+<h5 id="行读锁升级为表锁">行读锁升级为表锁</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; begin;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt; select * from mylock where name=&#x27;a&#x27; lock in share mode; -- 手动name=&#x27;a&#x27;非索引 行读锁升级表锁<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>+----+------+------+<br>1 row in set (0.00 sec)<br>-- session2<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;  -- 阻塞 不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; update mylock set name=&#x27;a&#x27; where id=1;   -- 阻塞 不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>-- session1<br>mysql&gt; commit;  -- 提交事务/rollback释放锁<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; update mylock set name=&#x27;a&#x27; where id=1;<br>Query OK, 0 rows affected (0.00 sec)<br>Rows matched: 1  Changed: 0  Warnings: 0<br></code></pre></td></tr></table></figure>
+<h5 id="行写锁">行写锁</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; begin;<br>Query OK, 0 rows affected (0.00 sec)<br><br>mysql&gt; select * from mylock where id=1 for update;<br>-- session2<br>mysql&gt; update mylock set name=&#x27;bb&#x27; where id=2;  -- 未锁定可以修改<br>Query OK, 1 row affected (0.01 sec) <br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from mylock where id=1;  -- select本身不加锁 可以访问<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>+----+------+------+<br>1 row in set (0.00 sec)<br>mysql&gt; select * from mylock where id=1 lock in share mode; -- 共享读锁不可获得<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction <br>mysql&gt; update mylock set name=&#x27;aa&#x27; where id=1;  -- 锁定不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction <br>-- session1<br>mysql&gt; commit;  -- 提交事务/rollback释放锁<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>Query OK, 1 row affected (12.06 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br></code></pre></td></tr></table></figure>
+<h5 id="行写锁升级为表锁">行写锁升级为表锁</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt; begin;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt; select * from mylock where name=&#x27;a&#x27; for update; -- 手动name=&#x27;a&#x27;非索引 行读锁升级表锁<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>+----+------+------+<br>1 row in set (0.00 sec)<br>-- session2<br>mysql&gt; select * from mylock;<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>|  2 | b    | NULL |<br>|  3 | c    | NULL |<br>|  4 | d    | NULL |<br>|  5 | e    | NULL |<br>+----+------+------+<br>5 rows in set (0.00 sec)<br><br>mysql&gt; select * from mylock where id=1;<br>+----+------+------+<br>| id | name | dep  |<br>+----+------+------+<br>|  1 | a    | NULL |<br>+----+------+------+<br>1 row in set (0.00 sec)<br>mysql&gt; select * from mylock where id=1 lock in share mode; -- 阻塞 不可获得锁<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;  -- 阻塞 不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; update mylock set name=&#x27;a&#x27; where id=1;   -- 阻塞 不可修改<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>-- session1<br>mysql&gt; commit;  -- 提交事务/rollback释放锁<br>Query OK, 0 rows affected (0.00 sec)<br>-- session2<br>mysql&gt; update mylock set name=&#x27;b&#x27; where id=2;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; update mylock set name=&#x27;a&#x27; where id=1;<br>Query OK, 0 rows affected (0.00 sec)<br>Rows matched: 1  Changed: 0  Warnings: 0<br></code></pre></td></tr></table></figure>
+<h5 id="间隙锁">间隙锁</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create table news(id int, number int, primary key(id), index idx_num(number));<br>insert into news values(1,2);<br>insert into news values(3,4);<br>insert into news values(6,5);<br>insert into news values(8,5);<br>insert into news values(10,5);<br>insert into news values(13,11);<br>mysql&gt; select * from news;<br>+----+--------+<br>| id | number |  # id主键 索引 number<br>+----+--------+<br>|  1 |      2 |<br>|  3 |      4 |<br>|  6 |      5 |<br>|  8 |      5 |<br>| 10 |      5 |<br>| 13 |     11 |<br>+----+--------+<br>6 rows in set (0.01 sec)<br><br>-- session1<br>mysql&gt; start transaction;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt; select * from news where number=4 for update;<br>-- id在2、5之间和3-5之间且number2-6在均被锁住<br>+----+--------+<br>| id | number |<br>+----+--------+<br>|  3 |      4 |<br>+----+--------+<br>1 row in set (0.01 sec)<br>-- session2<br>mysql&gt; start transaction;<br>mysql&gt; insert into news values(2,4);  -- 阻塞<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; insert into news values(2,2);  -- 阻塞<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; insert into news values(4,4);  -- 阻塞<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; insert into news values(4,5);  -- 阻塞<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; insert into news values(5,7);<br>Query OK, 1 row affected (0.00 sec)<br>mysql&gt; insert into news values(7,5);<br>Query OK, 1 row affected (0.01 sec)<br>mysql&gt; insert into news values(9,5);<br>Query OK, 1 row affected (0.01 sec)<br>mysql&gt; insert into news values(11,5);<br>Query OK, 1 row affected (0.01 sec)<br><br>insert into news values(13,11);<br>mysql&gt; select * from news;<br>mysql&gt; select * from news;<br>+----+--------+<br>| id | number |<br>+----+--------+<br>|  1 |      2 |<br>|  3 |      4 |<br>|  6 |      5 |<br>|  8 |      5 |<br>| 10 |      5 |<br>| 13 |     11 |<br>+----+--------+<br>6 rows in set (0.01 sec)<br>-- session1<br>mysql&gt; start transaction;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt; select * from news where number=13 for update;<br>      （select * from news where id&gt;1 and id&lt;4 for update;）<br>mysql&gt; start transaction;<br>mysql&gt; insert into news values(11,5);<br>Query OK, 1 row affected (0.00 sec)<br>mysql&gt; insert into news values(12,11);<br>Query OK, 1 row affected (0.00 sec)<br>mysql&gt; insert into news values(14,11);<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>mysql&gt; insert into news values(15,12);<br>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<br>检索条件number=13，想做取得最靠近的值11作为作区间，向右由于没有记录因此取得无穷大作为右区间，即session1间隙锁区间（11，无穷大）<br><br></code></pre></td></tr></table></figure>
+<h5 id="死锁">死锁</h5>
+<p>两个session互相等待对方的释放资源之后，才能释放自己的资源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- session1<br>mysql&gt;begin;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt;update mylock set name=&#x27;m&#x27; where id=1;  -- 手动加行写锁 id=1,使用索引<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>-- session2<br>mysql&gt;begin;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql&gt;update mylock set name=&#x27;m&#x27; where id=2;  -- 手动加行写锁 id=2,使用索引<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>-- session1<br>mysql&gt;update mylock set name=&#x27;nn&#x27; where id=2; -- 加写锁被阻塞<br>-- session2<br>mysql&gt;update mylock set name=&#x27;nn&#x27; where id=1; -- 加写锁会死锁 不允许操作<br>ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction<br></code></pre></td></tr></table></figure>
+<h4 id="相关面试题-1">相关面试题</h4>
+<h5 id="什么是锁mysql-中提供了几类锁">什么是锁？MySQL 中提供了几类锁？</h5>
+<p>锁是实现数据库并发控制的重要手段，可以保证数据库在多人同时操作时能够正常运行。MySQL 提供了全局锁、行级锁、表级锁。其中 InnoDB 支持表级锁和行级锁，MyISAM 只支持表级锁。</p>
+<h5 id="什么是全局锁它的应用场景有哪些">什么是全局锁？它的应用场景有哪些？</h5>
+<p>全局锁就是对整个数据库实例加锁，它的典型使用场景就是做全库逻辑备份。 这个命令可以使整个库处于只读状态。使用该命令之后，数据更新语句、数据定义语句、更新类事务的提交语句等操作都会被阻塞。</p>
+<h5 id="什么是共享锁">什么是共享锁？</h5>
+<p>共享锁又称读锁 (read lock)，是读取操作创建的锁。其他用户可以并发读取数据，但任何事务都不能对数据进行修改（获取数据上的排他锁），直到已释放所有共享锁。当如果事务对读锁进行修改操作，很可能会造成死锁。</p>
+<h5 id="什么是排它锁">什么是排它锁？</h5>
+<p>排他锁 exclusive lock（也叫 writer lock）又称写锁。</p>
+<p>若某个事物对某一行加上了排他锁，只能这个事务对其进行读写，在此事务结束之前，其他事务不能对其进行加任何锁，其他进程可以读取,不能进行写操作，需等待其释放。</p>
+<p>排它锁是悲观锁的一种实现，在上面悲观锁也介绍过。</p>
+<p>若事务 1 对数据对象 A 加上 X 锁，事务 1 可以读 A 也可以修改 A，其他事务不能再对 A 加任何锁，直到事物 1 释放 A 上的锁。这保证了其他事务在事物 1 释放 A 上的锁之前不能再读取和修改 A。排它锁会阻塞所有的排它锁和共享锁。</p>
+<h5 id="innodb-存储引擎有几种锁算法">InnoDB 存储引擎有几种锁算法？</h5>
+<ul>
+<li><p>Record Lock — 单个行记录上的锁；</p></li>
+<li><p>Gap Lock — 间隙锁，锁定一个范围，不包括记录本身；</p></li>
+<li><p>Next-Key Lock — 锁定一个范围，包括记录本身。</p></li>
+</ul>
+<h5 id="使用全局锁会导致什么问题">使用全局锁会导致什么问题？</h5>
+<p>如果在主库备份，在备份期间不能更新，业务停摆，所以更新业务会处于等待状态。</p>
+<p>如果在从库备份，在备份期间不能执行主库同步的 binlog，导致主从延迟。</p>
+<h5 id="如何处理逻辑备份时整个数据库不能插入的情况">如何处理逻辑备份时，整个数据库不能插入的情况？</h5>
+<p>如果使用全局锁进行逻辑备份就会让整个库成为只读状态，幸好官方推出了一个逻辑备份工具 MySQLdump 来解决了这个问题，只需要在使用 MySQLdump 时，使用参数 -single-transaction 就会在导入数据之前启动一个事务来保证数据的一致性，并且这个过程是支持数据更新操作的。</p>
+<h5 id="如何设置数据库为全局只读锁">如何设置数据库为全局只读锁？</h5>
+<p>使用命令 <code>flush tables with read lock</code>（简称 FTWRL）就可以实现设置数据库为全局只读锁。</p>
+<h5 id="除了-ftwrl-可以设置数据库只读外还有什么别的方法">除了 FTWRL 可以设置数据库只读外，还有什么别的方法？</h5>
+<p>除了使用 FTWRL 外，还可以使用命令 <code>set global readonly=true</code> 设置数据库为只读。</p>
+<h5 id="ftwrl-和-set-global-readonlytrue-有什么区别">FTWRL 和 set global readonly=true 有什么区别？</h5>
+<p>FTWRL 和 set global readonly=true 都是设置整个数据库为只读状态，但他们最大的区别就是，当执行 FTWRL 的客户端断开之后，整个数据库会取消只读，而 set global readonly=true 会一直让数据处于只读状态。</p>
+<h5 id="如何实现表锁">如何实现表锁？</h5>
+<p>MySQL 里标记锁有两种：表级锁、元数据锁（meta data lock）简称 MDL。表锁的语法是 lock tables t read/write。</p>
+<p>可以用 unlock tables 主动释放锁，也可以在客户端断开的时候自动释放。lock tables 语法除了会限制别的线程的读写外，也限定了本线程接下来的操作对象。</p>
+<p>对于 InnoDB 这种支持行锁的引擎，一般不使用 lock tables 命令来控制并发，毕竟锁住整个表的影响面还是太大。</p>
+<p>MDL：不需要显式使用，在访问一个表的时候会被自动加上。</p>
+<p>MDL 的作用：保证读写的正确性。</p>
+<p>在对一个表做增删改查操作的时候，加 MDL 读锁；当要对表做结构变更操作的时候，加 MDL 写锁。</p>
+<p>读锁之间不互斥，读写锁之间，写锁之间是互斥的，用来保证变更表结构操作的安全性。</p>
+<p>MDL 会直到事务提交才会释放，在做表结构变更的时候，一定要小心不要导致锁住线上查询和更新。</p>
+<h5 id="innodb-如何实现行锁">InnoDB 如何实现行锁？</h5>
+<p>行级锁是 MySQL 中粒度最小的一种锁，他能大大减少数据库操作的冲突。</p>
+<p>INNODB 的行级锁有共享锁（S LOCK）和排他锁（X LOCK）两种。共享锁允许事物读一行记录，不允许任何线程对该行记录进行修改。排他锁允许当前事物删除或更新一行记录，其他线程不能操作该记录。</p>
+<p>共享锁：SELECT … LOCK IN SHARE MODE，MySQL 会对查询结果集中每行都添加共享锁，前提是当前线程没有对该结果集中的任何行使用排他锁，否则申请会阻塞。</p>
+<p>排他锁：select * from t where id=1 for update，其中 id 字段必须有索引，MySQL 会对查询结果集中每行都添加排他锁，在事物操作中，任何对记录的更新与删除操作会自动加上排他锁。前提是当前没有线程对该结果集中的任何行使用排他锁或共享锁，否则申请会阻塞。</p>
+<h5 id="悲观锁和乐观锁有什么区别">悲观锁和乐观锁有什么区别？</h5>
+<p>顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会 block 直到它拿到锁。正因为如此，悲观锁需要耗费较多的时间，另外与乐观锁相对应的，悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。</p>
+<p>说到这里，由悲观锁涉及到的另外两个锁概念就出来了，它们就是共享锁与排它锁。共享锁和排它锁是悲观锁的不同的实现，它俩都属于悲观锁的范畴。</p>
+<p>乐观锁是用数据版本（Version）记录机制实现，这是乐观锁最常用的一种实现方式。何谓数据版本？即为数据增加一个版本标识，一般是通过为数据库表增加一个数字类型的 version 字段来实现。当读取数据时，将 version 字段的值一同读出，数据每更新一次，对此 version 值加 1。当我们提交更新的时候，判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比对，如果数据库表当前版本号与第一次取出来的 version 值相等，则予以更新，否则认为是过期数据。</p>
+<p>比如：</p>
+<p>1、数据库表三个字段，分别是<code>id、value、version</code> <code>select id,value,version from t where id=#&#123;id&#125;</code></p>
+<p>2、每次更新表中的value字段时，为了防止发生冲突，需要这样操作</p>
+<p><code>update t set value=2,version=version+1 where id=#&#123;id&#125; and version=#&#123;version&#125;</code></p>
+<h5 id="乐观锁有什么优点和缺点">乐观锁有什么优点和缺点？</h5>
+<p>因为没有加锁所以乐观锁的优点就是执行性能高。它的缺点就是有可能产生 ABA 的问题，ABA 问题指的是有一个变量 V 初次读取的时候是 A 值，并且在准备赋值的时候检查到它仍然是 A 值，会误以为没有被修改会正常的执行修改操作，实际上这段时间它的值可能被改了其他值，之后又改回为 A 值，这个问题被称为 ABA 问题。</p>
+<h5 id="优化锁方面你有什么建议">优化锁方面你有什么建议？</h5>
+<ul>
+<li><p>尽量使用较低的隔离级别。</p></li>
+<li><p>精心设计索引， 并尽量使用索引访问数据， 使加锁更精确， 从而减少锁冲突的机会。</p></li>
+<li><p>选择合理的事务大小，小事务发生锁冲突的几率也更小。</p></li>
+<li><p>给记录集显示加锁时，最好一次性请求足够级别的锁。比如要修改数据的话，最好直接申请排他锁，而不是先申请共享锁，修改时再请求排他锁，这样容易产生死锁。</p></li>
+<li><p>不同的程序访问一组表时，应尽量约定以相同的顺序访问各表，对一个表而言，尽可能以固定的顺序存取表中的行。这样可以大大减少死锁的机会。</p></li>
+<li><p>尽量用相等条件访问数据，这样可以避免间隙锁对并发插入的影响。</p></li>
+<li><p>不要申请超过实际需要的锁级别。</p></li>
+<li><p>除非必须，查询时不要显示加锁。 MySQL 的 MVCC 可以实现事务中的查询不用加锁，优化事务性能；MVCC 只在 COMMITTED READ（读提交）和 REPEATABLE READ（可重复读）两种隔离级别下工作。</p></li>
+<li><p>对于一些特定的事务，可以使用表锁来提高处理速度或减少死锁的可能。</p></li>
+</ul>
+<h5 id="什么是死锁">什么是死锁？</h5>
+<p>是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象,若无外力作用,它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的过程称为死锁。</p>
+<p>死锁是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象,若无外力作用,它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的过程称为死锁。</p>
+<h5 id="常见的死锁案例有哪些">常见的死锁案例有哪些？</h5>
+<ul>
+<li><p>将投资的钱拆封几份借给借款人，这时处理业务逻辑就要把若干个借款人一起锁住<code>select * from xxx where id in (xx,xx,xx) for update</code>。</p></li>
+<li><p>批量入库，存在则更新，不存在则插入。解决方法<code>insert into tab(xx,xx) on duplicate key update xx='xx'</code>。</p></li>
+</ul>
+<h5 id="如何处理死锁">如何处理死锁？</h5>
+<p>对待死锁常见的两种策略：</p>
+<ul>
+<li><p>通过<code>innodblockwait_timeout</code> 来设置超时时间，一直等待直到超时；</p></li>
+<li><p>发起死锁检测，发现死锁之后，主动回滚死锁中的某一个事务，让其它事务继续执行。</p></li>
+</ul>
+<h5 id="如何查看死锁">如何查看死锁？</h5>
+<ul>
+<li><p>使用命令 show engine innodb status 查看最近的一次死锁。</p></li>
+<li><p>InnoDB Lock Monitor 打开锁监控，每 15s 输出一次日志。使用完毕后建议关闭，否则会影响数据库性能。</p></li>
+</ul>
+<h5 id="如何避免死锁">如何避免死锁？</h5>
+<ul>
+<li><p>为了在单个 InnoDB 表上执行多个并发写入操作时避免死锁，可以在事务开始时通过为预期要修改的每个元祖（行）使用 SELECT … FOR UPDATE 语句来获取必要的锁，即使这些行的更改语句是在之后才执行的。</p></li>
+<li><p>在事务中，如果要更新记录，应该直接申请足够级别的锁，即排他锁，而不应先申请共享锁、更新时再申请排他锁，因为这时候当用户再申请排他锁时，其他事务可能又已经获得了相同记录的共享锁，从而造成锁冲突，甚至死锁</p></li>
+<li><p>如果事务需要修改或锁定多个表，则应在每个事务中以相同的顺序使用加锁语句。在应用中，如果不同的程序会并发存取多个表，应尽量约定以相同的顺序来访问表，这样可以大大降低产生死锁的机会</p></li>
+<li><p>通过 <code>SELECT … LOCK IN SHARE MODE</code>获取行的读锁后，如果当前事务再需要对该记录进行更新操作，则很有可能造成死锁。</p></li>
+<li><p>改变事务隔离级别。</p></li>
+</ul>
+<h5 id="innodb-默认是如何对待死锁的">InnoDB 默认是如何对待死锁的？</h5>
+<p>InnoDB 默认是使用设置死锁时间来让死锁超时的策略，默认 innodblockwait_timeout 设置的时长是 50s。</p>
+<h5 id="如何开启死锁检测">如何开启死锁检测？</h5>
+<p>设置 <code>innodbdeadlockdetect</code>设置为 on 可以主动检测死锁，在 Innodb 中这个值默认就是 on 开启的状态。</p>
+<h3 id="分库分表原理及实践">分库分表原理及实践</h3>
+<h4 id="mycat">MyCat</h4>
+<p><img src="/images/db/mysql/mycat.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="核心概念">核心概念</h5>
+<ul>
+<li>Schema：由它指定逻辑数据库（相当于MySQL的datebase数据库）</li>
+<li>Table：逻辑表（相当于MySQL的table表）</li>
+<li>DataNode：真正存储数据的物理节点</li>
+<li>DateHost：存储节点所在的数据库主机（指定MySQL数据库的连接信息）</li>
+<li>User：MyCat用户（类似于MySQL的用户，支持多用户）</li>
+</ul>
+<h5 id="主要解决问题">主要解决问题</h5>
+<ul>
+<li>海量数据存储</li>
+<li>查询优化</li>
+</ul>
+<h5 id="支持数据库">支持数据库</h5>
+<p><img src="/images/db/mysql/catdb.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="分片策略">分片策略</h5>
+<p>MyCAT支持水平分片语垂直分片：</p>
+<ul>
+<li>水平分片：一个表格的数据分割到多个节点上，按照行分割。</li>
+<li>垂直分片：一个数据库中多个表A,B,C，A存储到节点1，B存储到节点2，C存储到节点3。</li>
+</ul>
+<p><img src="/images/db/mysql/catdate.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/db/mysql/catdate2.png" srcset="/img/loading.gif" lazyload></p>
+<p>MyCAT通过定义表的分片规则来实现分片，没个表格可以捆绑一个分片规则，每个分片规则制定一个分片字段并绑定一个函数，来实现动态分片算法。</p>
+<ul>
+<li>Schema：逻辑库，与MySQL的datebase数据对应，一个逻辑库中定义了所有包括的Table。</li>
+<li>Table：表，即物理数据库中存储的某张表，与传统数据库不同，这里的表格需要声明其所存储的逻辑数据节点DataNode。<strong>可以指定表的分片规则</strong></li>
+<li>DataNode：MyCAT的逻辑数据节点，是存放Table的具体物理节点，也称之为分片节点，通过DateHost来关联到后段某个具体数据库上。</li>
+<li>DateHost：定义某个物理库的访问地址，用于捆绑到DataNode上。</li>
+</ul>
+<h5 id="安装">安装</h5>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 下载</span><br>wget http://dl.mycat.org.cn/1.6.7.4/Mycat-server-1.6.7.4-release/Mycat-server-1.6.7.4-release-20200105164103-linux.tar.gz<br><br><span class="hljs-comment"># 解压</span><br>tar -zxvf Mycat-server-1.6.7.4-release-20200105164103-linux.tar.gz /weitrue/install<br><br><span class="hljs-comment"># 进入mycat目录</span><br><span class="hljs-built_in">cd</span> /weitrue/install/mycat<br><br><span class="hljs-comment"># 启动/关闭  进入mycat/bin下</span><br>./mycat start     <span class="hljs-comment"># 启动</span><br>./mycat stop      <span class="hljs-comment"># 关闭</span><br>./mycat restart   <span class="hljs-comment"># 重启</span><br>./mycat status    <span class="hljs-comment"># 状态</span><br><br><span class="hljs-comment"># 使用mysql客户端直接连接mycat服务,默认端口【8066】</span><br>mysql -uroot -p123456 -h127.0.0.1 -P8066<br></code></pre></td></tr></table></figure>
+<h5 id="分片设置">分片设置</h5>
+<h6 id="配置schema.xml文件">配置schema.xml文件</h6>
+<p><code>schema.xml</code>是Mycat中重要的配置文件之一，主要管理着MyCAT的逻辑库、表、分片规则、DataNode以及DateHost之间的映射关系。</p>
+<ul>
+<li><code>&lt;schema&gt;</code>定义Mycat实例中的逻辑库。
+<ul>
+<li><code>&lt;table&gt;</code>定义Mycat中的逻辑表。</li>
+</ul></li>
+<li><code>&lt;dataNode&gt;</code>定义了Mycat的数据节点，即数据分片。</li>
+<li><code>&lt;dataHost&gt;</code>定义了具体的数据库实例、读写分离配置和心跳语句。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">mycat</span>:schema <span class="hljs-meta-keyword">SYSTEM</span> <span class="hljs-meta-string">&quot;schema.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mycat:schema</span> <span class="hljs-attr">xmlns:mycat</span>=<span class="hljs-string">&quot;http://io.mycat/&quot;</span>&gt;</span><br>				<span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">						schema:逻辑库 name：逻辑库名 sqlMaxLimit 一次去多少条数据，如果超过limit</span><br><span class="hljs-comment">              table 逻辑表</span><br><span class="hljs-comment">                dataNode 数据节点 对应 dataNode标签名</span><br><span class="hljs-comment">                rule 分片规则 对应rule.xml</span><br><span class="hljs-comment">                subTables	字表		</span><br><span class="hljs-comment">                primaryKey 分片主键 可缓存</span><br><span class="hljs-comment"> 				--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">schema</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;TESTDB&quot;</span> <span class="hljs-attr">checkSQLschema</span>=<span class="hljs-string">&quot;false&quot;</span> <span class="hljs-attr">sqlMaxLimit</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">randomDataNode</span>=<span class="hljs-string">&quot;dn1&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- auto sharding by id (long) --&gt;</span><br>                <span class="hljs-comment">&lt;!--splitTableNames 启用&lt;table name 属性使用逗号分割配置多个表,即多个表使用这个配置--&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;item&quot;</span> <span class="hljs-attr">dataNode</span>=<span class="hljs-string">&quot;dn1,dn2,dn3&quot;</span> <span class="hljs-attr">rule</span>=<span class="hljs-string">&quot;mod-long&quot;</span> <span class="hljs-attr">primaryKey</span>=<span class="hljs-string">&quot;ID&quot;</span>/&gt;</span>               <br>        <span class="hljs-tag">&lt;/<span class="hljs-name">schema</span>&gt;</span><br>  <br>        <span class="hljs-comment">&lt;!-- &lt;dataNode name=&quot;dn1$0-743&quot; dataHost=&quot;localhost1&quot; database=&quot;db$0-743&quot;/&gt; --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn1&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db1&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn2&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db2&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn3&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db3&quot;</span> /&gt;</span><br>				<span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">						dataHost:数据主机</span><br><span class="hljs-comment">            balance 1:读写分离 0:读写不分离</span><br><span class="hljs-comment">            writeType 0:第一个writrHost写 1:随机writrHost写</span><br><span class="hljs-comment">            dbDriver 数据驱动 native: MySQL JDBC:Oracle SQLServer</span><br><span class="hljs-comment">            switchType	是否主动读 1:主从自动切换 -1:不切换 2:当从机延时超过slaveThreshold(毫秒级)值时切换为主读		</span><br><span class="hljs-comment"> 				--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dataHost</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">maxCon</span>=<span class="hljs-string">&quot;1000&quot;</span> <span class="hljs-attr">minCon</span>=<span class="hljs-string">&quot;10&quot;</span> <span class="hljs-attr">balance</span>=<span class="hljs-string">&quot;0&quot;</span></span><br><span class="hljs-tag">                          <span class="hljs-attr">writeType</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">dbType</span>=<span class="hljs-string">&quot;mysql&quot;</span> <span class="hljs-attr">dbDriver</span>=<span class="hljs-string">&quot;native&quot;</span> <span class="hljs-attr">switchType</span>=<span class="hljs-string">&quot;1&quot;</span>  <span class="hljs-attr">slaveThreshold</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">heartbeat</span>&gt;</span>select user()<span class="hljs-tag">&lt;/<span class="hljs-name">heartbeat</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- can have multi write hosts --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">writeHost</span> <span class="hljs-attr">host</span>=<span class="hljs-string">&quot;hostM1&quot;</span> <span class="hljs-attr">url</span>=<span class="hljs-string">&quot;localhost:3306&quot;</span> <span class="hljs-attr">user</span>=<span class="hljs-string">&quot;root&quot;</span> <span class="hljs-attr">password</span>=<span class="hljs-string">&quot;123456&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">writeHost</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dataHost</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h6 id="rule.xml"><code>rule.xml</code></h6>
+<p><code>rule.xml</code>定义我们对表拆分涉及到的规则定义。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">mycat</span>:rule <span class="hljs-meta-keyword">SYSTEM</span> <span class="hljs-meta-string">&quot;rule.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mycat:rule</span> <span class="hljs-attr">xmlns:mycat</span>=<span class="hljs-string">&quot;http://io.mycat/&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">tableRule</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mod-long&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">rule</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">columns</span>&gt;</span>id<span class="hljs-tag">&lt;/<span class="hljs-name">columns</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">algorithm</span>&gt;</span>mod-long<span class="hljs-tag">&lt;/<span class="hljs-name">algorithm</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">rule</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">tableRule</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">function</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mod-long&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;io.mycat.route.function.PartitionByMod&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- how many data nodes --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;count&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">function</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">mycat:rule</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h6 id="server.xml"><code>server.xml</code></h6>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br></code></pre></td></tr></table></figure>
+<h6 id="十大分片规则">十大分片规则</h6>
+<p><strong>连续分片</strong></p>
+<ul>
+<li>日期分片
+<ul>
+<li>按月</li>
+<li>按日</li>
+<li>按小时</li>
+</ul></li>
+<li>范围约定：配置简单，即预先制定可能的id范围对应某个分片
+<ul>
+<li>优势：扩容无需迁移数据</li>
+<li>缺点：热点数据，并发受限</li>
+</ul></li>
+</ul>
+<p><strong>离散分片</strong></p>
+<ul>
+<li>枚举法</li>
+<li>求模法</li>
+<li>字符串拆分hash法</li>
+<li>固定分片hash法</li>
+<li>一致性哈希（解决扩容问题）</li>
+<li>编程指定</li>
+</ul>
+<p><strong>综合分片</strong></p>
+<ul>
+<li>通配取模</li>
+<li>ASCii码求模通配</li>
+</ul>
+<h5 id="读写分离">读写分离</h5>
+<p>建立在MySQL主从复制的基础上实现，必须搭建MySQL的主从复制。</p>
+<p><img src="/images/db/mysql/mycatrw.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- &lt;dataNode name=&quot;dn1$0-743&quot; dataHost=&quot;localhost1&quot; database=&quot;db$0-743&quot;/&gt; --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn1&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db1&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn2&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db2&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dataNode</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dn3&quot;</span> <span class="hljs-attr">dataHost</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">database</span>=<span class="hljs-string">&quot;db3&quot;</span> /&gt;</span><br><span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">		dataHost:数据主机</span><br><span class="hljs-comment">        balance 1:读写分离 0:读写不分离</span><br><span class="hljs-comment">        writeType 0:第一个writrHost写 1:随机writrHost写</span><br><span class="hljs-comment">        dbDriver 数据驱动 native: MySQL JDBC:Oracle SQLServer</span><br><span class="hljs-comment">        switchType	是否主动读 1:主从自动切换 -1:不切换 2:当从机延时超过slaveThreshold(毫秒级)值时切换为主读		</span><br><span class="hljs-comment">	--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dataHost</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;localhost1&quot;</span> <span class="hljs-attr">maxCon</span>=<span class="hljs-string">&quot;1000&quot;</span> <span class="hljs-attr">minCon</span>=<span class="hljs-string">&quot;10&quot;</span> <span class="hljs-attr">balance</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">                      <span class="hljs-attr">writeType</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">dbType</span>=<span class="hljs-string">&quot;mysql&quot;</span> <span class="hljs-attr">dbDriver</span>=<span class="hljs-string">&quot;native&quot;</span> <span class="hljs-attr">switchType</span>=<span class="hljs-string">&quot;2&quot;</span>  <span class="hljs-attr">slaveThreshold</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">heartbeat</span>&gt;</span>show slave status<span class="hljs-tag">&lt;/<span class="hljs-name">heartbeat</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- can have multi write hosts --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">writeHost</span> <span class="hljs-attr">host</span>=<span class="hljs-string">&quot;hostM1&quot;</span> <span class="hljs-attr">url</span>=<span class="hljs-string">&quot;localhost:3306&quot;</span> <span class="hljs-attr">user</span>=<span class="hljs-string">&quot;root&quot;</span> <span class="hljs-attr">password</span>=<span class="hljs-string">&quot;123456&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">writeHost</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dataHost</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>switchType="2"</code>和<code>slaveThreshold="100"</code>意味着开启MySQL主从复制状态绑定的读写分离语切换机制。Mycat心跳机制通过检测<code>show slave status</code>中<code>"Seconds_Behind_Master" "Slave_IO_Running" "Slave_SQL_Running"</code>三个字段来确定当前主从的状态以及<code>Seconds_Behind_Master</code>主从复制延时。</p>
+<h4 id="mysql分库分表">MySQL分库分表</h4>
+<h5 id="数据切分方案">数据切分方案</h5>
+<ul>
+<li>垂直切分：根据业务模块进行切分，不同模块的表分到不同的库中。</li>
+<li>水平切分：将一张大表按照一定切分规则，按照<strong>行</strong>切分到不同表或者不同库中。</li>
+</ul>
+<h6 id="水平切分原则">水平切分原则</h6>
+<p>常用的主要分为：</p>
+<ul>
+<li>按照ID取模：对ID取模，余数决定改行数据放到哪张表或者哪个库中。</li>
+<li>按照日期：按照年月日，将数据切分到不同的表或者库中。</li>
+<li>按照范围：可以对某一列按照范围进行切分不同的范围切分到不同的表或者库中。</li>
+</ul>
+<h6 id="切分原则">切分原则</h6>
+<ul>
+<li>第一原则：能不切分尽量不要切分</li>
+<li>第二原则：如果要切分一定要选择合适的规则，提前规划好</li>
+<li>第三原则：数据切分尽量通过数据冗余或者表分组来<strong>降低跨库join</strong>的可能</li>
+<li>第四原则：由于数据库中间件对数据join实现的优劣难以把握，而且实现高性能难度极大，业务读取尽量少使用多表join</li>
+</ul>
+<h5 id="分库分表需要解决问题">分库分表需要解决问题</h5>
+<h6 id="分布式事务问题">分布式事务问题</h6>
+<h6 id="分布式主键id问题">分布式主键ID问题</h6>
+<h6 id="跨库join问题">跨库join问题</h6>
+<h6 id="跨库countgrouporderby问题">跨库count、group、orderby问题</h6>
+<script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.7.0/dist/mindmap.min.css"><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Datebase/" class="category-chain-item">Datebase</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Datebase/">#Datebase</a>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【数据库】MySQL与TiDB学习笔记</div>
+      <div>https://weitrue.github.io/2024/06/06/mysql/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Pony W</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/06/mysql-interview/" title="【数据库】MySQL面试题">
+                        <span class="hidden-mobile">【数据库】MySQL面试题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>Wei</span></a> <i class="iconfont icon-love"></i> <a href="#" target="_blank" rel="nofollow noopener"><span>Trable</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/cus_js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      杭ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/images/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>杭公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

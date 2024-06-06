@@ -1,23 +1,19 @@
 ---
-title: 【区块链】NFT
+title: 【区块链】合约
 categories: 区块链
-tags: [区块链,NFT]
+tags: [ABI,StorageLayout]
 comments: false
 toc: true
-sticky: 0
+sticky: false
 math: true
 mermaid: true
 hide: false
-index_img: /images/chain/chain-nft/index.jpg
+index_img: /images/img/updating.jpg
 banner_img: /images/img/banner.png
 ---
 
 > <!-- more -->
 
-蓝筹项目
+### ABI
 
-ERC-721
-
-ERC-1155
-
-空头
+### StorageLayout

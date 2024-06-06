@@ -476,7 +476,7 @@ npm install hexo-renderer-pandoc --save
 
 网上有三种情况：
 
-1.缺失相应包文件
+1.缺失相应包文件 	
 
 这里备份一下所需的基本文件
 
